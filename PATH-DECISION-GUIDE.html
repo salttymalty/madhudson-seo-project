@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Hudson Phase 1 — Path Decision Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Typography */
+            --font-display: 'Georgia', serif;
+            --font-body: 'Georgia', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Source Sans 3', system-ui, sans-serif;
+            --font-mono: 'Source Code Pro', monospace;
+
+            /* Colors - Warm palette (Mad Hudson branding) */
+            --color-primary: oklch(63% 0.15 25);        /* Warm terracotta */
+            --color-secondary: oklch(73% 0.12 45);      /* Warm gold */
+            --color-accent: oklch(58% 0.18 15);         /* Deep warm red */
+            --color-success: oklch(65% 0.15 140);       /* Warm green */
+            --color-warning: oklch(70% 0.18 60);        /* Warm amber */
+            --color-danger: oklch(55% 0.20 20);         /* Warm red */
+
+            /* Semantic colors */
+            --bg-primary: #faf8f6;
+            --bg-secondary: #f5f2f0;
+            --text-primary: #2a2620;
+            --text-secondary: #6b6560;
+            --border-color: #e8e3dd;
+
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+
+            /* Typography sizes */
+            --text-base: 16px;
+            --text-sm: 14px;
+            --text-lg: 18px;
+            --text-xl: 24px;
+            --text-2xl: 32px;
+        }
+
+        html {
+            font-size: var(--text-base);
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: var(--spacing-md);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: var(--text-2xl);
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+
+        .subtitle {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Tabs */
+        .tab-container {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: var(--text-base);
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: var(--font-sans);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Card grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px hsla(25, 40%, 30%, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px hsla(25, 40%, 30%, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: var(--spacing-md);
+        }
+
+        .card-title {
+            font-size: var(--text-lg);
+            font-family: var(--font-display);
+            color: var(--color-primary);
+        }
+
+        .risk-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: var(--text-sm);
+            font-weight: bold;
+            font-family: var(--font-sans);
+        }
+
+        .risk-high {
+            background: hsla(15, 100%, 55%, 0.1);
+            color: var(--color-danger);
+        }
+
+        .risk-medium {
+            background: hsla(45, 100%, 55%, 0.1);
+            color: var(--color-warning);
+        }
+
+        .risk-low {
+            background: hsla(140, 70%, 50%, 0.1);
+            color: var(--color-success);
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--spacing-lg);
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px hsla(25, 40%, 30%, 0.08);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--bg-secondary);
+            color: var(--color-primary);
+            font-family: var(--font-display);
+            font-weight: normal;
+            font-size: var(--text-lg);
+        }
+
+        .comparison-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Metric bars */
+        .metric {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .metric-label {
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .metric-bar {
+            height: 6px;
+            background: var(--bg-secondary);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .metric-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* Decision tree */
+        .decision-tree {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .decision-node {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .decision-question {
+            font-size: var(--text-lg);
+            color: var(--color-primary);
+            font-family: var(--font-display);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .decision-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .decision-option {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .decision-option:hover {
+            background: var(--color-secondary);
+            color: white;
+        }
+
+        .decision-option input {
+            margin-right: var(--spacing-sm);
+        }
+
+        /* Feature list */
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        /* Recommendation */
+        .recommendation {
+            background: hsla(140, 70%, 50%, 0.05);
+            border-left: 4px solid var(--color-success);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .recommendation-title {
+            color: var(--color-success);
+            font-family: var(--font-display);
+            font-size: var(--text-lg);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .recommendation-text {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-lg);
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-secondary);
+        }
+
+        .timeline-item {
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -13px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            background: var(--color-secondary);
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-date {
+            font-family: var(--font-sans);
+            font-weight: bold;
+            color: var(--color-primary);
+            font-size: var(--text-sm);
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: var(--text-sm);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Skill assessment */
+        .skill-level {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            font-size: var(--text-sm);
+            font-family: var(--font-sans);
+            margin-right: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .skill-level.required {
+            background: hsla(15, 100%, 55%, 0.15);
+            color: var(--color-danger);
+        }
+
+        .skill-level.helpful {
+            background: hsla(45, 100%, 55%, 0.15);
+            color: var(--color-warning);
+        }
+
+        .skill-level.nice-to-have {
+            background: hsla(140, 70%, 50%, 0.15);
+            color: var(--color-success);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: var(--text-xl);
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                gap: var(--spacing-xs);
+            }
+
+            .tab-btn {
+                padding: var(--spacing-xs) var(--spacing-sm);
+                font-size: var(--text-sm);
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            .card {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Utility */
+        .mt-lg { margin-top: var(--spacing-lg); }
+        .mb-lg { margin-bottom: var(--spacing-lg); }
+        .text-center { text-align: center; }
+        .text-small { font-size: var(--text-sm); color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mad Hudson Phase 1 — Path Decision Guide</h1>
+            <p class="subtitle">Choose the implementation path that matches your skill set and timeline</p>
+            <p class="text-small">Last updated: February 10, 2026</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                <button class="tab-btn" onclick="switchTab('paths')">The Paths</button>
+                <button class="tab-btn" onclick="switchTab('skills')">Skill Assessment</button>
+                <button class="tab-btn" onclick="switchTab('comparison')">Detailed Comparison</button>
+                <button class="tab-btn" onclick="switchTab('decision')">Decision Helper</button>
+            </div>
+
+            <!-- Tab 1: Overview -->
+            <div id="overview" class="tab-content active">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-primary); font-family: var(--font-display);">What You're Deciding</h2>
+
+                <p style="margin-bottom: var(--spacing-md);">
+                    Phase 1 is the foundation of your SEO strategy: expanding 6 product pages with artist-focused content and deploying schema markup by <strong>February 15</strong>. You have three distinct paths forward, each with different trade-offs.
+                </p>
+
+                <h3 style="color: var(--color-primary); margin-top: var(--spacing-lg); margin-bottom: var(--spacing-md); font-family: var(--font-display);">The Core Question</h3>
+
+                <p style="margin-bottom: var(--spacing-lg);">
+                    <strong>How much development work do you want to invest upfront to save time and reduce error risk on deployment day?</strong>
+                </p>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--spacing-lg);">
+                    <div class="card">
+                        <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-sm);">Path A: Full Integration</h4>
+                        <p class="text-small" style="margin-bottom: var(--spacing-md);">20 hours dev • Zero manual work • All automated</p>
+                        <p>Best for perfectionists who want complete automation and don't mind tight timelines.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-sm);">Path B: Partial Integration ⭐</h4>
+                        <p class="text-small" style="margin-bottom: var(--spacing-md);">14 hours dev • Core automation • Practical balance</p>
+                        <p><strong>Recommended:</strong> Automates the highest-risk tasks (copy-paste errors) while keeping effort reasonable.</p>
+                    </div>
+
+                    <div class="card">
+                        <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-sm);">Path C: Manual</h4>
+                        <p class="text-small" style="margin-bottom: var(--spacing-md);">0 hours dev • No automation • Traditional approach</p>
+                        <p>Best for launching immediately without development. Higher human error risk, but no code risk.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: The Paths -->
+            <div id="paths" class="tab-content">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-primary); font-family: var(--font-display);">The Three Paths Explained</h2>
+
+                <div class="card-grid">
+                    <!-- Path A -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Path A: Full Integration</h3>
+                            <span class="risk-badge risk-high">HIGH RISK</span>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">What Gets Automated</h4>
+                        <ul class="feature-list">
+                            <li>GraphQL API product updates</li>
+                            <li>Theme schema injection</li>
+                            <li>SEO audit hooks on publish</li>
+                            <li>Baseline capture webhook</li>
+                        </ul>
+
+                        <div class="metric" style="margin-top: var(--spacing-md);">
+                            <div class="metric-label">
+                                <span>Dev Time Required</span>
+                                <span>20 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>5 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Risk of Slippage</span>
+                                <span>40-50%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Pros</h4>
+                        <ul class="feature-list">
+                            <li>Completely automated deployment</li>
+                            <li>Zero manual work on Feb 15</li>
+                            <li>Most comprehensive infrastructure</li>
+                            <li>Sets precedent for Phase 2</li>
+                        </ul>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Cons</h4>
+                        <ul class="feature-list" style="list-style: none;">
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                20 hours is aggressive (slippage likely)
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                7 systems = more failure points
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                Limited time for testing
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                Cascading failures possible
+                            </li>
+                        </ul>
+
+                        <p class="text-small" style="margin-top: var(--spacing-md); border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+                            <strong>Best if:</strong> You love automation, have deep technical chops, and can dedicate 20 uninterrupted hours FEB 10-14
+                        </p>
+                    </div>
+
+                    <!-- Path B -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Path B: Partial Integration</h3>
+                            <span class="risk-badge risk-medium">MEDIUM RISK</span>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">What Gets Automated</h4>
+                        <ul class="feature-list">
+                            <li>GraphQL API product updates ⭐</li>
+                            <li>Theme schema injection ⭐</li>
+                            <li style="opacity: 0.5;">SEO audit hooks (manual check)</li>
+                            <li style="opacity: 0.5;">Webhook notifications (manual message)</li>
+                        </ul>
+
+                        <div class="metric" style="margin-top: var(--spacing-md);">
+                            <div class="metric-label">
+                                <span>Dev Time Required</span>
+                                <span>14 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>12 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Risk of Slippage</span>
+                                <span>25-35%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Pros</h4>
+                        <ul class="feature-list">
+                            <li>Core work automated (highest ROI)</li>
+                            <li>14 hours achievable in timeline</li>
+                            <li>Strong fallback if theme fails</li>
+                            <li>Good foundation for Phase 2</li>
+                            <li>Eliminates copy-paste errors</li>
+                        </ul>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Cons</h4>
+                        <ul class="feature-list" style="list-style: none;">
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-warning);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-warning); font-weight: bold;">⚠</span>
+                                Still need to message SEO Monitor manually
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-warning);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-warning); font-weight: bold;">⚠</span>
+                                Manual QA checks for schema
+                            </li>
+                        </ul>
+
+                        <p class="text-small" style="margin-top: var(--spacing-md); border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+                            <strong>Best if:</strong> You want automation on critical path without overengineering. <strong>RECOMMENDED.</strong>
+                        </p>
+                    </div>
+
+                    <!-- Path C -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Path C: Manual</h3>
+                            <span class="risk-badge risk-medium">MEDIUM-HIGH RISK</span>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">What Gets Automated</h4>
+                        <ul class="feature-list" style="list-style: none;">
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; opacity: 0.5;">
+                                <span style="position: absolute; left: 0; color: #999; font-weight: bold;">—</span>
+                                Nothing (all manual)
+                            </li>
+                        </ul>
+
+                        <div class="metric" style="margin-top: var(--spacing-md);">
+                            <div class="metric-label">
+                                <span>Dev Time Required</span>
+                                <span>0 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>60 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Risk of Human Error</span>
+                                <span>40-60%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Pros</h4>
+                        <ul class="feature-list">
+                            <li>Deploy immediately (no dev work)</li>
+                            <li>No code risk (nothing to break)</li>
+                            <li>Can optimize later after Phase 1 results</li>
+                            <li>Simple, straightforward process</li>
+                        </ul>
+
+                        <h4 style="margin-top: var(--spacing-md); margin-bottom: var(--spacing-sm); color: var(--color-primary);">Cons</h4>
+                        <ul class="feature-list" style="list-style: none;">
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                60+ minutes manual copy-paste
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                High human error risk (40-60%)
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                Errors discoverable after deployment
+                            </li>
+                            <li style="padding: var(--spacing-sm) 0; padding-left: var(--spacing-md); position: relative; color: var(--color-danger);" class="feature-list">
+                                <span style="position: absolute; left: 0; color: var(--color-danger); font-weight: bold;">✗</span>
+                                No foundation for Phase 2 automation
+                            </li>
+                        </ul>
+
+                        <p class="text-small" style="margin-top: var(--spacing-md); border-top: 1px solid var(--border-color); padding-top: var(--spacing-md);">
+                            <strong>Best if:</strong> You want to launch today without any development work and accept higher error risk.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Skill Assessment -->
+            <div id="skills" class="tab-content">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-primary); font-family: var(--font-display);">Skill Assessment</h2>
+
+                <p style="margin-bottom: var(--spacing-lg);">
+                    Your technical background shapes which path makes sense. Here's what each path requires:
+                </p>
+
+                <div class="card-grid">
+                    <!-- Python/Backend -->
+                    <div class="card">
+                        <h3 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">Python & API Skills</h3>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path A Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">GraphQL knowledge</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">Python async/await</span>
+                            <span class="skill-level helpful">API debugging</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path B Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">Basic Python</span>
+                            <span class="skill-level required">GraphQL basics</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">HTTP requests</span>
+                            <span class="skill-level helpful">JSON parsing</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path C Requires:</h4>
+                        <div>
+                            <span class="skill-level nice-to-have">NICE-TO-HAVE:</span>
+                            <span class="skill-level nice-to-have">None really</span>
+                        </div>
+                    </div>
+
+                    <!-- Frontend/Theme -->
+                    <div class="card">
+                        <h3 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">Frontend & Theme Skills</h3>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path A Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">Liquid template language</span>
+                            <span class="skill-level required">JSON-LD schema</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">CSS troubleshooting</span>
+                            <span class="skill-level helpful">Browser DevTools</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path B Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">Basic Liquid</span>
+                            <span class="skill-level required">JSON-LD basics</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">Shopify theme editor</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path C Requires:</h4>
+                        <div>
+                            <span class="skill-level nice-to-have">NICE-TO-HAVE:</span>
+                            <span class="skill-level nice-to-have">None really</span>
+                        </div>
+                    </div>
+
+                    <!-- DevOps/Infrastructure -->
+                    <div class="card">
+                        <h3 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">DevOps & Infrastructure</h3>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path A Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">Webhook setup</span>
+                            <span class="skill-level required">Environment variables</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">Credential management</span>
+                            <span class="skill-level helpful">Error logging</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path B Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level required">REQUIRED:</span>
+                            <span class="skill-level required">Environment variables</span>
+                            <span class="skill-level required">Credential storage</span>
+                        </div>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">API testing</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path C Requires:</h4>
+                        <div>
+                            <span class="skill-level nice-to-have">NICE-TO-HAVE:</span>
+                            <span class="skill-level nice-to-have">None really</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Management -->
+                    <div class="card">
+                        <h3 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">Project Management</h3>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path A Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">Timeline management</span>
+                            <span class="skill-level helpful">Risk mitigation</span>
+                            <span class="skill-level helpful">Testing coordination</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path B Requires:</h4>
+                        <div style="margin-bottom: var(--spacing-md);">
+                            <span class="skill-level helpful">HELPFUL:</span>
+                            <span class="skill-level helpful">Timeline tracking</span>
+                            <span class="skill-level helpful">Testing coordination</span>
+                        </div>
+
+                        <h4 style="margin-bottom: var(--spacing-sm);">Path C Requires:</h4>
+                        <div>
+                            <span class="skill-level nice-to-have">HELPFUL:</span>
+                            <span class="skill-level nice-to-have">Attention to detail</span>
+                            <span class="skill-level nice-to-have">Process documentation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--color-primary); margin-top: var(--spacing-xl); margin-bottom: var(--spacing-md); font-family: var(--font-display);">Skill Profile Recommendations</h3>
+
+                <div class="card">
+                    <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">If You're "Full-Stack Developer Type"</h4>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        <strong>✓ Recommendation: Path A or Path B</strong>
+                    </p>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        You have Python, API, and infrastructure skills. Path B (14 hours) gives you 80% of Path A's benefit with half the risk. Path A (20 hours) is doable if you love optimization and can dedicate focused time.
+                    </p>
+                    <p class="text-small">
+                        Start with Path B. If it goes smoothly, add audit hooks + webhooks for Path A fullness.
+                    </p>
+                </div>
+
+                <div class="card" style="margin-top: var(--spacing-lg);">
+                    <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">If You're "Frontend/Designer Type"</h4>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        <strong>✓ Recommendation: Path B (if comfortable with Shopify)</strong>
+                    </p>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        You're comfortable with theme editing and HTML/CSS. Path B's Liquid template work is familiar. You'd need to learn the Python script part, but it's straightforward. Path C is also safe.
+                    </p>
+                    <p class="text-small">
+                        Consider learning basic Python — it's only 8 hours and very valuable long-term.
+                    </p>
+                </div>
+
+                <div class="card" style="margin-top: var(--spacing-lg);">
+                    <h4 style="color: var(--color-primary); margin-bottom: var(--spacing-md);">If You're "Non-Technical Co-Founder Type"</h4>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        <strong>✓ Recommendation: Path C (or hire someone for Path B)</strong>
+                    </p>
+                    <p style="margin-bottom: var(--spacing-md);">
+                        Path C is manual but straightforward — it's mostly copy-pasting with a checklist. You can do this. Alternatively, Path B (14 hours) is hireable work — a contractor could implement it for $1000-2000.
+                    </p>
+                    <p class="text-small">
+                        If you go Path C, use detailed checklists to minimize errors.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tab 4: Detailed Comparison -->
+            <div id="comparison" class="tab-content">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-primary); font-family: var(--font-display);">Side-by-Side Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Dimension</th>
+                            <th>Path A</th>
+                            <th>Path B</th>
+                            <th>Path C</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Development Time</strong></td>
+                            <td>20 hours</td>
+                            <td>14 hours</td>
+                            <td>0 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deployment Time (Feb 15)</strong></td>
+                            <td>5 min</td>
+                            <td>12 min</td>
+                            <td>60 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Saved</strong></td>
+                            <td>~60 min</td>
+                            <td>~45 min</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Systems</strong></td>
+                            <td>7 (high complexity)</td>
+                            <td>2 (medium complexity)</td>
+                            <td>0 (no code)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risk of Timeline Slippage</strong></td>
+                            <td>40-50%</td>
+                            <td>25-35%</td>
+                            <td>30-40%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Risk of Human Error</strong></td>
+                            <td>Low</td>
+                            <td>Low</td>
+                            <td>40-60%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fallback Plan</strong></td>
+                            <td>Manual (defeats purpose)</td>
+                            <td>GraphQL alone still helps</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Foundation for Phase 2</strong></td>
+                            <td>Excellent</td>
+                            <td>Good</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testing Window</strong></td>
+                            <td>1 day (Feb 13)</td>
+                            <td>1.5 days (Feb 12-13)</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Post-Deploy Bug Risk</strong></td>
+                            <td>High</td>
+                            <td>Medium</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Recommended For</strong></td>
+                            <td>Automation perfectionists</td>
+                            <td>Practical engineers</td>
+                            <td>Quick launch priority</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="recommendation" style="margin-top: var(--spacing-xl);">
+                    <p class="recommendation-title">Key Takeaway</p>
+                    <p class="recommendation-text">
+                        <strong>Path B is the optimal choice for most people.</strong> It saves 45 minutes, eliminates copy-paste errors (the biggest Phase 1 risk), and has a reasonable development timeline. Path A is for those who love optimization and have truly focused time. Path C is for launching immediately without code risk.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tab 5: Decision Helper -->
+            <div id="decision" class="tab-content">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-primary); font-family: var(--font-display);">Decision Helper</h2>
+
+                <p style="margin-bottom: var(--spacing-lg);">
+                    Answer these questions to get a personalized recommendation:
+                </p>
+
+                <div class="decision-tree">
+                    <div class="decision-node">
+                        <div class="decision-question">Question 1: How much development time can you dedicate Feb 10-14?</div>
+                        <div class="decision-options">
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q1" value="none"> Less than 5 hours (I want minimal dev work)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q1" value="medium"> 10-15 hours (I can manage this)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q1" value="high"> 20+ hours (I love automation)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="decision-node" style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--border-color);">
+                        <div class="decision-question">Question 2: How comfortable are you with Python + APIs?</div>
+                        <div class="decision-options">
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q2" value="none"> Not comfortable (I'm non-technical)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q2" value="basic"> Basic (I can follow tutorials)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q2" value="advanced"> Advanced (I write Python regularly)
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="decision-node" style="margin-top: var(--spacing-lg); padding-top: var(--spacing-lg); border-top: 1px solid var(--border-color);">
+                        <div class="decision-question">Question 3: What's your biggest priority for Feb 15?</div>
+                        <div class="decision-options">
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q3" value="speed"> Deploy ASAP (get Phase 1 live immediately)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q3" value="reliability"> Deploy cleanly (minimal errors, high quality)
+                            </label>
+                            <label class="decision-option" style="cursor: pointer;">
+                                <input type="radio" name="q3" value="foundation"> Set up for Phase 2 (automation infrastructure)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button onclick="getRecommendation()" style="margin-top: var(--spacing-lg); padding: var(--spacing-sm) var(--spacing-lg); background: var(--color-primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: var(--text-base); font-family: var(--font-sans); transition: all 0.2s ease;">
+                        Get My Recommendation
+                    </button>
+                </div>
+
+                <div id="recommendation-result" style="display: none; margin-top: var(--spacing-xl);"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function getRecommendation() {
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+            const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+            if (!q1 || !q2 || !q3) {
+                alert('Please answer all questions');
+                return;
+            }
+
+            let recommendation = '';
+            let reasoning = '';
+
+            // Decision logic
+            if (q1 === 'none') {
+                recommendation = 'Path C: Manual';
+                reasoning = 'With minimal dev time available, Path C is your best option. You can execute manual deployment on Feb 15 with a good checklist and reduce error risk to acceptable levels.';
+            } else if (q1 === 'medium' && q2 === 'basic') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Perfect fit! 14 hours is achievable, and basic Python skills are enough for the GraphQL script. This gives you 80% of the automation benefit with reasonable effort.';
+            } else if (q1 === 'medium' && q2 === 'none') {
+                recommendation = 'Path C: Manual (or hire for Path B)';
+                reasoning = 'Without Python experience, 14 hours of dev work is risky. Either go manual with good checklists, or spend $1000-2000 to hire a contractor for Path B implementation.';
+            } else if (q1 === 'high' && q2 === 'advanced') {
+                recommendation = 'Path A: Full Integration (or Path B first)';
+                reasoning = 'You have the chops for full automation. 20 hours is feasible for you. Start with Path B to validate the core approach, then add audit hooks + webhooks for full Path A.';
+            } else if (q1 === 'medium' && q2 === 'advanced') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Strong technical skills, reasonable time window. Path B gives you solid automation without overengineering. You could do Path A, but Path B\'s ROI is better for effort.';
+            } else if (q1 === 'high') {
+                recommendation = 'Path A or Path B (your choice)';
+                reasoning = 'With 20+ hours available, you can choose based on preference. Path A if you love comprehensive automation. Path B if you want simpler, still highly effective.';
+            } else if (q3 === 'speed' && q1 === 'none') {
+                recommendation = 'Path C: Manual';
+                reasoning = 'Fastest to deploy with minimal setup. Manual deployment takes 60 minutes and gets Phase 1 live immediately without code risk.';
+            } else if (q3 === 'reliability') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Path B eliminates copy-paste errors (biggest reliability risk) while keeping implementation simple. Higher quality deployment than manual, lower risk than Path A.';
+            } else if (q3 === 'foundation') {
+                recommendation = 'Path B or Path A';
+                reasoning = 'Both build infrastructure for Phase 2. Path B provides good foundation with less effort. Path A provides excellent foundation if you have the time.';
+            } else {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Default recommendation for most people. Balanced approach between automation, effort, and risk.';
+            }
+
+            const resultDiv = document.getElementById('recommendation-result');
+            resultDiv.innerHTML = `
+                <div class="recommendation">
+                    <p class="recommendation-title">Your Recommendation: ${recommendation}</p>
+                    <p class="recommendation-text">${reasoning}</p>
+                    <p class="text-small" style="margin-top: var(--spacing-md);">
+                        <strong>Next steps:</strong>
+                        ${recommendation.includes('Path A') ? 'Read the PATH-B-IMPLEMENTATION-GUIDE.md, then expand to full Path A features.' : ''}
+                        ${recommendation.includes('Path B') ? 'Read the PATH-B-IMPLEMENTATION-GUIDE.md and start setup immediately.' : ''}
+                        ${recommendation.includes('Path C') ? 'Use the CONNOR-SEO-CHECKLIST.md for step-by-step manual execution on Feb 15.' : ''}
+                    </p>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
