@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Hudson Phase 1 — Complete Path Decision Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --font-display: 'Georgia', serif;
+            --font-body: 'Georgia', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            --font-mono: 'Source Code Pro', monospace;
+            --color-primary: oklch(63% 0.15 25);
+            --color-secondary: oklch(73% 0.12 45);
+            --color-accent: oklch(58% 0.18 15);
+            --color-success: oklch(65% 0.15 140);
+            --color-warning: oklch(70% 0.18 60);
+            --color-danger: oklch(55% 0.20 20);
+            --bg-primary: #faf8f6;
+            --bg-secondary: #f5f2f0;
+            --text-primary: #2a2620;
+            --text-secondary: #6b6560;
+            --border-color: #e8e3dd;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+        }
+
+        html { font-size: 16px; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: var(--spacing-md);
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+            margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+            font-family: var(--font-display);
+            font-weight: normal;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+            color: var(--color-primary);
+            margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+            font-family: var(--font-display);
+            font-weight: bold;
+        }
+
+        .subtitle { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: var(--spacing-md); }
+        .text-small { font-size: 0.875rem; color: var(--text-secondary); }
+        .text-muted { color: var(--text-secondary); }
+
+        /* Context Box */
+        .context-box {
+            background: hsla(140, 70%, 50%, 0.05);
+            border-left: 4px solid var(--color-success);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .context-title {
+            color: var(--color-success);
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+            font-weight: bold;
+        }
+
+        /* ELI20 Section */
+        .eli20-section {
+            background: white;
+            border: 2px solid var(--color-secondary);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .eli20-title {
+            color: var(--color-secondary);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-md);
+            font-weight: bold;
+        }
+
+        .eli20-content {
+            background: var(--bg-primary);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin-bottom: var(--spacing-md);
+            border-left: 3px solid var(--color-secondary);
+        }
+
+        .eli20-example {
+            background: var(--bg-secondary);
+            padding: var(--spacing-md);
+            border-radius: 4px;
+            margin: var(--spacing-md) 0;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .pro-list, .con-list {
+            list-style: none;
+            margin: var(--spacing-md) 0;
+        }
+
+        .pro-list li, .con-list li {
+            padding: var(--spacing-sm) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+        }
+
+        .pro-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .con-list li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: var(--color-danger);
+            font-weight: bold;
+        }
+
+        /* Card */
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 8px hsla(25, 40%, 30%, 0.08);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Tabs */
+        .tab-container { margin-bottom: var(--spacing-xl); }
+        .tab-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            font-family: var(--font-sans);
+        }
+
+        .tab-btn:hover { color: var(--color-primary); }
+        .tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: var(--spacing-lg);
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--color-secondary);
+        }
+
+        .timeline-item {
+            margin-bottom: var(--spacing-md);
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -13px;
+            top: 4px;
+            width: 10px;
+            height: 10px;
+            background: var(--color-secondary);
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+        }
+
+        .timeline-date { font-family: var(--font-sans); font-weight: bold; color: var(--color-primary); font-size: 0.9rem; }
+        .timeline-description { color: var(--text-secondary); font-size: 0.9rem; margin-top: var(--spacing-xs); }
+
+        /* Comparison */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: var(--spacing-lg);
+            background: white;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px hsla(25, 40%, 30%, 0.08);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--bg-secondary);
+            color: var(--color-primary);
+            font-family: var(--font-display);
+            font-weight: normal;
+            font-size: 1rem;
+        }
+
+        .comparison-table tbody tr:hover { background: var(--bg-secondary); }
+        .comparison-table tbody tr:last-child td { border-bottom: none; }
+
+        /* Risk badge */
+        .risk-badge {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            font-family: var(--font-sans);
+        }
+
+        .risk-high { background: hsla(15, 100%, 55%, 0.1); color: var(--color-danger); }
+        .risk-medium { background: hsla(45, 100%, 55%, 0.1); color: var(--color-warning); }
+        .risk-low { background: hsla(140, 70%, 50%, 0.1); color: var(--color-success); }
+
+        /* Metric */
+        .metric { margin-bottom: var(--spacing-md); }
+        .metric-label { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--spacing-xs); display: flex; justify-content: space-between; }
+        .metric-bar { height: 6px; background: var(--bg-secondary); border-radius: 3px; overflow: hidden; }
+        .metric-fill { height: 100%; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); border-radius: 3px; }
+
+        /* Recommendation */
+        .recommendation {
+            background: hsla(140, 70%, 50%, 0.05);
+            border-left: 4px solid var(--color-success);
+            border-radius: 6px;
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .recommendation-title { color: var(--color-success); font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--spacing-sm); font-weight: bold; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 1.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+            .tab-buttons { gap: var(--spacing-xs); }
+            .tab-btn { padding: var(--spacing-xs) var(--spacing-sm); font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mad Hudson Phase 1 — Complete Path Decision Guide</h1>
+            <p class="subtitle">Choose your implementation path with full context and simple explanations</p>
+        </header>
+
+        <div class="tab-container">
+            <div class="tab-buttons">
+                <button class="tab-btn active" onclick="switchTab('context')">Context First</button>
+                <button class="tab-btn" onclick="switchTab('eli20')">ELI20 Explainers</button>
+                <button class="tab-btn" onclick="switchTab('detailed')">Detailed Paths</button>
+                <button class="tab-btn" onclick="switchTab('comparison')">Side-by-Side</button>
+                <button class="tab-btn" onclick="switchTab('decision')">Decision Helper</button>
+            </div>
+
+            <!-- Tab 1: Context -->
+            <div id="context" class="tab-content active">
+                <h2>Why This Decision Matters</h2>
+
+                <div class="context-box">
+                    <div class="context-title">The Situation</div>
+                    <p>You're deploying Phase 1 of Mad Hudson's SEO strategy on <strong>February 15</strong>. Phase 1 involves:</p>
+                    <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-sm);">
+                        <li><strong>6 product pages</strong> get expanded from 2-3 sentences to 500+ word artist narratives</li>
+                        <li><strong>Metadata</strong> gets updated (H1 tags, meta descriptions, alt text)</li>
+                        <li><strong>Schema markup</strong> gets deployed so Google understands artist attribution</li>
+                        <li><strong>Goal:</strong> Move 3-5 keywords from Page 2 to top 3 by April 7</li>
+                    </ul>
+                </div>
+
+                <h3>The Real Question</h3>
+                <p>
+                    The question you're answering isn't "automation or manual?" — it's: <strong>"How much development infrastructure should I build NOW to make February 15 deployment cleaner, faster, and more reliable?"</strong>
+                </p>
+
+                <div class="context-box">
+                    <div class="context-title">What Could Go Wrong (And Why It Matters)</div>
+                    <p><strong>Manual approach (Path C):</strong> You're copy-pasting 6 product descriptions into Shopify by hand. Risk: typos, wrong field values, missing metadata. Even one error corrupts your baseline ranking data.</p>
+                    <p style="margin-top: var(--spacing-sm);"><strong>Automated approach (Path B or A):</strong> Code handles copy-paste. Risk: code bugs, API failures, timing issues. But if tested, significantly lower human error.</p>
+                    <p style="margin-top: var(--spacing-sm);"><strong>The tradeoff:</strong> Spend 14 hours now building automation vs. spend 60 minutes on Feb 15 doing manual work (with higher error risk).</p>
+                </div>
+
+                <h3>Timeline Context</h3>
+                <p>Today is <strong>February 10</strong>. You have:</p>
+                <div class="timeline" style="margin-top: var(--spacing-lg);">
+                    <div class="timeline-item">
+                        <div class="timeline-date">FEB 10-14</div>
+                        <div class="timeline-description">Development window (if you choose Path A or B)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">FEB 15</div>
+                        <div class="timeline-description">Deployment day (Phase 1 goes live)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">FEB 17 onwards</div>
+                        <div class="timeline-description">Ranking tracking begins (SEO Monitor measures results)</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">APR 7</div>
+                        <div class="timeline-description">Critical checkpoint: Did Phase 1 work? (3-5 keywords in top 3?)</div>
+                    </div>
+                </div>
+
+                <h3>The Stakes</h3>
+                <p>
+                    If Phase 1 is sloppy (errors in metadata, schema broken), your baseline data is corrupted and April 7 results are meaningless. If Phase 1 is clean, you have a solid foundation for Phase 2 (blog launch, press strategy) and know the "watches for creators" positioning works.
+                </p>
+
+                <h3>Your Skill Set Matters</h3>
+                <p>
+                    This decision is heavily influenced by <strong>how comfortable you are with Python and APIs</strong>. If you're fluent in both, Path A/B is easy. If you've never written Python, Path C is safer. If you're somewhere in between, Path B is the sweet spot.
+                </p>
+
+                <div style="margin-top: var(--spacing-xl); padding: var(--spacing-lg); background: var(--bg-secondary); border-radius: 6px;">
+                    <h4>Think of it like this:</h4>
+                    <p style="margin-top: var(--spacing-sm);">
+                        <strong>Path C (Manual):</strong> Like hand-painting 6 canvases. Takes time, high error risk if you're tired, but totally doable.
+                    </p>
+                    <p style="margin-top: var(--spacing-sm);">
+                        <strong>Path B (Partial):</strong> Like building a paint sprayer for 3 of the canvases, then hand-painting the other 3. More setup time, but better quality and less hand fatigue.
+                    </p>
+                    <p style="margin-top: var(--spacing-sm);">
+                        <strong>Path A (Full):</strong> Like building a complete automated painting system. Tons of setup time, but if it works, everything is perfect.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tab 2: ELI20 -->
+            <div id="eli20" class="tab-content">
+                <h2>Explain Like I'm 20 (Simple Version)</h2>
+
+                <div class="eli20-section">
+                    <div class="eli20-title">Path C: Manual (Do It By Hand)</div>
+
+                    <div class="eli20-content">
+                        <h4>What you're doing:</h4>
+                        <p>Opening Shopify, copying 6 product descriptions from the copywriter, pasting them into the right fields. Then manually typing in metadata (H1 tags, meta descriptions, alt text). Then adding schema markup.</p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>How long?</h4>
+                        <p>About 60 minutes on Feb 15. You're just clicking and pasting, which is straightforward but repetitive.</p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>What could go wrong?</h4>
+                        <p>You copy-paste the wrong description to the wrong product. Or you forget to update the meta description. Or you miss a field. These are easy mistakes when you're doing repetitive work.</p>
+                    </div>
+
+                    <div class="eli20-example">
+                        Real example: You paste Eddie Watch description into Marshall product page by accident. Now Google thinks Marshall was designed by Brad Podray. Your baseline data is corrupted before it even starts.
+                    </div>
+
+                    <h4>Why choose this?</h4>
+                    <ul class="pro-list">
+                        <li>Zero setup time. Start immediately.</li>
+                        <li>No code to debug. If something breaks, it's obvious (you messed up).</li>
+                        <li>You can do it right now without any coding knowledge.</li>
+                    </ul>
+
+                    <h4>Why NOT choose this?</h4>
+                    <ul class="con-list">
+                        <li>Takes 60 minutes of your time on deployment day.</li>
+                        <li>High error risk from manual repetition.</li>
+                        <li>Errors discovered AFTER going live (have to fix in production).</li>
+                        <li>Doesn't build any automation for Phase 2.</li>
+                    </ul>
+                </div>
+
+                <div class="eli20-section">
+                    <div class="eli20-title">Path B: Partial Automation (Smart Approach)</div>
+
+                    <div class="eli20-content">
+                        <h4>What you're doing:</h4>
+                        <p>Building two automated systems:
+                        <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-sm);">
+                            <li><strong>GraphQL Script:</strong> Reads the copywriter's data as JSON, calls Shopify's API, auto-updates all 6 products. You just run: <code>python3 shopify_update_products.py</code></li>
+                            <li><strong>Theme Schema:</strong> Modifies Shopify theme so schema markup auto-injects on product pages.</li>
+                        </ul>
+                        </p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>How long to build?</h4>
+                        <p>14 hours total (Feb 10-14). About 2 hours per day for a week, or solid days if you focus.</p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>How long to deploy on Feb 15?</h4>
+                        <p>About 12 minutes. You run the script, it updates everything, done.</p>
+                    </div>
+
+                    <div class="eli20-example">
+                        Real example: Copywriter sends 6 product narratives as JSON. You run the script. All 6 products updated, metadata validated, schema injected. Zero manual copy-paste. Takes 12 minutes total.
+                    </div>
+
+                    <h4>Why choose this?</h4>
+                    <ul class="pro-list">
+                        <li>Eliminates copy-paste errors (biggest risk).</li>
+                        <li>Only 14 hours development, very doable in the timeline.</li>
+                        <li>Saves 45 minutes on deployment day.</li>
+                        <li>Builds foundation for Phase 2 automation.</li>
+                        <li>If theme work fails, GraphQL alone still saves time.</li>
+                    </ul>
+
+                    <h4>Why NOT choose this?</h4>
+                    <ul class="con-list">
+                        <li>Requires Python + API knowledge (but not expert-level).</li>
+                        <li>Need to test before deployment (1-2 days).</li>
+                        <li>If code has bugs, you have to debug them.</li>
+                        <li>15% risk of timeline slippage (code takes longer than expected).</li>
+                    </ul>
+
+                    <div style="margin-top: var(--spacing-lg); padding: var(--spacing-md); background: var(--bg-secondary); border-radius: 4px;">
+                        <strong>This is the recommended option for most people.</strong> It automates the highest-risk parts without overengineering.
+                    </div>
+                </div>
+
+                <div class="eli20-section">
+                    <div class="eli20-title">Path A: Full Automation (Overkill)</div>
+
+                    <div class="eli20-content">
+                        <h4>What you're doing:</h4>
+                        <p>Everything Path B does, PLUS:
+                        <ul style="margin-left: var(--spacing-lg); margin-top: var(--spacing-sm);">
+                            <li>SEO audit hooks that automatically check if metadata is correct</li>
+                            <li>Webhook notifications to SEO Monitor the moment Phase 1 goes live</li>
+                            <li>Automatic QA reports</li>
+                        </ul>
+                        </p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>How long to build?</h4>
+                        <p>20 hours total (FEB 10-14). Tight timeline, aggressive schedule.</p>
+                    </div>
+
+                    <div class="eli20-content">
+                        <h4>How long to deploy on Feb 15?</h4>
+                        <p>About 5 minutes. Everything is fully automated.</p>
+                    </div>
+
+                    <h4>Why choose this?</h4>
+                    <ul class="pro-list">
+                        <li>Zero manual work on deployment day.</li>
+                        <li>Maximum automation = lowest human error.</li>
+                        <li>Excellent foundation for Phase 2.</li>
+                        <li>Most sophisticated solution.</li>
+                    </ul>
+
+                    <h4>Why NOT choose this?</h4>
+                    <ul class="con-list">
+                        <li>20 hours is aggressive (40-50% chance of slippage).</li>
+                        <li>7 systems to build and test = more things break.</li>
+                        <li>Limited testing time (only 1 day).</li>
+                        <li>If something breaks, fallback to manual (defeats purpose).</li>
+                        <li>Return on investment not as good as Path B (90% value for 40% more effort).</li>
+                    </ul>
+
+                    <div style="margin-top: var(--spacing-lg); padding: var(--spacing-md); background: hsla(15, 100%, 55%, 0.1); border-radius: 4px; border-left: 3px solid var(--color-danger);">
+                        <strong>Only choose this if you love automation and have genuinely free time FEB 10-14.</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Detailed Paths -->
+            <div id="detailed" class="tab-content">
+                <h2>Detailed Path Breakdown</h2>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3 style="margin-top: 0;">Path A: Full Integration</h3>
+                        <span class="risk-badge risk-high">HIGH RISK</span>
+
+                        <div class="metric" style="margin-top: var(--spacing-lg);">
+                            <div class="metric-label">
+                                <span>Dev Time</span>
+                                <span>20 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>5 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Slippage Risk</span>
+                                <span>40-50%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 45%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-lg);">What Gets Built</h4>
+                        <ul style="margin-left: var(--spacing-lg);">
+                            <li>GraphQL API script (product updates)</li>
+                            <li>Theme schema injection</li>
+                            <li>SEO audit hooks</li>
+                            <li>Webhook notifications</li>
+                        </ul>
+
+                        <h4>Pros</h4>
+                        <ul class="pro-list">
+                            <li>Completely automated deployment</li>
+                            <li>Maximum error prevention</li>
+                            <li>Excellent Phase 2 foundation</li>
+                        </ul>
+
+                        <h4>Cons</h4>
+                        <ul class="con-list">
+                            <li>Aggressive 20-hour timeline</li>
+                            <li>7 systems = more failure points</li>
+                            <li>Limited testing time</li>
+                            <li>High slippage probability</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-top: 0;">Path B: Partial Integration</h3>
+                        <span class="risk-badge risk-medium">MEDIUM RISK</span>
+
+                        <div class="metric" style="margin-top: var(--spacing-lg);">
+                            <div class="metric-label">
+                                <span>Dev Time</span>
+                                <span>14 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 65%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>12 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Slippage Risk</span>
+                                <span>25-35%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-lg);">What Gets Built</h4>
+                        <ul style="margin-left: var(--spacing-lg);">
+                            <li>GraphQL API script ⭐</li>
+                            <li>Theme schema injection ⭐</li>
+                            <li style="opacity: 0.6;">Manual QA checks</li>
+                            <li style="opacity: 0.6;">Manual notifications</li>
+                        </ul>
+
+                        <h4>Pros</h4>
+                        <ul class="pro-list">
+                            <li>Automates high-risk parts</li>
+                            <li>14 hours very achievable</li>
+                            <li>Good Phase 2 foundation</li>
+                            <li>Strong fallback options</li>
+                            <li>Saves 45 minutes on deployment</li>
+                        </ul>
+
+                        <h4>Cons</h4>
+                        <ul class="con-list">
+                            <li>Still requires Python knowledge</li>
+                            <li>Need testing time</li>
+                            <li>Manual QA still needed</li>
+                        </ul>
+
+                        <div style="margin-top: var(--spacing-lg); padding: var(--spacing-sm); background: var(--bg-secondary); text-align: center; border-radius: 4px; border: 2px solid var(--color-success);">
+                            <strong style="color: var(--color-success);">★ RECOMMENDED ★</strong>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-top: 0;">Path C: Manual</h3>
+                        <span class="risk-badge risk-medium">MEDIUM-HIGH RISK</span>
+
+                        <div class="metric" style="margin-top: var(--spacing-lg);">
+                            <div class="metric-label">
+                                <span>Dev Time</span>
+                                <span>0 hours</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Deployment Speed</span>
+                                <span>60 minutes</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 30%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="metric">
+                            <div class="metric-label">
+                                <span>Human Error Risk</span>
+                                <span>40-60%</span>
+                            </div>
+                            <div class="metric-bar">
+                                <div class="metric-fill" style="width: 50%;"></div>
+                            </div>
+                        </div>
+
+                        <h4 style="margin-top: var(--spacing-lg);">What You're Doing</h4>
+                        <ul style="margin-left: var(--spacing-lg);">
+                            <li>Copy-pasting descriptions into Shopify</li>
+                            <li>Manually updating metadata</li>
+                            <li>Manually deploying schema</li>
+                        </ul>
+
+                        <h4>Pros</h4>
+                        <ul class="pro-list">
+                            <li>Launch immediately (no dev work)</li>
+                            <li>No code risk</li>
+                            <li>You know what's happening</li>
+                        </ul>
+
+                        <h4>Cons</h4>
+                        <ul class="con-list">
+                            <li>60+ minutes on deployment day</li>
+                            <li>High human error risk (40-60%)</li>
+                            <li>Errors found AFTER deployment</li>
+                            <li>No Phase 2 automation foundation</li>
+                            <li>Boring, repetitive work</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Comparison -->
+            <div id="comparison" class="tab-content">
+                <h2>Side-by-Side Comparison</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Path A</th>
+                            <th>Path B</th>
+                            <th>Path C</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Dev Time Required</strong></td>
+                            <td>20 hours</td>
+                            <td>14 hours</td>
+                            <td>0 hours</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deployment Time</strong></td>
+                            <td>5 min</td>
+                            <td>12 min</td>
+                            <td>60 min</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Saved vs Manual</strong></td>
+                            <td>~60 min</td>
+                            <td>~45 min</td>
+                            <td>Baseline</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automation Level</strong></td>
+                            <td>100% automated</td>
+                            <td>75% automated</td>
+                            <td>0% automated</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Complexity</strong></td>
+                            <td>7 systems (very complex)</td>
+                            <td>2 systems (medium)</td>
+                            <td>No code</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Slippage Risk</strong></td>
+                            <td>40-50%</td>
+                            <td>25-35%</td>
+                            <td>30-40%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Human Error Risk</strong></td>
+                            <td>Very Low</td>
+                            <td>Very Low</td>
+                            <td>40-60%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testing Time Needed</strong></td>
+                            <td>1 day (tight)</td>
+                            <td>1.5 days (reasonable)</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fallback Plan</strong></td>
+                            <td>Manual (defeats purpose)</td>
+                            <td>GraphQL alone works (saves 30 min)</td>
+                            <td>N/A (is the fallback)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2 Foundation</strong></td>
+                            <td>Excellent</td>
+                            <td>Good</td>
+                            <td>None</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best For</strong></td>
+                            <td>Automation enthusiasts</td>
+                            <td>Practical engineers</td>
+                            <td>Quick launch priority</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab 5: Decision Helper -->
+            <div id="decision" class="tab-content">
+                <h2>Decision Helper</h2>
+
+                <p style="margin-bottom: var(--spacing-lg);">
+                    Answer these questions to get a personalized recommendation:
+                </p>
+
+                <div class="card">
+                    <h3 style="margin-top: 0;">Question 1: How much development time can you dedicate?</h3>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q1" value="none"> <strong>Less than 5 hours</strong> — I want minimal dev work
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q1" value="medium"> <strong>10-15 hours</strong> — I can manage this pace
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-lg); cursor: pointer;">
+                        <input type="radio" name="q1" value="high"> <strong>20+ hours</strong> — I love automation and can focus
+                    </label>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-top: 0;">Question 2: How comfortable are you with Python + APIs?</h3>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q2" value="none"> <strong>Not comfortable</strong> — I'm non-technical or frontend-focused
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q2" value="basic"> <strong>Basic</strong> — I can read/follow tutorials but don't write regularly
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-lg); cursor: pointer;">
+                        <input type="radio" name="q2" value="advanced"> <strong>Advanced</strong> — I write Python/APIs regularly
+                    </label>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-top: 0;">Question 3: What's your priority for February 15?</h3>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q3" value="speed"> <strong>Speed</strong> — Launch ASAP, launch today
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-md); cursor: pointer;">
+                        <input type="radio" name="q3" value="reliability"> <strong>Reliability</strong> — Deploy cleanly with minimal errors
+                    </label>
+
+                    <label style="display: block; margin-bottom: var(--spacing-lg); cursor: pointer;">
+                        <input type="radio" name="q3" value="foundation"> <strong>Foundation</strong> — Set up automation for Phase 2
+                    </label>
+                </div>
+
+                <button onclick="getRecommendation()" style="padding: var(--spacing-sm) var(--spacing-lg); background: var(--color-primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-family: var(--font-sans); transition: all 0.2s ease; width: 100%;">
+                    Get My Personalized Recommendation
+                </button>
+
+                <div id="recommendation-result" style="display: none; margin-top: var(--spacing-xl);"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function getRecommendation() {
+            const q1 = document.querySelector('input[name="q1"]:checked')?.value;
+            const q2 = document.querySelector('input[name="q2"]:checked')?.value;
+            const q3 = document.querySelector('input[name="q3"]:checked')?.value;
+
+            if (!q1 || !q2 || !q3) {
+                alert('Please answer all three questions');
+                return;
+            }
+
+            let recommendation = '';
+            let reasoning = '';
+            let nextSteps = '';
+
+            if (q1 === 'none') {
+                recommendation = 'Path C: Manual';
+                reasoning = 'With minimal dev time, Path C is your path. You can execute manual deployment on Feb 15 using a detailed checklist. Takes 60 minutes, manageable error risk.';
+                nextSteps = 'Use CONNOR-SEO-CHECKLIST.md for step-by-step instructions. Take your time, check twice.';
+            } else if (q1 === 'medium' && q2 === 'none') {
+                recommendation = 'Path C: Manual (or hire for Path B)';
+                reasoning = 'Without Python experience, 14 hours is risky. You could spend that time learning Python, but safer to go manual. Alternatively, hire a contractor for $1000-2000 to implement Path B.';
+                nextSteps = 'Either: (1) Go manual with good checklist, or (2) Hire a Shopify API contractor for Path B implementation.';
+            } else if (q1 === 'medium' && q2 === 'basic') {
+                recommendation = '★ Path B: Partial Integration (RECOMMENDED) ★';
+                reasoning = 'Perfect fit! 14 hours is doable, basic Python is enough for the GraphQL script. This gives you 80% automation benefit with manageable effort. Smart middle-ground.';
+                nextSteps = 'Read PATH-B-IMPLEMENTATION-GUIDE.md. Start with GraphQL script (8 hours FEB 10-11), then theme work (3 hours FEB 12), test (3 hours FEB 13). Deploy cleanly Feb 15.';
+            } else if (q1 === 'medium' && q2 === 'advanced') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'You have the skills for Path A, but Path B is better ROI. 14 hours gets you 80% of the benefit with less risk. You could add audit hooks later if needed.';
+                nextSteps = 'Start with Path B. If smooth sailing, add webhook + audit hooks for full Path A. PATH-B-IMPLEMENTATION-GUIDE.md has all the code.';
+            } else if (q1 === 'high' && q2 === 'none') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Even with 20 hours, learning Python + building complex systems is risky in 5 days. Path B gives high value (14 hours) without overengineering. Better use of your time.';
+                nextSteps = 'PATH-B-IMPLEMENTATION-GUIDE.md. Focus on depth over breadth — get the core systems bulletproof instead of trying to do everything.';
+            } else if (q1 === 'high' && q2 === 'advanced') {
+                recommendation = 'Path A or Path B (Your choice)';
+                reasoning = 'You have both time and skills for Path A. But consider: Path A is 43% more effort for maybe 20% more benefit. Path B is the smart choice. Path A only if you love optimization.';
+                nextSteps = 'Recommend: Do Path B cleanly (14 hours, well-tested). Then decide if audit hooks + webhooks are worth the extra 6 hours. Start with PATH-B-IMPLEMENTATION-GUIDE.md.';
+            } else if (q3 === 'speed') {
+                recommendation = 'Path C: Manual';
+                reasoning = 'Fastest path to live = no dev work. Manual deployment on Feb 15, takes 60 minutes, Phase 1 is live same day.';
+                nextSteps = 'Use CONNOR-SEO-CHECKLIST.md. Manual but fast.';
+            } else if (q3 === 'reliability') {
+                recommendation = 'Path B: Partial Integration';
+                reasoning = 'Reliability = no copy-paste errors = automation. Path B eliminates human error on core tasks while staying reasonable effort.';
+                nextSteps = 'PATH-B-IMPLEMENTATION-GUIDE.md. Focus on testing (FEB 13) to ensure reliability.';
+            } else if (q3 === 'foundation') {
+                recommendation = 'Path B (preferred) or Path A';
+                reasoning = 'Both build Phase 2 infrastructure. Path B is better ROI. Path A only if you have genuinely free time.';
+                nextSteps = 'PATH-B-IMPLEMENTATION-GUIDE.md for Path B. Scripts are reusable for Phase 2 blog automation.';
+            } else {
+                recommendation = 'Path B: Partial Integration (RECOMMENDED)';
+                reasoning = 'Default recommendation for most people. Balances automation, effort, and risk perfectly.';
+                nextSteps = 'Read PATH-B-IMPLEMENTATION-GUIDE.md and start today.';
+            }
+
+            const resultDiv = document.getElementById('recommendation-result');
+            resultDiv.innerHTML = `
+                <div class="recommendation">
+                    <p class="recommendation-title" style="font-size: 1.3rem;">${recommendation}</p>
+                    <p style="margin-top: var(--spacing-md); font-size: 1rem;">${reasoning}</p>
+                    <p style="margin-top: var(--spacing-md); padding-top: var(--spacing-md); border-top: 1px solid var(--border-color);"><strong>Next Steps:</strong><br/>${nextSteps}</p>
+                </div>
+            `;
+            resultDiv.style.display = 'block';
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
