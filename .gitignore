@@ -1,0 +1,29 @@
+# Credentials
+.env
+*.pem
+*.key
+credentials.json
+oauth-token*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Data files (sensitive)
+gsc-data-*.json
+analytics-export-*.json
+customer-data-*.csv
+artist-contracts/
+revenue-data/
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+venv/
