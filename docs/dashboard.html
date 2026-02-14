@@ -685,6 +685,7 @@
 
     <nav>
       <a href="#whats-working">What's Working</a>
+      <a href="#progress">Progress</a>
       <a href="#html-opportunities">HTML Opportunities</a>
       <a href="#images">Image Opportunities</a>
       <a href="#product-content">Content Opportunities</a>
@@ -734,6 +735,135 @@
 
         <div class="callout callout-primary">
           <strong>The bottom line:</strong> The product works. The story is genuine. The competitive space is open. What follows in this review are invisible improvements that help search engines see what's already true about the business.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION: PROGRESS & AUTOMATION
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="progress" class="card">
+      <div class="card-header">
+        <h2>Progress &amp; Automation</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="callout callout-success">
+          <strong>Update (Feb 14):</strong> The automation tools described below are built, tested, and ready to use. The research phase is complete — we're now in execution mode.
+        </div>
+
+        <h3>What's Been Built</h3>
+        <p>Based on the research in this dashboard, we built a set of tools that automate the most impactful fixes. These run from the command line and update your Shopify store directly — no manual copy-pasting required.</p>
+
+        <div class="segment-grid">
+          <div class="segment-card primary">
+            <div class="segment-title">Product Update Script</div>
+            <div class="segment-description">Updates all 6 product pages at once: titles, descriptions, meta descriptions, artist names, artist bios. Takes your content as a JSON file and pushes it to Shopify via the GraphQL API.</div>
+          </div>
+          <div class="segment-card primary">
+            <div class="segment-title">Image Alt Text Automation</div>
+            <div class="segment-description">Updates alt text on every product image automatically. Matches alt text to images by position — provide the descriptions, and the script handles the rest.</div>
+          </div>
+          <div class="segment-card">
+            <div class="segment-title">Validation Suite</div>
+            <div class="segment-description">Checks your content before it goes live: meta description length (155-160 chars), word counts (500+ words), placeholder detection, image alt text completeness.</div>
+          </div>
+          <div class="segment-card">
+            <div class="segment-title">Dry-Run Preview</div>
+            <div class="segment-description">See exactly what will change before anything touches your live store. Shows before/after comparisons for every field — titles, descriptions, metadata, image alt text.</div>
+          </div>
+        </div>
+
+        <h3>How It Works: 4 Steps</h3>
+        <p>The workflow is designed to be safe and transparent. Nothing happens to the live store until step 4.</p>
+
+        <div class="chart-container">
+          <svg viewBox="0 0 900 120" style="width: 100%; height: auto;">
+            <!-- Step 1 -->
+            <rect x="10" y="15" width="190" height="80" rx="8" fill="var(--color-surface)" stroke="var(--color-info)" stroke-width="2"/>
+            <text x="105" y="42" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--color-info)">Step 1: Test</text>
+            <text x="105" y="62" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11" fill="var(--color-text-muted)">test_update.py</text>
+            <text x="105" y="78" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--color-text-secondary)">Verify API connection</text>
+
+            <!-- Arrow 1 -->
+            <polygon points="210,55 225,48 225,62" fill="var(--color-text-muted)"/>
+
+            <!-- Step 2 -->
+            <rect x="235" y="15" width="190" height="80" rx="8" fill="var(--color-surface)" stroke="var(--color-warning)" stroke-width="2"/>
+            <text x="330" y="42" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--color-warning)">Step 2: Validate</text>
+            <text x="330" y="62" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11" fill="var(--color-text-muted)">validate_products.py</text>
+            <text x="330" y="78" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--color-text-secondary)">Check content quality</text>
+
+            <!-- Arrow 2 -->
+            <polygon points="435,55 450,48 450,62" fill="var(--color-text-muted)"/>
+
+            <!-- Step 3 -->
+            <rect x="460" y="15" width="190" height="80" rx="8" fill="var(--color-surface)" stroke="var(--color-primary)" stroke-width="2"/>
+            <text x="555" y="42" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--color-primary)">Step 3: Preview</text>
+            <text x="555" y="62" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11" fill="var(--color-text-muted)">update --dry-run</text>
+            <text x="555" y="78" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--color-text-secondary)">See before/after</text>
+
+            <!-- Arrow 3 -->
+            <polygon points="660,55 675,48 675,62" fill="var(--color-text-muted)"/>
+
+            <!-- Step 4 -->
+            <rect x="685" y="15" width="190" height="80" rx="8" fill="var(--color-surface)" stroke="var(--color-success)" stroke-width="2"/>
+            <text x="780" y="42" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="14" font-weight="700" fill="var(--color-success)">Step 4: Deploy</text>
+            <text x="780" y="62" text-anchor="middle" font-family="Source Code Pro, monospace" font-size="11" fill="var(--color-text-muted)">update_products.py</text>
+            <text x="780" y="78" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11" fill="var(--color-text-secondary)">Apply to Shopify</text>
+          </svg>
+        </div>
+
+        <h3>Current Status</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Status</th>
+              <th>What's Needed</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Automation scripts</strong></td>
+              <td><span style="color: var(--color-success); font-weight: 600;">Built</span></td>
+              <td>Ready to run</td>
+            </tr>
+            <tr>
+              <td><strong>Validation suite</strong></td>
+              <td><span style="color: var(--color-success); font-weight: 600;">Built</span></td>
+              <td>Ready to run</td>
+            </tr>
+            <tr>
+              <td><strong>Dry-run preview</strong></td>
+              <td><span style="color: var(--color-success); font-weight: 600;">Built</span></td>
+              <td>Ready to run</td>
+            </tr>
+            <tr>
+              <td><strong>Product descriptions</strong></td>
+              <td><span style="color: var(--color-warning); font-weight: 600;">In Progress</span></td>
+              <td>Copywriter delivers 500+ word narratives for 6 products</td>
+            </tr>
+            <tr>
+              <td><strong>Image alt text</strong></td>
+              <td><span style="color: var(--color-warning); font-weight: 600;">In Progress</span></td>
+              <td>Descriptive alt text for all product images (template provided)</td>
+            </tr>
+            <tr>
+              <td><strong>Schema markup</strong></td>
+              <td><span style="color: var(--color-info); font-weight: 600;">Next Phase</span></td>
+              <td>Theme template edit (Garen handles this)</td>
+            </tr>
+            <tr>
+              <td><strong>Theme backup</strong></td>
+              <td><span style="color: var(--color-warning); font-weight: 600;">Pending</span></td>
+              <td>Duplicate current theme in Shopify admin before deployment</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-primary">
+          <strong>Timeline:</strong> Once copywriter descriptions and alt text are ready, deployment takes under 15 minutes. The scripts handle everything — titles, descriptions, metadata, and image alt text across all 6 products in a single run.
         </div>
       </div>
     </section>
@@ -882,6 +1012,10 @@
 
         <div class="callout callout-success">
           <strong>What you'll see after this fix:</strong> Your product images start appearing in Google Image Search results for queries like "artist collaboration watch" and "[artist name] watch." You may also notice image-sourced traffic appearing in Shopify analytics within 2-4 weeks.
+        </div>
+
+        <div class="callout callout-primary">
+          <strong>Automation available:</strong> Alt text for all product images can now be updated in a single script run. Provide descriptive text in the JSON template, run the script, and every image gets its alt text at once. No clicking through Shopify admin image by image.
         </div>
       </div>
     </section>
@@ -1221,9 +1355,9 @@
         <h3>10 Opportunities, Ranked by Impact</h3>
         <ul class="action-list">
           <li class="action-item quick-win">
-            <div class="action-title">Add alt text to every product image</div>
-            <div class="action-rationale">Product images currently have empty or auto-generated alt attributes. Adding descriptive alt text with artist names, watch names, and visual descriptions makes every image findable in Google Image Search. This is the single highest-impact SEO fix that requires zero visual changes. Each image takes 2-3 minutes to update in Shopify admin.</div>
-            <div class="action-meta">Effort: 5-10 min per product (click image → add alt text). Entire catalog: ~1-2 hours.</div>
+            <div class="action-title">Add alt text to every product image <span style="display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; background: rgba(107, 161, 103, 0.15); color: var(--color-success); vertical-align: middle; margin-left: 0.5rem;">AUTOMATED</span></div>
+            <div class="action-rationale">Product images currently have empty or auto-generated alt attributes. Adding descriptive alt text with artist names, watch names, and visual descriptions makes every image findable in Google Image Search. This is the single highest-impact SEO fix that requires zero visual changes. <strong>Automation built:</strong> Provide alt text in the JSON template and the script updates all images across all products in one run.</div>
+            <div class="action-meta">Effort: Write the alt text descriptions (~1 hour). Script handles the Shopify updates (~2 minutes).</div>
           </li>
 
           <li class="action-item quick-win">
@@ -1245,9 +1379,9 @@
           </li>
 
           <li class="action-item">
-            <div class="action-title">Expand product descriptions from 1-2 sentences to 400-500 words</div>
-            <div class="action-rationale">Current product pages have ~30 words of description — far below the 400-500 word target that performs well for SEO. Each product page should include: expanded product description (100-150 words), About the Artist section (100-150 words), Design Intent (75-100 words), detailed Specifications (50-75 words), and Edition Details (25-50 words). This content goes into the existing product description field in Shopify and displays below the product images within the existing page layout. No theme changes required.</div>
-            <div class="action-meta">Effort: Medium — ~45 min per product page to write. Can be drafted with AI assistance and reviewed for accuracy. 10-15 products = 8-12 hours total.</div>
+            <div class="action-title">Expand product descriptions from 1-2 sentences to 400-500 words <span style="display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; background: rgba(107, 161, 103, 0.15); color: var(--color-success); vertical-align: middle; margin-left: 0.5rem;">AUTOMATED</span></div>
+            <div class="action-rationale">Current product pages have ~30 words of description — far below the 400-500 word target that performs well for SEO. Each product page should include: expanded product description (100-150 words), About the Artist section (100-150 words), Design Intent (75-100 words), detailed Specifications (50-75 words), and Edition Details (25-50 words). <strong>Automation built:</strong> Once descriptions are written, the script pushes all 6 products to Shopify in one run — titles, descriptions, metadata, and artist info together.</div>
+            <div class="action-meta">Effort: Write the content (~45 min per product). Script handles the Shopify updates (~2 minutes for all 6). Validation checks word counts and meta description length before deployment.</div>
           </li>
 
           <li class="action-item">
