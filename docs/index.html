@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson Watches — SEO Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ember-terracotta: oklch(0.62 0.14 45);
+      --ember-warm: oklch(0.55 0.12 50);
+      --surface-primary: oklch(0.985 0.005 80);
+      --surface-card: #ffffff;
+      --text-primary: oklch(0.25 0.02 50);
+      --text-secondary: oklch(0.45 0.02 50);
+      --shadow-warm: hsla(25, 40%, 30%, 0.08);
+      --shadow-warm-hover: hsla(25, 40%, 30%, 0.14);
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--surface-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 540px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--surface-card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px var(--shadow-warm);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      border: 1px solid hsla(25, 40%, 30%, 0.06);
+    }
+
+    .card-link:hover {
+      box-shadow: 0 4px 16px var(--shadow-warm-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-link h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: var(--ember-warm);
+    }
+
+    .card-link p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--ember-terracotta);
+      background: oklch(0.95 0.04 45);
+      padding: 3px 10px;
+      border-radius: 99px;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Mad Hudson Watches</h1>
+    <p class="subtitle">SEO research and site improvement recommendations. Two ways to explore the same findings.</p>
+
+    <a href="slides.html" class="card-link">
+      <span class="tag">Presentation</span>
+      <h2>Slide Deck</h2>
+      <p>The quick version. Arrow keys to navigate, 12 slides covering what's working, what to fix, and what comes next.</p>
+    </a>
+
+    <a href="dashboard.html" class="card-link">
+      <span class="tag">Reference</span>
+      <h2>Full Dashboard</h2>
+      <p>The deep dive. Scrollable dashboard with every finding, specific Shopify admin paths, and prioritized action items.</p>
+    </a>
+
+    <div class="footer">
+      Prepared by Garen &middot; February 2026
+    </div>
+  </div>
+</body>
+</html>

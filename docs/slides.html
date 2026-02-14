@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson SEO Research — February 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #c4704b;
+      --color-primary-light: #d4926f;
+      --color-primary-dark: #a85a38;
+      --color-success: #6ba167;
+      --color-warning: #c4934a;
+      --color-info: #5a8fa6;
+      --color-surface: #ffffff;
+      --color-surface-alt: #fdf8f4;
+      --color-surface-warm: #faf7f4;
+      --color-bg: #f5f0eb;
+      --color-text: #3d2f2a;
+      --color-text-secondary: #6b5650;
+      --color-text-muted: #8a7a74;
+      --color-border: rgba(196, 112, 75, 0.12);
+      --color-shadow: hsla(25, 40%, 30%, 0.08);
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      background: var(--color-bg);
+      overflow: hidden;
+      line-height: 1.6;
+    }
+
+    .deck-container {
+      display: flex;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      height: 100vh;
+    }
+
+    .slide {
+      min-width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px;
+      position: relative;
+    }
+
+    /* ── Alternating slide backgrounds ── */
+    .slide:nth-child(odd) {
+      background: linear-gradient(160deg, hsl(30, 20%, 94%) 0%, hsl(30, 18%, 92%) 100%);
+    }
+    .slide:nth-child(even) {
+      background: linear-gradient(160deg, hsl(30, 32%, 97%) 0%, hsl(30, 20%, 94%) 100%);
+    }
+    .slide.slide-accent {
+      background: linear-gradient(160deg, hsl(30, 50%, 98%) 0%, hsl(25, 35%, 95%) 100%);
+    }
+    .slide.slide-dark {
+      background: linear-gradient(160deg, hsl(18, 23%, 21%) 0%, hsl(20, 20%, 14%) 100%);
+      color: var(--color-bg);
+    }
+    .slide.slide-dark h1, .slide.slide-dark h2, .slide.slide-dark h3 {
+      color: var(--color-surface-warm);
+    }
+    .slide.slide-dark .subtitle, .slide.slide-dark .date {
+      color: hsl(25, 20%, 80%);
+    }
+    .slide.slide-dark .key-line {
+      color: var(--color-primary-light);
+    }
+
+    /* ── Slide section badge ── */
+    .slide-badge {
+      position: absolute;
+      top: 24px;
+      left: 32px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      padding: 4px 12px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .slide.slide-dark .slide-badge {
+      background: hsla(0, 0%, 100%, 0.1);
+      color: hsl(25, 20%, 80%);
+    }
+
+    /* ── Navigation areas ── */
+    .nav-hint {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100px;
+      height: 100px;
+      cursor: pointer;
+      z-index: 100;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .nav-hint:hover {
+      opacity: 0.1;
+      background: var(--color-primary);
+    }
+
+    .nav-hint.left {
+      left: 0;
+      border-radius: 0 50% 50% 0;
+    }
+
+    .nav-hint.right {
+      right: 0;
+      border-radius: 50% 0 0 50%;
+    }
+
+    /* ── Progress dots ── */
+    .slide-progress {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+      background: var(--color-surface);
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+    }
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-border);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    .progress-dot.active {
+      background: var(--color-primary);
+      transform: scale(1.3);
+    }
+    .progress-dot:hover {
+      background: var(--color-primary-light);
+      transform: scale(1.2);
+    }
+
+    /* ── Slide counter ── */
+    .slide-counter {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      z-index: 50;
+    }
+
+    /* ── Keyboard hint ── */
+    .keyboard-hint {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      z-index: 50;
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+
+    .keyboard-hint.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* ── Content entry animation ── */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide > * {
+      animation: slideUp 0.5s ease both;
+    }
+    .slide > *:nth-child(1) { animation-delay: 0s; }
+    .slide > *:nth-child(2) { animation-delay: 0.08s; }
+    .slide > *:nth-child(3) { animation-delay: 0.16s; }
+    .slide > *:nth-child(4) { animation-delay: 0.24s; }
+    .slide > *:nth-child(5) { animation-delay: 0.32s; }
+
+    /* ── Typography ── */
+    h1 {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 10px;
+      color: var(--color-text);
+    }
+
+    .subtitle {
+      font-size: 22px;
+      color: var(--color-text-secondary);
+      max-width: 800px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .date {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      color: var(--color-text-muted);
+      margin-bottom: 32px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .large-text {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 32px;
+    }
+
+    .supporting-text {
+      font-size: 17px;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+
+    .key-line {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--color-text);
+      max-width: 860px;
+      text-align: center;
+      margin-top: 32px;
+      line-height: 1.4;
+      padding: 16px 24px;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      border-left: 4px solid var(--color-primary);
+    }
+    .slide.slide-dark .key-line {
+      background: hsla(0, 0%, 100%, 0.06);
+      box-shadow: none;
+      border-left-color: var(--color-primary-light);
+    }
+
+    /* ── Content containers ── */
+    .content-box {
+      background: var(--color-surface);
+      padding: 36px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 16px var(--color-shadow);
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    /* ── Metrics grid ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+      margin: 24px 0;
+    }
+
+    .metric-card {
+      background: var(--color-surface);
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      text-align: center;
+      border-top: 3px solid var(--color-primary);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .metric-card:hover {
+      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      transform: translateY(-2px);
+    }
+    .metric-card.info { border-top-color: var(--color-info); }
+    .metric-card.warning { border-top-color: var(--color-warning); }
+    .metric-card.success { border-top-color: var(--color-success); }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 8px 0;
+      line-height: 1.1;
+    }
+    .metric-card.info .metric-value { color: var(--color-info); }
+    .metric-card.warning .metric-value { color: var(--color-warning); }
+    .metric-card.success .metric-value { color: var(--color-success); }
+
+    .metric-label {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+    }
+
+    /* ── Diagnosis section ── */
+    .diagnosis-content {
+      max-width: 900px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .diagnosis-item {
+      background: var(--color-surface);
+      padding: 20px 28px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      border-left: 4px solid var(--color-primary);
+      transition: box-shadow 0.2s ease;
+    }
+    .diagnosis-item:hover {
+      box-shadow: 0 4px 16px var(--color-shadow-lg);
+    }
+    .diagnosis-item.info { border-left-color: var(--color-info); }
+    .diagnosis-item.success { border-left-color: var(--color-success); }
+    .diagnosis-item.warning { border-left-color: var(--color-warning); }
+
+    .diagnosis-item strong {
+      font-size: 17px;
+      color: var(--color-text);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .diagnosis-item p {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Benchmark comparison ── */
+    .benchmark-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 24px 0;
+    }
+
+    .benchmark-card {
+      background: var(--color-surface);
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      text-align: center;
+      border: 2px solid var(--color-border);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .benchmark-card:hover {
+      box-shadow: 0 4px 16px var(--color-shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .benchmark-card.highlight {
+      border-color: var(--color-primary);
+      background: linear-gradient(160deg, var(--color-surface-warm) 0%, var(--color-surface-alt) 100%);
+    }
+
+    .benchmark-card h3 {
+      font-size: 15px;
+      color: var(--color-text-muted);
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-family: var(--font-body);
+    }
+
+    .benchmark-card .value {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    /* Price spectrum */
+    .price-spectrum {
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px 0;
+    }
+
+    .spectrum-scale {
+      position: relative;
+      height: 8px;
+      background: linear-gradient(90deg, var(--color-border), var(--color-primary-light));
+      border-radius: 4px;
+      margin-bottom: 60px;
+    }
+
+    .spectrum-items {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .spectrum-item {
+      background: var(--color-surface);
+      padding: 16px 24px;
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      border: 2px solid var(--color-border);
+      font-size: 16px;
+    }
+
+    .spectrum-item.highlight {
+      border-color: var(--color-primary);
+      background: var(--color-surface-warm);
+      font-weight: 600;
+    }
+
+    .spectrum-brand {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .spectrum-tier {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      margin-left: 16px;
+    }
+
+    .spectrum-price {
+      font-family: var(--font-mono);
+      color: var(--color-text-secondary);
+      font-size: 15px;
+    }
+
+    /* ── Comparison table ── */
+    .comparison-table {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--color-shadow);
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th {
+      background: var(--color-surface-warm);
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-border);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-family: var(--font-mono);
+    }
+
+    .comparison-table td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table tbody tr:hover {
+      background: var(--color-surface-alt);
+    }
+
+    .check-yes { color: var(--color-success); font-weight: 600; }
+    .check-no { color: var(--color-text-muted); }
+    .check-opportunity { color: var(--color-primary); font-weight: 600; }
+
+    /* ── SEO section ── */
+    .seo-content {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .score-display {
+      font-family: var(--font-display);
+      font-size: 120px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 24px 0;
+    }
+
+    .seo-list {
+      list-style: none;
+      text-align: left;
+      margin-top: 24px;
+    }
+
+    .seo-list li {
+      padding: 14px 20px;
+      margin-bottom: 10px;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      font-size: 15px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      border-left: 3px solid var(--color-info);
+    }
+
+    .seo-list li strong {
+      color: var(--color-text);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .anchor-keyword {
+      background: linear-gradient(160deg, var(--color-surface-warm) 0%, var(--color-surface-alt) 100%);
+      border: 2px solid var(--color-primary);
+      padding: 20px 28px;
+      border-radius: var(--radius-lg);
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .anchor-keyword p {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 6px;
+    }
+
+    .anchor-keyword .detail {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+    }
+
+    /* ── Audience / schema cards ── */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    .audience-card {
+      background: var(--color-surface);
+      padding: 24px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      border-left: 4px solid var(--color-primary);
+      text-align: left;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .audience-card:hover {
+      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      transform: translateY(-2px);
+    }
+    .audience-card:nth-child(1) { border-left-color: var(--color-info); }
+    .audience-card:nth-child(2) { border-left-color: var(--color-warning); }
+    .audience-card:nth-child(3) { border-left-color: var(--color-success); }
+    .audience-card:nth-child(4) { border-left-color: var(--color-primary); }
+
+    .audience-card h3 {
+      font-size: 19px;
+      margin-bottom: 12px;
+      color: var(--color-text);
+    }
+
+    .audience-card p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .audience-card .source {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-text-muted);
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--color-border);
+      letter-spacing: 0.02em;
+    }
+
+    .audience-card code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: var(--color-surface-alt);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--color-primary-dark);
+    }
+
+    /* Museum section */
+    .museum-content {
+      max-width: 800px;
+      width: 100%;
+    }
+
+    .museum-why {
+      background: var(--color-surface-warm);
+      padding: 24px 32px;
+      border-radius: var(--radius-lg);
+      margin: 32px 0;
+      border: 2px solid var(--color-primary);
+    }
+
+    .museum-why p {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .museum-targets {
+      list-style: none;
+      margin: 32px 0;
+      text-align: left;
+    }
+
+    .museum-targets li {
+      padding: 20px 28px;
+      margin-bottom: 16px;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--color-text);
+      position: relative;
+      padding-left: 60px;
+    }
+
+    .museum-targets li::before {
+      content: "→";
+      position: absolute;
+      left: 24px;
+      color: var(--color-primary);
+      font-size: 24px;
+    }
+
+    .museum-targets .detail {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--color-text-secondary);
+      margin-top: 6px;
+    }
+
+    /* ── Priority actions ── */
+    .actions-list {
+      list-style: none;
+      counter-reset: item;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .actions-list li {
+      counter-increment: item;
+      background: var(--color-surface);
+      padding: 18px 28px 18px 72px;
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      position: relative;
+      text-align: left;
+      transition: box-shadow 0.2s ease;
+    }
+    .actions-list li:hover {
+      box-shadow: 0 4px 16px var(--color-shadow-lg);
+    }
+
+    .actions-list li::before {
+      content: counter(item);
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-surface);
+      background: var(--color-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .actions-list li:nth-child(1)::before,
+    .actions-list li:nth-child(2)::before,
+    .actions-list li:nth-child(3)::before { background: var(--color-success); }
+    .actions-list li:nth-child(4)::before { background: var(--color-info); }
+
+    .action-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .action-reasoning {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+    }
+
+    .action-timing {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      background: var(--color-surface-alt);
+      color: var(--color-text-muted);
+      margin-top: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Steps/checklist ── */
+    .steps-list {
+      list-style: none;
+      counter-reset: step;
+      max-width: 1000px;
+      width: 100%;
+      text-align: left;
+    }
+
+    .steps-list li {
+      counter-increment: step;
+      background: var(--color-surface);
+      padding: 16px 24px 16px 64px;
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      position: relative;
+      transition: box-shadow 0.2s ease;
+    }
+    .steps-list li:hover {
+      box-shadow: 0 4px 16px var(--color-shadow-lg);
+    }
+
+    .steps-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--color-surface);
+      background: var(--color-success);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .step-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 4px;
+    }
+
+    .step-instruction {
+      font-size: 13px;
+      color: var(--color-text-secondary);
+      line-height: 1.5;
+      font-family: var(--font-mono);
+    }
+
+    .step-why {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    /* ── Streams grid ── */
+    .streams-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 24px 0;
+    }
+
+    .stream-card {
+      background: var(--color-surface);
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      text-align: left;
+      border-top: 4px solid var(--color-primary);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .stream-card:hover {
+      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      transform: translateY(-2px);
+    }
+    .stream-card:nth-child(1) { border-top-color: var(--color-info); }
+    .stream-card:nth-child(2) { border-top-color: var(--color-primary); }
+    .stream-card:nth-child(3) { border-top-color: var(--color-success); }
+
+    .stream-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .stream-card:nth-child(1) h3 { color: var(--color-info); }
+    .stream-card:nth-child(2) h3 { color: var(--color-primary); }
+    .stream-card:nth-child(3) h3 { color: var(--color-success); }
+
+    .stream-card p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .stream-card .targets {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--color-text-muted);
+      font-weight: 500;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      body {
+        overflow: visible;
+      }
+
+      .deck-container {
+        display: block;
+        transform: none !important;
+      }
+
+      .slide {
+        min-width: 100%;
+        height: auto;
+        min-height: 100vh;
+        page-break-after: always;
+        padding: 40px;
+      }
+
+      .nav-hint,
+      .slide-counter,
+      .keyboard-hint,
+      .slide-progress {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="keyboard-hint" id="keyboardHint">Use arrow keys to navigate</div>
+  <div class="slide-counter" id="slideCounter">1 / 12</div>
+  <div class="slide-progress" id="slideProgress"></div>
+  <div class="nav-hint left" id="navLeft"></div>
+  <div class="nav-hint right" id="navRight"></div>
+
+  <div class="deck-container" id="deckContainer">
+
+    <!-- Slide 1: Title -->
+    <div class="slide slide-dark">
+      <h1>Mad Hudson Watches</h1>
+      <p class="date">SEO Review — February 2026</p>
+      <p class="subtitle">Your product works. Your search visibility can catch up.</p>
+    </div>
+
+    <!-- Slide 2: What This Is -->
+    <div class="slide slide-accent">
+      <span class="slide-badge">Context</span>
+      <h2 style="margin-bottom: 24px;">What This Is</h2>
+      <div class="diagnosis-content">
+        <div class="diagnosis-item success">
+          <strong>I looked at your Shopify data, your product pages, and how the site shows up in Google</strong>
+          <p>31 days of analytics, 11 competitor brands, 7 target search terms. The short version: the product and brand are strong. The gap is in how the site talks to search engines.</p>
+        </div>
+        <div class="diagnosis-item info">
+          <strong>Most of the fixes are invisible to customers</strong>
+          <p>Alt text, meta descriptions, page titles, structured data. These change how Google reads the site — not how it looks to visitors. The site stays exactly the same visually.</p>
+        </div>
+        <div class="diagnosis-item" style="border-left-color: var(--color-primary);">
+          <strong>Some things you can do today. Some things I can help with.</strong>
+          <p>The same-day checklist is stuff you can do in Shopify admin in an afternoon. The schema markup and content expansion are more technical — I can build those when you're ready.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: What's Already Working -->
+    <div class="slide">
+      <span class="slide-badge">Foundation</span>
+      <h2 style="margin-bottom: 32px;">What's Already Working</h2>
+      <div class="diagnosis-content">
+        <div class="diagnosis-item success">
+          <strong>Your artist collaboration model is the story</strong>
+          <p>Most brands manufacture narrative. Yours is structural — real artists, real collaborations, real editions. That's not a marketing angle, it's your architecture.</p>
+        </div>
+        <div class="diagnosis-item success">
+          <strong>Wide open competitive space</strong>
+          <p>Only one comparable competitor (Mr Jones Watches, London) in the ~$200 artist-collab tier. "Artist collaboration watches from Chicago" is a claim no one else can make.</p>
+        </div>
+        <div class="diagnosis-item info">
+          <strong>Working Shopify infrastructure</strong>
+          <p>Mobile-responsive, fast loading, handles technical SEO basics. The foundation is solid — the next step is adding the invisible layer that helps Google understand what you already have.</p>
+        </div>
+        <div class="diagnosis-item info">
+          <strong>First-mover opportunity on artist schema</strong>
+          <p>Zero of 11 competitors have structured artist attribution data. You can be the first brand Google associates with "artist collaboration watches."</p>
+        </div>
+      </div>
+      <p class="key-line">You already have the hard part — a product people want to buy. The rest is making the invisible visible to search engines.</p>
+    </div>
+
+    <!-- Slide 3: The Real Numbers -->
+    <div class="slide slide-accent">
+      <span class="slide-badge">Analytics</span>
+      <h2 style="margin-bottom: 32px;">The Real Numbers</h2>
+      <div class="diagnosis-content">
+        <div class="diagnosis-item success">
+          <strong>Your real conversion rate is 0.85%</strong>
+          <p>On days with normal human traffic (like Feb 3: 236 sessions, 2 checkouts), your site converts at 0.85% — within normal range for fashion accessories direct-to-consumer brands.</p>
+        </div>
+        <div class="diagnosis-item warning">
+          <strong>So why does Shopify say 0.06%?</strong>
+          <p>50-70% of your 12,983 monthly sessions are bot traffic. Bots inflate the session count but never buy — dragging the reported rate down by 10x. High-traffic days (500+ sessions) consistently show 0-1 conversions.</p>
+        </div>
+        <div class="diagnosis-item info">
+          <strong>Your instinct that something was off about the numbers? You were right.</strong>
+          <p>The traffic spikes don't correlate with marketing activity. The referrer patterns show bot signatures. This is a measurement problem, not a product problem.</p>
+        </div>
+      </div>
+      <p class="key-line">Your product works. Your measurement doesn't — yet.</p>
+    </div>
+
+    <!-- Slide 4: Where 0.85% Sits -->
+    <div class="slide">
+      <span class="slide-badge">Benchmarks</span>
+      <h2 style="margin-bottom: 32px;">Where 0.85% Sits</h2>
+      <div class="benchmark-grid">
+        <div class="benchmark-card">
+          <h3>Luxury watches<br>(Hodinkee-tier)</h3>
+          <div class="value">0.5-1.0%</div>
+        </div>
+        <div class="benchmark-card highlight">
+          <h3>Mad Hudson<br>(actual)</h3>
+          <div class="value">0.85%</div>
+        </div>
+        <div class="benchmark-card">
+          <h3>Fashion accessories<br>direct-to-consumer</h3>
+          <div class="value">1.6-1.9%</div>
+        </div>
+        <div class="benchmark-card">
+          <h3>General<br>Shopify</h3>
+          <div class="value">1.4%</div>
+        </div>
+      </div>
+      <p class="supporting-text" style="text-align: center; max-width: 900px; margin-top: 32px;">At approximately $200, Mad Hudson benchmarks against fashion accessories, not luxury timepieces. You're already in range.</p>
+      <p class="key-line">The gap between 0.85% and 1.6% is closeable — trust signals, social proof, and payment flexibility bridge it.</p>
+    </div>
+
+    <!-- Slide 5: The Invisible Fixes -->
+    <div class="slide slide-accent">
+      <span class="slide-badge">Overview</span>
+      <h2 style="margin-bottom: 32px;">The Invisible Fixes</h2>
+      <p class="subtitle" style="margin-bottom: 40px;">Four changes that affect nothing visually but transform how Google sees your site</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <h3>Alt text on every image</h3>
+          <p>Like the movement inside the case — customers don't see it, but without it nothing works for search engines. Every product image is a door to Google Image Search. Right now those doors are closed.</p>
+          <p class="source">Your images start appearing in Google Image Search</p>
+        </div>
+        <div class="audience-card">
+          <h3>Custom meta descriptions</h3>
+          <p>The display card in a watch case at a store — it's what people read before they pick up the watch. Shopify is writing your search descriptions for you right now, and it's generic. You get to take control.</p>
+          <p class="source">The text below your Google link changes from generic to specific</p>
+        </div>
+        <div class="audience-card">
+          <h3>Updated page titles</h3>
+          <p>The most prominent text in every search result. Adding artist names captures searches like "[Artist Name] watch" — queries your competitors can't claim.</p>
+          <p class="source">Directly improves click-through rate from search results</p>
+        </div>
+        <div class="audience-card">
+          <h3>Bot filtering</h3>
+          <p>One toggle in Shopify Analytics settings. Removes 50-70% of fake sessions so your data reflects real human behavior. Takes five minutes.</p>
+          <p class="source">Fewer sessions in analytics, but much better conversion rate</p>
+        </div>
+      </div>
+      <p class="key-line">None of these changes affect how your site looks. Your visitors see the same pages — Google sees a dramatically better-organized site.</p>
+    </div>
+
+    <!-- Slide 6: Image, Alt Text & Meta Tags -->
+    <div class="slide">
+      <span class="slide-badge">Details</span>
+      <h2 style="margin-bottom: 32px;">Images, Alt Text &amp; Meta Tags</h2>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Element</th>
+              <th>Current State</th>
+              <th>What You Can Do</th>
+              <th>Where to Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Image alt text</strong></td>
+              <td>Empty or auto-generated</td>
+              <td>"Coral Reef watch by [Artist] — black dial with hand-painted reef motif — Mad Hudson Watches"</td>
+              <td>Products → click each image → Alt text</td>
+            </tr>
+            <tr>
+              <td><strong>Image filenames</strong></td>
+              <td>Generic (IMG_4532.jpg)</td>
+              <td>Future uploads: <span style="font-family: var(--font-mono); font-size: 13px;">mad-hudson-[watch]-[artist]-[view].jpg</span></td>
+              <td>Name files before uploading</td>
+            </tr>
+            <tr>
+              <td><strong>Page titles</strong></td>
+              <td>[Watch] — Mad Hudson Watches</td>
+              <td>[Watch] by [Artist] — Limited Edition Artist Watch | Mad Hudson</td>
+              <td>Products → Search engine listing preview</td>
+            </tr>
+            <tr>
+              <td><strong>Meta descriptions</strong></td>
+              <td>Auto-generated from thin copy</td>
+              <td>150-160 char custom descriptions with artist name + edition info</td>
+              <td>Products → Search engine listing preview</td>
+            </tr>
+            <tr>
+              <td><strong>H1 tags</strong></td>
+              <td>Possibly multiple H1s per page</td>
+              <td>Exactly one H1 per page (the product name)</td>
+              <td>Theme editor → product template</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="key-line">The single biggest thing you can do this week: add alt text to every product image. Two to three minutes per image in Shopify admin.</p>
+    </div>
+
+    <!-- Slide 7: Same-Day Checklist (MOVED UP) -->
+    <div class="slide slide-dark">
+      <span class="slide-badge">Today</span>
+      <h2 style="margin-bottom: 8px;">Same-Day Checklist</h2>
+      <p class="subtitle" style="margin-bottom: 28px; font-size: 18px;">You can do all four in a single afternoon. Nothing about your site will look different to customers.</p>
+      <ul class="steps-list" style="max-width: 960px;">
+        <li style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
+          <div class="step-title" style="color: #faf7f4;">Add alt text to every product image</div>
+          <div class="step-instruction" style="color: #c4b4aa;">Products → click each image → Alt text field. Include watch name, artist, visual description.</div>
+          <div class="step-why" style="color: #8a7a74;">Opens Google Image Search traffic + improves accessibility</div>
+        </li>
+        <li style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
+          <div class="step-title" style="color: #faf7f4;">Write custom meta descriptions</div>
+          <div class="step-instruction" style="color: #c4b4aa;">Products → "Search engine listing preview" → Description. Template: "[Watch] — limited edition by [Artist]. [N] pieces. Free shipping."</div>
+          <div class="step-why" style="color: #8a7a74;">Controls what appears below your page title in Google search results</div>
+        </li>
+        <li style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
+          <div class="step-title" style="color: #faf7f4;">Update page titles with artist names</div>
+          <div class="step-instruction" style="color: #c4b4aa;">Same section → Page title → "[Watch] by [Artist] — Limited Edition Artist Watch | Mad Hudson"</div>
+          <div class="step-why" style="color: #8a7a74;">Most prominent text in search results. Captures artist-name queries.</div>
+        </li>
+        <li style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);">
+          <div class="step-title" style="color: #faf7f4;">Enable bot filtering</div>
+          <div class="step-instruction" style="color: #c4b4aa;">Analytics → Settings → toggle "Exclude known bots"</div>
+          <div class="step-why" style="color: #8a7a74;">Reveals your true baseline. Current data is 50-70% bot-inflated.</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Slide 8: What You'll See -->
+    <div class="slide slide-accent">
+      <span class="slide-badge">Results</span>
+      <h2 style="margin-bottom: 32px;">What You'll See</h2>
+      <p class="subtitle" style="margin-bottom: 40px;">In 2-4 weeks, Google starts seeing a dramatically better-organized site. Here's what changes for you.</p>
+      <div class="audience-grid">
+        <div class="audience-card">
+          <h3>After alt text</h3>
+          <p>Your product images start appearing in Google Image Search. This is a major traffic channel for visual products — and right now you're invisible there.</p>
+          <p class="source">Timeline: 2-4 weeks after changes</p>
+        </div>
+        <div class="audience-card">
+          <h3>After meta descriptions</h3>
+          <p>The text below your Google link changes from generic Shopify auto-text to your own words — artist names, edition sizes, the language that makes someone click.</p>
+          <p class="source">Timeline: next Google re-crawl (days to weeks)</p>
+        </div>
+        <div class="audience-card">
+          <h3>After schema markup</h3>
+          <p>Over time, richer Google results — star ratings, price displays, "limited edition" badges. The kind of search results that stand out on the page.</p>
+          <p class="source">Timeline: 4-8 weeks (next phase)</p>
+        </div>
+        <div class="audience-card">
+          <h3>After bot filtering</h3>
+          <p>Fewer sessions in analytics, but much better conversion rate. Your dashboard stops lying to you and starts showing real human behavior.</p>
+          <p class="source">Timeline: immediate</p>
+        </div>
+      </div>
+      <p class="key-line">The changes are invisible to your customers. The results show up in your analytics and search rankings.</p>
+    </div>
+
+    <!-- Slide 9: The Bigger Picture -->
+    <div class="slide">
+      <span class="slide-badge">Next Layer</span>
+      <h2 style="margin-bottom: 24px;">The Bigger Picture</h2>
+      <div class="seo-content">
+        <div class="benchmark-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="benchmark-card">
+            <h3>Current product<br>word count</h3>
+            <div class="value">~30</div>
+          </div>
+          <div class="benchmark-card highlight">
+            <h3>Target product<br>word count</h3>
+            <div class="value">400-500</div>
+          </div>
+          <div class="benchmark-card">
+            <h3>Products with<br>artist bio</h3>
+            <div class="value">0</div>
+          </div>
+        </div>
+        <ul class="seo-list" style="margin-top: 32px;">
+          <li>
+            <strong>Your photos are doing the heavy lifting. The words can catch up.</strong>
+            Each product page needs: expanded description (100-150 words), About the Artist (100-150 words), Design Intent (75-100 words), Specs (50-75 words), Edition Details (25-50 words). All in existing Shopify fields — no theme changes.
+          </li>
+          <li>
+            <strong>Schema markup — like engraving "Swiss Made" on the caseback</strong>
+            Information that authenticates and categorizes. JSON-LD <code>creator</code> schema connects each watch to its artist in Google's Knowledge Graph. <code>isLimitedEdition</code> tells Google these are scarce objects. Zero competitors have implemented this.
+          </li>
+        </ul>
+      </div>
+      <p class="key-line">Product content and schema are the next layer. They build on the same-day fixes and compound over time.</p>
+    </div>
+
+    <!-- Slide 10: Next Phase -->
+    <div class="slide slide-accent">
+      <span class="slide-badge">Roadmap</span>
+      <h2 style="margin-bottom: 32px;">Next Phase</h2>
+      <div class="streams-grid">
+        <div class="stream-card">
+          <h3>Product page content</h3>
+          <p>Expand every product from ~30 words to 400-500 words. Add artist bios, design intent sections, edition details. All within existing Shopify product description fields — no theme redesign.</p>
+          <div class="targets">Targets: keyword rankings + time on site + richer search snippets</div>
+        </div>
+        <div class="stream-card">
+          <h3>Schema markup</h3>
+          <p>Add JSON-LD structured data for artist attribution, edition info, materials, and review ratings. Template once in the product theme file — auto-populates for every product.</p>
+          <div class="targets">Targets: rich search results + Knowledge Panel presence</div>
+        </div>
+        <div class="stream-card">
+          <h3>Trust signals</h3>
+          <p>Money-back guarantee badge above Add to Cart. Shop Pay Installments ("$50/month" reframing). Both reduce purchase anxiety for first-time visitors from search who don't yet know the brand.</p>
+          <div class="targets">Targets: conversion rate from 0.85% toward 1.5%+</div>
+        </div>
+      </div>
+      <p class="key-line" style="margin-top: 64px;">The same-day fixes establish the foundation. This phase builds on it.</p>
+    </div>
+
+    <!-- Slide 11: Closing -->
+    <div class="slide slide-dark">
+      <span class="slide-badge">Summary</span>
+      <h2 style="margin-bottom: 32px;">You Already Have the Hard Part</h2>
+      <div class="diagnosis-content" style="max-width: 800px;">
+        <div class="diagnosis-item success" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-success);">
+          <strong style="color: #faf7f4;">A product people want to buy</strong>
+          <p style="color: #c4b4aa;">Your real conversion rate is 0.85% and climbing. The artist collaboration model is structurally differentiated. The competitive space is wide open.</p>
+        </div>
+        <div class="diagnosis-item info" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-info);">
+          <strong style="color: #faf7f4;">You can start today</strong>
+          <p style="color: #c4b4aa;">Items 1-4 on the checklist take a single afternoon. Nothing about the site will look different to customers. In 2-4 weeks, Google starts seeing a dramatically better-organized site.</p>
+        </div>
+        <div class="diagnosis-item" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-primary-light);">
+          <strong style="color: #faf7f4;">The invisible work compounds</strong>
+          <p style="color: #c4b4aa;">Every alt tag, every meta description, every schema element is a signal to Google. They add up. The site you have today is the right foundation — the search layer just needs to catch up to the product.</p>
+        </div>
+      </div>
+      <p class="key-line" style="margin-top: 48px;">The brand already has personality, not corporate polish. Now Google can see it too.</p>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const totalSlides = 12;
+    const deckContainer = document.getElementById('deckContainer');
+    const slideCounter = document.getElementById('slideCounter');
+    const keyboardHint = document.getElementById('keyboardHint');
+    const navLeft = document.getElementById('navLeft');
+    const navRight = document.getElementById('navRight');
+    const slideProgress = document.getElementById('slideProgress');
+
+    // Build progress dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+      dot.addEventListener('click', () => { currentSlide = i; updateSlide(); hideKeyboardHint(); });
+      slideProgress.appendChild(dot);
+    }
+
+    function updateSlide() {
+      const offset = currentSlide * -100;
+      deckContainer.style.transform = `translateX(${offset}vw)`;
+      slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      // Update progress dots
+      slideProgress.querySelectorAll('.progress-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+        updateSlide();
+        hideKeyboardHint();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+        hideKeyboardHint();
+      }
+    }
+
+    function hideKeyboardHint() {
+      keyboardHint.classList.add('hidden');
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Click navigation
+    navLeft.addEventListener('click', prevSlide);
+    navRight.addEventListener('click', nextSlide);
+
+    // Hide keyboard hint after 3 seconds
+    setTimeout(() => {
+      hideKeyboardHint();
+    }, 3000);
+
+    // Initialize
+    updateSlide();
+  </script>
+</body>
+</html>

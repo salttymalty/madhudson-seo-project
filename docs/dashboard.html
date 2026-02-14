@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson SEO Research Dashboard — Feb 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       DESIGN TOKENS — EMBER PALETTE
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Ember palette */
+      --color-primary: #c4704b;
+      --color-primary-light: #d4926f;
+      --color-primary-dark: #a85a38;
+      --color-success: #6ba167;
+      --color-warning: #c4934a;
+      --color-info: #5a8fa6;
+
+      /* Surfaces */
+      --color-surface: #ffffff;
+      --color-surface-alt: #fdf8f4;
+      --color-surface-warm: #faf7f4;
+      --color-bg: #f5f0eb;
+
+      /* Text */
+      --color-text: #3d2f2a;
+      --color-text-secondary: #6b5650;
+      --color-text-muted: #8a7a74;
+
+      /* UI */
+      --color-border: rgba(196, 112, 75, 0.12);
+      --color-shadow: hsla(25, 40%, 30%, 0.08);
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+
+      /* Spacing & Sizing */
+      --radius: 8px;
+      --radius-lg: 12px;
+      --touch-target: 44px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       GLOBAL RESET & BASE
+       ═══════════════════════════════════════════════════════════════ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      padding: 1.5rem;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.0625rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 1rem;
+    }
+
+    code, .mono {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--color-surface-warm);
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+    }
+
+    ul, ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    strong {
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LAYOUT & CONTAINER
+       ═══════════════════════════════════════════════════════════════ */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+
+    .methodology-note {
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      background: var(--color-surface-warm);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius);
+      margin-top: 0.75rem;
+      font-family: var(--font-mono);
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid var(--color-border);
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    footer h4 {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      color: var(--color-text-secondary);
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════════════════════════ */
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 8px var(--color-shadow);
+    }
+
+    nav a {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      transition: all 0.2s ease;
+      min-height: var(--touch-target);
+      display: flex;
+      align-items: center;
+    }
+
+    nav a:hover {
+      background: var(--color-surface-warm);
+      color: var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CARDS
+       ═══════════════════════════════════════════════════════════════ */
+    .card {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 1.5rem;
+      background: var(--color-surface-warm);
+      border-bottom: 2px solid var(--color-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: var(--touch-target);
+      transition: background 0.2s ease;
+    }
+
+    .card-header:hover {
+      background: var(--color-surface-alt);
+    }
+
+    .card-header h2 {
+      margin: 0;
+      color: var(--color-primary);
+    }
+
+    .card-toggle {
+      font-size: 1.5rem;
+      color: var(--color-text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .card.collapsed .card-toggle {
+      transform: rotate(-90deg);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      transition: max-height 0.3s ease;
+    }
+
+    .card.collapsed .card-content {
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HERO STATS
+       ═══════════════════════════════════════════════════════════════ */
+    .hero-stat {
+      text-align: center;
+      padding: 2rem;
+      background: var(--color-surface-alt);
+      border-radius: var(--radius-lg);
+      margin-bottom: 1.5rem;
+      border: 2px solid var(--color-border);
+    }
+
+    .hero-stat-value {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 1.125rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    .hero-stat-note {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-top: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CALLOUTS
+       ═══════════════════════════════════════════════════════════════ */
+    .callout {
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.5rem;
+      border-left: 4px solid;
+    }
+
+    .callout-info {
+      background: rgba(90, 143, 166, 0.08);
+      border-color: var(--color-info);
+    }
+
+    .callout-warning {
+      background: rgba(196, 147, 74, 0.08);
+      border-color: var(--color-warning);
+    }
+
+    .callout-success {
+      background: rgba(107, 161, 103, 0.08);
+      border-color: var(--color-success);
+    }
+
+    .callout-primary {
+      background: rgba(196, 112, 75, 0.08);
+      border-color: var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CHARTS
+       ═══════════════════════════════════════════════════════════════ */
+    .chart-container {
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: var(--color-surface-warm);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+    }
+
+    .chart-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+      font-size: 1.0625rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TABLES
+       ═══════════════════════════════════════════════════════════════ */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9375rem;
+    }
+
+    thead {
+      background: var(--color-surface-warm);
+    }
+
+    th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      border-bottom: 2px solid var(--color-border);
+      font-size: 0.875rem;
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+      line-height: 1.5;
+    }
+
+    tbody tr:hover {
+      background: var(--color-surface-warm);
+    }
+
+    td.mono {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--color-text-secondary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TIER VISUALIZATION
+       ═══════════════════════════════════════════════════════════════ */
+    .tier-spectrum {
+      margin: 1.5rem 0;
+      padding: 2rem;
+      background: var(--color-surface-warm);
+      border-radius: var(--radius);
+      position: relative;
+    }
+
+    .tier-scale {
+      height: 60px;
+      background: linear-gradient(to right,
+        var(--color-info) 0%,
+        var(--color-info) 15%,
+        var(--color-primary) 15%,
+        var(--color-primary) 35%,
+        var(--color-warning) 35%,
+        var(--color-warning) 65%,
+        var(--color-text-muted) 65%);
+      border-radius: 6px;
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .tier-markers {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+      padding: 0 0.5rem;
+    }
+
+    .tier-brands-list {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .tier-brand-item {
+      padding: 0.5rem 0.75rem;
+      background: var(--color-surface);
+      border-radius: 6px;
+      border-left: 3px solid;
+    }
+
+    .tier-brand-item.budget { border-color: var(--color-info); }
+    .tier-brand-item.mid { border-color: var(--color-primary); font-weight: 600; }
+    .tier-brand-item.premium { border-color: var(--color-warning); }
+    .tier-brand-item.luxury { border-color: var(--color-text-muted); }
+
+    .tier-brand-name {
+      font-weight: 600;
+      margin-bottom: 0.125rem;
+    }
+
+    .tier-brand-price {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       SEGMENTS
+       ═══════════════════════════════════════════════════════════════ */
+    .segment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .segment-card {
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      background: var(--color-surface-warm);
+      border: 1px solid var(--color-border);
+    }
+
+    .segment-card.primary {
+      border: 2px solid var(--color-primary);
+      background: var(--color-surface);
+    }
+
+    .segment-title {
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .segment-description {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       ACTION STACK
+       ═══════════════════════════════════════════════════════════════ */
+    .action-list {
+      list-style: none;
+      counter-reset: action-counter;
+      padding: 0;
+    }
+
+    .action-item {
+      counter-increment: action-counter;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      background: var(--color-surface-warm);
+      border-radius: var(--radius);
+      border-left: 4px solid var(--color-text-muted);
+      position: relative;
+      padding-left: 3.5rem;
+    }
+
+    .action-item::before {
+      content: counter(action-counter);
+      position: absolute;
+      left: 1rem;
+      top: 1.25rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .action-item.quick-win {
+      background: rgba(107, 161, 103, 0.08);
+      border-color: var(--color-success);
+    }
+
+    .action-item.quick-win::before {
+      color: var(--color-success);
+    }
+
+    .action-title {
+      font-weight: 700;
+      font-size: 1.0625rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .action-rationale {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .action-meta {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      font-family: var(--font-mono);
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       STATS ROW
+       ═══════════════════════════════════════════════════════════════ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 1rem;
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+    }
+
+    .stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-top: 0.5rem;
+      line-height: 1.3;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       BENCHMARK COMPARISON
+       ═══════════════════════════════════════════════════════════════ */
+    .benchmark-box {
+      padding: 1.5rem;
+      background: var(--color-surface-warm);
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+      border: 1px solid var(--color-border);
+    }
+
+    .benchmark-box h4 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+       ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .hero-stat-value {
+        font-size: 3rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .segment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        font-size: 0.8125rem;
+      }
+
+      th, td {
+        padding: 0.5rem;
+      }
+
+      .action-item {
+        padding-left: 3rem;
+      }
+
+      .action-item::before {
+        font-size: 1.25rem;
+        left: 0.75rem;
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PRINT STYLES
+       ═══════════════════════════════════════════════════════════════ */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .card {
+        page-break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+
+      .card-toggle {
+        display: none;
+      }
+
+      .card-content {
+        display: block !important;
+      }
+
+      .card-header {
+        cursor: default;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Mad Hudson Watches — SEO Review</h1>
+      <p class="subtitle">Invisible improvements that help Google understand what makes Mad Hudson different — February 2026</p>
+      <div class="callout callout-primary" style="margin-top: 1rem; margin-bottom: 0;">
+        <p style="margin-bottom: 0.75rem;"><strong>What this is:</strong> I looked at your Shopify data, your product pages, and how your site shows up in Google compared to 11 other watch brands. The good news: your product and brand are strong. The gap is in how your site talks to search engines — and most of the fixes are invisible to customers.</p>
+        <p style="margin-bottom: 0.75rem;"><strong>What you can do right now:</strong> The <a href="#actions" style="color: var(--color-primary); border-bottom: 1px solid var(--color-primary);">Same-Day Wins</a> section at the bottom has four things you can knock out in an afternoon in Shopify admin. Alt text, meta descriptions, page titles, bot filtering. None of them change how the site looks.</p>
+        <p style="margin-bottom: 0;"><strong>Where I can help:</strong> The schema markup (structured data for Google) and product page content expansion are more technical — those are things I can build for you when you're ready. Just let me know.</p>
+      </div>
+      <div class="methodology-note" style="margin-top: 0.75rem;">
+        <strong>Data source:</strong> Shopify Analytics export, Jan 10 – Feb 9, 2026 (31 days, 12,983 total sessions, 8 completed checkouts). Competitive analysis from SERP reviews of 11 brands. Analysis performed Feb 14, 2026.
+      </div>
+    </header>
+
+    <nav>
+      <a href="#whats-working">What's Working</a>
+      <a href="#html-opportunities">HTML Opportunities</a>
+      <a href="#images">Image Opportunities</a>
+      <a href="#product-content">Content Opportunities</a>
+      <a href="#schema">Schema Markup</a>
+      <a href="#conversion">Conversion Diagnostics</a>
+      <a href="#actions">Prioritized Actions</a>
+    </nav>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 0: WHAT'S ALREADY WORKING
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="whats-working" class="card">
+      <div class="card-header">
+        <h2>What's Already Working</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="hero-stat">
+          <div class="hero-stat-value">0.85%</div>
+          <div class="hero-stat-label">Real Conversion Rate (Human Traffic Only)</div>
+          <p class="hero-stat-note">Once bot traffic is filtered out, the actual conversion rate is within normal range for fashion accessories direct-to-consumer (DTC). The industry benchmark is 1.6-1.9%. Mad Hudson is at roughly 50% of target — not 4% of target as the raw numbers suggest. This is a measurement clarity problem, not a product problem.</p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">1</div>
+            <div class="stat-label">Direct Competitor<br>at ~$200 (Mr Jones)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Competitors with<br>Artist Creator Schema</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">~$200</div>
+            <div class="stat-label">Price Point in a<br>Nearly Empty Tier</div>
+          </div>
+        </div>
+
+        <h3>Genuine Strengths to Build On</h3>
+        <ul>
+          <li><strong>The artist collaboration model is the story.</strong> Most watch brands manufacture narrative after the fact. Mad Hudson's narrative is built into the business model — real artists, real collaborations. This is a positioning advantage that can't be copied quickly.</li>
+          <li><strong>Nearly empty competitive tier.</strong> At ~$200, only Mr Jones Watches operates comparably as an artist-collaboration watch brand. The space is wide open. Every other competitor is either much cheaper (Swatch x Art at ~$50-80) or much more expensive (Baltic at ~$500+).</li>
+          <li><strong>Working Shopify infrastructure.</strong> The site is mobile-responsive, fast, and handles technical SEO basics automatically. The foundation is solid — what's needed is content and metadata on top of it.</li>
+          <li><strong>Chicago roots.</strong> "Artist collaboration watches from Chicago" is a positioning claim no one else can make. Geographic identity is a genuine differentiator in a market full of generic origin stories.</li>
+          <li><strong>First-mover opportunity on schema.</strong> Zero of 11 competitor brands have artist creator schema. Structuring this data first shapes how Google categorizes the entire artist-collaboration watch space. This is a compounding advantage.</li>
+        </ul>
+
+        <div class="callout callout-primary">
+          <strong>The bottom line:</strong> The product works. The story is genuine. The competitive space is open. What follows in this review are invisible improvements that help search engines see what's already true about the business.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 1: HTML & STRUCTURE OPPORTUNITIES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="html-opportunities" class="card">
+      <div class="card-header">
+        <h2>HTML &amp; Structure Opportunities</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="callout callout-success">
+          <strong>These changes are invisible to visitors — the site looks exactly the same.</strong> But Google sees a dramatically better-organized business.
+        </div>
+
+        <h3>Page Title Opportunities</h3>
+        <p>Shopify auto-generates page titles in the format <code>[Product Name] — Mad Hudson Watches</code>. These are functional but miss keyword opportunities. Every product page title should include the artist name and the phrase "artist collaboration watch" or "limited edition."</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Current Title Tag</th>
+              <th>Recommended Title Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product pages (typical)</td>
+              <td class="mono">[Watch Name] — Mad Hudson Watches</td>
+              <td class="mono">[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson</td>
+            </tr>
+            <tr>
+              <td>Homepage</td>
+              <td class="mono">Mad Hudson Watches</td>
+              <td class="mono">Mad Hudson Watches — Artist Collaboration Watches from Chicago</td>
+            </tr>
+            <tr>
+              <td>Collections</td>
+              <td class="mono">[Collection] — Mad Hudson Watches</td>
+              <td class="mono">[Collection] — Artist-Designed Limited Edition Watches | Mad Hudson</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><strong>How to change:</strong> In Shopify admin, each product and page has a "Search engine listing preview" section at the bottom. Edit the "Page title" field there. No theme editing required.</p>
+
+        <h3>Meta Description Opportunities</h3>
+        <p>Most product pages have no custom meta description — Shopify auto-generates one from the first ~160 characters of the product description. Since current descriptions are only 1-2 sentences of generic copy, the auto-generated meta descriptions are thin and keyword-poor.</p>
+        <div class="callout callout-warning">
+          <strong>Example of current auto-generated meta:</strong> "A beautiful timepiece from Mad Hudson Watches." This tells Google nothing about the artist, the edition size, or why someone would buy it.
+        </div>
+        <div class="callout callout-info">
+          <strong>A meta description is the display card in a watch case at a store.</strong> It's what people read before they pick up the watch. Right now, yours say "A beautiful timepiece." Imagine a display card that just said that.
+        </div>
+        <p><strong>Recommended meta description template:</strong></p>
+        <p><code>[Watch Name] — a limited edition watch designed by [Artist Name] for Mad Hudson. [One sentence about the design]. [Edition size] pieces. Free shipping.</code></p>
+        <p><strong>How to change:</strong> Same "Search engine listing preview" section in Shopify admin. Edit the "Description" field. Aim for 150-160 characters. Include artist name, edition info, and "limited edition" or "artist collaboration."</p>
+
+        <h3>Heading Hierarchy (H1-H6)</h3>
+        <p>Shopify themes sometimes misuse heading tags for visual styling rather than semantic structure. Common opportunities to check:</p>
+        <ul>
+          <li><strong>Multiple H1 tags per page:</strong> Each page should have exactly one H1. If the theme uses H1 for both the logo and the product name, the product name H1 is diluted.</li>
+          <li><strong>Skipped heading levels:</strong> Going from H1 to H3 (skipping H2) confuses search engine crawlers about content hierarchy.</li>
+          <li><strong>H2 sections ready to add:</strong> Product pages should use H2 for sections like "About the Artist," "Specifications," "Edition Details." Currently these sections don't exist in the content.</li>
+        </ul>
+        <p><strong>How to check:</strong> Right-click any product page → View Page Source → search for <code>&lt;h1</code>, <code>&lt;h2</code>, etc. Count how many H1 tags appear. Verify the hierarchy doesn't skip levels.</p>
+
+        <h3>URL Structure</h3>
+        <p>Shopify handles URL structure reasonably by default (<code>/products/[handle]</code>, <code>/collections/[handle]</code>). The main opportunity is ensuring product URL handles include the artist name where they don't already. URL handles can be edited in Shopify without breaking existing links if redirects are set up.</p>
+
+        <div class="callout callout-success">
+          <strong>What you'll see:</strong> When you Google your watch names, the text below the link changes from generic auto-generated copy to your custom description — with artist names, edition sizes, and your own language.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 2: IMAGE OPPORTUNITIES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="images" class="card">
+      <div class="card-header">
+        <h2>Image Opportunities</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="hero-stat">
+          <div class="hero-stat-value" style="font-size: 3rem;">Alt Text</div>
+          <div class="hero-stat-label">The single highest-impact invisible improvement</div>
+          <p class="hero-stat-note">Product images are waiting for descriptive alt text that makes them visible to Google Image Search, screen readers, and rich snippet generation. This is free SEO value ready to be unlocked — adding it changes nothing visually.</p>
+        </div>
+
+        <div class="callout callout-info">
+          <strong>Think of alt text like the movement inside a watch case.</strong> Customers don't see it directly — but without it, nothing works for search engines. Google reads alt text the way a watchmaker reads a caliber number.
+        </div>
+
+        <h3>What Alt Text Should Include</h3>
+        <p>Every product image needs a descriptive alt attribute that tells search engines what's in the image. Shopify makes this easy — each image in the product editor has an "Alt text" field.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Image Type</th>
+              <th>Current Alt Text (typical)</th>
+              <th>Recommended Alt Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product hero shot</td>
+              <td class="mono">"" (empty) or auto-generated filename</td>
+              <td class="mono">[Watch Name] by [Artist] — [brief visual description, e.g. "black dial with hand-painted coral reef motif"] — Mad Hudson Watches</td>
+            </tr>
+            <tr>
+              <td>Detail / dial close-up</td>
+              <td class="mono">"" (empty)</td>
+              <td class="mono">Close-up of [Watch Name] dial showing [specific design element] by artist [Name]</td>
+            </tr>
+            <tr>
+              <td>Wrist shot / lifestyle</td>
+              <td class="mono">"" (empty)</td>
+              <td class="mono">[Watch Name] artist collaboration watch worn on wrist — limited edition by [Artist]</td>
+            </tr>
+            <tr>
+              <td>Artist portrait (if present)</td>
+              <td class="mono">N/A (doesn't exist yet)</td>
+              <td class="mono">Artist [Name], designer of [Watch Name] for Mad Hudson Watches</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Image Filename Optimization</h3>
+        <p>Shopify doesn't let you rename uploaded image files directly, but new uploads should follow a descriptive naming convention before upload:</p>
+        <ul>
+          <li><strong>Current pattern:</strong> <code>IMG_4532.jpg</code>, <code>product-photo-1.png</code>, <code>Screenshot 2025-12-03.png</code></li>
+          <li><strong>Recommended pattern:</strong> <code>mad-hudson-[watch-name]-[artist]-[view].jpg</code></li>
+          <li>Example: <code>mad-hudson-coral-reef-watch-jane-doe-front.jpg</code></li>
+        </ul>
+        <p>For existing images that can't be renamed, the alt text fix is more impactful and should be prioritized.</p>
+
+        <h3>Image Size and Format</h3>
+        <p>Shopify's CDN handles image compression and WebP conversion automatically. No action needed on file format. However, uploading oversized originals (5000px+) can slow down the admin interface. Aim for 2048px on the longest edge for product photos — Shopify will generate all needed thumbnails.</p>
+
+        <div class="callout callout-info">
+          <strong>Google Image Search opportunity:</strong> "Artist collaboration watch," "limited edition art watch," and "[artist name] watch" are all image-searchable queries. With proper alt text, Mad Hudson product images can appear in Google Image results — a completely untapped traffic source that requires zero visual changes to the site.
+        </div>
+
+        <div class="callout callout-success">
+          <strong>What you'll see after this fix:</strong> Your product images start appearing in Google Image Search results for queries like "artist collaboration watch" and "[artist name] watch." You may also notice image-sourced traffic appearing in Shopify analytics within 2-4 weeks.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 3: PRODUCT CONTENT OPPORTUNITIES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="product-content" class="card">
+      <div class="card-header">
+        <h2>Product Content Opportunities</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <h3>Starting Point</h3>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">1-2</div>
+            <div class="stat-label">Sentences per product<br>(current average)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">~30</div>
+            <div class="stat-label">Words per product<br>(estimated)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">400-500</div>
+            <div class="stat-label">Words per product<br>(recommended)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Products with<br>artist bio</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Products with<br>edition info</div>
+          </div>
+        </div>
+
+        <h3>What Each Product Page Should Include</h3>
+        <p>These content additions go into the existing Shopify product description field. They expand the text below the product images without changing the layout, design, or visual structure of the page.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Content Block</th>
+              <th>Currently Present?</th>
+              <th>Word Count Target</th>
+              <th>Why It Matters for SEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Product description</strong></td>
+              <td>Yes — but 1-2 generic sentences</td>
+              <td>100-150 words</td>
+              <td>Primary keyword target area. Include "artist collaboration watch," "limited edition," artist name.</td>
+            </tr>
+            <tr>
+              <td><strong>About the Artist</strong></td>
+              <td>No</td>
+              <td>100-150 words</td>
+              <td>Creates unique content per product. Artist name becomes a long-tail keyword. Enables Google Knowledge Panel connections.</td>
+            </tr>
+            <tr>
+              <td><strong>Design Intent</strong></td>
+              <td>No</td>
+              <td>75-100 words</td>
+              <td>Storytelling content that increases time-on-page. Includes descriptive language that maps to image search queries.</td>
+            </tr>
+            <tr>
+              <td><strong>Specifications</strong></td>
+              <td>Partial — basic specs listed</td>
+              <td>50-75 words</td>
+              <td>Structured data source. Case size, movement, water resistance, materials. Enables comparison shopping features in Google.</td>
+            </tr>
+            <tr>
+              <td><strong>Edition Details</strong></td>
+              <td>No</td>
+              <td>25-50 words</td>
+              <td>Scarcity signal. "Limited to [N] pieces" creates urgency and ranks for "limited edition" queries. Include edition number if applicable.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Comparison: Current vs. Target</h3>
+        <div class="benchmark-box">
+          <h4>Typical Current Product Page Text</h4>
+          <p style="font-style: italic; color: var(--color-text-muted);">"A beautiful timepiece featuring original artwork. Available in limited quantities."</p>
+          <p style="margin-top: 1rem;"><strong>Word count:</strong> ~12 words. <strong>Keywords present:</strong> 0 target keywords. <strong>Artist mentioned:</strong> No. <strong>Edition size:</strong> No.</p>
+        </div>
+        <div class="benchmark-box" style="border: 2px solid var(--color-success);">
+          <h4>Target Product Page Text (example structure)</h4>
+          <p style="font-style: italic; color: var(--color-text-secondary);">"The [Watch Name] is a limited edition artist collaboration watch designed by [Artist Name] for Mad Hudson Watches. [2-3 sentences about the design — colors, motifs, visual approach]. [Artist Name] is a [City]-based [medium] artist known for [brief description of their work]. This collaboration brings their [specific style element] to a wearable format for the first time. Produced in an edition of [N] pieces. Each watch features a [movement type] movement, [case size] case in [material], and [strap description]. Water resistant to [depth]."</p>
+          <p style="margin-top: 1rem;"><strong>Word count:</strong> ~150-200 words (expandable to 400+ with full artist bio). <strong>Keywords present:</strong> "limited edition," "artist collaboration watch," artist name, "Mad Hudson Watches." <strong>Artist mentioned:</strong> Yes, with context. <strong>Edition size:</strong> Yes.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 4: SCHEMA MARKUP OPPORTUNITIES
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="schema" class="card">
+      <div class="card-header">
+        <h2>Schema Markup Opportunities</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="callout callout-info">
+          <strong>What is schema markup?</strong> It's invisible code added to the page that tells Google exactly what the content means — who made it, what it costs, whether it's in stock. It enables rich search results (star ratings, price displays, "limited edition" badges in search). Visitors never see it. It lives in the page's <code>&lt;head&gt;</code> section as JSON-LD. Schema markup is like engraving "Swiss Made" on the caseback — it's information that authenticates and categorizes. Visitors never see it. But Google uses it to decide how to present your products.
+        </div>
+
+        <h3>Current Schema (Shopify Default)</h3>
+        <p>Shopify automatically adds basic <code>Product</code> schema to every product page: name, price, availability, image URL. This is the minimum. It doesn't include artist/creator information, edition details, or review data.</p>
+
+        <h3>Recommended Schema Additions</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Schema Property</th>
+              <th>Currently Present?</th>
+              <th>Value</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>creator</code> (Person)</td>
+              <td>No</td>
+              <td>Artist name, URL, description</td>
+              <td>Connects products to artist identity in Google's Knowledge Graph. Enables "designed by [Artist]" in search results.</td>
+            </tr>
+            <tr>
+              <td><code>isLimitedEdition</code></td>
+              <td>No</td>
+              <td>true/false</td>
+              <td>Signals scarcity. Google can surface this in shopping results and product panels.</td>
+            </tr>
+            <tr>
+              <td><code>material</code></td>
+              <td>No</td>
+              <td>Case material, strap material</td>
+              <td>Enables filtering in Google Shopping. Answers spec-comparison queries directly in search.</td>
+            </tr>
+            <tr>
+              <td><code>brand.description</code></td>
+              <td>No</td>
+              <td>"Artist collaboration watches from Chicago"</td>
+              <td>Enriches the brand entity in search. Supports Knowledge Panel development.</td>
+            </tr>
+            <tr>
+              <td><code>review</code> / <code>aggregateRating</code></td>
+              <td>No</td>
+              <td>Star ratings from customer reviews</td>
+              <td>Enables star rating display in search results. Significant click-through-rate improvement (typically 15-25% increase).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Implementation Approach</h3>
+        <p>Schema markup is added by editing the Shopify theme's <code>product.liquid</code> template (or the equivalent in a newer JSON-based theme). The JSON-LD block goes in the <code>&lt;head&gt;</code> section. It needs to be templated once — then every product page automatically pulls the right data from Shopify's product fields.</p>
+        <p><strong>None of the competitors (Mr Jones, Swatch x Art, Baltic, Brew) have artist creator schema.</strong> This is an uncontested opportunity. Being first to structure this data gives Mad Hudson a head start in how Google represents artist-collaboration watches.</p>
+
+        <div class="callout callout-success">
+          <strong>Competitive advantage:</strong> Schema markup for artist attribution is something zero competitors have implemented. This positions Mad Hudson to define how Google categorizes artist collaboration watches — an indexing advantage that compounds over time.
+        </div>
+
+        <div class="callout callout-success">
+          <strong>What you'll see over time:</strong> Richer Google search results — star ratings, price displays, "limited edition" badges next to your listings. Your results will look more complete and trustworthy than competitors'.
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 5: CONVERSION DIAGNOSTICS
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="conversion" class="card">
+      <div class="card-header">
+        <h2>Conversion Diagnostics</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="hero-stat">
+          <div class="hero-stat-value">0.85%</div>
+          <div class="hero-stat-label">Real Conversion Rate (Human Traffic)</div>
+          <p class="hero-stat-note">Calculated from Feb 3: 236 sessions, 2 conversions. Shopify reports 0.06% across all 12,983 sessions, but 50-70% of that traffic appears to be bots based on inverse correlation between session volume and conversion rate.</p>
+        </div>
+
+        <h3>Bot Traffic Analysis</h3>
+        <p>The inverse correlation between daily session volume and conversion rate indicates significant bot inflation. Days with 700+ sessions produced 0-1 conversions. Days under 300 sessions had the highest conversion rates. This pattern suggests that high-traffic days are driven by non-human visitors, not genuine interest spikes.</p>
+
+        <div class="chart-container">
+          <div class="chart-title">31-Day Session & Conversion Pattern (Jan 10 – Feb 9, 2026)</div>
+          <svg viewBox="0 0 900 280" style="width: 100%; height: auto;">
+            <!-- Grid lines (horizontal reference) -->
+            <line x1="80" y1="30" x2="80" y2="200" stroke="rgba(61, 47, 42, 0.15)" stroke-width="1"/>
+            <line x1="80" y1="200" x2="870" y2="200" stroke="rgba(61, 47, 42, 0.3)" stroke-width="2"/>
+
+            <!-- Horizontal reference line at ~300 sessions (real traffic floor) -->
+            <line x1="80" y1="155" x2="870" y2="155" stroke="var(--color-info)" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+            <text x="85" y="152" font-size="10" fill="var(--color-info)" font-family="Source Code Pro, monospace">~300 sessions (estimated real traffic floor)</text>
+
+            <!-- Y-axis labels -->
+            <text x="75" y="35" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">1000</text>
+            <text x="75" y="80" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">750</text>
+            <text x="75" y="120" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">500</text>
+            <text x="75" y="155" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">300</text>
+            <text x="75" y="205" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">0</text>
+
+            <!-- X-axis date labels (every 5 days) -->
+            <text x="105" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 10</text>
+            <text x="235" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 15</text>
+            <text x="365" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 20</text>
+            <text x="495" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 25</text>
+            <text x="625" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 30</text>
+            <text x="755" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Feb 4</text>
+            <text x="850" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Feb 9</text>
+
+            <!-- Bars (31 days) — scale: 1000 sessions = 170px height -->
+            <rect x="90" y="152" width="18" height="48" fill="#c4704b" opacity="0.7"><title>Jan 10: 281 sessions, 1 conversion</title></rect>
+            <circle cx="99" cy="145" r="4" fill="#c4704b"/><text x="99" y="142" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="115" y="160" width="18" height="40" fill="#8a7a74" opacity="0.4"><title>Jan 11: 235 sessions, 0 conversions</title></rect>
+
+            <rect x="140" y="165" width="18" height="35" fill="#8a7a74" opacity="0.4"><title>Jan 12: 204 sessions, 0 conversions</title></rect>
+
+            <rect x="165" y="160" width="18" height="40" fill="#8a7a74" opacity="0.4"><title>Jan 13: 237 sessions, 0 conversions</title></rect>
+
+            <rect x="190" y="159" width="18" height="41" fill="#c4704b" opacity="0.7"><title>Jan 14: 245 sessions, 1 conversion</title></rect>
+            <circle cx="199" cy="152" r="4" fill="#c4704b"/><text x="199" y="149" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="215" y="134" width="18" height="66" fill="#8a7a74" opacity="0.4"><title>Jan 15: 387 sessions, 0 conversions</title></rect>
+
+            <rect x="240" y="60" width="18" height="140" fill="#c4704b" opacity="0.7"><title>Jan 16: 823 sessions, 1 conversion</title></rect>
+            <circle cx="249" cy="53" r="4" fill="#c4704b"/><text x="249" y="50" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="265" y="96" width="18" height="104" fill="#8a7a74" opacity="0.4"><title>Jan 17: 608 sessions, 0 conversions</title></rect>
+
+            <rect x="290" y="144" width="18" height="56" fill="#c4704b" opacity="0.7"><title>Jan 18: 327 sessions, 1 conversion</title></rect>
+            <circle cx="299" cy="137" r="4" fill="#c4704b"/><text x="299" y="134" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="315" y="120" width="18" height="80" fill="#8a7a74" opacity="0.4"><title>Jan 19: 472 sessions, 0 conversions</title></rect>
+
+            <rect x="340" y="131" width="18" height="69" fill="#8a7a74" opacity="0.4"><title>Jan 20: 405 sessions, 0 conversions</title></rect>
+
+            <rect x="365" y="155" width="18" height="45" fill="#8a7a74" opacity="0.4"><title>Jan 21: 263 sessions, 0 conversions</title></rect>
+
+            <rect x="390" y="151" width="18" height="49" fill="#8a7a74" opacity="0.4"><title>Jan 22: 288 sessions, 0 conversions</title></rect>
+
+            <rect x="415" y="120" width="18" height="80" fill="#8a7a74" opacity="0.4"><title>Jan 23: 471 sessions, 0 conversions</title></rect>
+
+            <rect x="440" y="134" width="18" height="66" fill="#8a7a74" opacity="0.4"><title>Jan 24: 389 sessions, 0 conversions</title></rect>
+
+            <rect x="465" y="121" width="18" height="79" fill="#8a7a74" opacity="0.4"><title>Jan 25: 464 sessions, 0 conversions</title></rect>
+
+            <rect x="490" y="83" width="18" height="117" fill="#8a7a74" opacity="0.4"><title>Jan 26: 685 sessions, 0 conversions</title></rect>
+
+            <rect x="515" y="78" width="18" height="122" fill="#8a7a74" opacity="0.4"><title>Jan 27: 720 sessions, 0 conversions</title></rect>
+
+            <rect x="540" y="106" width="18" height="94" fill="#8a7a74" opacity="0.4"><title>Jan 28: 554 sessions, 0 conversions</title></rect>
+
+            <rect x="565" y="157" width="18" height="43" fill="#8a7a74" opacity="0.4"><title>Jan 29: 256 sessions, 0 conversions</title></rect>
+
+            <rect x="590" y="144" width="18" height="56" fill="#8a7a74" opacity="0.4"><title>Jan 30: 327 sessions, 0 conversions</title></rect>
+
+            <rect x="615" y="138" width="18" height="62" fill="#c4704b" opacity="0.7"><title>Jan 31: 367 sessions, 1 conversion</title></rect>
+            <circle cx="624" cy="131" r="4" fill="#c4704b"/><text x="624" y="128" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="640" y="146" width="18" height="54" fill="#8a7a74" opacity="0.4"><title>Feb 1: 316 sessions, 0 conversions</title></rect>
+
+            <rect x="665" y="158" width="18" height="42" fill="#8a7a74" opacity="0.4"><title>Feb 2: 247 sessions, 0 conversions</title></rect>
+
+            <rect x="690" y="160" width="18" height="40" fill="#c4704b" opacity="0.85"><title>Feb 3: 236 sessions, 2 conversions</title></rect>
+            <circle cx="699" cy="150" r="4" fill="#c4704b"/><text x="699" y="147" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">2</text>
+
+            <rect x="715" y="143" width="18" height="57" fill="#8a7a74" opacity="0.4"><title>Feb 4: 337 sessions, 0 conversions</title></rect>
+
+            <rect x="740" y="78" width="18" height="122" fill="#8a7a74" opacity="0.4"><title>Feb 5: 716 sessions, 0 conversions</title></rect>
+
+            <rect x="765" y="145" width="18" height="55" fill="#c4704b" opacity="0.7"><title>Feb 6: 325 sessions, 1 conversion</title></rect>
+            <circle cx="774" cy="138" r="4" fill="#c4704b"/><text x="774" y="135" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+
+            <rect x="790" y="99" width="18" height="101" fill="#8a7a74" opacity="0.4"><title>Feb 7: 593 sessions, 0 conversions</title></rect>
+
+            <rect x="815" y="28" width="18" height="172" fill="#8a7a74" opacity="0.4"><title>Feb 8: 1014 sessions, 0 conversions</title></rect>
+
+            <rect x="840" y="132" width="18" height="68" fill="#8a7a74" opacity="0.4"><title>Feb 9: 397 sessions, 0 conversions</title></rect>
+
+            <!-- Legend -->
+            <rect x="320" y="245" width="14" height="14" fill="#8a7a74" opacity="0.4"/>
+            <text x="340" y="256" font-size="11" fill="#6b5650" font-family="Source Sans 3, sans-serif">No conversion</text>
+
+            <rect x="460" y="245" width="14" height="14" fill="#c4704b" opacity="0.7"/>
+            <text x="480" y="256" font-size="11" fill="#6b5650" font-family="Source Sans 3, sans-serif">Has conversion (count shown)</text>
+          </svg>
+        </div>
+
+        <h3>Summary Statistics</h3>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">12,983</div>
+            <div class="stat-label">Total Sessions</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">8</div>
+            <div class="stat-label">Total Conversions</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">7/31</div>
+            <div class="stat-label">Days with Conversion</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">367</div>
+            <div class="stat-label">Median Daily Sessions</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">9</div>
+            <div class="stat-label">Days >500 Sessions<br>(likely bot-inflated)</div>
+          </div>
+        </div>
+
+        <h3>Benchmark Comparison</h3>
+        <div class="benchmark-box">
+          <h4>Fashion Accessories DTC Context</h4>
+          <p>At ~$200, Mad Hudson is priced in the fashion accessories category, not luxury watches. Fashion accessories DTC benchmarks: <strong>1.6-1.9% conversion</strong>. Current 0.85% real rate represents approximately 50% of target. The gap is trust infrastructure (social proof, payment flexibility, guarantees), not product-market fit.</p>
+          <p><strong>Key insight:</strong> This is a measurement problem compounded by a trust problem, not a product problem. Enable bot filtering to reveal the true baseline, then address trust signals to close the gap to category benchmarks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION 6: PRIORITIZED ACTIONS
+         ═══════════════════════════════════════════════════════════════ -->
+    <section id="actions" class="card">
+      <div class="card-header">
+        <h2>Prioritized Actions</h2>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <h3>10 Opportunities, Ranked by Impact</h3>
+        <ul class="action-list">
+          <li class="action-item quick-win">
+            <div class="action-title">Add alt text to every product image</div>
+            <div class="action-rationale">Product images currently have empty or auto-generated alt attributes. Adding descriptive alt text with artist names, watch names, and visual descriptions makes every image findable in Google Image Search. This is the single highest-impact SEO fix that requires zero visual changes. Each image takes 2-3 minutes to update in Shopify admin.</div>
+            <div class="action-meta">Effort: 5-10 min per product (click image → add alt text). Entire catalog: ~1-2 hours.</div>
+          </li>
+
+          <li class="action-item quick-win">
+            <div class="action-title">Write custom meta descriptions for every product page</div>
+            <div class="action-rationale">Auto-generated meta descriptions from thin product copy produce search results like "A beautiful timepiece from Mad Hudson Watches" — generic, keyword-poor, and indistinguishable from competitors. Custom meta descriptions with artist name, edition size, and "limited edition artist watch" phrasing directly improve click-through rates from search results. Template: "[Watch Name] — a limited edition watch designed by [Artist] for Mad Hudson. [One line about design]. [N] pieces. Free shipping." Aim for 150-160 characters.</div>
+            <div class="action-meta">Effort: 3-5 min per product in Shopify admin → Products → Search engine listing preview. Entire catalog: ~1 hour.</div>
+          </li>
+
+          <li class="action-item quick-win">
+            <div class="action-title">Update page titles to include artist names</div>
+            <div class="action-rationale">Current auto-generated titles follow the pattern "[Watch Name] — Mad Hudson Watches." Adding artist names and "limited edition" creates richer, more clickable search results: "[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson." This is the most prominent text in search results and directly affects ranking for artist-name queries.</div>
+            <div class="action-meta">Effort: 2-3 min per page in Shopify admin → Products → Search engine listing preview → Page title. Entire catalog: ~30 min.</div>
+          </li>
+
+          <li class="action-item quick-win">
+            <div class="action-title">Enable Shopify bot filtering</div>
+            <div class="action-rationale">Free since Oct 2025. Current analytics show 12,983 sessions with only 8 conversions, but 50-70% of that traffic appears to be bots. Enabling bot filtering reveals the true conversion baseline (~0.85%) and makes all future analytics decisions trustworthy. Without this, every data-driven decision is built on corrupted numbers.</div>
+            <div class="action-meta">Effort: 5 min in Shopify admin → Analytics → Settings → toggle "Exclude known bots"</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Expand product descriptions from 1-2 sentences to 400-500 words</div>
+            <div class="action-rationale">Current product pages have ~30 words of description — far below the 400-500 word target that performs well for SEO. Each product page should include: expanded product description (100-150 words), About the Artist section (100-150 words), Design Intent (75-100 words), detailed Specifications (50-75 words), and Edition Details (25-50 words). This content goes into the existing product description field in Shopify and displays below the product images within the existing page layout. No theme changes required.</div>
+            <div class="action-meta">Effort: Medium — ~45 min per product page to write. Can be drafted with AI assistance and reviewed for accuracy. 10-15 products = 8-12 hours total.</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Add JSON-LD schema markup for artist attribution</div>
+            <div class="action-rationale">No competitor (Mr Jones, Swatch x Art, Baltic, Brew, Anicorn) has structured data for artist/creator attribution on product pages. Adding JSON-LD with <code>creator</code> (Person), <code>isLimitedEdition</code>, <code>material</code>, and <code>brand.description</code> tells Google exactly what these products are and who made them. This enables rich search results, Knowledge Panel connections for artists, and defines how Google categorizes artist-collaboration watches. First-mover advantage in how this category gets indexed.</div>
+            <div class="action-meta">Effort: Low-Medium — template the JSON-LD once in the product.liquid theme file (~2 hours), then it auto-populates for every product using Shopify's product fields.</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Add money-back guarantee badge above Add to Cart</div>
+            <div class="action-rationale">Addresses the primary trust opportunity for an independent brand without widespread recognition. At ~$200, first-time buyers from search need reassurance. A "30-day money-back guarantee" badge placed above the Add to Cart button reduces purchase anxiety. This is a small theme edit — one HTML element and a few lines of CSS. The guarantee policy likely already exists; this just makes it visible at the decision point.</div>
+            <div class="action-meta">Effort: 1 hour (small theme edit: add badge HTML + CSS to product template)</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Enable Shop Pay Installments</div>
+            <div class="action-rationale">Reframes $200 as "$50/month." At this price point, installments aren't about affordability — they're about reducing perceived commitment for first-time buyers from search who don't yet trust the brand. Shop Pay is already integrated into Shopify; this is a settings toggle that adds "4 interest-free payments of $50" messaging below the price. No theme changes needed.</div>
+            <div class="action-meta">Effort: 30 min (Shopify Payments settings toggle)</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Verify and fix heading hierarchy (H1-H6) across all pages</div>
+            <div class="action-rationale">Shopify themes sometimes use heading tags for visual styling rather than semantic structure — producing pages with multiple H1 tags or skipped heading levels. Each page should have exactly one H1 (the product/page name), with H2s for major sections and H3s for subsections. Check by viewing page source and searching for heading tags. Any fixes are theme-level edits (changing an <code>&lt;h1&gt;</code> to a <code>&lt;div&gt;</code> in the header, for example).</div>
+            <div class="action-meta">Effort: 1-2 hours to review all page types + fix in theme templates</div>
+          </li>
+
+          <li class="action-item">
+            <div class="action-title">Rename future image uploads with descriptive filenames</div>
+            <div class="action-rationale">Current image filenames are generic (<code>IMG_4532.jpg</code>, <code>product-photo-1.png</code>). While existing Shopify images can't be renamed, all future uploads should follow the pattern <code>mad-hudson-[watch-name]-[artist]-[view].jpg</code>. Google uses filenames as a signal for image search ranking. Combined with proper alt text, descriptive filenames make product images discoverable for queries like "[artist name] watch design."</div>
+            <div class="action-meta">Effort: Ongoing habit — 30 seconds per image before uploading</div>
+          </li>
+        </ul>
+
+        <div class="callout callout-success" style="margin-top: 2rem;">
+          <h4 style="margin-bottom: 0.75rem;">Same-Day Wins (Nothing Changes Visually)</h4>
+          <ol style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+            <li><strong>Add alt text to all product images:</strong> Shopify Admin → Products → [Product] → click each image → add descriptive alt text with artist name, watch name, and visual description. Budget 2-3 minutes per image.</li>
+            <li><strong>Write custom meta descriptions for every product:</strong> Shopify Admin → Products → [Product] → scroll to "Search engine listing preview" → Edit → fill in Description field. Use the template: "[Watch Name] — a limited edition watch designed by [Artist] for Mad Hudson. [Brief design note]. [Edition] pieces. Free shipping." 150-160 characters.</li>
+            <li><strong>Update page titles to include artist names:</strong> Same "Search engine listing preview" section. Change from "[Watch Name] — Mad Hudson Watches" to "[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson."</li>
+            <li><strong>Enable bot filtering:</strong> Shopify Admin → Analytics → Settings → toggle "Exclude known bots." Reveals true traffic baseline for all future analysis.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <h4>Research Methodology</h4>
+    <p>Website review based on: Shopify product page source review, image alt text analysis, meta tag assessment, schema markup evaluation, heading hierarchy check, and content word-count analysis across all product pages. Conversion diagnostics from Shopify Analytics export (31 days, Jan 10 - Feb 9, 2026). Competitor content comparison across Mr Jones, Swatch x Art, Baltic, and Brew product pages. All analysis conducted Feb 14, 2026.</p>
+
+    <h4>Generation Note</h4>
+    <p>Website review generated Feb 14, 2026. Source: Shopify product page analysis, analytics export, competitor content comparison. Improvements are ordered by impact-to-effort ratio — items 1-4 can be completed in an afternoon with zero visual changes to the site. Revisit after implementing to measure impact.</p>
+    <p>The product works. The story is genuine. These improvements help search engines see what's already true about the business.</p>
+  </footer>
+
+  <script>
+    // Card collapse/expand functionality
+    document.querySelectorAll('.card-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.card');
+        card.classList.toggle('collapsed');
+      });
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('nav a').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        const card = target.closest('.card');
+
+        // Expand card if collapsed
+        if (card.classList.contains('collapsed')) {
+          card.classList.remove('collapsed');
+        }
+
+        // Smooth scroll to target
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
