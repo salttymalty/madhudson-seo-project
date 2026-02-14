@@ -1,0 +1,50 @@
+[
+  {
+    "handle": "eddie-watch",
+    "title": "Brad Podray × Eddie Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind Eddie Watch</h2><p><strong>Brad Podray</strong> is a visual artist known for [artist description]. The Eddie Watch represents a collaboration between [collaboration story]...</p><p>[Full 500-1000 word artist narrative here]</p>",
+    "meta_description": "Brad Podray's Eddie Watch: Artist-designed, limited edition pre-order collaboration with Mad Hudson. Where creative culture meets functional design.",
+    "artist_name": "Brad Podray",
+    "artist_bio": "Brad Podray is a visual artist..."
+  },
+  {
+    "handle": "marshall-watch",
+    "title": "Bryce Wong × Marshall Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind Marshall Watch</h2><p><strong>Bryce Wong</strong>... [full narrative]</p>",
+    "meta_description": "Bryce Wong's Marshall Watch: Artist-made timepiece, 100-piece limited edition pre-order with Mad Hudson.",
+    "artist_name": "Bryce Wong",
+    "artist_bio": "Bryce Wong is..."
+  },
+  {
+    "handle": "miami-watch",
+    "title": "[Artist Name] × Miami Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind Miami Watch</h2><p>...[full narrative]</p>",
+    "meta_description": "[Artist Name]'s Miami Watch...",
+    "artist_name": "[Artist Name]",
+    "artist_bio": "[Artist bio here]"
+  },
+  {
+    "handle": "broken-time-watch",
+    "title": "[Artist Name] × Broken Time Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind Broken Time Watch</h2><p>...[full narrative]</p>",
+    "meta_description": "[Artist Name]'s Broken Time Watch...",
+    "artist_name": "[Artist Name]",
+    "artist_bio": "[Artist bio here]"
+  },
+  {
+    "handle": "cd-watch",
+    "title": "[Artist Name] × CD Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind CD Watch</h2><p>...[full narrative]</p>",
+    "meta_description": "[Artist Name]'s CD Watch...",
+    "artist_name": "[Artist Name]",
+    "artist_bio": "[Artist bio here]"
+  },
+  {
+    "handle": "dogma-watch",
+    "title": "[Artist Name] × Dogma Watch | Limited Edition Artist Collaboration",
+    "body_html": "<h2>The Artist Behind Dogma Watch</h2><p>...[full narrative]</p>",
+    "meta_description": "[Artist Name]'s Dogma Watch...",
+    "artist_name": "[Artist Name]",
+    "artist_bio": "[Artist bio here]"
+  }
+]
