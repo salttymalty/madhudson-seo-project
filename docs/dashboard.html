@@ -127,8 +127,8 @@
     }
 
     header {
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 2rem;
       border-bottom: 2px solid var(--color-border);
     }
 
@@ -151,7 +151,7 @@
     }
 
     footer {
-      margin-top: 3rem;
+      margin-top: 4rem;
       padding-top: 2rem;
       border-top: 2px solid var(--color-border);
       font-size: 0.875rem;
@@ -176,22 +176,49 @@
        ═══════════════════════════════════════════════════════════════ */
     nav {
       display: flex;
-      gap: 1rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
-      margin-bottom: 2rem;
-      padding: 1rem;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding: 1rem 1.25rem;
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       box-shadow: 0 2px 8px var(--color-shadow);
     }
 
+    .nav-group {
+      display: flex;
+      gap: 0.375rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .nav-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0 0.5rem;
+      white-space: nowrap;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--color-border);
+      margin: 0 0.625rem;
+      flex-shrink: 0;
+    }
+
     nav a {
       font-family: var(--font-body);
-      font-size: 0.95rem;
+      font-size: 0.9375rem;
       font-weight: 600;
       color: var(--color-text-secondary);
       text-decoration: none;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.875rem;
       border-radius: var(--radius);
       transition: all 0.2s ease;
       min-height: var(--touch-target);
@@ -204,6 +231,15 @@
       color: var(--color-primary);
     }
 
+    nav a.nav-primary {
+      color: var(--color-primary);
+      background: rgba(196, 112, 75, 0.06);
+    }
+
+    nav a.nav-primary:hover {
+      background: rgba(196, 112, 75, 0.12);
+    }
+
     /* ═══════════════════════════════════════════════════════════════
        CARDS
        ═══════════════════════════════════════════════════════════════ */
@@ -211,8 +247,25 @@
       background: var(--color-surface);
       border-radius: var(--radius-lg);
       box-shadow: 0 2px 8px var(--color-shadow);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       overflow: hidden;
+    }
+
+    /* Tier 1: Primary cards — action-oriented, most prominent */
+    .card.tier-primary {
+      border-left: 4px solid var(--color-primary);
+      box-shadow: 0 4px 16px var(--color-shadow), 0 1px 4px var(--color-shadow);
+    }
+
+    /* Tier 2: Supporting cards — evidence and detail */
+    .card.tier-supporting {
+      opacity: 0.95;
+    }
+
+    /* Tier 3: Reference cards — important but secondary */
+    .card.tier-reference {
+      opacity: 0.92;
+      box-shadow: 0 1px 4px var(--color-shadow);
     }
 
     .card-header {
@@ -221,14 +274,19 @@
       border-bottom: 2px solid var(--color-border);
       cursor: pointer;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
       min-height: var(--touch-target);
       transition: background 0.2s ease;
+      gap: 1rem;
     }
 
     .card-header:hover {
       background: var(--color-surface-alt);
+    }
+
+    .card-header-text {
+      flex: 1;
     }
 
     .card-header h2 {
@@ -236,10 +294,20 @@
       color: var(--color-primary);
     }
 
+    .card-summary {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      margin-top: 0.375rem;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
     .card-toggle {
       font-size: 1.5rem;
       color: var(--color-text-muted);
       transition: transform 0.2s ease;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
     }
 
     .card.collapsed .card-toggle {
@@ -247,7 +315,7 @@
     }
 
     .card-content {
-      padding: 1.5rem;
+      padding: 2rem;
       transition: max-height 0.3s ease;
     }
 
@@ -260,10 +328,10 @@
        ═══════════════════════════════════════════════════════════════ */
     .hero-stat {
       text-align: center;
-      padding: 2rem;
+      padding: 2.5rem 2rem;
       background: var(--color-surface-alt);
       border-radius: var(--radius-lg);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       border: 2px solid var(--color-border);
     }
 
@@ -295,9 +363,9 @@
        CALLOUTS
        ═══════════════════════════════════════════════════════════════ */
     .callout {
-      padding: 1rem 1.5rem;
+      padding: 1.25rem 1.5rem;
       border-radius: var(--radius);
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
       border-left: 4px solid;
     }
 
@@ -595,6 +663,21 @@
     /* ═══════════════════════════════════════════════════════════════
        RESPONSIVE
        ═══════════════════════════════════════════════════════════════ */
+    /* ═══════════════════════════════════════════════════════════════
+       SECTION DIVIDERS
+       ═══════════════════════════════════════════════════════════════ */
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+      padding-left: 0.25rem;
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 1rem;
@@ -611,6 +694,27 @@
       nav {
         flex-direction: column;
         gap: 0.5rem;
+        padding: 0.75rem;
+      }
+
+      .nav-group {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.25rem;
+      }
+
+      .nav-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0.375rem 0;
+      }
+
+      .nav-label {
+        padding: 0.375rem 0.5rem 0;
+      }
+
+      nav a {
+        width: 100%;
       }
 
       .segment-grid {
@@ -644,7 +748,7 @@
         padding: 0;
       }
 
-      nav {
+      nav, .section-label {
         display: none;
       }
 
@@ -652,6 +756,8 @@
         page-break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ddd;
+        border-left-width: 1px;
+        opacity: 1;
       }
 
       .card-toggle {
@@ -664,6 +770,10 @@
 
       .card-header {
         cursor: default;
+      }
+
+      .card-summary {
+        display: none;
       }
     }
   </style>
@@ -684,22 +794,37 @@
     </header>
 
     <nav>
-      <a href="#whats-working">What's Working</a>
-      <a href="#progress">Progress</a>
-      <a href="#html-opportunities">HTML Opportunities</a>
-      <a href="#images">Image Opportunities</a>
-      <a href="#product-content">Content Opportunities</a>
-      <a href="#schema">Schema Markup</a>
-      <a href="#conversion">Conversion Diagnostics</a>
-      <a href="#actions">Prioritized Actions</a>
+      <div class="nav-group">
+        <span class="nav-label">Do now</span>
+        <a href="#whats-working" class="nav-primary">What's Working</a>
+        <a href="#progress" class="nav-primary">Progress</a>
+        <a href="#actions" class="nav-primary">Prioritized Actions</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <span class="nav-label">Research</span>
+        <a href="#html-opportunities">HTML Opportunities</a>
+        <a href="#images">Image Opportunities</a>
+        <a href="#product-content">Content Opportunities</a>
+        <a href="#schema">Schema Markup</a>
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-group">
+        <span class="nav-label">Reference</span>
+        <a href="#conversion">Conversion Diagnostics</a>
+      </div>
     </nav>
 
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 0: WHAT'S ALREADY WORKING
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="whats-working" class="card">
+    <div class="section-label">Priority</div>
+    <section id="whats-working" class="card tier-primary">
       <div class="card-header">
-        <h2>What's Already Working</h2>
+        <div class="card-header-text">
+          <h2>What's Already Working</h2>
+          <div class="card-summary">0.85% real conversion rate — 5 genuine strengths to build on</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -742,9 +867,12 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION: PROGRESS & AUTOMATION
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="progress" class="card">
+    <section id="progress" class="card tier-primary">
       <div class="card-header">
-        <h2>Progress &amp; Automation</h2>
+        <div class="card-header-text">
+          <h2>Progress &amp; Automation</h2>
+          <div class="card-summary">3 tools built, 2 content items pending</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -871,9 +999,13 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 1: HTML & STRUCTURE OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="html-opportunities" class="card">
+    <div class="section-label">Research</div>
+    <section id="html-opportunities" class="card tier-supporting collapsed">
       <div class="card-header">
-        <h2>HTML &amp; Structure Opportunities</h2>
+        <div class="card-header-text">
+          <h2>HTML &amp; Structure Opportunities</h2>
+          <div class="card-summary">3 same-day fixes: titles, meta descriptions, headings</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -944,9 +1076,12 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 2: IMAGE OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="images" class="card">
+    <section id="images" class="card tier-supporting collapsed">
       <div class="card-header">
-        <h2>Image Opportunities</h2>
+        <div class="card-header-text">
+          <h2>Image Opportunities</h2>
+          <div class="card-summary">Alt text: the single highest-impact invisible improvement</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -1023,9 +1158,12 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 3: PRODUCT CONTENT OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="product-content" class="card">
+    <section id="product-content" class="card tier-supporting collapsed">
       <div class="card-header">
-        <h2>Product Content Opportunities</h2>
+        <div class="card-header-text">
+          <h2>Product Content Opportunities</h2>
+          <div class="card-summary">~30 words now per product — 400-500 target</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -1115,9 +1253,12 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 4: SCHEMA MARKUP OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="schema" class="card">
+    <section id="schema" class="card tier-supporting collapsed">
       <div class="card-header">
-        <h2>Schema Markup Opportunities</h2>
+        <div class="card-header-text">
+          <h2>Schema Markup Opportunities</h2>
+          <div class="card-summary">0 competitors have this — first-mover opportunity</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
@@ -1189,20 +1330,24 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 5: CONVERSION DIAGNOSTICS
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="conversion" class="card">
+    <div class="section-label">Reference</div>
+    <section id="conversion" class="card tier-reference collapsed">
       <div class="card-header">
-        <h2>Conversion Diagnostics</h2>
+        <div class="card-header-text">
+          <h2>Conversion Diagnostics</h2>
+          <div class="card-summary">0.85% real rate vs 0.06% reported — measurement clarity, not a product problem</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
         <div class="hero-stat">
           <div class="hero-stat-value">0.85%</div>
           <div class="hero-stat-label">Real Conversion Rate (Human Traffic)</div>
-          <p class="hero-stat-note">Calculated from Feb 3: 236 sessions, 2 conversions. Shopify reports 0.06% across all 12,983 sessions, but 50-70% of that traffic appears to be bots based on inverse correlation between session volume and conversion rate.</p>
+          <p class="hero-stat-note">Calculated from Feb 3: 236 sessions, 2 conversions. Shopify reports 0.06% across all 12,983 sessions, but a significant portion of that traffic appears to be bots based on the inverse correlation between session volume and conversion rate. Some high-traffic days likely reflect real spikes from Brad's social posts, but bot traffic appears to amplify those days well beyond the organic reach.</p>
         </div>
 
         <h3>Bot Traffic Analysis</h3>
-        <p>The inverse correlation between daily session volume and conversion rate indicates significant bot inflation. Days with 700+ sessions produced 0-1 conversions. Days under 300 sessions had the highest conversion rates. This pattern suggests that high-traffic days are driven by non-human visitors, not genuine interest spikes.</p>
+        <p>The inverse correlation between daily session volume and conversion rate indicates significant bot inflation. Days with 700+ sessions produced 0-1 conversions. Days under 300 sessions had the highest conversion rates. Some of the high-traffic days may coincide with Brad's social media posts driving genuine traffic — but even accounting for that, the volume-to-conversion ratio on those days suggests bots are amplifying the numbers significantly on top of any real interest spikes.</p>
 
         <div class="chart-container">
           <div class="chart-title">31-Day Session & Conversion Pattern (Jan 10 – Feb 9, 2026)</div>
@@ -1346,9 +1491,13 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 6: PRIORITIZED ACTIONS
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="actions" class="card">
+    <div class="section-label">Actions</div>
+    <section id="actions" class="card tier-primary">
       <div class="card-header">
-        <h2>Prioritized Actions</h2>
+        <div class="card-header-text">
+          <h2>Prioritized Actions</h2>
+          <div class="card-summary">4 same-day wins, 10 total opportunities</div>
+        </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">

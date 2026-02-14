@@ -24,6 +24,7 @@
       --color-text-muted: #8a7a74;
       --color-border: rgba(196, 112, 75, 0.12);
       --color-shadow: hsla(25, 40%, 30%, 0.08);
+      --color-shadow-lg: hsla(25, 40%, 30%, 0.14);
       --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'Source Sans 3', system-ui, sans-serif;
       --font-mono: 'Source Code Pro', monospace;
@@ -64,13 +65,13 @@
 
     /* ── Alternating slide backgrounds ── */
     .slide:nth-child(odd) {
-      background: linear-gradient(160deg, hsl(30, 20%, 94%) 0%, hsl(30, 18%, 92%) 100%);
+      background: linear-gradient(160deg, hsl(30, 16%, 91%) 0%, hsl(30, 14%, 89%) 100%);
     }
     .slide:nth-child(even) {
-      background: linear-gradient(160deg, hsl(30, 32%, 97%) 0%, hsl(30, 20%, 94%) 100%);
+      background: linear-gradient(160deg, hsl(30, 32%, 97%) 0%, hsl(30, 22%, 95%) 100%);
     }
     .slide.slide-accent {
-      background: linear-gradient(160deg, hsl(30, 50%, 98%) 0%, hsl(25, 35%, 95%) 100%);
+      background: linear-gradient(160deg, hsl(30, 50%, 98%) 0%, hsl(25, 38%, 95%) 100%);
     }
     .slide.slide-dark {
       background: linear-gradient(160deg, hsl(18, 23%, 21%) 0%, hsl(20, 20%, 14%) 100%);
@@ -107,13 +108,31 @@
       color: hsl(25, 20%, 80%);
     }
 
+    /* Dark slide card treatment */
+    .slide.slide-dark .diagnosis-item,
+    .slide.slide-dark .steps-list li {
+      background: hsla(0, 0%, 100%, 0.07);
+      border: 1px solid hsla(0, 0%, 100%, 0.1);
+    }
+    .slide.slide-dark .diagnosis-item strong,
+    .slide.slide-dark .step-title {
+      color: var(--color-surface-warm);
+    }
+    .slide.slide-dark .diagnosis-item p,
+    .slide.slide-dark .step-instruction {
+      color: hsl(25, 15%, 72%);
+    }
+    .slide.slide-dark .step-why {
+      color: hsl(25, 10%, 55%);
+    }
+
     /* ── Navigation areas ── */
     .nav-hint {
       position: fixed;
       top: 50%;
       transform: translateY(-50%);
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 160px;
       cursor: pointer;
       z-index: 100;
       opacity: 0;
@@ -150,12 +169,25 @@
       box-shadow: 0 2px 8px var(--color-shadow);
     }
     .progress-dot {
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: var(--color-border);
       transition: all 0.3s ease;
       cursor: pointer;
+      /* 44px touch target via padding */
+      padding: 0;
+      margin: 0;
+      position: relative;
+    }
+    .progress-dot::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
     }
     .progress-dot.active {
       background: var(--color-primary);
@@ -212,11 +244,17 @@
     .slide > * {
       animation: slideUp 0.5s ease both;
     }
+    /* Headline first */
     .slide > *:nth-child(1) { animation-delay: 0s; }
-    .slide > *:nth-child(2) { animation-delay: 0.08s; }
-    .slide > *:nth-child(3) { animation-delay: 0.16s; }
-    .slide > *:nth-child(4) { animation-delay: 0.24s; }
-    .slide > *:nth-child(5) { animation-delay: 0.32s; }
+    /* Supporting text second */
+    .slide > *:nth-child(2) { animation-delay: 0.1s; }
+    /* Content grids/cards third */
+    .slide > *:nth-child(3) { animation-delay: 0.2s; }
+    .slide > *:nth-child(4) { animation-delay: 0.3s; }
+    /* Key-line last — emphasizes it as the conclusion */
+    .slide > *:nth-child(5) { animation-delay: 0.45s; }
+    .slide > *:nth-child(6) { animation-delay: 0.55s; }
+    .slide > *:nth-child(7) { animation-delay: 0.65s; }
 
     /* ── Typography ── */
     h1 {
@@ -249,11 +287,12 @@
     }
 
     .subtitle {
-      font-size: 22px;
+      font-size: 20px;
       color: var(--color-text-secondary);
       max-width: 800px;
       text-align: center;
       line-height: 1.5;
+      font-weight: 400;
     }
 
     .date {
@@ -274,29 +313,31 @@
     }
 
     .supporting-text {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--color-text-secondary);
       margin-bottom: 12px;
       line-height: 1.6;
     }
 
     .key-line {
-      font-size: 22px;
+      font-family: var(--font-display);
+      font-size: 24px;
       font-weight: 600;
       color: var(--color-text);
-      max-width: 860px;
+      max-width: 880px;
       text-align: center;
-      margin-top: 32px;
-      line-height: 1.4;
-      padding: 16px 24px;
-      background: var(--color-surface);
+      margin-top: 48px;
+      line-height: 1.35;
+      padding: 24px 32px;
+      background: var(--color-surface-warm);
       border-radius: var(--radius-lg);
-      box-shadow: 0 2px 8px var(--color-shadow);
-      border-left: 4px solid var(--color-primary);
+      box-shadow: 0 4px 16px var(--color-shadow);
+      border-left: 5px solid var(--color-primary);
+      position: relative;
     }
     .slide.slide-dark .key-line {
-      background: hsla(0, 0%, 100%, 0.06);
-      box-shadow: none;
+      background: hsla(0, 0%, 100%, 0.08);
+      box-shadow: 0 4px 16px hsla(0, 0%, 0%, 0.2);
       border-left-color: var(--color-primary-light);
     }
 
@@ -350,7 +391,7 @@
     .metric-card.success .metric-value { color: var(--color-success); }
 
     .metric-label {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--color-text-secondary);
       font-weight: 600;
     }
@@ -379,10 +420,10 @@
     .diagnosis-item.warning { border-left-color: var(--color-warning); }
 
     .diagnosis-item strong {
-      font-size: 17px;
+      font-size: 16px;
       color: var(--color-text);
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .diagnosis-item p {
@@ -403,7 +444,7 @@
 
     .benchmark-card {
       background: var(--color-surface);
-      padding: 22px;
+      padding: 28px 22px;
       border-radius: var(--radius-lg);
       box-shadow: 0 2px 12px var(--color-shadow);
       text-align: center;
@@ -508,9 +549,9 @@
 
     .comparison-table th {
       background: var(--color-surface-warm);
-      padding: 14px 16px;
+      padding: 16px 20px;
       text-align: left;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--color-text);
       border-bottom: 2px solid var(--color-border);
@@ -520,10 +561,11 @@
     }
 
     .comparison-table td {
-      padding: 14px 16px;
+      padding: 18px 20px;
       font-size: 14px;
       color: var(--color-text-secondary);
       border-bottom: 1px solid var(--color-border);
+      line-height: 1.5;
     }
 
     .comparison-table tr:last-child td {
@@ -608,7 +650,7 @@
 
     .audience-card {
       background: var(--color-surface);
-      padding: 24px;
+      padding: 28px 28px 24px;
       border-radius: var(--radius-lg);
       box-shadow: 0 2px 12px var(--color-shadow);
       border-left: 4px solid var(--color-primary);
@@ -625,16 +667,16 @@
     .audience-card:nth-child(4) { border-left-color: var(--color-primary); }
 
     .audience-card h3 {
-      font-size: 19px;
-      margin-bottom: 12px;
+      font-size: 18px;
+      margin-bottom: 14px;
       color: var(--color-text);
     }
 
     .audience-card p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--color-text-secondary);
-      line-height: 1.7;
-      margin-bottom: 8px;
+      line-height: 1.65;
+      margin-bottom: 10px;
     }
 
     .audience-card .source {
@@ -859,7 +901,7 @@
 
     .stream-card {
       background: var(--color-surface);
-      padding: 28px;
+      padding: 32px 28px;
       border-radius: var(--radius-lg);
       box-shadow: 0 2px 12px var(--color-shadow);
       text-align: left;
@@ -883,9 +925,9 @@
     .stream-card:nth-child(3) h3 { color: var(--color-success); }
 
     .stream-card p {
-      font-size: 14px;
+      font-size: 15px;
       color: var(--color-text-secondary);
-      line-height: 1.7;
+      line-height: 1.65;
       margin-bottom: 10px;
     }
 
@@ -1000,11 +1042,11 @@
         </div>
         <div class="diagnosis-item warning">
           <strong>So why does Shopify say 0.06%?</strong>
-          <p>50-70% of your 12,983 monthly sessions are bot traffic. Bots inflate the session count but never buy — dragging the reported rate down by 10x. High-traffic days (500+ sessions) consistently show 0-1 conversions.</p>
+          <p>A large chunk of your 12,983 monthly sessions are bot traffic. Some high-traffic days may reflect real spikes from Brad's posts — but bots appear to amplify those days, inflating the count and dragging the reported conversion rate down by 10x. Days with 500+ sessions consistently show 0-1 conversions.</p>
         </div>
         <div class="diagnosis-item info">
           <strong>Your instinct that something was off about the numbers? You were right.</strong>
-          <p>The traffic spikes don't correlate with marketing activity. The referrer patterns show bot signatures. This is a measurement problem, not a product problem.</p>
+          <p>Some of the high-traffic days likely coincide with Brad's posts driving real interest — but bot traffic appears to pile on top, inflating those days well beyond organic reach. The result: your analytics can't distinguish a genuine spike from a bot-amplified one. This is a measurement problem, not a product problem.</p>
         </div>
       </div>
       <p class="key-line">Your product works. Your measurement doesn't — yet.</p>
