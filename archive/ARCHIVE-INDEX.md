@@ -17,6 +17,12 @@ Pre-SEO consulting documents from December 2025 and January 2026. Produced durin
 | `Mad_Hudson_Brand_Positioning_Framework.docx` | Brand architecture | "One part design house, one part watch company." Dual-audience positioning, website architecture (/watches + /design + /studio), artist collaboration categories, competitive differentiation, tagline options. |
 | `mad-hudson-collab-concepts.html` | Expansion concepts | Analog lifestyle expansion. 6 detailed collaboration concepts (Franklin-Christoph, Awagami, Galen Leather, Hinze Pen, Light Phone, Echizen Washi). Solo product line ideas. Teenage Engineering lessons applied. Market segmentation. |
 
+## Brand Strategy (Pre-Rebrand)
+
+| File | Type | What It Contains |
+|------|------|-----------------|
+| `madstream-madman-deck.md` | Extracted deck | madstream content platform concept. Artist collaboration content types (Riki, Bryce, Brad, Hannah), nonlinear "shuffle" navigation, brand manifesto, production notes. Pre-cease-and-desist era (brand was "madman"). Source: `madstream __ madman.pptx`. |
+
 ## Gs Watch Concepts (Dec 2025 – Jan 2026)
 
 Garen's original watch concept designs and pitches — developed independently and shared with Mad Hudson. These represent product-level thinking (not SEO content), but contain competitive landscape research and market positioning that could inform content strategy.
