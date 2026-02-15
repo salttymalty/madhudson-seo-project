@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson — Reference Document v11</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --text: #1a1a1a;
+      --text-secondary: #5c5c5c;
+      --text-tertiary: #8a8a8a;
+      --border: #e5e3df;
+      --card-bg: #ffffff;
+      --accent: #c4583a;
+      --accent-light: #f5ebe8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 18px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    header {
+      padding: 80px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-meta {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--text-tertiary);
+      margin-bottom: 32px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(32px, 7vw, 48px);
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .iteration-note {
+      margin-top: 32px;
+      padding: 16px 20px;
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+    }
+
+    nav a {
+      color: var(--text-tertiary);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active { color: var(--text); }
+
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 32px 0 16px;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.02em;
+    }
+
+    h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-family: 'Space Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+    }
+
+    p { margin-bottom: 16px; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card-accent {
+      border-left: 3px solid var(--accent);
+    }
+
+    .working-card {
+      background: #e8f5e9;
+      border-left: 3px solid #4caf50;
+    }
+
+    .working-card h4 {
+      color: #2e7d32;
+    }
+
+    .decision-card {
+      background: #f5f4f2;
+      border: 2px dashed var(--border);
+      padding: 28px;
+      margin-top: 24px;
+    }
+
+    .decision-card h4 {
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .decision-input textarea {
+      width: 100%;
+      min-height: 80px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      background: #fff;
+      resize: vertical;
+      margin-top: 12px;
+    }
+
+    .decision-input textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .decision-input textarea::placeholder {
+      color: var(--text-tertiary);
+      font-style: italic;
+    }
+
+    .action-card {
+      background: var(--accent-light);
+      border-left: 3px solid var(--accent);
+    }
+
+    .action-card h4::before {
+      content: "→ ";
+      color: var(--accent);
+    }
+
+    .card p:last-child { margin-bottom: 0; }
+
+    .card ul {
+      margin: 12px 0 0 20px;
+      font-size: 16px;
+    }
+
+    .card li { margin-bottom: 8px; }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+
+    .quote {
+      font-size: 22px;
+      font-style: italic;
+      color: var(--text-secondary);
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    .quote-source {
+      font-size: 13px;
+      font-style: normal;
+      color: var(--text-tertiary);
+      margin-top: 12px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .input-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .input-group label {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+      margin-bottom: 6px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+      font-size: 16px;
+      background: var(--card-bg);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .calc-output {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 16px;
+      padding: 20px;
+      background: var(--accent-light);
+    }
+
+    .calc-output .stat-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-tertiary);
+    }
+
+    .calc-output .stat-value {
+      font-size: 24px;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .context-box {
+      background: #f5f4f2;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 16px;
+    }
+
+    .context-box h4 { margin-bottom: 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      margin: 16px 0;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      font-weight: 400;
+    }
+
+    .fill-blank {
+      border-bottom: 1px dashed var(--text-tertiary);
+      min-width: 60px;
+      display: inline-block;
+    }
+
+    footer {
+      padding: 48px 0;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-tertiary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-meta">Reference Document · v11 · December 2025</div>
+      <h1>Mad Hudson Watches</h1>
+      <p class="subtitle">"artist-designed watches. controlled chaos."</p>
+      <div class="iteration-note">
+        This is a working document. Remove what's unhelpful. Keep what is. Add what you want.
+      </div>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a href="#entity">Entity</a></li>
+        <li><a href="#sales">Sales</a></li>
+        <li><a href="#tariffs">Tariffs</a></li>
+        <li><a href="#social">Social</a></li>
+        <li><a href="#lanes">Lanes</a></li>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#operations">Operations</a></li>
+        <li><a href="#protection">Protection</a></li>
+        <li><a href="#ownership">Ownership</a></li>
+        <li><a href="#energy">Energy</a></li>
+        <li><a href="#next-steps">Next Steps</a></li>
+        <li><a href="#research">Research</a></li>
+      </ul>
+    </nav>
+
+    <section id="entity">
+      <h2>What This Is</h2>
+
+      <div class="card card-accent">
+        <h4>This Document</h4>
+        <p>A reflection tool for founders — not a pitch deck, not a business plan. It surfaces questions, organizes current thinking, and provides a place to track what's known and unknown. Use it for solo planning, partner alignment conversations, or advisor context. Update it as things change.</p>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);"><em>None of this is prescriptive. Some of it is probably wrong — AI-assisted research has blind spots, and outsider perspectives carry inherent hubris. Treat it as a starting point to poke around with, not a roadmap.</em></p>
+      </div>
+
+      <div class="card working-card">
+        <h4>What's Working</h4>
+        <ul>
+          <li>Watches are selling</li>
+          <li>Designs are beautiful</li>
+          <li>Brand is fuckin' tight</li>
+          <li>B2B opportunities gaining steam</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Questions Being Asked</h4>
+        <ul>
+          <li>Brad? <span style="color: var(--text-tertiary); font-size: 14px;">→ see Social</span></li>
+          <li>B2B/design house? How does this work alongside watches/biz structure? <span style="color: var(--text-tertiary); font-size: 14px;">→ see Lanes</span></li>
+          <li>How to make annoying parts easier? <span style="color: var(--text-tertiary); font-size: 14px;">→ see Operations</span></li>
+        </ul>
+      </div>
+
+      <div class="quote">
+        "We collaborate with artists to create watches that feel less like accessories and more like artifacts. Every design is original, every release is a little unpredictable, the goal is simple and a little ambitious: create the most unique watch designs in the world."
+        <div class="quote-source">— noissue partnership feature, September 2025</div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h4>Founders</h4>
+          <p>Mad Hudson (designer, namesake)<br>
+          Brad Podray (comedian, content creator)<br>
+          Connor Hudson</p>
+        </div>
+        <div class="card">
+          <h4>Current Lineup</h4>
+          <p><strong>Pre-order:</strong> Eddie, Marshall, Miami<br>
+          <strong>Available:</strong><br>
+          Broken Time — $240<br>
+          CD Watch — $215<br>
+          Dogma — $175<br>
+          <strong>Merch:</strong> Hats & tees</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Model</h4>
+        <p>Artist-designed watches, limited releases, DTC via Shopify. B2B design services as second revenue stream. Largely self-funded. Based in Chicago, manufacturing partner in Hong Kong with low MOQs. In-house fulfillment (hand-packaged, shipped by founders). Operations run ad hoc — client intake, order fulfillment, social media posting done as needed without systematized processes.</p>
+      </div>
+    </section>
+
+    <section id="sales">
+      <h2>Sales Snapshot</h2>
+      <p>Input what you know. Leave blank what you don't.</p>
+
+      <div class="card">
+        <div class="input-group">
+          <div>
+            <label>30-Day Sales (units)</label>
+            <input type="number" id="monthly-sales" placeholder="—">
+          </div>
+          <div>
+            <label>12-Month Sales (units)</label>
+            <input type="number" id="yearly-sales" placeholder="—">
+          </div>
+          <div>
+            <label>Avg Price ($)</label>
+            <input type="number" id="avg-price" placeholder="215">
+          </div>
+          <div>
+            <label>Unit Cost ($)</label>
+            <input type="number" id="unit-cost" placeholder="—">
+          </div>
+        </div>
+
+        <div class="calc-output">
+          <div>
+            <div class="stat-label">Monthly Revenue</div>
+            <div class="stat-value" id="monthly-rev">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Margin/Unit</div>
+            <div class="stat-value" id="margin">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Yearly Revenue</div>
+            <div class="stat-value" id="yearly-rev">—</div>
+          </div>
+          <div>
+            <div class="stat-label">Avg/Month</div>
+            <div class="stat-value" id="avg-month">—</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="context-box">
+        <h4>Context</h4>
+        <p>Price range is now $175–$240. If COGS is ~$50–70/unit, gross margin is ~65–75%. But margin doesn't account for fulfillment, marketing spend, artist royalties, returns, or time. What's the actual take-home per unit after everything?</p>
+      </div>
+    </section>
+
+    <section id="tariffs">
+      <h2>Tariffs</h2>
+
+      <div class="card">
+        <h4>Current Stack (China-origin watches)</h4>
+        <table>
+          <tr><th>Layer</th><th>Rate</th></tr>
+          <tr><td>Base MFN duty</td><td>~6%</td></tr>
+          <tr><td>Section 301 tariff</td><td>25%</td></tr>
+          <tr><td>Additional 2025 tariffs</td><td>10–20%</td></tr>
+          <tr><td><strong>Effective total</strong></td><td><strong>30–55%</strong></td></tr>
+        </table>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <h4>What Has Sucked</h4>
+          <ul>
+            <li>Rate unpredictability — can't price confidently</li>
+            <li>De minimis elimination — no more duty-free under $800</li>
+            <li>Cash flow timing on duties</li>
+            <li>Hong Kong status ambiguity</li>
+            <li>Supplier stress/delays</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Ways It Can Suck Less</h4>
+          <ul>
+            <li>Batch larger orders to amortize shipping</li>
+            <li>Timing purchases around rate changes</li>
+            <li>Tariff engineering (component sourcing)</li>
+            <li>Price increases to protect margin</li>
+            <li>Diversify manufacturing countries</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="context-box">
+        <h4>Research Pathways</h4>
+        <p>Hong Kong vs. mainland China tariff treatment — is there still a distinction? De minimis elimination impact on small-batch DTC. Alternative manufacturing regions (Vietnam, India, Thailand) and realistic MOQs. Tariff engineering options for watch components specifically. How other small watch brands have adapted pricing or sourcing post-2025.</p>
+      </div>
+
+      <div class="card">
+        <h4>What's Actually Helped Other Small Businesses</h4>
+        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 12px;">From 2025 research on small business tariff adaptation:</p>
+        <ul>
+          <li><strong>Supplier negotiation</strong> — Most cited as single most effective lever. Suppliers often don't want to lose your business and will work with you on terms, timing, or cost-sharing. Worth a direct conversation.</li>
+          <li><strong>Early, transparent price adjustments</strong> — Customers are more likely to accept increases while tariffs are in the news. Waiting erodes margin and makes later increases harder to justify. Incremental beats sudden.</li>
+          <li><strong>Supply chain mapping</strong> — Know exactly which items are affected and by how much before making decisions. Prioritize by impact, not by anxiety.</li>
+          <li><strong>Diversification over time</strong> — Not overnight overhaul, but gradually adding alternative suppliers in non-targeted countries. Reduces future exposure.</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);">Small businesses absorb more tariff costs than large ones (~54% passed through vs. ~65% for large firms). The disadvantage is real — but so is the opportunity to move faster than big competitors.</p>
+      </div>
+
+      <div class="card" style="background: #faf9f7; border-style: dashed;">
+        <h4 style="font-size: 13px;">If curious, one small step...</h4>
+        <p style="font-size: 15px; margin-bottom: 0;">Next time you're in touch with your manufacturer, ask one question: "Are there any cost-sharing options or timing adjustments that could help us manage tariff impact together?" Suppliers often have more flexibility than you'd expect.</p>
+      </div>
+    </section>
+
+    <section id="social">
+      <h2>Social</h2>
+
+      <div class="card">
+        <h4>Current State</h4>
+        <p>Brad brings significant reach (millions of followers across platforms). The question isn't whether that's valuable — it is — but how it converts to watch sales, and whether Mad Hudson needs its own audience or can operate through Brad's.</p>
+      </div>
+
+      <div class="card">
+        <h4>Questions Worth Asking</h4>
+        <ul>
+          <li>What's the actual follower → site visit → purchase funnel look like?</li>
+          <li>Which content formats have driven traceable sales?</li>
+          <li>Is social for brand awareness or direct sales? (Different tactics.)</li>
+          <li>Comedy audience vs. watch-buyer audience — how much overlap?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="lanes">
+      <h2>Two Lanes</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <h4>Lane 1: Watches (DTC)</h4>
+          <ul>
+            <li>Artist collaborations</li>
+            <li>Limited releases</li>
+            <li>Direct to consumer</li>
+            <li>Brad's audience as distribution</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Lane 2: Design Services (B2B)</h4>
+          <ul>
+            <li>Client work</li>
+            <li>Presumably higher margin per project</li>
+            <li>Different customer base entirely</li>
+            <li>Trades time for money</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <h4>↳ The Clarity Question</h4>
+        <p>Can you explain the relationship between watches and design services in one sentence?</p>
+        <div class="decision-input">
+          <textarea id="clarity-answer" placeholder="Write it here. If you can't, worth solving."></textarea>
+        </div>
+        <p style="font-size: 14px; margin-top: 16px; color: var(--text-secondary);">Follow-up questions to consider:</p>
+        <ul style="font-size: 15px; color: var(--text-secondary);">
+          <li>Are they the same business with two revenue streams, or two businesses sharing founders?</li>
+          <li>Does design services work inform watch design, or are they separate creative tracks?</li>
+          <li>Would you turn down a design project to focus on a watch release? Vice versa?</li>
+          <li>If one lane disappeared tomorrow, would the other be stronger or weaker?</li>
+        </ul>
+      </div>
+
+      <div class="context-box">
+        <h4>B2B Positioning Options</h4>
+        <p><strong>Portfolio play:</strong> "Look what we made for ourselves — imagine what we can make for you."</p>
+        <p><strong>Separation:</strong> Design services operates under different name, watch brand stays pure.</p>
+        <p><strong>Integrated:</strong> Mad Hudson is a creative studio that happens to also make watches.</p>
+        <p style="margin-top: 16px; font-style: italic;">In what ways does it make sense to integrate vs. keep separate?</p>
+      </div>
+
+      <div class="context-box">
+        <h4>Research Pathways</h4>
+        <p>How other creative brands structure DTC + B2B divisions. Case studies of product companies that successfully added services (or vice versa). When to formalize separation vs. run informally. Tax and liability implications of mixed revenue streams. Pricing B2B creative work when your product is the portfolio.</p>
+      </div>
+
+      <div class="card" style="background: #faf9f7; border-style: dashed;">
+        <h4 style="font-size: 13px;">If curious, one small step...</h4>
+        <p style="font-size: 15px; margin-bottom: 0;">Have a 15-minute conversation between founders: "If we had to pick one lane for the next 6 months, which would it be?" You don't have to pick — but the conversation might surface something.</p>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <h2>Growth Channels</h2>
+      <p>Each requires different capabilities and carries different friction. Some are already in motion.</p>
+
+      <div class="card">
+        <h4>Corporate Gifting</h4>
+        <p>Executive gifts in the $200–300 range. Companies seek unique, conversation-starting pieces. Hand-packaged experience aligns with premium gifting expectations.</p>
+        <table>
+          <tr><th>Fit</th><th>Friction</th></tr>
+          <tr><td>Price point works. Artist stories create talking points. Distinctive enough to stand out.</td><td>Volume capacity. Custom branding options. Faster turnaround than DTC. Dedicated outreach required.</td></tr>
+        </table>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);"><strong>Research pathways:</strong> Corporate gifting platforms (Sendoso, Snappy, Alyce) and how brands get listed. Seasonality patterns. Minimum order requirements that work for both sides. Case studies of small product brands in corporate gifting programs.</p>
+      </div>
+
+      <div class="card">
+        <h4>Museum Gift Shops</h4>
+        <p>Already in motion. Artist collaboration model is exactly what museum buyers seek — products with compelling stories tied to creative mission.</p>
+        <table>
+          <tr><th>What's Working</th><th>What to Watch</th></tr>
+          <tr><td>Product-market fit is clear. Chicago positioning adds local angle. Artist stories resonate with buyers.</td><td>Wholesale margins (50%?). Exclusivity requests. Consignment vs. wholesale terms. Reorder patterns.</td></tr>
+        </table>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);"><strong>Research pathways:</strong> Museum retail buyer networks and how they discover new vendors. Trade shows (Museum Store Association). What makes a product "sticky" in museum retail vs. one-time placement. Comparable brands' museum strategies (Mr Jones, Areaware, etc.).</p>
+      </div>
+
+      <div class="card">
+        <h4>Brand Collaborations</h4>
+        <p>Horizontal products with aligned brands — kitchen timers, clocks, design objects. Leverage existing manufacturing relationships and design language.</p>
+        <table>
+          <tr><th>Potential Partners</th><th>Friction</th></tr>
+          <tr><td>Areaware, HAY, Schoolhouse, indie coffee/food brands, music/audio brands.</td><td>Product development bandwidth. IP agreements. New manufacturing relationships. Who leads this?</td></tr>
+        </table>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);"><strong>Research pathways:</strong> How small brands structure collaboration deals (revenue share vs. licensing vs. co-production). Timeline from pitch to product for similar collabs. Which collaborations actually moved units vs. just generated press. Cautionary tales — collaborations that diluted brand or created operational chaos.</p>
+      </div>
+
+      <div class="context-box">
+        <h4>The Bandwidth Question</h4>
+        <p>Which of these fits current capacity? Museum shops are already happening — what's the learning so far? Corporate gifting is probably lowest friction for expansion (existing product, different sales channel). Brand collaborations require product development time nobody currently has.</p>
+      </div>
+
+      <div class="card" style="background: #faf9f7; border-style: dashed;">
+        <h4 style="font-size: 13px;">If curious, one small step...</h4>
+        <p style="font-size: 15px; margin-bottom: 0;">Ask your museum contact one question: "What would make you reorder, and what's the typical reorder timeline for products like ours?" Real data beats speculation.</p>
+      </div>
+    </section>
+
+    <section id="operations">
+      <h2>Operations</h2>
+      <p>Where automation or support could reduce friction without losing the handmade feel.</p>
+
+      <div class="card">
+        <h4>Possible High-ROI Areas</h4>
+        <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 12px;">These tend to matter for brands at this stage — worth considering if any feel relevant:</p>
+        <ul>
+          <li><strong>Email flows:</strong> Welcome series, abandoned cart, post-purchase. Set up once, runs passively.</li>
+          <li><strong>Contribution margin per order:</strong> Actual profit after COGS, shipping, packaging, fees, returns. Hard to make good decisions without it.</li>
+          <li><strong>Inventory-to-cash visibility:</strong> What's selling, what's sitting, how that connects to cash flow.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Automation Opportunities</h4>
+        <ul>
+          <li><strong>Social scheduling:</strong> Batch content creation, schedule posts. ~5 hrs/week recovered for ~$15/month.</li>
+          <li><strong>Order notifications:</strong> Automated shipping updates, delivery confirmations. Reduces "where's my order?" inquiries.</li>
+          <li><strong>Review requests:</strong> Post-purchase flow asking for reviews at the right moment. Builds social proof passively.</li>
+          <li><strong>Abandoned cart recovery:</strong> 5–15% recovery rate is typical. Money left on the table without it.</li>
+          <li><strong>Restock alerts:</strong> For repeat customers or waitlist items. Low effort, high intent.</li>
+          <li><strong>FAQ/returns self-service:</strong> Clear page with common questions reduces support tickets.</li>
+          <li><strong>Inventory low-stock alerts:</strong> Notification when SKUs hit threshold. Prevents stockouts.</li>
+          <li><strong>Pre-order deposit flows:</strong> Automated for upcoming releases. Captures demand early.</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);">None of these require hiring. Most are one-time setup with occasional maintenance.</p>
+      </div>
+
+      <div class="card">
+        <h4>Support Considerations</h4>
+        <ul>
+          <li><strong>Fulfillment help:</strong> When does hand-packaging stop being a brand feature and start being a bottleneck? What's the threshold?</li>
+          <li><strong>Customer service overflow:</strong> Contract or part-time for peak periods (launches, holidays). Protect founder energy.</li>
+          <li><strong>Social content batching:</strong> Someone to handle posting schedule, not creative. Frees mental load.</li>
+          <li><strong>Order/inventory admin:</strong> Data entry, tracking, reorder alerts. Low skill, high time drain.</li>
+          <li><strong>Email management:</strong> Inbox triage, template responses, escalation to founders for real decisions.</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);">First hire is usually the task you hate, not the task you love. Creative founders over-index on creative roles.</p>
+      </div>
+
+      <div class="context-box">
+        <h4>Research Pathways</h4>
+        <p>Shopify app ecosystem for automation (Klaviyo, Gorgias, Loop Returns). What similar-sized brands actually use vs. what gets recommended. True cost of apps when stacked. When to systematize vs. when ad hoc is fine. Fulfillment thresholds — at what volume does 3PL make sense? Part-time VA options for customer service during launches. Simple dashboards for inventory/cash flow visibility without enterprise software. Beehiiv/Mailchimp/Klaviyo comparison for brand at this stage. How to hire first part-time ops person — where to find, what to pay, how to scope. Zapier/Make automations that actually save time vs. ones that create maintenance burden.</p>
+      </div>
+
+      <div class="card" style="background: #faf9f7; border-style: dashed;">
+        <h4 style="font-size: 13px;">If curious, one small step...</h4>
+        <p style="font-size: 15px; margin-bottom: 0;">Pick the one task that drains the most energy and spend 20 minutes researching one tool or hire that could handle it. No commitment — just know what exists.</p>
+      </div>
+    </section>
+
+    <section id="protection">
+      <h2>Protection</h2>
+      <p>Not urgent, but know your triggers.</p>
+      <p style="font-size: 15px; color: var(--text-secondary); font-style: italic;">It's fine to skip this section entirely if nothing has gone wrong and nothing feels at risk. Come back when something triggers the question.</p>
+
+      <div class="card">
+        <h4>Questions to Answer</h4>
+        <ul>
+          <li>Do you have written agreements with each artist covering IP ownership, royalties, and usage rights?</li>
+          <li>Is "Mad Hudson" trademarked? In what classes?</li>
+          <li>If a customer sued over a product defect, what's the liability exposure?</li>
+          <li>Does the LLC operating agreement address the two-division structure?</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Triggers for Restructuring</h4>
+        <ul>
+          <li>Design services revenue exceeds 30% of total</li>
+          <li>A buyer expresses interest in one division</li>
+          <li>A legal or liability event in one division threatens the other</li>
+          <li>One founder wants out</li>
+          <li>B2B contracts require dedicated entity</li>
+        </ul>
+      </div>
+
+      <div class="context-box">
+        <h4>Possible Future Structure</h4>
+        <p style="font-family: 'Space Mono', monospace; font-size: 14px;">
+          Mad Hudson Holdings LLC<br>
+          ├── Mad Hudson Watches LLC<br>
+          ├── Mad Hudson Design LLC<br>
+          └── Mad Hudson IP LLC (trademarks, artist agreements)
+        </p>
+        <p style="margin-top: 12px; font-size: 15px;">This is one model, not the only model. Worth discussing with a business attorney when triggers hit — not before.</p>
+      </div>
+    </section>
+
+    <section id="ownership">
+      <h2>Ownership & Funding</h2>
+      <p style="font-size: 15px; color: var(--text-secondary); font-style: italic;">It's fine to ignore this section if you're not currently thinking about outside capital. Bootstrapping is a valid long-term choice, not just a phase before "real" funding.</p>
+
+      <div class="two-col">
+        <div class="card">
+          <h4>What Staying Independent Preserves</h4>
+          <ul>
+            <li>Full creative control</li>
+            <li>No dilution</li>
+            <li>No board, no reporting</li>
+            <li>Can stay weird</li>
+            <li>Can move slow if needed</li>
+            <li>Exit on your terms (or never)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>What Staying Independent Requires</h4>
+          <ul>
+            <li>Revenue funds growth</li>
+            <li>Slower scaling</li>
+            <li>Cash flow discipline</li>
+            <li>Wearing all hats longer</li>
+            <li>Saying no to opportunities</li>
+            <li>Personal financial exposure</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>Paths Forward</h4>
+        <table>
+          <tr><th>Path</th><th>What It Enables</th><th>What It Costs</th></tr>
+          <tr><td>Stay bootstrapped</td><td>Control, simplicity, weird factor</td><td>Slower growth, personal risk</td></tr>
+          <tr><td>Revenue-based financing</td><td>Capital without dilution</td><td>Monthly payments, less flexibility</td></tr>
+          <tr><td>Strategic angel</td><td>Capital + connections</td><td>Some dilution, some obligations</td></tr>
+          <tr><td>Grants/competitions</td><td>Free money</td><td>Time to apply, strings attached</td></tr>
+        </table>
+      </div>
+
+      <div class="context-box">
+        <h4>Research Pathways</h4>
+        <p>Revenue-based financing providers and actual terms for sub-$1M brands. Grant programs for design/manufacturing businesses (local, state, arts councils). What "strategic angel" actually looks like for consumer product companies — deal structures, typical involvement, cautionary tales. How other bootstrapped watch/design brands have funded growth spurts.</p>
+      </div>
+    </section>
+
+    <section id="energy">
+      <h2>Energy</h2>
+
+      <div class="card">
+        <h4>Time Snapshot</h4>
+        <p>Rough estimate — where does founder time actually go?</p>
+        <table>
+          <tr><td>Emails / communication</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Marketing / social media</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Shipping / fulfillment</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Customer support</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Design / creative work</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Artist coordination</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Admin / finance / ops</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>B2B client work</td><td><span class="fill-blank"></span>%</td></tr>
+          <tr><td>Strategy / planning</td><td><span class="fill-blank"></span>%</td></tr>
+        </table>
+      </div>
+
+      <p style="margin: 32px 0 16px; color: var(--text-secondary); font-style: italic;">Two questions worth sitting with:</p>
+
+      <div class="decision-card">
+        <h4>↳ The Energy Question</h4>
+        <p>What do you actually want to spend your time doing?</p>
+        <div class="decision-input">
+          <textarea id="energy-answer" placeholder="If the answer is 'design' but the reality is 'customer service,' that's a structural problem — not a discipline problem."></textarea>
+        </div>
+      </div>
+
+      <div class="decision-card">
+        <h4>↳ Biggest Open Question</h4>
+        <p>The thing we most need to decide right now is:</p>
+        <div class="decision-input">
+          <textarea id="big-question" placeholder="Write it here. One question. Forces prioritization."></textarea>
+        </div>
+        <p style="font-size: 14px; color: var(--text-tertiary); margin-top: 12px;">If you can't name one, that's a signal. If you have five, that's also a signal.</p>
+      </div>
+    </section>
+
+    <section id="next-steps" style="background: var(--accent-light); border-bottom: none;">
+      <h2>If Anything Resonated</h2>
+      <p>A menu, not a checklist. Pick zero, pick one, pick five — all valid.</p>
+
+      <div class="card" style="background: #fff;">
+        <h4>Conversations You Might Have</h4>
+        <ul>
+          <li><strong>With each other:</strong> "What's the one thing we most need to figure out in the next 30 days?"</li>
+          <li><strong>With your manufacturer:</strong> "What would it take to reduce our per-unit cost by 10%?"</li>
+          <li><strong>With a customer:</strong> "How did you hear about us? What almost stopped you from buying?"</li>
+          <li><strong>With a museum buyer:</strong> "What's working? What would make you reorder?"</li>
+          <li><strong>With an accountant (one conversation, not ongoing):</strong> "Walk us through our actual margins."</li>
+        </ul>
+      </div>
+
+      <div class="card" style="background: #fff;">
+        <h4>Small Actions (Under 30 Minutes)</h4>
+        <ul>
+          <li>Set up one abandoned cart email</li>
+          <li>Calculate contribution margin on one product</li>
+          <li>List three suppliers you'd want to negotiate with</li>
+          <li>Write the one-sentence answer to "how do watches and design services relate?"</li>
+          <li>Check if "Mad Hudson" is trademarked</li>
+        </ul>
+      </div>
+
+      <div class="card" style="background: #fff;">
+        <h4>Things You Don't Have to Do</h4>
+        <ul>
+          <li>Restructure the business</li>
+          <li>Hire anyone</li>
+          <li>Raise money</li>
+          <li>Systematize everything</li>
+          <li>Read the rest of this document</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);">Seriously. If the brand is tight and watches are selling, a lot of this is optional.</p>
+      </div>
+    </section>
+
+    <section id="research">
+      <h2>Research Pathways</h2>
+      <p>Starting points for deeper investigation. Each topic can be expanded via structured LLM research protocols (diverge → converge → validate → falsify).</p>
+      <p style="font-size: 15px; color: var(--text-secondary); font-style: italic;">This section is reference material — skim or skip as needed.</p>
+
+      <div class="card card-accent">
+        <h4>Comparable: Mr Jones Watches</h4>
+        <p>London-based, 15+ years operating, artist collaboration model. Key differences worth studying:</p>
+        <ul>
+          <li><strong>In-house dial printing and assembly</strong> — They don't just design, they manufacture. What does that enable?</li>
+          <li><strong>~150 watches released, ~30 artist collaborations</strong> — What's the sustainable cadence?</li>
+          <li><strong>Physical retail presence</strong> (Covent Garden store) — Does DTC-only leave something on the table?</li>
+          <li><strong>No custom one-off runs</strong> — Clear policy. Does Mad Hudson need one?</li>
+          <li><strong>High volume of inbound design submissions</strong> — Artists come to them. How?</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px; color: var(--text-secondary);">Other comparables: Brew Watch Co (lifestyle/coffee niche), Undone (customization), Tokyoflash/Kisai (tech-forward), Swatch (mass market artist collabs)</p>
+      </div>
+
+      <div class="card">
+        <h4>DTC Blind Spots</h4>
+        <p>70–80% of DTC brands fail by year 3. Common patterns:</p>
+        <table>
+          <tr><th>Blind Spot</th><th>What It Looks Like</th></tr>
+          <tr><td>Confusing engagement for demand</td><td>1,000 likes ≠ 1,000 customers. Brad's 6M+ followers need conversion validation.</td></tr>
+          <tr><td>Ignoring retention for acquisition</td><td>Pouring money into top-of-funnel while ignoring repeat buyers.</td></tr>
+          <tr><td>Scaling prematurely</td><td>$1–5M is "the badlands" — enough traction to feel real, not enough margin to absorb mistakes.</td></tr>
+          <tr><td>Flying blind on unit economics</td><td>Knowing revenue but not contribution margin per order after all costs.</td></tr>
+          <tr><td>Inventory disconnect from financials</td><td>Cash tied up in stock without visibility into what's actually selling.</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h4>Shopify Benchmarks</h4>
+        <table>
+          <tr><th>Metric</th><th>Average</th><th>Top 20%</th><th>Top 10%</th></tr>
+          <tr><td>Conversion rate</td><td>1.4–1.8%</td><td>3.2%+</td><td>4.7%+</td></tr>
+          <tr><td>Cart abandonment</td><td>70%</td><td>—</td><td>—</td></tr>
+          <tr><td>Mobile vs. desktop</td><td>1.2% mobile, 1.9% desktop</td><td>—</td><td>—</td></tr>
+        </table>
+        <p style="margin-top: 12px; font-size: 15px;">High-impact fixes: page speed (1 second faster = 7% lift), Shop Pay/BNPL, mobile-first design, 6+ product photos, clear shipping/returns. Low-traffic stores need 500+ sessions over 30+ days for meaningful data.</p>
+      </div>
+
+      <div class="card">
+        <h4>Tariffs & Manufacturing (2025)</h4>
+        <ul>
+          <li><strong>De minimis elimination:</strong> No more duty-free under $800 for China/HK. Now 90% tariff or $75 flat fee on low-value packages.</li>
+          <li><strong>DIY Watch Club case study:</strong> 80% US revenue, pivoted to Europe after tariffs. Market share there went 6% → 30%. US revenue impact: 20–30%.</li>
+          <li><strong>Industry response:</strong> Supply chain diversification (India emerging), batch ordering, tariff engineering (component sourcing), price increases.</li>
+          <li><strong>Hong Kong Watch Fair:</strong> Still valuable for meeting manufacturers, understanding component landscape.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h4>Email & Retention</h4>
+        <p>Email generates $36 revenue per $1 spent — highest ROI channel. Core flows for DTC:</p>
+        <ul>
+          <li><strong>Welcome series:</strong> Can go from $0.50 to $8 per recipient with proper setup.</li>
+          <li><strong>Abandoned cart:</strong> 5–15% recovery typical. One SMS in flow can accelerate.</li>
+          <li><strong>Post-purchase:</strong> Reviews, referrals, repeat purchase timing.</li>
+          <li><strong>Browse abandonment:</strong> Often missing from small brand setups.</li>
+        </ul>
+        <p style="margin-top: 12px; font-size: 15px;">Target: ~30% email-attributed revenue, split evenly between flows and campaigns.</p>
+      </div>
+
+      <div class="context-box">
+        <h4>Research Methodology Note</h4>
+        <p>Each topic above can be expanded significantly. There are structured approaches to LLM-assisted research that go beyond simple search — wrappers and protocols designed to surface more accurate, externally validated results with built-in skepticism and falsification checks. The difference between "ask an AI" and "use AI as a research tool" is significant.</p>
+        <p style="margin-top: 12px; font-size: 15px;">If any of these topics warrant deeper investigation, talk to G about methodology.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Built for the founders of Mad Hudson · December 2025</p>
+    </footer>
+  </div>
+
+  <script>
+    // Sales calculator
+    const monthlyInput = document.getElementById('monthly-sales');
+    const yearlyInput = document.getElementById('yearly-sales');
+    const priceInput = document.getElementById('avg-price');
+    const costInput = document.getElementById('unit-cost');
+
+    function calculate() {
+      const monthly = parseFloat(monthlyInput.value) || 0;
+      const yearly = parseFloat(yearlyInput.value) || 0;
+      const price = parseFloat(priceInput.value) || 215;
+      const cost = parseFloat(costInput.value) || 0;
+
+      document.getElementById('monthly-rev').textContent = monthly ? '$' + (monthly * price).toLocaleString() : '—';
+      document.getElementById('margin').textContent = cost ? '$' + (price - cost).toFixed(0) : '—';
+      document.getElementById('yearly-rev').textContent = yearly ? '$' + (yearly * price).toLocaleString() : '—';
+      document.getElementById('avg-month').textContent = yearly ? (yearly / 12).toFixed(1) : '—';
+    }
+
+    [monthlyInput, yearlyInput, priceInput, costInput].forEach(input => {
+      input.addEventListener('input', calculate);
+    });
+
+    // Nav scroll
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Active state
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        if (scrollY >= section.offsetTop - 200) current = section.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    });
+
+    // LocalStorage persistence for textareas and inputs
+    const STORAGE_KEY = 'mad-hudson-ref-v11';
+    
+    function saveToStorage() {
+      const data = {
+        monthlySales: monthlyInput.value,
+        yearlySales: yearlyInput.value,
+        avgPrice: priceInput.value,
+        unitCost: costInput.value,
+        clarityAnswer: document.getElementById('clarity-answer')?.value || '',
+        energyAnswer: document.getElementById('energy-answer')?.value || '',
+        bigQuestion: document.getElementById('big-question')?.value || ''
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    function loadFromStorage() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.monthlySales) monthlyInput.value = data.monthlySales;
+          if (data.yearlySales) yearlyInput.value = data.yearlySales;
+          if (data.avgPrice) priceInput.value = data.avgPrice;
+          if (data.unitCost) costInput.value = data.unitCost;
+          if (data.clarityAnswer) document.getElementById('clarity-answer').value = data.clarityAnswer;
+          if (data.energyAnswer) document.getElementById('energy-answer').value = data.energyAnswer;
+          if (data.bigQuestion) document.getElementById('big-question').value = data.bigQuestion;
+          calculate();
+        }
+      } catch (e) {
+        console.log('Could not load saved data');
+      }
+    }
+
+    // Save on any input change
+    document.querySelectorAll('input, textarea').forEach(el => {
+      el.addEventListener('input', saveToStorage);
+      el.addEventListener('change', saveToStorage);
+    });
+
+    // Load saved data on page load
+    loadFromStorage();
+  </script>
+</body>
+</html>

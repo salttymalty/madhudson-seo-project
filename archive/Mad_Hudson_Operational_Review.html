@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson — Operational Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f9f7f4;
+      --bg-card: #ffffff;
+      --text: #1a1a1a;
+      --text-light: #5c5c5c;
+      --text-muted: #8a8a8a;
+      --border: #e8e4df;
+      --border-light: #f0ece7;
+      --accent: #2a2a2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      padding: 80px 0 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 8vw, 56px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 20px;
+      color: var(--text-light);
+      max-width: 600px;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 16px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text);
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    h3 {
+      font-size: 22px;
+      font-weight: 600;
+      margin: 40px 0 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    h3:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .lead {
+      font-size: 20px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 700px;
+    }
+
+    /* Snapshot Grid */
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .snapshot-card {
+      background: var(--bg-card);
+      padding: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .snapshot-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .snapshot-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .snapshot-note {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 8px;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      padding: 28px;
+      border: 1px solid var(--border);
+    }
+
+    .card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .card h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    /* Question Cards - Expandable */
+    .question-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .question-header {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .question-header:hover {
+      background: var(--border-light);
+    }
+
+    .question-header h4 {
+      font-size: 18px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .question-header .icon {
+      font-size: 20px;
+    }
+
+    .question-header .toggle {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .question-card.open .toggle {
+      transform: rotate(45deg);
+    }
+
+    .question-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .question-card.open .question-body {
+      max-height: 1000px;
+    }
+
+    .question-content {
+      padding: 0 24px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .question-content p {
+      color: var(--text-light);
+      margin: 16px 0;
+    }
+
+    .question-list {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    .question-list li {
+      display: flex;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-light);
+    }
+
+    .question-list li:last-child {
+      border-bottom: none;
+    }
+
+    .question-list .num {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      min-width: 24px;
+    }
+
+    /* Quote Block */
+    .quote-block {
+      margin: 48px 0;
+      padding: 32px;
+      background: var(--bg-card);
+      border-left: 3px solid var(--text);
+    }
+
+    .quote-block blockquote {
+      font-size: 24px;
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* Two Column Assessment */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 32px 0;
+    }
+
+    @media (max-width: 600px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .col-header {
+      font-family: 'Space Mono', monospace;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--text);
+      margin-bottom: 16px;
+    }
+
+    .col-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    /* Friction Map */
+    .friction-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+
+    .friction-severity {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 6px;
+    }
+
+    .friction-severity.high {
+      background: var(--text);
+    }
+
+    .friction-severity.medium {
+      background: var(--text-light);
+    }
+
+    .friction-severity.low {
+      background: var(--text-muted);
+    }
+
+    .friction-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .friction-content p {
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .friction-action {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: right;
+      max-width: 180px;
+    }
+
+    /* Roadmap Section */
+    .roadmap-track {
+      margin: 32px 0;
+    }
+
+    .roadmap-track h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .roadmap-items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .roadmap-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+    }
+
+    .roadmap-item .priority {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      padding: 4px 8px;
+      background: var(--border-light);
+      color: var(--text-light);
+      height: fit-content;
+    }
+
+    .roadmap-item .content h5 {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .roadmap-item .content p {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* Investment Highlights */
+    .highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .highlight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 24px;
+    }
+
+    .highlight-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .highlight-card p {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      header {
+        padding: 60px 0 40px;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .friction-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .friction-action {
+        display: none;
+      }
+
+      nav ul {
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">MAD HUDSON</div>
+      <h1>Operational Review</h1>
+      <p class="subtitle">Where you are, what's working, and what to watch.</p>
+    </header>
+  </div>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="#snapshot">Snapshot</a></li>
+        <li><a href="#questions">Key Questions</a></li>
+        <li><a href="#assessment">Assessment</a></li>
+        <li><a href="#friction">Friction Map</a></li>
+        <li><a href="#b2b">B2B Positioning</a></li>
+        <li><a href="#operations">Owner Operations</a></li>
+        <li><a href="#roadmap">Growth Roadmap</a></li>
+        <li><a href="#investment">Investment Roadmap</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Snapshot Section -->
+    <section id="snapshot">
+      <div class="container">
+        <div class="section-label">01 — WHERE THINGS STAND</div>
+        <h2>Current state</h2>
+
+        <div class="snapshot-grid">
+          <div class="snapshot-card">
+            <div class="snapshot-label">LAUNCHED</div>
+            <div class="snapshot-value">2022</div>
+            <div class="snapshot-note">3 years in market</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snapshot-label">WATCHES</div>
+            <div class="snapshot-value">3</div>
+            <div class="snapshot-note">Artist collaborations</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snapshot-label">PRICE POINT</div>
+            <div class="snapshot-value">$200-300</div>
+            <div class="snapshot-note">Accessible art piece</div>
+          </div>
+          <div class="snapshot-card">
+            <div class="snapshot-label">REVIEWS</div>
+            <div class="snapshot-value">9</div>
+            <div class="snapshot-note">All five-star</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-label">ENTITY</div>
+            <h4>Mad Hudson</h4>
+            <p>Single LLC operating both the watch brand (DTC) and design services (B2B). Clean structure for current scale.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">MODEL</div>
+            <h4>Artist Collaborations</h4>
+            <p>Each watch designed with a contemporary artist. Differentiator and dependency — the relationships are the product.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">CHANNELS</div>
+            <h4>DTC + Design Services</h4>
+            <p>Shopify storefront for watches. Macy's project is B2B design work, not wholesale. Separate value streams.</p>
+          </div>
+          <div class="card">
+            <div class="card-label">OPERATIONS</div>
+            <h4>Small & Scrappy</h4>
+            <p>Strong HK manufacturing partner. In-house packaging/shipping. Ad hoc client intake, fulfillment, social posting.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Questions Section -->
+    <section id="questions">
+      <div class="container">
+        <div class="section-label">02 — CONVERSATIONS TO HAVE</div>
+        <h2>Key questions</h2>
+        <p class="lead">Strategic questions worth sitting with.</p>
+
+        <div class="question-card">
+          <div class="question-header" onclick="toggleQuestion(this)">
+            <h4><span class="icon">◯</span> Founder Alignment</h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="question-body">
+            <div class="question-content">
+              <p>Fundamentals to get clear on.</p>
+              <ul class="question-list">
+                <li><span class="num">01</span> What does Mad Hudson look like in 3 years if everything goes well?</li>
+                <li><span class="num">02</span> How many hours/week is sustainable long-term for each founder?</li>
+                <li><span class="num">03</span> What happens if one person wants out?</li>
+                <li><span class="num">04</span> Is the goal lifestyle business or growth trajectory?</li>
+                <li><span class="num">05</span> How much financial risk is acceptable?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-header" onclick="toggleQuestion(this)">
+            <h4><span class="icon">◯</span> Growth Channels</h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="question-body">
+            <div class="question-content">
+              <p>Three channels in the roadmap. Each has different economics and demands.</p>
+              <ul class="question-list">
+                <li><span class="num">01</span> Corporate gifting: Do we have capacity for volume orders?</li>
+                <li><span class="num">02</span> Museum gift shops: Are we ready to accept wholesale margins?</li>
+                <li><span class="num">03</span> Brand collaborations: Who leads product development for horizontal products?</li>
+                <li><span class="num">04</span> Which channel fits current bandwidth?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-header" onclick="toggleQuestion(this)">
+            <h4><span class="icon">◯</span> Operations Reality</h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="question-body">
+            <div class="question-content">
+              <p>Where are you spending time? Where do things fall through?</p>
+              <ul class="question-list">
+                <li><span class="num">01</span> What's the single most time-consuming operational task?</li>
+                <li><span class="num">02</span> Where do things fall through the cracks?</li>
+                <li><span class="num">03</span> What would change with 5 extra hours/week?</li>
+                <li><span class="num">04</span> Is the ad-hoc approach sustainable or just familiar?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-header" onclick="toggleQuestion(this)">
+            <h4><span class="icon">◯</span> Protection</h4>
+            <span class="toggle">+</span>
+          </div>
+          <div class="question-body">
+            <div class="question-content">
+              <p>Legal and structural considerations.</p>
+              <ul class="question-list">
+                <li><span class="num">01</span> Do you have written agreements with each artist covering IP, royalties, usage?</li>
+                <li><span class="num">02</span> Is "Mad Hudson" trademarked? In what classes?</li>
+                <li><span class="num">03</span> If a customer sued over a product defect, what's your exposure?</li>
+                <li><span class="num">04</span> What triggers would make you restructure into separate LLCs?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-block">
+          <blockquote>"What would have to be true for Mad Hudson to feel like a success in 2028?"</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assessment Section -->
+    <section id="assessment">
+      <div class="container">
+        <div class="section-label">03 — HONEST LOOK</div>
+        <h2>What's working / What to watch</h2>
+
+        <div class="two-col">
+          <div>
+            <div class="col-header">WORKING</div>
+            <div class="col-item">Artist collaboration model — genuine differentiator</div>
+            <div class="col-item">Strong HK manufacturing relationship</div>
+            <div class="col-item">$200-300 price point (accessible art, real margins)</div>
+            <div class="col-item">Hand-packaged experience (brand-aligned)</div>
+            <div class="col-item">100% five-star reviews</div>
+            <div class="col-item">Design services proving B2B credibility (Macy's)</div>
+          </div>
+          <div>
+            <div class="col-header">WATCH</div>
+            <div class="col-item">Ad hoc operations (client intake, fulfillment, social)</div>
+            <div class="col-item">Artist dependency — relationships are the product</div>
+            <div class="col-item">No email marketing / abandoned cart recovery</div>
+            <div class="col-item">Limited data on customer acquisition costs</div>
+            <div class="col-item">Early traction — sample size still small</div>
+            <div class="col-item">Design services scope creep risk</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Friction Map Section -->
+    <section id="friction">
+      <div class="container">
+        <div class="section-label">04 — WHERE THINGS BREAK</div>
+        <h2>Friction map</h2>
+        <p class="lead">Common pressure points worth monitoring.</p>
+
+        <h3>Manufacturing + Production</h3>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>MOQ Negotiations</h4>
+            <p>Minimum orders force bets on demand before you have data. Too few = stockouts. Too many = cash trapped.</p>
+          </div>
+          <div class="friction-action">What's MOQ per SKU?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Sample Approval Cycles</h4>
+            <p>Back-and-forth on color, materials, construction. Each round adds weeks.</p>
+          </div>
+          <div class="friction-action">Rounds per watch?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Lead Time Uncertainty</h4>
+            <p>"8 weeks" becomes 12. Launch dates slip. Pre-order customers get antsy.</p>
+          </div>
+          <div class="friction-action">Quoted vs. actual?</div>
+        </div>
+
+        <h3>Artist Relationships</h3>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>Finding the Right Artists</h4>
+            <p>Not every great artist makes great product. Need alignment on vision, timeline, commerciality.</p>
+          </div>
+          <div class="friction-action">Pipeline of 3-5?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>IP Agreements</h4>
+            <p>Usage rights, royalty structures, exclusivity terms. Worth documenting as relationships grow.</p>
+          </div>
+          <div class="friction-action">Written agreements?</div>
+        </div>
+
+        <h3>Design Services (B2B)</h3>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>Scope Creep</h4>
+            <p>Client asks for "one more thing." Small asks compound. Margins can erode.</p>
+          </div>
+          <div class="friction-action">Change order process?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Brand Dilution Risk</h4>
+            <p>Taking projects that don't align with Mad Hudson's identity. Cash-driven decisions that cost credibility.</p>
+          </div>
+          <div class="friction-action">Project criteria defined?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Payment Terms</h4>
+            <p>Net 30 becomes Net 60. Cash flow gaps. Chasing invoices is time you could spend designing.</p>
+          </div>
+          <div class="friction-action">Deposit structure?</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- B2B Positioning Section -->
+    <section id="b2b">
+      <div class="container">
+        <div class="section-label">05 — THE OPEN QUESTION</div>
+        <h2>B2B design services positioning</h2>
+        <p class="lead">The team has B2B capability. The question is how to position it.</p>
+
+        <div class="two-col" style="margin-bottom: 40px;">
+          <div>
+            <div class="col-header">THE DILEMMA</div>
+            <div class="col-item">Watch brand and design services share DNA — design thinking, production expertise, artist relationships</div>
+            <div class="col-item">But they serve different audiences with different needs</div>
+            <div class="col-item">Consumer buyers want a distinctive product. B2B clients want proof of capability.</div>
+            <div class="col-item">Making design services visible could strengthen credibility — or dilute brand focus</div>
+          </div>
+          <div>
+            <div class="col-header">WHAT RESEARCH SUGGESTS</div>
+            <div class="col-item">Consumer brand as proof: watches demonstrate end-to-end capability for B2B pitches</div>
+            <div class="col-item">Same story, different audiences: "Here's what we made. Here's what we can make for you."</div>
+            <div class="col-item">Light endorsement model: Mad Hudson leads, "Mad Hudson Design" or "Mad Hudson Studios" as soft sub-brand</div>
+            <div class="col-item">Single website, dual paths: /watches for consumers, /design for B2B clients</div>
+          </div>
+        </div>
+
+        <div class="roadmap-track">
+          <h4>Structural Options</h4>
+          <div class="roadmap-items">
+            <div class="roadmap-item">
+              <span class="priority">OPTION A</span>
+              <div class="content">
+                <h5>Single entity, dual audiences</h5>
+                <p>One Mad Hudson LLC. Watches and design services under same roof. Website has both paths. Macy's project is portfolio piece, not separate business.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">OPTION B</span>
+              <div class="content">
+                <h5>Holding company with operating LLCs</h5>
+                <p>Mad Hudson Holdings → Mad Hudson Watches LLC + Mad Hudson Design LLC. Cleaner liability separation. More administrative overhead. Easier to sell or spin off one side later.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">OPTION C</span>
+              <div class="content">
+                <h5>Stealth B2B</h5>
+                <p>Don't publicly market design services. Let it grow through relationships. Watches are the public face. B2B work happens but isn't branded. Lowest complexity, limits B2B growth.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-block">
+          <blockquote>"Is Mad Hudson a design house that makes watches, or a watch company with design capability?"</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- Owner Operations Section -->
+    <section id="operations">
+      <div class="container">
+        <div class="section-label">06 — REALITY CHECK</div>
+        <h2>Owner operations load</h2>
+        <p class="lead">Founders are doing most of the work. That's normal — and worth examining.</p>
+
+        <div class="two-col" style="margin-bottom: 40px;">
+          <div>
+            <div class="col-header">WHAT OWNERS HANDLE NOW</div>
+            <div class="col-item">Client intake and communication</div>
+            <div class="col-item">Order fulfillment and packaging</div>
+            <div class="col-item">Social media posting</div>
+            <div class="col-item">Artist relationship management</div>
+            <div class="col-item">Manufacturing coordination</div>
+            <div class="col-item">B2B project management</div>
+          </div>
+          <div>
+            <div class="col-header">QUESTIONS WORTH ASKING</div>
+            <div class="col-item">Which tasks are energizing vs. draining?</div>
+            <div class="col-item">What would you do with 10 extra hours/week?</div>
+            <div class="col-item">Where do things fall through the cracks?</div>
+            <div class="col-item">What could be systematized without losing quality?</div>
+            <div class="col-item">Is the ad-hoc approach sustainable or just familiar?</div>
+            <div class="col-item">What's the first thing you'd offload if you could?</div>
+          </div>
+        </div>
+
+        <div class="roadmap-track">
+          <h4>What Research Says About Small Creative Startups</h4>
+          <div class="roadmap-items">
+            <div class="roadmap-item">
+              <span class="priority">PATTERN</span>
+              <div class="content">
+                <h5>Founders burn out around year 4-5</h5>
+                <p>Many "pretty successful" startups sell at about the same time — founders get burnt out, sell just as things are getting good. Not inevitable, but common.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">PATTERN</span>
+              <div class="content">
+                <h5>Heroism doesn't scale</h5>
+                <p>The biggest internal challenge is transitioning from startup heroism (whatever-it-takes) to more systematic processes. Many founders stay stuck in improvisation mode.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">INSIGHT</span>
+              <div class="content">
+                <h5>Systems before hires</h5>
+                <p>"You don't scale by hiring. You scale by systemizing." Adding people to broken systems multiplies inefficiency. Document workflows first, then decide what to delegate.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">INSIGHT</span>
+              <div class="content">
+                <h5>Hire to fill gaps, not to clone</h5>
+                <p>Double-down on founder strengths, hire to cover weaknesses. Creative founders often need operations support — but only when the systems are ready for someone else to run them.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">TIMING</span>
+              <div class="content">
+                <h5>If workload is unsustainable, you should have hired already</h5>
+                <p>Rule of thumb: if a task isn't high-level decision-making, someone else can probably do it. Start small — virtual assistant, fulfillment help, social scheduling.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap">
+      <div class="container">
+        <div class="section-label">07 — GROWTH CHANNELS</div>
+        <h2>Watch development roadmap</h2>
+        <p class="lead">Three channels worth exploring. Each requires different capabilities.</p>
+
+        <div class="roadmap-track">
+          <h4>Corporate Gifting</h4>
+          <div class="roadmap-items">
+            <div class="roadmap-item">
+              <span class="priority">HIGH-ROI</span>
+              <div class="content">
+                <h5>Executive gifts ($200-300 fits perfectly)</h5>
+                <p>Companies seek unique, conversation-starting gifts. Hand-packaged experience aligns. Entry: employee milestones, client appreciation, deal closers.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">FRICTION</span>
+              <div class="content">
+                <h5>Volume capacity + custom branding options</h5>
+                <p>Requires dedicated outreach, potentially custom dial runs, faster turnaround than DTC.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-track">
+          <h4>Museum Gift Shops</h4>
+          <div class="roadmap-items">
+            <div class="roadmap-item">
+              <span class="priority">FIT</span>
+              <div class="content">
+                <h5>Artist collaboration model is exactly what buyers want</h5>
+                <p>Museums seek exclusive products with compelling artist stories. Not literal reproductions — products tied to their mission. Art Institute, MCA, design museums all potential fits.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">FRICTION</span>
+              <div class="content">
+                <h5>Wholesale margins, exclusivity requests, consignment terms</h5>
+                <p>Need to decide: are you willing to accept 50% margins? Can you do exclusive runs for specific institutions?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="roadmap-track">
+          <h4>Brand Collaborations</h4>
+          <div class="roadmap-items">
+            <div class="roadmap-item">
+              <span class="priority">POTENTIAL</span>
+              <div class="content">
+                <h5>Horizontal products with aligned brands</h5>
+                <p>Kitchen timers, clocks, design objects. Leverage existing manufacturing relationships and design language. Partners: Areaware, HAY, Schoolhouse, indie coffee/food brands, music/audio brands.</p>
+              </div>
+            </div>
+            <div class="roadmap-item">
+              <span class="priority">FRICTION</span>
+              <div class="content">
+                <h5>Product development bandwidth, IP agreements, new manufacturing</h5>
+                <p>Who leads this? Requires new capabilities or partner structure.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Investment Roadmap Section -->
+    <section id="investment">
+      <div class="container">
+        <div class="section-label">08 — FUTURE INVESTMENT ROADMAP</div>
+        <h2>What could attract investment</h2>
+        <p class="lead">Elements that make Mad Hudson interesting to outside capital — when and if that becomes relevant.</p>
+
+        <div class="highlight-grid">
+          <div class="highlight-card">
+            <h4>Proven Artist Model</h4>
+            <p>Replicable collaboration framework with built-in audience cross-pollination. Each new artist brings their own following. The model itself is the IP.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Strong Manufacturing Partner</h4>
+            <p>Established Hong Kong relationship. Low MOQs, quality control, flexible production — hard to replicate and took time to build.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Multiple Revenue Streams</h4>
+            <p>DTC watches, B2B design services, corporate gifting potential, museum retail — diversified from day one, not dependent on single channel.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Brand Expansion Potential</h4>
+            <p>Design language translates to horizontal products: kitchen timers, clocks, desk accessories. Manufacturing infrastructure already exists.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Authentic Positioning</h4>
+            <p>Chicago arts credibility with national reach. Real story in a market full of generic microbrands. "One part design house, one part watch company."</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Scalable Without Dilution</h4>
+            <p>Artist collaborations can grow without losing the hand-curated feel. Quality gatekeeping is the moat — not something competitors can easily copy.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Team Experience</h4>
+            <p>Combined background in product design, B2B advertising, and creative direction. Not first-time founders learning on the job.</p>
+          </div>
+          <div class="highlight-card">
+            <h4>Lean Operations</h4>
+            <p>Low fixed overhead, variable manufacturing model. Can grow without massive capital requirements. Profitable unit economics from the start.</p>
+          </div>
+        </div>
+
+        <div class="quote-block" style="margin-top: 48px;">
+          <blockquote>"The goal is simple and a little ambitious: create the most unique watch designs in the world."</blockquote>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>Mad Hudson · December 2025</p>
+      <p style="margin-top: 8px;"><a href="#">↑ Back to top</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleQuestion(header) {
+      const card = header.parentElement;
+      card.classList.toggle('open');
+    }
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Active nav state on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

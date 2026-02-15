@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson — Founder Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a1a1a;
+      --bg-elevated: #242424;
+      --text: #e8e4df;
+      --text-muted: #9a948c;
+      --accent: #d4734c;
+      --accent-dim: #b85f3d;
+      --warning: #d4a84c;
+      --alert: #c45c5c;
+      --success: #5c9a6e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Archivo', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header */
+    header {
+      padding: 100px 0 80px;
+    }
+
+    .eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 640px;
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 100;
+      padding: 20px 0;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--accent);
+    }
+
+    /* Sections */
+    section {
+      padding: 80px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 40px 0 16px;
+      letter-spacing: -0.01em;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p.muted {
+      color: var(--text-muted);
+    }
+
+    /* Current State Summary */
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .state-item {
+      padding: 24px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+    }
+
+    .state-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .state-value {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .state-note {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    /* Cards */
+    .card-grid {
+      display: grid;
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    .card {
+      padding: 28px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+    }
+
+    .card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .card h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .card p {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* High-Level Questions */
+    .questions-box {
+      background: var(--bg-elevated);
+      padding: 32px;
+      border-radius: 4px;
+      margin: 32px 0;
+      border-left: 3px solid var(--accent);
+    }
+
+    .questions-box h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .question-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .question-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .question-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+
+    .question-text {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* Friction Map */
+    .friction-item {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: start;
+    }
+
+    .friction-item:last-child {
+      border-bottom: none;
+    }
+
+    .friction-severity {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-top: 6px;
+    }
+
+    .friction-severity.high { background: var(--alert); }
+    .friction-severity.medium { background: var(--warning); }
+    .friction-severity.low { background: var(--success); }
+
+    .friction-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .friction-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .friction-action {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: right;
+      max-width: 200px;
+    }
+
+    /* Decision Framework */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 32px 0;
+    }
+
+    @media (max-width: 700px) {
+      .framework-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .framework-item {
+      padding: 24px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .framework-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .framework-question {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Callouts */
+    .callout {
+      padding: 24px;
+      background: var(--bg-elevated);
+      border-left: 3px solid var(--text-muted);
+      margin: 32px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .callout.warning {
+      border-left-color: var(--warning);
+    }
+
+    .callout.alert {
+      border-left-color: var(--alert);
+    }
+
+    .callout p {
+      margin-bottom: 0;
+      font-size: 15px;
+    }
+
+    /* Expandable Cards */
+    .question-card {
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .question-header:hover {
+      background: rgba(255,255,255,0.02);
+    }
+
+    .question-header h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .toggle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .question-card.open .toggle {
+      transform: rotate(45deg);
+    }
+
+    .question-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .question-card.open .question-body {
+      max-height: 600px;
+    }
+
+    .question-content {
+      padding: 0 24px 24px;
+    }
+
+    .question-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .question-list {
+      list-style: none;
+    }
+
+    .question-list li {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .question-list .num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      padding-top: 3px;
+    }
+
+    /* Checklists */
+    .checklist-section {
+      margin: 32px 0;
+    }
+
+    .checklist-section h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-muted);
+    }
+
+    .checkbox-list {
+      list-style: none;
+    }
+
+    .checkbox-list li {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      align-items: flex-start;
+    }
+
+    .checkbox-list li:last-child {
+      border-bottom: none;
+    }
+
+    .checkbox-list input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .checkbox-list label {
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .checkbox-list input:checked + label {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* Data Gaps */
+    .gap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .gap-item {
+      padding: 20px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+    }
+
+    .gap-item h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .gap-item p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      header { padding: 60px 0 50px; }
+      section { padding: 50px 0; }
+      .container { padding: 0 20px; }
+      nav ul { gap: 20px; }
+      .friction-item { grid-template-columns: 12px 1fr; }
+      .friction-action { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="eyebrow">Mad Hudson — Founder Review</div>
+      <h1>Current State &amp; Strategic Questions</h1>
+      <p class="lead">A working assessment of where Mad Hudson stands today, what's working, where friction lives, and the questions that matter for what comes next.</p>
+    </header>
+  </div>
+
+  <nav>
+    <div class="container">
+      <ul>
+        <li><a href="#state">Current State</a></li>
+        <li><a href="#working">What's Working</a></li>
+        <li><a href="#questions">Key Questions</a></li>
+        <li><a href="#friction">Friction Map</a></li>
+        <li><a href="#gaps">Data Gaps</a></li>
+        <li><a href="#framework">Decision Framework</a></li>
+        <li><a href="#action">Take Action</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Current State -->
+    <section id="state">
+      <div class="container">
+        <div class="section-label">01 — Current State</div>
+        <h2>Where Things Stand</h2>
+        
+        <div class="state-grid">
+          <div class="state-item">
+            <div class="state-label">Structure</div>
+            <div class="state-value">Madman Production House LLC</div>
+            <div class="state-note">DBA Mad Hudson Watches + informal design services</div>
+          </div>
+          <div class="state-item">
+            <div class="state-label">Team</div>
+            <div class="state-value">3 Founders</div>
+            <div class="state-note">Handle most operations in-house</div>
+          </div>
+          <div class="state-item">
+            <div class="state-label">Collaborations</div>
+            <div class="state-value">3 Artist Partners</div>
+            <div class="state-note">Co-design + promotional partnerships</div>
+          </div>
+          <div class="state-item">
+            <div class="state-label">Retail</div>
+            <div class="state-value">Macy's Partnership</div>
+            <div class="state-note">First major wholesale account</div>
+          </div>
+        </div>
+
+        <p class="muted">The model: local artist collaborations that bring both design perspective and audience. Each watch line tells a story through the artist's lens. Most work flows through the three founders — product development, manufacturing coordination, marketing, fulfillment, customer service.</p>
+
+        <div class="questions-box">
+          <h4>High-Level Questions</h4>
+          <div class="question-item">
+            <span class="question-num">01</span>
+            <span class="question-text">What would Mad Hudson look like in 2028 if things go well?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">02</span>
+            <span class="question-text">Is this a lifestyle business, a scale play, or a design studio with watches as proof-of-concept?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">03</span>
+            <span class="question-text">What role does B2B/wholesale play — growth engine or diversification hedge?</span>
+          </div>
+          <div class="question-item">
+            <span class="question-num">04</span>
+            <span class="question-text">How many hours per week is sustainable long-term for each founder?</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- What's Working -->
+    <section id="working">
+      <div class="container">
+        <div class="section-label">02 — Assessment</div>
+        <h2>What's Working</h2>
+        
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-label">Brand Position</div>
+            <h4>Artist collaboration model is differentiated</h4>
+            <p>Chicago-rooted, story-driven, artist-centric. Not competing on specs or price with microbrands — competing on meaning. Few others are doing this at watch scale.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">Market Signal</div>
+            <h4>Early customer response is strong</h4>
+            <p>9 five-star reviews. Customers who engage are enthusiastic. That's not product-market fit yet — but it's early validation that the concept resonates.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">B2B Proof</div>
+            <h4>Macy's partnership opens doors</h4>
+            <p>A major retailer saw something worth betting on. It's one data point, but it's a credible one. Can be leveraged for future wholesale conversations.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">Operating Model</div>
+            <h4>Lean and controlled</h4>
+            <p>Low overhead, founders close to every decision, no premature scaling. Cash isn't trapped in structure. You can pivot fast if needed.</p>
+          </div>
+        </div>
+
+        <h3>What Needs Attention</h3>
+        
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-label">Constraint</div>
+            <h4>Founder bandwidth is the bottleneck</h4>
+            <p>Three people handling everything means nothing scales. Every new initiative competes with existing operations. The first hire question is overdue.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">Dependency</div>
+            <h4>Artist model is differentiator AND risk</h4>
+            <p>The thing that makes you special is also a constraint. Artist relationships are personal, hard to systematize, and create concentration risk if a key partner exits.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">Gap</div>
+            <h4>Informal systems</h4>
+            <p>No clear customer source data, no documented workflows, no written artist agreements. Works now — becomes liability at scale or during transition.</p>
+          </div>
+          
+          <div class="card">
+            <div class="card-label">Exposure</div>
+            <h4>IP and liability undocumented</h4>
+            <p>Trademark status unclear. Artist IP agreements informal or missing. Product liability exposure unknown. Solvable — but needs attention before next inflection.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Questions -->
+    <section id="questions">
+      <div class="container">
+        <div class="section-label">03 — Questions</div>
+        <h2>Conversations to Have</h2>
+        <p class="muted">Not a checklist. A conversation guide. Work through these separately, then compare notes.</p>
+
+        <div style="margin-top: 32px;">
+          <div class="question-card">
+            <div class="question-header" onclick="toggleQuestion(this)">
+              <h4>B2B Strategy</h4>
+              <span class="toggle">+</span>
+            </div>
+            <div class="question-body">
+              <div class="question-content">
+                <p>Not "should we do B2B" but "what role does it play?"</p>
+                <ul class="question-list">
+                  <li><span class="num">01</span> Is Macy's a proof point you want to replicate, or a one-off you fell into?</li>
+                  <li><span class="num">02</span> If a retailer wanted 500 units tomorrow, could you fulfill it? Would you want to?</li>
+                  <li><span class="num">03</span> Does "Mad Hudson Design" strengthen the watch brand or dilute it?</li>
+                  <li><span class="num">04</span> Is B2B a growth engine or a diversification hedge?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <div class="question-header" onclick="toggleQuestion(this)">
+              <h4>Capacity &amp; First Hire</h4>
+              <span class="toggle">+</span>
+            </div>
+            <div class="question-body">
+              <div class="question-content">
+                <p>Before you add, understand what you have.</p>
+                <ul class="question-list">
+                  <li><span class="num">01</span> How many founder-hours went into the last product launch?</li>
+                  <li><span class="num">02</span> What's the longest you could sustain that pace?</li>
+                  <li><span class="num">03</span> If you could hire one person tomorrow at $50K, what would they do?</li>
+                  <li><span class="num">04</span> What's the task you personally dread or that consistently falls through cracks?</li>
+                  <li><span class="num">05</span> How many artist collaborations per year is sustainable?</li>
+                </ul>
+                <div class="callout">
+                  <p>The first hire is usually the task you hate, not the task you love. Creative founders over-index on creative roles.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <div class="question-header" onclick="toggleQuestion(this)">
+              <h4>Protection &amp; Structure</h4>
+              <span class="toggle">+</span>
+            </div>
+            <div class="question-body">
+              <div class="question-content">
+                <p>You don't need to restructure now. But know your triggers.</p>
+                <ul class="question-list">
+                  <li><span class="num">01</span> Do you have written agreements with each artist covering IP, royalties, and usage rights?</li>
+                  <li><span class="num">02</span> Is "Mad Hudson" trademarked? In what classes?</li>
+                  <li><span class="num">03</span> If a customer sued over a product defect, what's your exposure?</li>
+                  <li><span class="num">04</span> What triggers would make you restructure into separate LLCs?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <div class="question-header" onclick="toggleQuestion(this)">
+              <h4>Artist Pipeline</h4>
+              <span class="toggle">+</span>
+            </div>
+            <div class="question-body">
+              <div class="question-content">
+                <p>The model's sustainability depends on repeatability.</p>
+                <ul class="question-list">
+                  <li><span class="num">01</span> How do you find collaborators? Is there a waitlist?</li>
+                  <li><span class="num">02</span> Are you pursuing artists or are they coming to you?</li>
+                  <li><span class="num">03</span> What's the vetting process? How do you know if someone's a fit?</li>
+                  <li><span class="num">04</span> If your top artist partner left tomorrow, what happens?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Friction Map -->
+    <section id="friction">
+      <div class="container">
+        <div class="section-label">04 — Friction Map</div>
+        <h2>Where Things Break</h2>
+        <p class="muted">Predictable pressure points for businesses like this. Severity based on frequency and impact.</p>
+
+        <h3>Manufacturing &amp; Production</h3>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>MOQ Negotiations</h4>
+            <p>Minimum order quantities force you to bet on demand before you have data. Too few = stockouts. Too many = cash trapped in inventory.</p>
+          </div>
+          <div class="friction-action">What's current MOQ per SKU? How much capital in inventory?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>Sample Approval Cycles</h4>
+            <p>Back-and-forth on color, materials, construction. Each round = weeks. Artists have opinions that don't translate cleanly to manufacturing.</p>
+          </div>
+          <div class="friction-action">How many sample rounds per watch? Who has final say?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Lead Time Uncertainty</h4>
+            <p>"8 weeks" becomes 12. Launch dates slip. Pre-order customers get antsy. Marketing calendar breaks.</p>
+          </div>
+          <div class="friction-action">Gap between quoted and actual lead time?</div>
+        </div>
+
+        <h3>Artist Relationships</h3>
+        <div class="friction-item">
+          <div class="friction-severity high"></div>
+          <div class="friction-content">
+            <h4>Expectation Misalignment</h4>
+            <p>Artists want creative control. Manufacturing wants reproducibility. Founders want timeline. Someone always compromises.</p>
+          </div>
+          <div class="friction-action">Clear documented roles before kickoff?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Promotional Commitment</h4>
+            <p>Artist agrees to promote. Life happens. Their audience doesn't materialize. You've bet on reach that doesn't arrive.</p>
+          </div>
+          <div class="friction-action">Promotional obligations in contracts?</div>
+        </div>
+
+        <h3>Operations</h3>
+        <div class="friction-item">
+          <div class="friction-severity medium"></div>
+          <div class="friction-content">
+            <h4>Customer Service During Launches</h4>
+            <p>Pre-order questions, shipping inquiries, returns. Volume spikes. Founders get pulled from strategic work.</p>
+          </div>
+          <div class="friction-action">Hours spent on CS last launch?</div>
+        </div>
+        <div class="friction-item">
+          <div class="friction-severity low"></div>
+          <div class="friction-content">
+            <h4>Content Production</h4>
+            <p>Photos, copy, social, email. Every launch needs it. Often last-minute, often bottlenecked on one person.</p>
+          </div>
+          <div class="friction-action">Who owns content? Is it documented?</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Data Gaps -->
+    <section id="gaps">
+      <div class="container">
+        <div class="section-label">05 — Data Gaps</div>
+        <h2>What You Need to Know</h2>
+        <p class="muted">Before making strategy decisions, close these information gaps.</p>
+
+        <div class="gap-grid">
+          <div class="gap-item">
+            <h4>Customer Source</h4>
+            <p>Where are customers actually coming from? Instagram? Artist followers? Macy's? Press? Word of mouth? This determines where to invest.</p>
+          </div>
+          <div class="gap-item">
+            <h4>Conversion Path</h4>
+            <p>What's the journey from first touch to purchase? How many touchpoints? What's abandonment rate?</p>
+          </div>
+          <div class="gap-item">
+            <h4>Landed Cost</h4>
+            <p>Full unit cost including manufacturing, artist royalty, packaging, shipping to you. Not just invoice cost.</p>
+          </div>
+          <div class="gap-item">
+            <h4>Contribution Margin</h4>
+            <p>Revenue minus landed cost minus artist share minus fulfillment. What's left per unit to cover overhead?</p>
+          </div>
+          <div class="gap-item">
+            <h4>Founder Time Allocation</h4>
+            <p>Where do the hours actually go? Who does what? What falls through cracks?</p>
+          </div>
+          <div class="gap-item">
+            <h4>Artist Pipeline Health</h4>
+            <p>How many potential collaborators? What's conversion rate? What's lead time from first contact to launch?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Decision Framework -->
+    <section id="framework">
+      <div class="container">
+        <div class="section-label">06 — Decision Framework</div>
+        <h2>Before Adding Complexity</h2>
+        <p class="muted">Before restructuring, hiring, adding product lines, or any major move — run it through these filters.</p>
+
+        <div class="framework-grid">
+          <div class="framework-item">
+            <div class="framework-label">Solvency</div>
+            <div class="framework-question">Can we afford this if it fails?</div>
+          </div>
+          <div class="framework-item">
+            <div class="framework-label">Sanity</div>
+            <div class="framework-question">Will this reduce stress or add to it?</div>
+          </div>
+          <div class="framework-item">
+            <div class="framework-label">Signal</div>
+            <div class="framework-question">Is this responding to real demand?</div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <p><strong>All three yes:</strong> Move. <br><strong>One shaky:</strong> Investigate. <br><strong>Two no:</strong> Wait.</p>
+        </div>
+
+        <p class="muted">Most businesses don't fail from wrong structure. They fail from wrong timing — moving too fast (overhead before revenue) or too slow (exposure after risk). Use triggers, not timelines.</p>
+      </div>
+    </section>
+
+    <!-- Take Action -->
+    <section id="action">
+      <div class="container">
+        <div class="section-label">07 — Take Action</div>
+        <h2>Next Steps</h2>
+        <p class="muted">Concrete actions across three timeframes. Check off as completed — state persists between visits.</p>
+
+        <div class="checklist-section">
+          <h4>Before Next Launch</h4>
+          <ul class="checkbox-list">
+            <li>
+              <input type="checkbox" id="action-1">
+              <label for="action-1">Document artist agreement template covering IP, royalties, promotional obligations</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-2">
+              <label for="action-2">Track time allocation for one full launch cycle</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-3">
+              <label for="action-3">Calculate true landed cost and contribution margin per SKU</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="checklist-section">
+          <h4>Within 30 Days</h4>
+          <ul class="checkbox-list">
+            <li>
+              <input type="checkbox" id="action-4">
+              <label for="action-4">Research trademark status and cost to register in relevant classes</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-5">
+              <label for="action-5">Document the first-hire role and rough budget</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-6">
+              <label for="action-6">Set up basic customer source tracking (UTMs or post-purchase survey)</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-7">
+              <label for="action-7">Each founder writes their 2028 vision independently — then compare</label>
+            </li>
+          </ul>
+        </div>
+
+        <div class="checklist-section">
+          <h4>When Triggered</h4>
+          <ul class="checkbox-list">
+            <li>
+              <input type="checkbox" id="action-8">
+              <label for="action-8">If design revenue exceeds 30% of total → consider separate LLC</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-9">
+              <label for="action-9">If key artist exits → document knowledge and backfill pipeline</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-10">
+              <label for="action-10">If wholesale exceeds DTC → revisit pricing and margin strategy</label>
+            </li>
+            <li>
+              <input type="checkbox" id="action-11">
+              <label for="action-11">If any legal/liability concern arises → consult business attorney before responding</label>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>December 2025</p>
+      <p style="margin-top: 8px;"><a href="#">↑ Back to top</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function toggleQuestion(header) {
+      const card = header.parentElement;
+      card.classList.toggle('open');
+    }
+
+    // Save checkbox state to localStorage
+    document.querySelectorAll('.checkbox-list input').forEach(checkbox => {
+      const saved = localStorage.getItem(checkbox.id);
+      if (saved === 'true') checkbox.checked = true;
+      
+      checkbox.addEventListener('change', () => {
+        localStorage.setItem(checkbox.id, checkbox.checked);
+      });
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Active nav state on scroll
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
