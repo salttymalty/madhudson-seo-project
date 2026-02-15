@@ -17,19 +17,16 @@
       --color-info: #5a8fa6;
       --color-surface: #ffffff;
       --color-surface-alt: #fafaf8;
-      --color-surface-warm: #f5f3f1;
       --color-bg: #f6f5f3;
       --color-text: #2e2a27;
       --color-text-secondary: #5e5854;
       --color-text-muted: #827b77;
       --color-border: rgba(45, 42, 39, 0.10);
       --color-shadow: hsla(25, 20%, 30%, 0.08);
-      --color-shadow-lg: hsla(25, 20%, 30%, 0.14);
       --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'Source Sans 3', system-ui, sans-serif;
       --font-mono: 'Source Code Pro', monospace;
-      --radius: 10px;
-      --radius-lg: 16px;
+      --radius: 8px;
     }
 
     * {
@@ -79,7 +76,7 @@
       color: var(--color-bg);
     }
     .slide.slide-dark h1, .slide.slide-dark h2, .slide.slide-dark h3 {
-      color: var(--color-surface-warm);
+      color: var(--color-surface-alt);
     }
     .slide.slide-dark .subtitle, .slide.slide-dark .date {
       color: hsl(25, 20%, 80%);
@@ -100,17 +97,16 @@
       background: var(--color-surface);
       padding: 6px 14px;
       border-radius: 20px;
-      box-shadow: 0 2px 8px var(--color-shadow);
+      border: 1px solid var(--color-border);
       text-decoration: none;
       z-index: 60;
-      transition: color 0.15s ease, box-shadow 0.15s ease;
+      transition: color 0.15s ease;
       min-height: 44px;
       display: flex;
       align-items: center;
     }
     .back-to-map:hover {
       color: var(--color-primary);
-      box-shadow: 0 4px 12px var(--color-shadow-lg);
       text-decoration: none;
     }
 
@@ -143,7 +139,7 @@
     }
     .slide.slide-dark .diagnosis-item strong,
     .slide.slide-dark .step-title {
-      color: var(--color-surface-warm);
+      color: var(--color-surface-alt);
     }
     .slide.slide-dark .diagnosis-item p,
     .slide.slide-dark .step-instruction {
@@ -286,7 +282,7 @@
     /* ── Typography ── */
     h1 {
       font-family: var(--font-display);
-      font-size: 64px;
+      font-size: 48px;
       font-weight: 700;
       line-height: 1.1;
       margin-bottom: 20px;
@@ -295,8 +291,8 @@
     }
 
     h2 {
-      font-family: var(--font-display);
-      font-size: 42px;
+      font-family: var(--font-body);
+      font-size: 32px;
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 16px;
@@ -305,8 +301,8 @@
     }
 
     h3 {
-      font-family: var(--font-display);
-      font-size: 24px;
+      font-family: var(--font-body);
+      font-size: 22px;
       font-weight: 600;
       line-height: 1.3;
       margin-bottom: 10px;
@@ -333,7 +329,7 @@
 
     .large-text {
       font-family: var(--font-display);
-      font-size: 64px;
+      font-size: 48px;
       font-weight: 700;
       color: var(--color-primary);
       margin-bottom: 32px;
@@ -347,8 +343,8 @@
     }
 
     .key-line {
-      font-family: var(--font-display);
-      font-size: 24px;
+      font-family: var(--font-body);
+      font-size: 22px;
       font-weight: 600;
       color: var(--color-text);
       max-width: 880px;
@@ -356,8 +352,8 @@
       margin-top: 48px;
       line-height: 1.35;
       padding: 24px 32px;
-      background: var(--color-surface-warm);
-      border-radius: var(--radius-lg);
+      background: var(--color-surface-alt);
+      border-radius: var(--radius);
       box-shadow: 0 4px 16px var(--color-shadow);
       border-left: 5px solid var(--color-primary);
       position: relative;
@@ -372,7 +368,7 @@
     .content-box {
       background: var(--color-surface);
       padding: 36px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: 0 4px 16px var(--color-shadow);
       max-width: 1000px;
       width: 100%;
@@ -391,14 +387,14 @@
     .metric-card {
       background: var(--color-surface);
       padding: 24px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: 0 2px 12px var(--color-shadow);
       text-align: center;
       border-top: 3px solid var(--color-primary);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
     .metric-card:hover {
-      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      box-shadow: 0 4px 20px var(--color-shadow);
       transform: translateY(-2px);
     }
     .metric-card.info { border-top-color: var(--color-info); }
@@ -406,8 +402,8 @@
     .metric-card.success { border-top-color: var(--color-success); }
 
     .metric-value {
-      font-family: var(--font-display);
-      font-size: 40px;
+      font-family: var(--font-mono);
+      font-size: 36px;
       font-weight: 700;
       color: var(--color-primary);
       margin: 8px 0;
@@ -440,7 +436,7 @@
       transition: box-shadow 0.2s ease;
     }
     .diagnosis-item:hover {
-      box-shadow: 0 4px 16px var(--color-shadow-lg);
+      box-shadow: 0 4px 16px var(--color-shadow);
     }
     .diagnosis-item.info { border-left-color: var(--color-info); }
     .diagnosis-item.success { border-left-color: var(--color-success); }
@@ -472,20 +468,20 @@
     .benchmark-card {
       background: var(--color-surface);
       padding: 28px 22px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: 0 2px 12px var(--color-shadow);
       text-align: center;
       border: 2px solid var(--color-border);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
     .benchmark-card:hover {
-      box-shadow: 0 4px 16px var(--color-shadow-lg);
+      box-shadow: 0 4px 16px var(--color-shadow);
       transform: translateY(-2px);
     }
 
     .benchmark-card.highlight {
       border-color: var(--color-primary);
-      background: linear-gradient(160deg, var(--color-surface-warm) 0%, var(--color-surface-alt) 100%);
+      background: linear-gradient(160deg, var(--color-surface-alt) 0%, var(--color-surface-alt) 100%);
     }
 
     .benchmark-card h3 {
@@ -497,8 +493,8 @@
     }
 
     .benchmark-card .value {
-      font-family: var(--font-display);
-      font-size: 32px;
+      font-family: var(--font-mono);
+      font-size: 28px;
       font-weight: 700;
       color: var(--color-primary);
     }
@@ -538,7 +534,7 @@
 
     .spectrum-item.highlight {
       border-color: var(--color-primary);
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       font-weight: 600;
     }
 
@@ -564,7 +560,7 @@
       width: 100%;
       max-width: 1000px;
       background: var(--color-surface);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       overflow: hidden;
       box-shadow: 0 4px 16px var(--color-shadow);
     }
@@ -575,7 +571,7 @@
     }
 
     .comparison-table th {
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       padding: 16px 20px;
       text-align: left;
       font-size: 12px;
@@ -615,7 +611,7 @@
 
     .score-display {
       font-family: var(--font-display);
-      font-size: 120px;
+      font-size: 96px;
       font-weight: 700;
       color: var(--color-primary);
       margin: 24px 0;
@@ -646,10 +642,10 @@
     }
 
     .anchor-keyword {
-      background: linear-gradient(160deg, var(--color-surface-warm) 0%, var(--color-surface-alt) 100%);
+      background: linear-gradient(160deg, var(--color-surface-alt) 0%, var(--color-surface-alt) 100%);
       border: 2px solid var(--color-primary);
       padding: 20px 28px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       margin: 24px 0;
       text-align: center;
     }
@@ -678,14 +674,14 @@
     .audience-card {
       background: var(--color-surface);
       padding: 28px 28px 24px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: 0 2px 12px var(--color-shadow);
       border-left: 4px solid var(--color-primary);
       text-align: left;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
     .audience-card:hover {
-      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      box-shadow: 0 4px 20px var(--color-shadow);
       transform: translateY(-2px);
     }
     .audience-card:nth-child(1) { border-left-color: var(--color-info); }
@@ -732,9 +728,9 @@
     }
 
     .museum-why {
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       padding: 24px 32px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       margin: 32px 0;
       border: 2px solid var(--color-primary);
     }
@@ -800,7 +796,7 @@
       transition: box-shadow 0.2s ease;
     }
     .actions-list li:hover {
-      box-shadow: 0 4px 16px var(--color-shadow-lg);
+      box-shadow: 0 4px 16px var(--color-shadow);
     }
 
     .actions-list li::before {
@@ -809,13 +805,13 @@
       left: 20px;
       top: 50%;
       transform: translateY(-50%);
-      font-family: var(--font-display);
-      font-size: 26px;
+      font-family: var(--font-mono);
+      font-size: 20px;
       font-weight: 700;
       color: var(--color-surface);
       background: var(--color-primary);
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -873,7 +869,7 @@
       transition: box-shadow 0.2s ease;
     }
     .steps-list li:hover {
-      box-shadow: 0 4px 16px var(--color-shadow-lg);
+      box-shadow: 0 4px 16px var(--color-shadow);
     }
 
     .steps-list li::before {
@@ -881,13 +877,13 @@
       position: absolute;
       left: 16px;
       top: 16px;
-      font-family: var(--font-display);
-      font-size: 22px;
+      font-family: var(--font-mono);
+      font-size: 18px;
       font-weight: 700;
       color: var(--color-surface);
       background: var(--color-success);
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -929,14 +925,14 @@
     .stream-card {
       background: var(--color-surface);
       padding: 32px 28px;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       box-shadow: 0 2px 12px var(--color-shadow);
       text-align: left;
       border-top: 4px solid var(--color-primary);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
     .stream-card:hover {
-      box-shadow: 0 4px 20px var(--color-shadow-lg);
+      box-shadow: 0 4px 20px var(--color-shadow);
       transform: translateY(-2px);
     }
     .stream-card:nth-child(1) { border-top-color: var(--color-info); }
@@ -985,7 +981,52 @@
     .slide-link:hover { opacity: 1; }
     .slide.slide-dark .slide-link { color: var(--color-primary-light); }
 
-    /* ── Print styles ── */
+    /* ── Mobile: stack slides vertically ── */
+    @media (max-width: 768px) {
+      body {
+        overflow: auto;
+      }
+
+      .deck-container {
+        display: block;
+        transform: none !important;
+      }
+
+      .slide {
+        min-width: 100%;
+        height: auto;
+        min-height: 100vh;
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      h1 { font-size: 28px; }
+      h2 { font-size: 22px; }
+      h3 { font-size: 18px; }
+      .subtitle { font-size: 16px; }
+      .large-text { font-size: 32px; }
+      .score-display { font-size: 64px; }
+      .metric-value { font-size: 28px; }
+      .key-line { font-size: 18px; padding: 16px 20px; }
+
+      .metric-grid,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .back-to-map {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+      }
+
+      .nav-hint,
+      .keyboard-hint,
+      .slide-progress,
+      .slide-counter {
+        display: none;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         transition-duration: 0.01ms !important;
@@ -1383,12 +1424,12 @@
       <span class="slide-badge">AEO</span>
       <h2 style="margin-bottom: 32px;">What Extractable Copy Looks Like</h2>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; max-width: 1000px; width: 100%;">
-        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: 0 2px 8px var(--color-shadow); border-left: 4px solid var(--color-warning);">
+        <div style="background: var(--color-surface); border-radius: var(--radius); padding: 32px; box-shadow: 0 2px 8px var(--color-shadow); border-left: 4px solid var(--color-warning);">
           <h3 style="margin-top: 0; color: var(--color-warning); font-size: 0.875rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">Current</h3>
           <p style="font-style: italic; color: var(--color-text-muted); margin-bottom: 1rem;">"A beautiful timepiece featuring original artwork. Available in limited quantities."</p>
           <p style="font-size: 0.875rem; color: var(--color-text-secondary);"><strong>12 words.</strong> No artist name. No price. No city. Nothing for an answer engine to clip.</p>
         </div>
-        <div style="background: var(--color-surface); border-radius: var(--radius-lg); padding: 32px; box-shadow: 0 2px 8px var(--color-shadow); border-left: 4px solid var(--color-success);">
+        <div style="background: var(--color-surface); border-radius: var(--radius); padding: 32px; box-shadow: 0 2px 8px var(--color-shadow); border-left: 4px solid var(--color-success);">
           <h3 style="margin-top: 0; color: var(--color-success); font-size: 0.875rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">Extractable</h3>
           <p style="font-style: italic; color: var(--color-text-secondary); margin-bottom: 1rem;">"The Mad Hudson CD Watch is a wearable tribute to mixtapes, burned CDs, and late-night listening sessions. Designed by Atlanta artist Riki Prosper, its holographic disc dial shifts color with every turn of the wrist. At $215, it's one of the best artist-collaboration watches under $300."</p>
           <p style="font-size: 0.875rem; color: var(--color-text-secondary);"><strong>3 quotable sentences.</strong> Artist name, price, city, "best" keyword. Any sentence works as a standalone citation.</p>

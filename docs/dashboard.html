@@ -12,38 +12,24 @@
        DESIGN TOKENS — EMBER PALETTE
        ═══════════════════════════════════════════════════════════════ */
     :root {
-      /* Sage palette */
       --color-primary: #5e7d68;
       --color-primary-light: #7a9a84;
       --color-primary-dark: #4a6654;
       --color-success: #6ba167;
       --color-warning: #c4934a;
       --color-info: #5a8fa6;
-
-      /* Surfaces */
       --color-surface: #ffffff;
       --color-surface-alt: #fafaf8;
-      --color-surface-warm: #f5f3f1;
       --color-bg: #f6f5f3;
-
-      /* Text */
       --color-text: #2e2a27;
       --color-text-secondary: #5e5854;
       --color-text-muted: #827b77;
-
-      /* UI */
       --color-border: rgba(45, 42, 39, 0.10);
       --color-shadow: hsla(25, 20%, 30%, 0.06);
-      --color-shadow-lg: hsla(25, 20%, 30%, 0.12);
-
-      /* Typography */
       --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'Source Sans 3', system-ui, sans-serif;
       --font-mono: 'Source Code Pro', monospace;
-
-      /* Spacing & Sizing */
-      --radius: 10px;
-      --radius-lg: 16px;
+      --radius: 8px;
       --touch-target: 44px;
     }
 
@@ -55,15 +41,14 @@
       display: flex;
       align-items: center;
       height: 56px;
-      box-shadow: 0 1px 4px var(--color-shadow);
       position: sticky;
       top: 0;
       z-index: 50;
     }
 
     .topbar-brand {
-      font-family: var(--font-display);
-      font-size: 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
       font-weight: 700;
       color: var(--color-text);
       padding-right: 1.5rem;
@@ -119,29 +104,33 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: var(--font-display);
       line-height: 1.2;
       font-weight: 700;
     }
 
     h1 {
-      font-size: 2rem;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
       margin-bottom: 0.5rem;
     }
 
     h2 {
-      font-size: 1.5rem;
+      font-family: var(--font-body);
+      font-size: 1.1875rem;
       margin-bottom: 1rem;
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-family: var(--font-body);
+      font-size: 1.0625rem;
       margin-bottom: 0.75rem;
       margin-top: 1.5rem;
+      font-weight: 600;
     }
 
     h4 {
-      font-size: 1.0625rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
       margin-bottom: 0.5rem;
       font-weight: 600;
     }
@@ -154,7 +143,7 @@
     code, .mono {
       font-family: var(--font-mono);
       font-size: 0.9em;
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       padding: 0.125rem 0.375rem;
       border-radius: 4px;
     }
@@ -179,7 +168,7 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1.5rem;
+      padding: 2rem;
     }
 
     header {
@@ -198,7 +187,7 @@
     .methodology-note {
       font-size: 0.875rem;
       color: var(--color-text-muted);
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       padding: 0.75rem 1rem;
       border-radius: var(--radius);
       margin-top: 0.75rem;
@@ -238,8 +227,7 @@
       margin-bottom: 2.5rem;
       padding: 1rem 1.25rem;
       background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 2px 8px var(--color-shadow);
+      border-radius: var(--radius);
     }
 
     .nav-group {
@@ -283,7 +271,7 @@
     }
 
     nav a:hover {
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       color: var(--color-primary);
     }
 
@@ -301,44 +289,27 @@
        ═══════════════════════════════════════════════════════════════ */
     .card {
       background: var(--color-surface);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 2px 8px var(--color-shadow);
-      margin-bottom: 2.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
       overflow: hidden;
     }
 
-    /* Tier 1: Primary cards — action-oriented, most prominent */
-    .card.tier-primary {
-      border-left: 4px solid var(--color-primary);
-      box-shadow: 0 4px 16px var(--color-shadow), 0 1px 4px var(--color-shadow);
-    }
-
-    /* Tier 2: Supporting cards — evidence and detail */
-    .card.tier-supporting {
-      opacity: 0.95;
-    }
-
-    /* Tier 3: Reference cards — important but secondary */
+    .card.tier-primary,
+    .card.tier-supporting,
     .card.tier-reference {
-      opacity: 0.92;
-      box-shadow: 0 1px 4px var(--color-shadow);
+      /* All tiers treated equally — content hierarchy comes from reading order */
     }
 
     .card-header {
-      padding: 1.5rem;
-      background: var(--color-surface-warm);
-      border-bottom: 2px solid var(--color-border);
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--color-border);
       cursor: pointer;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       min-height: var(--touch-target);
-      transition: background 0.2s ease;
       gap: 1rem;
-    }
-
-    .card-header:hover {
-      background: var(--color-surface-alt);
     }
 
     .card-header-text {
@@ -359,7 +330,7 @@
     }
 
     .card-toggle {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       color: var(--color-text-muted);
       transition: transform 0.2s ease;
       flex-shrink: 0;
@@ -371,7 +342,7 @@
     }
 
     .card-content {
-      padding: 2rem;
+      padding: 1.5rem;
       transition: max-height 0.3s ease;
     }
 
@@ -384,23 +355,23 @@
        ═══════════════════════════════════════════════════════════════ */
     .hero-stat {
       text-align: center;
-      padding: 2.5rem 2rem;
+      padding: 2rem 1.5rem;
       background: var(--color-surface-alt);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       margin-bottom: 2rem;
-      border: 2px solid var(--color-border);
+      border: 1px solid var(--color-border);
     }
 
     .hero-stat-value {
       font-family: var(--font-display);
-      font-size: 4rem;
+      font-size: 3rem;
       font-weight: 700;
       color: var(--color-primary);
       line-height: 1;
     }
 
     .hero-stat-label {
-      font-size: 1.125rem;
+      font-size: 1rem;
       color: var(--color-text-secondary);
       margin-top: 0.5rem;
       font-weight: 600;
@@ -460,7 +431,7 @@
     .chart-container {
       margin: 1.5rem 0;
       padding: 1.5rem;
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       border-radius: var(--radius);
       border: 1px solid var(--color-border);
     }
@@ -482,13 +453,13 @@
       margin: 1.5rem 0;
       font-size: 0.9375rem;
       background: var(--color-surface);
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 1px 4px var(--color-shadow);
+      border: 1px solid var(--color-border);
     }
 
     thead {
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
     }
 
     th {
@@ -510,7 +481,7 @@
     }
 
     tbody tr:hover {
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
     }
 
     td.mono {
@@ -525,7 +496,7 @@
     .tier-spectrum {
       margin: 1.5rem 0;
       padding: 2rem;
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       border-radius: var(--radius);
       position: relative;
     }
@@ -598,7 +569,7 @@
     .segment-card {
       padding: 1.25rem;
       border-radius: var(--radius);
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       border: 1px solid var(--color-border);
     }
 
@@ -633,7 +604,7 @@
       counter-increment: action-counter;
       padding: 1.25rem;
       margin-bottom: 1rem;
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       border-radius: var(--radius);
       border-left: 4px solid var(--color-text-muted);
       position: relative;
@@ -645,9 +616,9 @@
       position: absolute;
       left: 1rem;
       top: 1.25rem;
-      font-family: var(--font-display);
+      font-family: var(--font-mono);
       font-weight: 700;
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       color: var(--color-primary);
       line-height: 1;
     }
@@ -704,7 +675,7 @@
 
     .stat-value {
       font-family: var(--font-mono);
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--color-primary);
       line-height: 1;
@@ -722,7 +693,7 @@
        ═══════════════════════════════════════════════════════════════ */
     .benchmark-box {
       padding: 1.5rem;
-      background: var(--color-surface-warm);
+      background: var(--color-surface-alt);
       border-radius: var(--radius);
       margin: 1.5rem 0;
       border: 1px solid var(--color-border);
@@ -2167,7 +2138,7 @@
       <p>Data sources: Shopify Analytics (12-month export Feb 2025 – Jan 2026, 31-day daily detail Jan 10 – Feb 9, 2026), competitor content comparison (Mr Jones, Swatch x Art, Baltic, Brew), AEO analysis informed by G2 internal AEO keynote research (Josh Blyskal / Profound, Feb 2026)</p>
       <p>Methodology: On-page audit, image alt text analysis, meta tag assessment, schema markup evaluation, heading hierarchy check, content word-count analysis, conversion diagnostics, channel attribution review</p>
       <p>Growth projections use actual revenue, AOV, and channel data. Industry benchmarks flagged as assumptions where used.</p>
-      <p style="margin-top: 1rem; color: var(--color-text-secondary); font-family: var(--font-display); font-size: 0.9375rem; font-style: italic;">The product works. The story is genuine. These improvements help search engines see what's already true about the business.</p>
+      <p style="margin-top: 1rem; color: var(--color-text-secondary); font-size: 0.875rem; font-style: italic;">The product works. The story is genuine. These improvements help search engines see what's already true about the business.</p>
     </div>
   </footer>
 
