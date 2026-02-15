@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gs Watch — Some Concepts for Time</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      --color-paper: #faf8f5;
+      --color-sheet: #f5f0e8;
+      --color-cream: #f0ebe3;
+      --color-ink: #2a2622;
+      --color-ink-soft: #6b6560;
+      --color-slate: #8a8580;
+      --color-slate-soft: #b0aba5;
+      
+      --color-terracotta: #c45d3a;
+      --color-rose: #d4847a;
+      --color-gold: #d4a044;
+      --color-olive: #7a8a4a;
+      --color-teal: #4a8a8a;
+      --color-brown: #6a4a3a;
+      --color-rust: #b54a2a;
+      
+      --zone-night: #5a6a7a;
+      --zone-dawn: #e8b4a0;
+      --zone-morning: #f0d488;
+      --zone-midday: #f5ecd8;
+      --zone-afternoon: #e8c078;
+      --zone-evening: #d08050;
+      
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      
+      --radius-soft: 8px;
+      --radius-card: 12px;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      line-height: 1.7;
+      padding: 2rem;
+      padding-left: 220px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 800px) {
+      body { padding-left: 2rem; }
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+    }
+
+    p {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ============================================
+       STICKY NAV (Cognitive Accessibility Fix)
+       ============================================ */
+    .sticky-nav {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 200px;
+      height: 100vh;
+      background: var(--color-sheet);
+      border-right: 1px solid var(--color-slate-soft);
+      padding: 1.5rem 1rem;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    @media (max-width: 800px) {
+      .sticky-nav {
+        display: none;
+      }
+    }
+
+    .sticky-nav h3 {
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-slate);
+      margin-bottom: 1rem;
+    }
+
+    .nav-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-section-title {
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-terracotta);
+      margin-bottom: 0.5rem;
+    }
+
+    .nav-link {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--color-ink-soft);
+      text-decoration: none;
+      padding: 0.25rem 0;
+      border-left: 2px solid transparent;
+      padding-left: 0.5rem;
+      transition: all 0.15s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--color-ink);
+      border-left-color: var(--color-terracotta);
+    }
+
+    /* ============================================
+       CARD SYSTEM
+       ============================================ */
+    .card {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      margin: 4rem 0 2rem;
+      text-align: center;
+    }
+
+    .section-header .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header .subtitle {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       PHILOSOPHY SECTION (Simplified Language)
+       ============================================ */
+    .philosophy-card {
+      background: var(--color-sheet);
+      border: none;
+      padding: 2rem;
+    }
+
+    .philosophy-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--color-terracotta);
+    }
+
+    .quote-block {
+      background: var(--color-paper);
+      border-left: 3px solid var(--color-terracotta);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote-text {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--color-ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .quote-attribution {
+      font-size: 0.8rem;
+      color: var(--color-slate);
+    }
+
+    /* ============================================
+       REFLECTION FRAMES
+       ============================================ */
+    .reflection-frame {
+      background: var(--color-paper);
+      border: 2px dashed var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .reflection-frame h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .reflection-grid { grid-template-columns: 1fr; }
+    }
+
+    .reflection-col h4 {
+      font-size: 0.85rem;
+      color: var(--color-ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .reflection-blank {
+      background: var(--color-sheet);
+      border: 1px dashed var(--color-slate-soft);
+      border-radius: var(--radius-soft);
+      padding: 1rem;
+      min-height: 60px;
+      font-size: 0.85rem;
+      color: var(--color-slate);
+      font-style: italic;
+    }
+
+    .reflection-prompt {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-slate);
+    }
+
+    .reflection-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .reflection-options .option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+      cursor: pointer;
+      padding: 0.4rem 0.6rem;
+      border-radius: var(--radius-soft);
+      transition: background 0.15s ease;
+    }
+
+    .reflection-options .option:hover {
+      background: rgba(0,0,0,0.03);
+    }
+
+    .reflection-options input[type="radio"] {
+      accent-color: var(--color-terracotta);
+      width: 14px;
+      height: 14px;
+    }
+
+    .reflection-input {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px dashed var(--color-slate-soft);
+      border-radius: var(--radius-soft);
+      background: var(--color-sheet);
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--color-ink);
+    }
+
+    .reflection-input::placeholder {
+      color: var(--color-slate);
+      font-style: italic;
+    }
+
+    .reflection-input:focus {
+      outline: none;
+      border-color: var(--color-terracotta);
+      border-style: solid;
+    }
+
+    /* ============================================
+       LENSES (Progressive Disclosure Fix)
+       ============================================ */
+    .lens-intro {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .lens-intro p {
+      font-size: 0.9rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .lens-pairs {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .lens-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--color-paper);
+      border-radius: var(--radius-soft);
+    }
+
+    @media (max-width: 500px) {
+      .lens-pair { grid-template-columns: 1fr; }
+    }
+
+    .lens-pair-label {
+      grid-column: 1 / -1;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .lens-card {
+      background: var(--color-sheet);
+      border-radius: var(--radius-soft);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .lens-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-terracotta);
+    }
+
+    .lens-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .lens-card p {
+      font-size: 0.8rem;
+      color: var(--color-slate);
+      margin: 0;
+    }
+
+    /* ============================================
+       WATCH CARDS (Standardized Format)
+       ============================================ */
+    .watch-card {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .watch-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .watch-viz { justify-self: center; }
+    }
+
+    .watch-viz {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .physical-svg {
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+    }
+
+    .content-side .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag.warm { background: rgba(196, 93, 58, 0.1); color: var(--color-terracotta); }
+    .tag.cool { background: rgba(74, 138, 138, 0.1); color: var(--color-teal); }
+    .tag.gold { background: rgba(212, 160, 68, 0.1); color: var(--color-gold); }
+    .tag.olive { background: rgba(122, 138, 74, 0.1); color: var(--color-olive); }
+
+    .content-side h2 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Standardized vignettes */
+    .observations {
+      margin: 1.25rem 0;
+      padding: 1rem;
+      background: rgba(0,0,0,0.02);
+      border-radius: var(--radius-soft);
+    }
+
+    .observations h4 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-slate);
+      margin-bottom: 0.75rem;
+    }
+
+    .observation {
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+      padding-left: 1rem;
+      border-left: 2px solid var(--color-slate-soft);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .observation:last-child { margin-bottom: 0; }
+
+    /* Standardized invitation */
+    .invitation {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      background: var(--color-sheet);
+      border-radius: var(--radius-soft);
+      border: 1px dashed var(--color-slate-soft);
+    }
+
+    .invitation-prompt {
+      font-size: 0.9rem;
+      color: var(--color-ink);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .invitation-space {
+      font-size: 0.85rem;
+      color: var(--color-slate);
+      font-style: italic;
+    }
+
+    /* ============================================
+       CONCEPT GRID (for new concepts)
+       ============================================ */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .concept-card {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .concept-viz {
+      background: var(--color-sheet);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 180px;
+    }
+
+    .concept-info {
+      padding: 1.25rem;
+    }
+
+    .concept-info .lens-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-teal);
+      margin-bottom: 0.25rem;
+    }
+
+    .concept-info h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-info p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-info .innovation {
+      font-size: 0.8rem;
+      color: var(--color-terracotta);
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--color-slate-soft);
+      margin-top: 0.75rem;
+    }
+
+    .innovation-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* ============================================
+       TIER BADGES
+       ============================================ */
+    .tier-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .tier-badge.t2 {
+      background: rgba(212, 160, 68, 0.15);
+      color: var(--color-gold);
+    }
+
+    .tier-badge.t3 {
+      background: rgba(196, 93, 58, 0.15);
+      color: var(--color-terracotta);
+    }
+
+    /* ============================================
+       GUARDRAILS & STRAPS (existing)
+       ============================================ */
+    .guardrails {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(196, 93, 58, 0.05);
+      border: 1px solid rgba(196, 93, 58, 0.2);
+      border-radius: var(--radius-card);
+    }
+
+    .guardrails h3 {
+      font-size: 0.95rem;
+      color: var(--color-terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .guardrails-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .guardrails-grid { grid-template-columns: 1fr; }
+    }
+
+    .guardrails-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .guardrails-col.allowed h4 { color: var(--color-olive); }
+    .guardrails-col.forbidden h4 { color: var(--color-rust); }
+
+    .guardrails-col ul {
+      margin: 0 0 0 1rem;
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+    }
+
+    .guardrails-col li { margin-bottom: 0.3rem; }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--color-slate-soft);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--color-slate);
+    }
+
+    .closing-reflection {
+      background: var(--color-sheet);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .closing-reflection h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .closing-reflection p {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================
+     STICKY NAVIGATION (Cognitive Accessibility)
+     ============================================ -->
+<nav class="sticky-nav">
+  <h3>Navigation</h3>
+  
+  <div class="nav-section">
+    <p class="nav-section-title">Foundation</p>
+    <a href="#philosophy" class="nav-link">Philosophy</a>
+    <a href="#lenses" class="nav-link">Lenses</a>
+  </div>
+  
+  <div class="nav-section">
+    <p class="nav-section-title">Core Concepts</p>
+    <a href="#focus-bezel" class="nav-link">Focus Bezel</a>
+    <a href="#day-map" class="nav-link">Day Map</a>
+    <a href="#studio-chrono" class="nav-link">Studio Chrono</a>
+    <a href="#tide-dial" class="nav-link">Tide Dial</a>
+  </div>
+  
+  <div class="nav-section">
+    <p class="nav-section-title">Stranger Ideas</p>
+    <a href="#horizon" class="nav-link">Horizon</a>
+    <a href="#pulse" class="nav-link">Pulse</a>
+    <a href="#fill" class="nav-link">Fill</a>
+    <a href="#orbit" class="nav-link">Orbit</a>
+    <a href="#breath" class="nav-link">Breath</a>
+    <a href="#stone" class="nav-link">Stone</a>
+  </div>
+  
+  <div class="nav-section">
+    <p class="nav-section-title">More Ideas</p>
+    <a href="#anchor" class="nav-link">Anchor Ring</a>
+    <a href="#field" class="nav-link">Field</a>
+    <a href="#quarter" class="nav-link">Quarter Tap</a>
+    <a href="#fade" class="nav-link">Fade</a>
+    <a href="#companion" class="nav-link">Companion</a>
+  </div>
+  
+  <div class="nav-section">
+    <p class="nav-section-title">Appendix</p>
+    <a href="#guardrails" class="nav-link">Guardrails</a>
+    <a href="#straps" class="nav-link">Straps</a>
+  </div>
+</nav>
+
+<!-- ============================================
+     PART 1: PHILOSOPHICAL FOUNDATION
+     (Simplified Language)
+     ============================================ -->
+
+<div class="section-header" style="margin-top: 0;" id="philosophy">
+  <p class="eyebrow">Part One</p>
+  <h2>A Framework for Noticing</h2>
+  <p class="subtitle">Before the watches, a way of seeing.</p>
+</div>
+
+<div class="card philosophy-card">
+  <div class="quote-block">
+    <div class="quote-text">"I have no desire to express myself. What I wish to do is provide the means of expression for people."</div>
+    <div class="quote-attribution">— Alexander Girard</div>
+  </div>
+  
+  <!-- SIMPLIFIED LANGUAGE (Grade 8 reading level) -->
+  <p>These are some concepts for watches that show time differently. Not a prescribed way. Your way.</p>
+  
+  <p>They don't tell you what to do. They help you see. Different shapes for different ways of looking.</p>
+</div>
+
+<div class="reflection-frame">
+  <h3>Two questions to sit with</h3>
+  
+  <div class="reflection-grid">
+    <div class="reflection-col">
+      <h4>Time feels like...</h4>
+      <div class="reflection-options">
+        <label class="option"><input type="radio" name="time-feels"> something chasing me</label>
+        <label class="option"><input type="radio" name="time-feels"> sand slipping through fingers</label>
+        <label class="option"><input type="radio" name="time-feels"> a river I'm floating in</label>
+        <label class="option"><input type="radio" name="time-feels"> something I keep losing</label>
+        <label class="option"><input type="radio" name="time-feels"> a container that's too small</label>
+      </div>
+      <input type="text" class="reflection-input" placeholder="or type your own...">
+    </div>
+    <div class="reflection-col">
+      <h4>I wish time felt like...</h4>
+      <div class="reflection-options">
+        <label class="option"><input type="radio" name="time-wish"> something I could hold</label>
+        <label class="option"><input type="radio" name="time-wish"> a landscape I could see</label>
+        <label class="option"><input type="radio" name="time-wish"> a rhythm I could feel</label>
+        <label class="option"><input type="radio" name="time-wish"> gentler</label>
+        <label class="option"><input type="radio" name="time-wish"> more visible</label>
+      </div>
+      <input type="text" class="reflection-input" placeholder="or type your own...">
+    </div>
+  </div>
+  
+  <p class="reflection-prompt">The gap between these might show where a tool could help.</p>
+</div>
+
+<!-- ============================================
+     LENSES (Progressive Disclosure - pairs)
+     ============================================ -->
+
+<div class="card philosophy-card" id="lenses">
+  <h2>Six Lenses for Noticing</h2>
+  
+  <div class="lens-intro">
+    <p>These aren't types of people. These modes change. They shift during a day. During a year. During a life.</p>
+  </div>
+  
+  <div class="lens-pairs">
+    <!-- PAIR 1: Space -->
+    <div class="lens-pair">
+      <p class="lens-pair-label">About space</p>
+      <div class="lens-card">
+        <div class="icon">◯</div>
+        <h4>Position</h4>
+        <p>Where am I in the cycle?</p>
+      </div>
+      <div class="lens-card">
+        <div class="icon">▱</div>
+        <h4>Container</h4>
+        <p>How much is held?</p>
+      </div>
+    </div>
+    
+    <!-- PAIR 2: Movement -->
+    <div class="lens-pair">
+      <p class="lens-pair-label">About movement</p>
+      <div class="lens-card">
+        <div class="icon">→</div>
+        <h4>Momentum</h4>
+        <p>What direction? What pace?</p>
+      </div>
+      <div class="lens-card">
+        <div class="icon">≈</div>
+        <h4>Rhythm</h4>
+        <p>What pattern repeats?</p>
+      </div>
+    </div>
+    
+    <!-- PAIR 3: Edges -->
+    <div class="lens-pair">
+      <p class="lens-pair-label">About edges</p>
+      <div class="lens-card">
+        <div class="icon">◎</div>
+        <h4>Anchor</h4>
+        <p>What holds me here?</p>
+      </div>
+      <div class="lens-card">
+        <div class="icon">□</div>
+        <h4>Boundary</h4>
+        <p>Where does this end?</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     PART 2: CORE ANALOG CONCEPTS
+     ============================================ -->
+
+<div class="section-header">
+  <p class="eyebrow">Part Two</p>
+  <h2>Core Concepts</h2>
+  <p class="subtitle">Some ideas for pure analog. No screens. No menus.</p>
+</div>
+
+<!-- FOCUS BEZEL -->
+<article class="card watch-card" id="focus-bezel">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <circle cx="100" cy="100" r="90" fill="#3a3632"/>
+      <path d="M100,100 L100,15 A85,85 0 0,1 173,58 L100,100 Z" fill="var(--color-terracotta)" opacity="0.85"/>
+      <g stroke="#888" stroke-width="1">
+        <line x1="100" y1="12" x2="100" y2="22" stroke="#fff" stroke-width="2"/>
+        <line x1="173" y1="58" x2="165" y2="63" stroke="#fff" stroke-width="2"/>
+        <line x1="188" y1="100" x2="178" y2="100"/>
+      </g>
+      <circle cx="100" cy="17" r="3" fill="#e8e4d8"/>
+      <circle cx="100" cy="100" r="75" fill="#f5f0e8"/>
+      <g fill="#2a2622">
+        <rect x="97" y="30" width="6" height="12" rx="1"/>
+        <rect x="158" y="97" width="12" height="6" rx="1"/>
+        <rect x="97" y="158" width="6" height="12" rx="1"/>
+        <rect x="30" y="97" width="12" height="6" rx="1"/>
+      </g>
+      <line x1="100" y1="100" x2="65" y2="65" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="140" y2="80" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="45" stroke="var(--color-terracotta)" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+      <circle cx="100" cy="100" r="2" fill="var(--color-terracotta)"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag cool">Boundary · Container</span>
+    <h2>Focus Bezel</h2>
+    <p>A bezel that rotates. A colored arc. A minute hand that moves through it.</p>
+    <p>When the hand leaves the color, something ends. What that something is — you decide.</p>
+    
+    <div class="observations">
+      <h4>What people have noticed</h4>
+      <div class="observation">Some mark beginnings. Some mark endings. Some mark middles they don't want to lose.</div>
+      <div class="observation">Some rotate before. Some rotate during. Some never rotate at all.</div>
+      <div class="observation">The color moving behind the hand changes how time feels — contained, not chased.</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What would you contain?</p>
+      <p class="invitation-space">(your use)</p>
+    </div>
+  </div>
+</article>
+
+<!-- DAY MAP -->
+<article class="card watch-card" id="day-map">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <circle cx="100" cy="100" r="85" fill="var(--zone-midday)"/>
+      <path d="M100,100 L100,15 A85,85 0 0,0 23,68 Z" fill="var(--zone-night)"/>
+      <path d="M100,100 L23,68 A85,85 0 0,0 15,100 Z" fill="var(--zone-dawn)"/>
+      <path d="M100,100 L15,100 A85,85 0 0,0 58,173 Z" fill="var(--zone-morning)"/>
+      <path d="M100,100 L142,173 A85,85 0 0,0 185,100 Z" fill="var(--zone-afternoon)"/>
+      <path d="M100,100 L185,100 A85,85 0 0,0 100,15 Z" fill="var(--zone-evening)"/>
+      <circle cx="100" cy="100" r="32" fill="#f5f0e8"/>
+      <g font-family="var(--font-mono)" font-size="7" fill="rgba(255,255,255,0.85)" font-weight="500">
+        <text x="52" y="52" text-anchor="middle">night</text>
+      </g>
+      <g font-family="var(--font-mono)" font-size="6" fill="rgba(0,0,0,0.6)">
+        <text x="28" y="88" text-anchor="middle">dawn</text>
+        <text x="45" y="140" text-anchor="middle">morning</text>
+        <text x="100" y="168" text-anchor="middle">midday</text>
+        <text x="155" y="140" text-anchor="middle">afternoon</text>
+      </g>
+      <g font-family="var(--font-mono)" font-size="7" fill="rgba(255,255,255,0.9)" font-weight="500">
+        <text x="152" y="52" text-anchor="middle">evening</text>
+      </g>
+      <g fill="#2a2622">
+        <circle cx="100" cy="22" r="3"/>
+        <circle cx="178" cy="100" r="3"/>
+        <circle cx="100" cy="178" r="3"/>
+        <circle cx="22" cy="100" r="3"/>
+      </g>
+      <line x1="100" y1="100" x2="45" y2="100" stroke="#2a2622" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag warm">Position · Rhythm</span>
+    <h2>Day Map</h2>
+    <p>The dial has colors. They shift from cool to warm and back. The hour hand moves through them.</p>
+    <p>Some people name the zones. Some don't. What do you see?</p>
+    
+    <div class="observations">
+      <h4>What people have noticed</h4>
+      <div class="observation">"I stopped asking 'what time' and started asking 'what field.' Different question."</div>
+      <div class="observation">"The afternoon zone is when I schedule nothing. The watch reminds me that's on purpose."</div>
+      <div class="observation">"I noticed I always look during the evening shift. That taught me something."</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What would you notice about your position?</p>
+      <p class="invitation-space">(your observation)</p>
+    </div>
+  </div>
+</article>
+
+<!-- STUDIO CHRONO -->
+<article class="card watch-card" id="studio-chrono">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <circle cx="100" cy="100" r="88" fill="#f8f5f0"/>
+      <g fill="#e5e0da">
+        <circle cx="70" cy="80" r="22"/>
+        <circle cx="130" cy="80" r="22"/>
+        <circle cx="100" cy="135" r="22"/>
+      </g>
+      <!-- Left subdial - running seconds -->
+      <circle cx="70" cy="80" r="18" fill="none" stroke="#ccc" stroke-width="1"/>
+      <line x1="70" y1="80" x2="70" y2="66" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Right subdial - 30 min with sector -->
+      <circle cx="130" cy="80" r="18" fill="none" stroke="#ccc" stroke-width="1"/>
+      <path d="M130,80 L130,62 A18,18 0 0,1 145,72 Z" fill="var(--color-terracotta)" opacity="0.4"/>
+      <line x1="130" y1="80" x2="138" y2="70" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Bottom subdial - 12 hr -->
+      <circle cx="100" cy="135" r="18" fill="none" stroke="#ccc" stroke-width="1"/>
+      <line x1="100" y1="135" x2="100" y2="121" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Main indices -->
+      <g fill="#2a2622">
+        <rect x="97" y="18" width="6" height="14" rx="1"/>
+        <rect x="166" y="97" width="14" height="6" rx="1"/>
+        <rect x="97" y="168" width="6" height="14" rx="1"/>
+        <rect x="20" y="97" width="14" height="6" rx="1"/>
+      </g>
+      <!-- Main hands -->
+      <line x1="100" y1="100" x2="55" y2="100" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="38" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- Chrono hand -->
+      <line x1="100" y1="100" x2="125" y2="55" stroke="var(--color-terracotta)" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="6" fill="#2a2622"/>
+      <circle cx="100" cy="100" r="2.5" fill="var(--color-terracotta)"/>
+      <!-- Pushers -->
+      <rect x="186" y="60" width="8" height="12" rx="2" fill="#4a4642"/>
+      <rect x="186" y="128" width="8" height="12" rx="2" fill="#4a4642"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag gold">Momentum · Boundary</span>
+    <h2>Studio Chrono</h2>
+    <p>A meca-quartz chronograph. Push the button — hear and feel the click. The hand starts moving.</p>
+    <p>The subdial has a colored sector. The hand travels through it. A ritual for beginning.</p>
+    
+    <div class="observations">
+      <h4>What people have noticed</h4>
+      <div class="observation">The physical click creates a moment. Before click. After click. Different states.</div>
+      <div class="observation">Some use both pushers (start/stop). Some only use start. Never stop.</div>
+      <div class="observation">The colored sector in the subdial is subtle. You have to look for it. That's the point.</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What ritual begins your work?</p>
+      <p class="invitation-space">(your ritual)</p>
+    </div>
+  </div>
+</article>
+
+<!-- TIDE DIAL -->
+<article class="card watch-card" id="tide-dial">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <circle cx="100" cy="100" r="85" fill="#f5f0e8"/>
+      <!-- Tide gradient background -->
+      <defs>
+        <linearGradient id="tideGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#4a8a8a" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="#f5f0e8" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#4a8a8a" stop-opacity="0.3"/>
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="100" r="75" fill="url(#tideGrad)"/>
+      <!-- HIGH / LOW labels -->
+      <text x="100" y="45" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--color-teal)" font-weight="600">HIGH</text>
+      <text x="100" y="165" text-anchor="middle" font-family="var(--font-mono)" font-size="10" fill="var(--color-teal)" font-weight="600">LOW</text>
+      <!-- Simple markers -->
+      <circle cx="100" cy="25" r="3" fill="var(--color-teal)"/>
+      <circle cx="100" cy="175" r="3" fill="var(--color-teal)"/>
+      <circle cx="175" cy="100" r="2" fill="#ccc"/>
+      <circle cx="25" cy="100" r="2" fill="#ccc"/>
+      <!-- Single tide hand (pointing toward HIGH) -->
+      <line x1="100" y1="100" x2="100" y2="55" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="100" cy="100" r="6" fill="#2a2622"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag cool">Rhythm · Position</span>
+    <h2>Tide Dial</h2>
+    <p>One hand. Two positions: HIGH and LOW. The hand swings between them over ~12 hours.</p>
+    <p>For those who think in swells and ebbs. Energy rises. Energy falls. The hand shows where.</p>
+    
+    <div class="observations">
+      <h4>What people have noticed</h4>
+      <div class="observation">Some sync it to actual tides. Some sync it to their energy. Some sync it to nothing — just watch it move.</div>
+      <div class="observation">The slow arc is almost invisible. You only see change over hours.</div>
+      <div class="observation">HIGH doesn't mean good. LOW doesn't mean bad. Just different.</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What rises and falls in your day?</p>
+      <p class="invitation-space">(your tide)</p>
+    </div>
+  </div>
+</article>
+
+<!-- ============================================
+     PART 3: BREAKTHROUGH CONCEPTS (Tier 3)
+     ============================================ -->
+
+<div class="section-header">
+  <p class="eyebrow">Part Three</p>
+  <h2>Breakthrough Concepts</h2>
+  <p class="subtitle">Stranger ideas. Things that don't exist yet.</p>
+</div>
+
+<div class="concept-grid">
+
+  <!-- HORIZON -->
+  <div class="concept-card" id="horizon">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <line x1="15" y1="100" x2="185" y2="100" stroke="#d0c8b8" stroke-width="2"/>
+        <path d="M100,10 A90,90 0 0,1 100,190" fill="rgba(245,220,180,0.25)"/>
+        <path d="M100,10 A90,90 0 0,0 100,190" fill="rgba(90,106,122,0.15)"/>
+        <circle cx="145" cy="45" r="10" fill="#d4a044"/>
+        <text x="100" y="25" text-anchor="middle" font-size="9" fill="#888" font-family="var(--font-mono)">noon</text>
+        <text x="100" y="185" text-anchor="middle" font-size="9" fill="#888" font-family="var(--font-mono)">midnight</text>
+        <text x="20" y="104" text-anchor="start" font-size="8" fill="#888" font-family="var(--font-mono)">6am</text>
+        <text x="180" y="104" text-anchor="end" font-size="8" fill="#888" font-family="var(--font-mono)">6pm</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Rhythm</p>
+      <h4>Horizon</h4>
+      <p>A 24-hour watch. One marker (the "sun") travels above and below a horizon line. Above = day. Below = night.</p>
+      <p>No numbers needed. Where is the sun? That's what time it is.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Combines BOTTA's sun-synchronous with radical simplicity. Position relative to horizon is instantly readable.
+      </div>
+    </div>
+  </div>
+
+  <!-- PULSE -->
+  <div class="concept-card" id="pulse">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+        <circle cx="100" cy="100" r="30" fill="none" stroke="#e5e0da" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="100" cy="100" r="50" fill="none" stroke="#e5e0da" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#e5e0da" stroke-width="1" stroke-dasharray="4,4"/>
+        <g transform="translate(100, 100)">
+          <path d="M-10,-4 Q-16,0 -10,4" stroke="#c45d3a" stroke-width="2.5" fill="none"/>
+          <path d="M10,-4 Q16,0 10,4" stroke="#c45d3a" stroke-width="2.5" fill="none"/>
+        </g>
+        <text x="100" y="165" text-anchor="middle" font-size="8" fill="#888" font-family="var(--font-mono)">tap to feel time</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Anchor · Rhythm</p>
+      <h4>Pulse</h4>
+      <p>An almost-blank dial. Tap the crystal — feel time through haptic pulses. Long pulse = 5 hours. Short = 1 hour.</p>
+      <p>Completely private. No one else knows you're checking time.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Apple Watch has Taptic Time buried in settings. This makes it primary. Time is felt, not seen.
+      </div>
+    </div>
+  </div>
+
+  <!-- FILL -->
+  <div class="concept-card" id="fill">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <rect x="60" y="30" width="80" height="140" rx="8" fill="none" stroke="#d0c8b8" stroke-width="2"/>
+        <rect x="62" y="80" width="76" height="88" rx="6" fill="#4a8a8a" opacity="0.5"/>
+        <line x1="52" y1="45" x2="60" y2="45" stroke="#bbb" stroke-width="1"/>
+        <line x1="52" y1="100" x2="60" y2="100" stroke="#bbb" stroke-width="1"/>
+        <line x1="52" y1="155" x2="60" y2="155" stroke="#bbb" stroke-width="1"/>
+        <text x="48" y="48" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">wake</text>
+        <text x="48" y="103" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">noon</text>
+        <text x="48" y="158" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">sleep</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Container · Boundary</p>
+      <h4>Fill</h4>
+      <p>A vessel that fills from bottom to top during your waking hours. Shows "how much day is left" as a liquid level.</p>
+      <p>Wake time and sleep time are user-set. The tank fills relative to your day, not the clock.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Reframes time as finite resource. Perfect for time blindness. "The tank is 60% full" is instantly understood.
+      </div>
+    </div>
+  </div>
+
+  <!-- ORBIT -->
+  <div class="concept-card" id="orbit">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <circle cx="100" cy="100" r="45" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <circle cx="100" cy="100" r="20" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <circle cx="170" cy="100" r="7" fill="#4a8a8a"/>
+        <circle cx="55" cy="100" r="5.5" fill="#d4a044"/>
+        <circle cx="100" cy="80" r="4" fill="#c45d3a"/>
+        <circle cx="100" cy="100" r="3" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Momentum</p>
+      <h4>Orbit</h4>
+      <p>Three ball bearings on concentric tracks: hours (outer), minutes (middle), seconds (inner). A solar system on your wrist.</p>
+      <p>Inspired by Eone Bradley, but with three orbiting bodies. Can be read visually or by touch.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Ball bearings create both tactile and meditative dimension. The seconds ball provides calming movement.
+      </div>
+    </div>
+  </div>
+
+  <!-- BREATH -->
+  <div class="concept-card" id="breath">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <circle cx="100" cy="100" r="55" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.5"/>
+        <circle cx="100" cy="100" r="42" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.35"/>
+        <circle cx="100" cy="100" r="29" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.2"/>
+        <circle cx="100" cy="100" r="10" fill="#7a8a4a"/>
+        <text x="100" y="175" text-anchor="middle" font-size="8" fill="#888" font-family="var(--font-mono)">4s in · 4s out</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Rhythm · Anchor</p>
+      <h4>Breath</h4>
+      <p>The dial pulses at a fixed rhythm. 4 seconds expand. 4 seconds contract. Not a timer — a pacer.</p>
+      <p>Time-telling is secondary. The rhythm is primary. For grounding, not scheduling.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Inverts the watch's purpose. For anxiety/ADHD users who need regulation more than time-checking.
+      </div>
+    </div>
+  </div>
+
+  <!-- STONE -->
+  <div class="concept-card" id="stone">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <path d="M100,15 Q165,20 178,65 Q188,110 170,150 Q145,185 100,188 Q55,185 30,150 Q12,110 22,65 Q35,20 100,15" fill="#e5e0da"/>
+        <circle cx="55" cy="70" r="18" fill="rgba(0,0,0,0.025)"/>
+        <circle cx="145" cy="95" r="22" fill="rgba(0,0,0,0.02)"/>
+        <circle cx="85" cy="145" r="20" fill="rgba(0,0,0,0.02)"/>
+        <circle cx="140" cy="55" r="7" fill="#c4a882"/>
+        <text x="100" y="210" text-anchor="middle" font-size="8" fill="#888" font-family="var(--font-mono)">feel the marker</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Anchor · Rhythm</p>
+      <h4>Stone</h4>
+      <p>An organic, pebble-shaped case with no visible dial. A single raised bump slowly migrates around the edge over 24 hours.</p>
+      <p>A worry stone that happens to tell time. Time is felt, not seen.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Removes all visual time-telling. The object is for holding, touching, grounding — with time as a side effect.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     PART 4: EXTENDED CONCEPTS (10 MORE)
+     ============================================ -->
+
+<div class="section-header">
+  <p class="eyebrow">Part Four</p>
+  <h2>Extended Concepts</h2>
+  <p class="subtitle">More explorations. Some practical, some playful.</p>
+</div>
+
+<div class="concept-grid">
+
+  <!-- ANCHOR RING -->
+  <div class="concept-card" id="anchor">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <circle cx="100" cy="100" r="75" fill="#faf8f5"/>
+        <!-- Ring of 12 positions -->
+        <g fill="#e5e0da">
+          <circle cx="100" cy="30" r="8"/>
+          <circle cx="143" cy="40" r="8"/>
+          <circle cx="170" cy="75" r="8"/>
+          <circle cx="170" cy="125" r="8"/>
+          <circle cx="143" cy="160" r="8"/>
+          <circle cx="100" cy="170" r="8"/>
+          <circle cx="57" cy="160" r="8"/>
+          <circle cx="30" cy="125" r="8"/>
+          <circle cx="30" cy="75" r="8"/>
+          <circle cx="57" cy="40" r="8"/>
+        </g>
+        <!-- Active anchors (glowing) -->
+        <circle cx="57" cy="40" r="8" fill="#c45d3a" opacity="0.8"/>
+        <circle cx="143" cy="160" r="8" fill="#d4a044" opacity="0.8"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="25" fill="#f0ebe3"/>
+        <text x="100" y="104" text-anchor="middle" font-size="8" fill="#888" font-family="var(--font-mono)">anchors</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Anchor · Boundary</p>
+      <h4>Anchor Ring</h4>
+      <p>Twelve positions around the dial. Each can be "activated" as an anchor — therapy at 9am, pickup at 4pm.</p>
+      <p>Active anchors glow. You see your day's shape, not its minutes.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Moves from "what time is it" to "what's coming." The lit anchors are landmarks, not numbers.
+      </div>
+    </div>
+  </div>
+
+  <!-- FIELD -->
+  <div class="concept-card" id="field">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Large zones instead of numbers -->
+        <path d="M100,15 A85,85 0 0,1 185,100 L100,100 Z" fill="rgba(196,93,58,0.15)"/>
+        <path d="M100,100 L185,100 A85,85 0 0,1 100,185 Z" fill="rgba(212,160,68,0.15)"/>
+        <path d="M100,100 L100,185 A85,85 0 0,1 15,100 Z" fill="rgba(74,138,138,0.15)"/>
+        <path d="M100,100 L15,100 A85,85 0 0,1 100,15 Z" fill="rgba(122,138,74,0.15)"/>
+        <!-- Single dot marker -->
+        <circle cx="150" cy="50" r="6" fill="#2a2622"/>
+        <!-- Labels -->
+        <text x="145" y="65" font-size="8" fill="#888" font-family="var(--font-mono)">focus</text>
+        <text x="145" y="145" font-size="8" fill="#888" font-family="var(--font-mono)">connect</text>
+        <text x="55" y="145" font-size="8" fill="#888" font-family="var(--font-mono)">rest</text>
+        <text x="55" y="65" font-size="8" fill="#888" font-family="var(--font-mono)">move</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Rhythm</p>
+      <h4>Field</h4>
+      <p>Four quadrants, each with a name: Focus, Connect, Rest, Move. A dot moves through them over 24 hours.</p>
+      <p>What each field means — you label it yourself. The watch just shows which field you're in.</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Like Day Map but with user-defined meaning. The names can be changed or left blank.
+      </div>
+    </div>
+  </div>
+
+  <!-- QUARTER TAP -->
+  <div class="concept-card" id="quarter">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Clean dial -->
+        <circle cx="100" cy="100" r="75" fill="#faf8f5"/>
+        <!-- Quarter markers (raised) -->
+        <circle cx="100" cy="30" r="6" fill="#d0c8b8"/>
+        <circle cx="170" cy="100" r="6" fill="#d0c8b8"/>
+        <circle cx="100" cy="170" r="6" fill="#d0c8b8"/>
+        <circle cx="30" cy="100" r="6" fill="#d0c8b8"/>
+        <!-- Vibration symbol at current quarter -->
+        <g transform="translate(170, 100)">
+          <path d="M-5,-3 Q-8,0 -5,3" stroke="#c45d3a" stroke-width="1.5" fill="none"/>
+          <path d="M5,-3 Q8,0 5,3" stroke="#c45d3a" stroke-width="1.5" fill="none"/>
+        </g>
+        <!-- Simple hands -->
+        <line x1="100" y1="100" x2="70" y2="100" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+        <line x1="100" y1="100" x2="100" y2="55" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Rhythm · Anchor</p>
+      <h4>Quarter Tap</h4>
+      <p>Every 15 minutes, a gentle tap on your wrist. Not a notification — a reminder that time passed.</p>
+      <p>Some find it grounding. Some find it annoying. That's data about you.</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Turns passive time-checking into active time-awareness. The tap says: "Still here. Still now."
+      </div>
+    </div>
+  </div>
+
+  <!-- FADE -->
+  <div class="concept-card" id="fade">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Gradient showing day brightness -->
+        <defs>
+          <radialGradient id="fadeGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2a2622" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#2a2622" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="100" cy="100" r="75" fill="url(#fadeGrad)"/>
+        <!-- Luminosity indicator -->
+        <circle cx="100" cy="100" r="35" fill="#f5f0e8"/>
+        <circle cx="100" cy="100" r="30" fill="#f0ebe3"/>
+        <circle cx="100" cy="100" r="20" fill="#e8e3db"/>
+        <!-- Lume dots (visible in "dark" state) -->
+        <g fill="#c4d8a8" opacity="0.6">
+          <circle cx="100" cy="35" r="4"/>
+          <circle cx="165" cy="100" r="4"/>
+          <circle cx="100" cy="165" r="4"/>
+          <circle cx="35" cy="100" r="4"/>
+        </g>
+        <text x="100" y="105" text-anchor="middle" font-size="8" fill="#888" font-family="var(--font-mono)">auto-dim</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Boundary</p>
+      <h4>Fade</h4>
+      <p>The dial dims as evening approaches. Bright in morning, muted in afternoon, dark after sunset.</p>
+      <p>Automatic, based on local sunset time. The watch's energy matches yours.</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Syncs visual energy to circadian rhythm. Reduces "bright screen at night" effect of checking time.
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPANION -->
+  <div class="concept-card" id="companion">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <!-- Desk object -->
+        <rect x="30" y="60" width="60" height="80" rx="8" fill="#e5e0da"/>
+        <circle cx="60" cy="100" r="20" fill="#f5f0e8"/>
+        <circle cx="60" cy="100" r="12" fill="#c45d3a" opacity="0.6"/>
+        <text x="60" y="155" text-anchor="middle" font-size="7" fill="#888" font-family="var(--font-mono)">desk</text>
+        <!-- Plus sign -->
+        <text x="100" y="105" text-anchor="middle" font-size="20" fill="#d0c8b8">+</text>
+        <!-- Watch (simple analog) -->
+        <circle cx="150" cy="100" r="35" fill="#4a4642"/>
+        <circle cx="150" cy="100" r="28" fill="#f5f0e8"/>
+        <line x1="150" y1="100" x2="150" y2="80" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+        <line x1="150" y1="100" x2="165" y2="100" stroke="#2a2622" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="150" cy="100" r="2" fill="#2a2622"/>
+        <text x="150" y="155" text-anchor="middle" font-size="7" fill="#888" font-family="var(--font-mono)">wrist</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Anchor · Boundary</p>
+      <h4>Companion</h4>
+      <p>Two objects. The watch stays pure analog. The desk object glows when an anchor event is active.</p>
+      <p>Separation of concerns: the watch tells time, the companion shows context.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Keeps the watch pure while adding smart features to a separate object. Best of both worlds.
+      </div>
+    </div>
+  </div>
+
+  <!-- WEIGHT -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Balance beam (tilted for afternoon) -->
+        <line x1="30" y1="110" x2="170" y2="85" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+        <!-- Fulcrum -->
+        <polygon points="100,100 85,125 115,125" fill="#2a2622"/>
+        <!-- Hour weight (heavier, lower on right) -->
+        <circle cx="155" cy="78" r="14" fill="#c45d3a"/>
+        <!-- Counter weight -->
+        <circle cx="45" cy="115" r="10" fill="#d4a044"/>
+        <!-- Labels -->
+        <text x="30" y="145" font-size="8" fill="#888" font-family="var(--font-mono)">morning</text>
+        <text x="170" y="70" text-anchor="end" font-size="8" fill="#888" font-family="var(--font-mono)">evening</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Container · Boundary</p>
+      <h4>Weight</h4>
+      <p>A balance beam that tilts throughout the day. Morning: left down. Evening: right down. Noon: level.</p>
+      <p>Feel the "weight" of the day shifting. Time has mass. The day has gravity.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Physicality metaphor makes time tangible. Highly intuitive for kinesthetic learners.
+      </div>
+    </div>
+  </div>
+
+  <!-- THRESHOLD -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Three horizontal threshold lines -->
+        <line x1="30" y1="55" x2="170" y2="55" stroke="#e8b4a0" stroke-width="4" stroke-linecap="round"/>
+        <line x1="30" y1="100" x2="170" y2="100" stroke="#f0d488" stroke-width="4" stroke-linecap="round"/>
+        <line x1="30" y1="145" x2="170" y2="145" stroke="#d08050" stroke-width="4" stroke-linecap="round"/>
+        <!-- Current position marker -->
+        <circle cx="130" cy="100" r="8" fill="#2a2622"/>
+        <!-- Labels -->
+        <text x="22" y="58" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">early</text>
+        <text x="22" y="103" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">mid</text>
+        <text x="22" y="148" text-anchor="end" font-size="7" fill="#888" font-family="var(--font-mono)">late</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Boundary · Position</p>
+      <h4>Threshold</h4>
+      <p>Three horizontal lines. A marker moves right AND drops down at each phase transition.</p>
+      <p>Position shows time-within-phase. Row shows which phase. Two dimensions of information.</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Combines linear progress with categorical phase. Makes day segments explicit.
+      </div>
+    </div>
+  </div>
+
+  <!-- SPOKE -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- 12 spokes -->
+        <g stroke="#e5e0da" stroke-width="2">
+          <line x1="100" y1="100" x2="100" y2="20"/>
+          <line x1="100" y1="100" x2="150" y2="30"/>
+          <line x1="100" y1="100" x2="180" y2="60"/>
+          <line x1="100" y1="100" x2="180" y2="100"/>
+          <line x1="100" y1="100" x2="180" y2="140"/>
+          <line x1="100" y1="100" x2="150" y2="170"/>
+          <line x1="100" y1="100" x2="100" y2="180"/>
+          <line x1="100" y1="100" x2="50" y2="170"/>
+          <line x1="100" y1="100" x2="20" y2="140"/>
+          <line x1="100" y1="100" x2="20" y2="100"/>
+          <line x1="100" y1="100" x2="20" y2="60"/>
+          <line x1="100" y1="100" x2="50" y2="30"/>
+        </g>
+        <!-- Highlighted spoke (10 o'clock) -->
+        <line x1="100" y1="100" x2="50" y2="30" stroke="#c45d3a" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="100" cy="100" r="8" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Anchor</p>
+      <h4>Spoke</h4>
+      <p>Twelve fixed spokes. One spoke activates (lights, colors, or textures) to show current hour.</p>
+      <p>No moving parts. Position is absolute, not relative. The hand doesn't move — the activation does.</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Eliminates tracking moving hands. Could work as LED, mechanical reveal, or texture change.
+      </div>
+    </div>
+  </div>
+
+  <!-- SHADOW -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Gnomon (sundial pointer) -->
+        <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="4"/>
+        <circle cx="100" cy="50" r="5" fill="#2a2622"/>
+        <!-- Shadow (showing afternoon) -->
+        <line x1="100" y1="100" x2="145" y2="135" stroke="rgba(0,0,0,0.12)" stroke-width="10" stroke-linecap="round"/>
+        <!-- Hour arc markers -->
+        <g fill="#d0c8b8">
+          <circle cx="60" cy="135" r="3"/>
+          <circle cx="100" cy="155" r="3"/>
+          <circle cx="140" cy="135" r="3"/>
+          <circle cx="158" cy="100" r="3"/>
+        </g>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Position · Rhythm</p>
+      <h4>Shadow</h4>
+      <p>A sundial on your wrist. A gnomon casts a "shadow" that moves with the sun's path.</p>
+      <p>The shadow could be actual (outdoor) or simulated (internal LED + frosted crystal).</p>
+      <div class="innovation">
+        <span class="innovation-label">Why it's different</span>
+        Reconnects to oldest timekeeping method. Deeply intuitive — the shadow IS the time.
+      </div>
+    </div>
+  </div>
+
+  <!-- NEST -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="160" height="160" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Concentric rings with varying opacity -->
+        <circle cx="100" cy="100" r="75" fill="none" stroke="#e5e0da" stroke-width="8"/>
+        <circle cx="100" cy="100" r="55" fill="none" stroke="#d8d3cb" stroke-width="8"/>
+        <circle cx="100" cy="100" r="35" fill="none" stroke="#cbc6be" stroke-width="8"/>
+        <circle cx="100" cy="100" r="15" fill="#c45d3a"/>
+        <!-- Labels (inside rings) -->
+        <text x="100" y="145" text-anchor="middle" font-size="7" fill="#888" font-family="var(--font-mono)">week</text>
+        <text x="100" y="120" text-anchor="middle" font-size="7" fill="#888" font-family="var(--font-mono)">day</text>
+        <text x="100" y="88" text-anchor="middle" font-size="7" fill="#888" font-family="var(--font-mono)">hour</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens-tag">Container · Position</p>
+      <h4>Nest</h4>
+      <p>Concentric rings showing nested time scales: hour (center), day (middle), week (outer).</p>
+      <p>See your position across multiple time horizons at once. Zoom out from the minute.</p>
+      <div class="innovation">
+        <span class="innovation-label">What makes it different</span>
+        Most watches show one scale. This shows three. Context for the present moment.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================
+     GUARDRAILS (for hybrid concepts)
+     ============================================ -->
+
+<div class="section-header" id="guardrails">
+  <p class="eyebrow">Appendix A</p>
+  <h2>Guardrails for Hybrid Concepts</h2>
+  <p class="subtitle">If technology gets added, these are the boundaries.</p>
+</div>
+
+<div class="guardrails">
+  <h3>What would and wouldn't belong</h3>
+  
+  <div class="guardrails-grid">
+    <div class="guardrails-col allowed">
+      <h4>Would Fit</h4>
+      <ul>
+        <li>Single-purpose additions (one thing well)</li>
+        <li>Opt-in features (default off)</li>
+        <li>Multi-week battery life</li>
+        <li>Graceful degradation (works without app)</li>
+        <li>Setup-only companion app</li>
+        <li>Haptic time-telling</li>
+        <li>Auto-dim based on sunset</li>
+      </ul>
+    </div>
+    
+    <div class="guardrails-col forbidden">
+      <h4>Wouldn't Fit</h4>
+      <ul>
+        <li>Notifications of any kind</li>
+        <li>Fitness or health tracking</li>
+        <li>Multiple screens or menus</li>
+        <li>Daily or more frequent charging</li>
+        <li>Behavior that triggers checking</li>
+        <li>Data collection beyond setup</li>
+        <li>Required account creation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     CLOSING
+     ============================================ -->
+
+<div class="closing-reflection">
+  <h3>One last question</h3>
+  <p>Which of these would you want on your wrist? Not which is most innovative. Which would you actually wear?</p>
+  <p style="margin-top: 1rem; font-style: italic; color: var(--color-slate);">That's the only question that matters.</p>
+</div>
+
+<footer>
+  <p>Gs Watch — Some fun concepts</p>
+  <p style="margin-top: 0.25rem;">January 2026</p>
+</footer>
+
+</body>
+</html>

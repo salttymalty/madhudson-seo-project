@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gs Watch — Expanded Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2a2622;
+      --text-muted: #6b6560;
+      --accent: #c45d3a;
+      --accent-light: #f5e8e3;
+      --surface: #fff;
+      --border: #e5e0db;
+      
+      /* Girard palette */
+      --girard-red: #c94a3a;
+      --girard-orange: #e07a3a;
+      --girard-gold: #d4a044;
+      --girard-olive: #8a9a4a;
+      --girard-teal: #4a8a8a;
+      --girard-brown: #6a4a3a;
+      --girard-cream: #f5e8d8;
+      --girard-black: #2a2622;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 3rem 2rem 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+    .phase-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h2 { font-size: 1.2rem; font-weight: 600; margin: 3rem 0 1.5rem; }
+    h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; }
+    p { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem; }
+    section { margin-bottom: 4rem; }
+
+    .intro-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .mockup-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .mockup-viz {
+      padding: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f3f0;
+      min-height: 280px;
+    }
+
+    .mockup-viz.dark-bg { background: #2a2622; }
+    .mockup-viz.girard-bg { background: var(--girard-cream); }
+
+    .mockup-info { padding: 1.5rem; }
+    .mockup-info h3 { margin-bottom: 0.5rem; }
+    .mockup-info p { font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+    .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.75rem; }
+
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-mech { background: #e8e4f0; color: #5a4a6a; }
+    .tag-hybrid { background: var(--accent-light); color: var(--accent); }
+    .tag-girard { background: #f5e8d8; color: var(--girard-brown); }
+    .tag-numbers { background: #e8f0e8; color: #4a6a4a; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    /* WATCH BASE */
+    .watch-base {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15), inset 0 2px 10px rgba(255,255,255,0.05);
+    }
+
+    /* 1. HYBRID CORE (dark) */
+    .hybrid-core { background: #2a2622; }
+
+    .hybrid-depletion {
+      position: absolute;
+      top: 8px; left: 8px;
+      width: 184px; height: 184px;
+      border-radius: 50%;
+      background: conic-gradient(from -90deg, var(--accent) 0deg, var(--accent) 200deg, #3a3632 200deg, #3a3632 360deg);
+      animation: deplete-anim 30s linear infinite;
+    }
+
+    @keyframes deplete-anim {
+      0% { background: conic-gradient(from -90deg, var(--accent) 0deg, var(--accent) 360deg, #3a3632 360deg); }
+      50% { background: conic-gradient(from -90deg, var(--accent) 0deg, var(--accent) 180deg, #3a3632 180deg, #3a3632 360deg); }
+      100% { background: conic-gradient(from -90deg, var(--accent) 0deg, var(--accent) 0deg, #3a3632 0deg, #3a3632 360deg); }
+    }
+
+    .hybrid-inner {
+      position: absolute;
+      top: 20px; left: 20px;
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: #2a2622;
+    }
+
+    .hybrid-radial {
+      position: absolute;
+      top: 30px; left: 30px;
+      width: 140px; height: 140px;
+    }
+
+    .hybrid-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .hybrid-ring.hr1 { top: 0; left: 0; width: 140px; height: 140px; }
+    .hybrid-ring.hr2 { top: 17px; left: 17px; width: 106px; height: 106px; }
+    .hybrid-ring.hr3 { top: 34px; left: 34px; width: 72px; height: 72px; }
+
+    .hybrid-now {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    /* 2. HYBRID + NUMBERS (light) */
+    .hybrid-numbers { background: #f5f3f0; }
+
+    .hn-depletion {
+      position: absolute;
+      top: 8px; left: 8px;
+      width: 184px; height: 184px;
+      border-radius: 50%;
+      background: conic-gradient(from -90deg, var(--girard-teal) 0deg, var(--girard-teal) 240deg, #e5e0db 240deg, #e5e0db 360deg);
+    }
+
+    .hn-inner {
+      position: absolute;
+      top: 18px; left: 18px;
+      width: 164px; height: 164px;
+      border-radius: 50%;
+      background: #f5f3f0;
+    }
+
+    .hn-mark {
+      position: absolute;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    .hn-mark.m12 { top: 28px; left: 50%; transform: translateX(-50%); }
+    .hn-mark.m3 { top: 50%; right: 28px; transform: translateY(-50%); }
+    .hn-mark.m6 { bottom: 28px; left: 50%; transform: translateX(-50%); }
+    .hn-mark.m9 { top: 50%; left: 28px; transform: translateY(-50%); }
+
+    .hn-radial-zone {
+      position: absolute;
+      top: 45px; left: 45px;
+      width: 110px; height: 110px;
+    }
+
+    .hn-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .hn-ring.r1 { top: 0; left: 0; width: 110px; height: 110px; }
+    .hn-ring.r2 { top: 18px; left: 18px; width: 74px; height: 74px; }
+    .hn-ring.r3 { top: 36px; left: 36px; width: 38px; height: 38px; }
+
+    .hn-now {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--girard-teal);
+    }
+
+    .hn-hand {
+      position: absolute;
+      bottom: 50%; left: 50%;
+      transform-origin: bottom center;
+      background: var(--text);
+    }
+
+    .hn-hand.hour { width: 3px; height: 35px; margin-left: -1.5px; border-radius: 2px; transform: rotate(150deg); }
+    .hn-hand.minute { width: 2px; height: 50px; margin-left: -1px; border-radius: 2px; transform: rotate(90deg); }
+
+    /* 3. GIRARD SUNBURST TIMER */
+    .girard-sunburst {
+      background: var(--girard-cream);
+      border: 3px solid var(--girard-brown);
+    }
+
+    .gs-ray {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 4px; height: 90px;
+      margin-left: -2px;
+      transform-origin: center bottom;
+      border-radius: 2px;
+    }
+
+    .gs-ray:nth-child(1) { transform: rotate(0deg) translateY(-50%); background: var(--girard-red); }
+    .gs-ray:nth-child(2) { transform: rotate(30deg) translateY(-50%); background: var(--girard-orange); }
+    .gs-ray:nth-child(3) { transform: rotate(60deg) translateY(-50%); background: var(--girard-gold); }
+    .gs-ray:nth-child(4) { transform: rotate(90deg) translateY(-50%); background: var(--girard-olive); }
+    .gs-ray:nth-child(5) { transform: rotate(120deg) translateY(-50%); background: var(--girard-teal); }
+    .gs-ray:nth-child(6) { transform: rotate(150deg) translateY(-50%); background: var(--girard-brown); }
+    .gs-ray:nth-child(7) { transform: rotate(180deg) translateY(-50%); background: var(--girard-red); }
+    .gs-ray:nth-child(8) { transform: rotate(210deg) translateY(-50%); background: var(--girard-orange); }
+    .gs-ray:nth-child(9) { transform: rotate(240deg) translateY(-50%); background: var(--girard-gold); }
+    .gs-ray:nth-child(10) { transform: rotate(270deg) translateY(-50%); background: var(--girard-olive); }
+    .gs-ray:nth-child(11) { transform: rotate(300deg) translateY(-50%); background: var(--girard-teal); }
+    .gs-ray:nth-child(12) { transform: rotate(330deg) translateY(-50%); background: var(--girard-brown); }
+
+    .gs-mask {
+      position: absolute;
+      top: 15px; left: 15px;
+      width: 170px; height: 170px;
+      border-radius: 50%;
+      background: conic-gradient(from -90deg, transparent 0deg, transparent 220deg, var(--girard-cream) 220deg, var(--girard-cream) 360deg);
+    }
+
+    .gs-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px; height: 70px;
+      border-radius: 50%;
+      background: var(--girard-cream);
+      border: 2px solid var(--girard-brown);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gs-time {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--girard-brown);
+      font-weight: 700;
+    }
+
+    /* 4. GIRARD RADIAL RINGS */
+    .girard-radial {
+      background: var(--girard-olive);
+      border: 3px solid var(--girard-brown);
+    }
+
+    .gr-outer-ring {
+      position: absolute;
+      top: 10px; left: 10px;
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      border: 2px solid var(--girard-cream);
+      opacity: 0.4;
+    }
+
+    .gr-mid-ring {
+      position: absolute;
+      top: 30px; left: 30px;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      border: 2px solid var(--girard-cream);
+      opacity: 0.5;
+    }
+
+    .gr-inner-ring {
+      position: absolute;
+      top: 50px; left: 50px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--girard-cream);
+      opacity: 0.6;
+    }
+
+    .gr-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: var(--girard-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gr-now {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--girard-red);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .gr-hour-dots {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .gr-dot {
+      position: absolute;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--girard-cream);
+    }
+
+    .gr-dot.d12 { top: 15px; left: 50%; margin-left: -4px; }
+    .gr-dot.d3 { top: 50%; right: 15px; margin-top: -4px; }
+    .gr-dot.d6 { bottom: 15px; left: 50%; margin-left: -4px; }
+    .gr-dot.d9 { top: 50%; left: 15px; margin-top: -4px; }
+
+    /* 5. MECHANICAL BEZEL */
+    .mech-bezel {
+      background: #e8e4e0;
+      border: 8px solid #4a4642;
+    }
+
+    .mb-tick {
+      position: absolute;
+      top: 4px; left: 50%;
+      width: 2px; height: 12px;
+      background: #f5f3f0;
+      transform-origin: center 100px;
+      margin-left: -1px;
+    }
+
+    .mb-tick:nth-child(1) { transform: rotate(0deg); }
+    .mb-tick:nth-child(2) { transform: rotate(30deg); }
+    .mb-tick:nth-child(3) { transform: rotate(60deg); }
+    .mb-tick:nth-child(4) { transform: rotate(90deg); }
+    .mb-tick:nth-child(5) { transform: rotate(120deg); }
+    .mb-tick:nth-child(6) { transform: rotate(150deg); }
+    .mb-tick:nth-child(7) { transform: rotate(180deg); }
+    .mb-tick:nth-child(8) { transform: rotate(210deg); }
+    .mb-tick:nth-child(9) { transform: rotate(240deg); }
+    .mb-tick:nth-child(10) { transform: rotate(270deg); }
+    .mb-tick:nth-child(11) { transform: rotate(300deg); }
+    .mb-tick:nth-child(12) { transform: rotate(330deg); }
+
+    .mb-elapsed {
+      position: absolute;
+      top: 4px; left: 50%;
+      width: 6px; height: 20px;
+      background: var(--girard-red);
+      transform-origin: center 100px;
+      margin-left: -3px;
+      transform: rotate(210deg);
+      border-radius: 3px;
+    }
+
+    .mb-dial {
+      position: absolute;
+      top: 8px; left: 8px;
+      width: 184px; height: 184px;
+      border-radius: 50%;
+      background: #f5f3f0;
+    }
+
+    .mb-num {
+      position: absolute;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .mb-num.n12 { top: 18px; left: 50%; transform: translateX(-50%); }
+    .mb-num.n3 { top: 50%; right: 18px; transform: translateY(-50%); }
+    .mb-num.n6 { bottom: 18px; left: 50%; transform: translateX(-50%); }
+    .mb-num.n9 { top: 50%; left: 18px; transform: translateY(-50%); }
+
+    .mb-subdial {
+      position: absolute;
+      bottom: 35px; left: 50%;
+      transform: translateX(-50%);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: #e8e4e0;
+      border: 1px solid var(--border);
+    }
+
+    .mb-sr {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--text-muted);
+      opacity: 0.3;
+    }
+
+    .mb-sr.sr1 { top: 5px; left: 5px; width: 40px; height: 40px; }
+    .mb-sr.sr2 { top: 13px; left: 13px; width: 24px; height: 24px; }
+
+    .mb-subdial-now {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .mb-hand {
+      position: absolute;
+      bottom: 50%; left: 50%;
+      transform-origin: bottom center;
+      background: var(--text);
+    }
+
+    .mb-hand.hour { width: 4px; height: 40px; margin-left: -2px; border-radius: 2px; transform: rotate(120deg); }
+    .mb-hand.minute { width: 2px; height: 60px; margin-left: -1px; border-radius: 2px; transform: rotate(45deg); }
+
+    .mb-center-pin {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--text);
+    }
+
+    /* 6. DUAL CROWN */
+    .dual-crown {
+      background: #2a2622;
+      border: 6px solid #4a4642;
+    }
+
+    .dc-crown {
+      position: absolute;
+      width: 16px; height: 24px;
+      background: #6a6662;
+      border-radius: 3px;
+    }
+
+    .dc-crown.left { left: -20px; top: 50%; transform: translateY(-50%); }
+    .dc-crown.right { right: -20px; top: 50%; transform: translateY(-50%); }
+
+    .dc-dial {
+      position: absolute;
+      top: 6px; left: 6px;
+      width: 188px; height: 188px;
+      border-radius: 50%;
+      background: #1a1612;
+    }
+
+    .dc-timer-arc {
+      position: absolute;
+      top: 10px; left: 10px;
+      width: 168px; height: 168px;
+      border-radius: 50%;
+      border: 8px solid transparent;
+      border-top-color: var(--girard-red);
+      border-right-color: var(--girard-red);
+      transform: rotate(-45deg);
+    }
+
+    .dc-inner {
+      position: absolute;
+      top: 25px; left: 25px;
+      width: 138px; height: 138px;
+      border-radius: 50%;
+      background: #2a2622;
+    }
+
+    .dc-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .dc-ring.r1 { top: 20px; left: 20px; width: 98px; height: 98px; }
+    .dc-ring.r2 { top: 35px; left: 35px; width: 68px; height: 68px; }
+    .dc-ring.r3 { top: 50px; left: 50px; width: 38px; height: 38px; }
+
+    .dc-now {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--girard-red);
+    }
+
+    .dc-time-display {
+      position: absolute;
+      top: 25px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.6);
+    }
+
+    .dc-timer-display {
+      position: absolute;
+      bottom: 25px; left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--girard-red);
+    }
+
+    /* Mechanical notes */
+    .mech-notes {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .mech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .mech-option {
+      background: var(--accent-light);
+      padding: 1.25rem;
+      border-radius: 6px;
+    }
+
+    .mech-option strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .mech-option p { font-size: 0.8rem; margin: 0; }
+
+    /* Recommendation */
+    .recommendation {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin-top: 3rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .recommendation h3 { color: var(--accent); margin-bottom: 0.75rem; }
+    .recommendation p { margin: 0 0 0.75rem 0; color: var(--text); }
+    .recommendation ul { margin: 0.75rem 0 0 1.25rem; color: var(--text-muted); font-size: 0.85rem; }
+    .recommendation li { margin-bottom: 0.5rem; }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="phase-tag">Expanded Mockups</span>
+  <h1>Gs Watch — A + B Combinations</h1>
+  <p class="subtitle">Depletion Arc × Radial Now × Girard aesthetic. With numbers. Mechanical paths.</p>
+</header>
+
+<section>
+  <div class="intro-box">
+    <h3>Design Brief</h3>
+    <p>Combining A (Depletion Arc) and B (Radial Now) into unified concepts. Adding conventional number display for accessibility. Exploring Girard color/pattern language. Considering mechanical watch implementation.</p>
+  </div>
+</section>
+
+<h2>01 — Hybrid A+B Combinations</h2>
+
+<section>
+  <div class="mockup-grid">
+    
+    <div class="mockup-card">
+      <div class="mockup-viz dark-bg">
+        <div class="watch-base hybrid-core">
+          <div class="hybrid-depletion"></div>
+          <div class="hybrid-inner"></div>
+          <div class="hybrid-radial">
+            <div class="hybrid-ring hr1"></div>
+            <div class="hybrid-ring hr2"></div>
+            <div class="hybrid-ring hr3"></div>
+            <div class="hybrid-now"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Hybrid Core</h3>
+        <p>Outer ring = timer (depletion). Inner rings = day position (radial now). Two systems, one face.</p>
+        <p class="mono">Timer: outer arc depletes. Clock: rings show hours until day's end.</p>
+        <div class="tag-row">
+          <span class="tag tag-hybrid">Hybrid</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-card">
+      <div class="mockup-viz">
+        <div class="watch-base hybrid-numbers">
+          <div class="hn-depletion"></div>
+          <div class="hn-inner">
+            <span class="hn-mark m12">12</span>
+            <span class="hn-mark m3">3</span>
+            <span class="hn-mark m6">6</span>
+            <span class="hn-mark m9">9</span>
+            <div class="hn-radial-zone">
+              <div class="hn-ring r1"></div>
+              <div class="hn-ring r2"></div>
+              <div class="hn-ring r3"></div>
+              <div class="hn-now"></div>
+            </div>
+            <div class="hn-hand hour"></div>
+            <div class="hn-hand minute"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Hybrid + Numbers</h3>
+        <p>Conventional analog hands with hour markers. Radial rings in center. Depletion arc on outer edge.</p>
+        <p class="mono">Full conventional readability + ND visualization layers.</p>
+        <div class="tag-row">
+          <span class="tag tag-hybrid">Hybrid</span>
+          <span class="tag tag-numbers">Numbers</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<h2>02 — Girard Aesthetic Applied</h2>
+
+<section>
+  <div class="mockup-grid">
+
+    <div class="mockup-card">
+      <div class="mockup-viz girard-bg">
+        <div class="watch-base girard-sunburst">
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-ray"></div>
+          <div class="gs-mask"></div>
+          <div class="gs-center">
+            <span class="gs-time">2:45</span>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Girard Sunburst Timer</h3>
+        <p>12 colored rays = hours. Depletion mask reveals rays as timer runs. Digital time in center.</p>
+        <p class="mono">Bold palette. Timer uncovers pattern progressively.</p>
+        <div class="tag-row">
+          <span class="tag tag-girard">Girard</span>
+          <span class="tag tag-numbers">Numbers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-card">
+      <div class="mockup-viz girard-bg">
+        <div class="watch-base girard-radial">
+          <div class="gr-hour-dots">
+            <div class="gr-dot d12"></div>
+            <div class="gr-dot d3"></div>
+            <div class="gr-dot d6"></div>
+            <div class="gr-dot d9"></div>
+          </div>
+          <div class="gr-outer-ring"></div>
+          <div class="gr-mid-ring"></div>
+          <div class="gr-inner-ring"></div>
+          <div class="gr-center">
+            <div class="gr-now"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Girard Radial Rings</h3>
+        <p>Concentric cream rings on olive field. Now-dot pulses at center. Dot markers at quarters.</p>
+        <p class="mono">Warm, organic. Radial concept in Girard colorway.</p>
+        <div class="tag-row">
+          <span class="tag tag-girard">Girard</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<h2>03 — Mechanical Watch Concepts</h2>
+
+<section>
+  <div class="mockup-grid">
+
+    <div class="mockup-card">
+      <div class="mockup-viz">
+        <div class="watch-base mech-bezel">
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-tick"></div>
+          <div class="mb-elapsed"></div>
+          <div class="mb-dial">
+            <span class="mb-num n12">12</span>
+            <span class="mb-num n3">3</span>
+            <span class="mb-num n6">6</span>
+            <span class="mb-num n9">9</span>
+            <div class="mb-subdial">
+              <div class="mb-sr sr1"></div>
+              <div class="mb-sr sr2"></div>
+              <div class="mb-subdial-now"></div>
+            </div>
+            <div class="mb-hand hour"></div>
+            <div class="mb-hand minute"></div>
+            <div class="mb-center-pin"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Rotating Bezel Timer</h3>
+        <p>Physical rotating bezel for timer (dive watch style). Main dial = conventional time. Subdial at 6 = radial now.</p>
+        <p class="mono">Fully mechanical. User sets bezel, minute hand tracks elapsed.</p>
+        <div class="tag-row">
+          <span class="tag tag-mech">Mechanical</span>
+          <span class="tag tag-numbers">Numbers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup-card">
+      <div class="mockup-viz dark-bg">
+        <div class="watch-base dual-crown">
+          <div class="dc-crown left"></div>
+          <div class="dc-crown right"></div>
+          <div class="dc-dial">
+            <div class="dc-timer-arc"></div>
+            <div class="dc-inner">
+              <div class="dc-time-display">2:45</div>
+              <div class="dc-ring r1"></div>
+              <div class="dc-ring r2"></div>
+              <div class="dc-ring r3"></div>
+              <div class="dc-now"></div>
+              <div class="dc-timer-display">18:32</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-info">
+        <h3>Dual Crown Hybrid</h3>
+        <p>Left crown = timer control. Right crown = time set. Outer arc = timer. Center = radial + digital time.</p>
+        <p class="mono">Quartz hybrid. E-ink subdisplay possible. Dual function explicit.</p>
+        <div class="tag-row">
+          <span class="tag tag-mech">Mechanical</span>
+          <span class="tag tag-hybrid">Hybrid</span>
+          <span class="tag tag-numbers">Numbers</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="mech-notes">
+    <h3>Mechanical Implementation Paths</h3>
+    
+    <div class="mech-grid">
+      <div class="mech-option">
+        <strong>A. Rotating Bezel + Subdial</strong>
+        <p>Most accessible. Uses existing dive watch mechanics. Bezel = timer (user-set). Subdial = radial visualization (printed or with single hand). Standard automatic movement. Seiko/Citizen base calibers work.</p>
+      </div>
+      <div class="mech-option">
+        <strong>B. Regulator Style</strong>
+        <p>Separate hour/minute subdials (regulator layout). Center area free for radial now visualization. Timer via crown-operated retrograde hand. Higher movement complexity, stronger differentiation.</p>
+      </div>
+      <div class="mech-option">
+        <strong>C. Quartz Hybrid</strong>
+        <p>Analog hands + small e-ink or LCD segment for timer countdown. Seiko/Citizen style hybrid movement. Best of both: mechanical feel, digital precision for timer. Proven commercial path.</p>
+      </div>
+      <div class="mech-option">
+        <strong>D. Full E-ink</strong>
+        <p>Custom e-ink display. All visualizations programmable. Multiple faces. Watchy platform ($55-70) for prototyping. Longest battery, most flexible. Software-defined, hardware later.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="recommendation">
+    <h3>Recommendations</h3>
+    
+    <p><strong>Primary: Hybrid + Numbers</strong> — Combines conventional legibility with ND visualization. Outer depletion arc handles timer. Inner radial rings handle day-position. Analog hands provide familiar reading. Appeals to both ND users and broader market.</p>
+    
+    <p><strong>Secondary: Rotating Bezel Mechanical</strong> — Most manufacturable physical watch. Leverages existing dive watch infrastructure. Timer = physical bezel interaction (tactile, satisfying). Subdial carries radial now in miniature.</p>
+    
+    <p><strong>Girard integration:</strong></p>
+    <ul>
+      <li>Apply Girard palette across all variants (not just dedicated "Girard" faces)</li>
+      <li>Sunburst rays as hour markers (replaces conventional indices)</li>
+      <li>Color progression: dawn→night around dial edge</li>
+      <li>Limited edition Girard-forward variant for brand differentiation</li>
+    </ul>
+    
+    <p><strong>Number strategy:</strong></p>
+    <ul>
+      <li>Minimal markers: 12-3-6-9 only (reduces clutter)</li>
+      <li>Optional digital subdisplay for precise time (hybrid quartz)</li>
+      <li>Numbers as fallback — train eye toward pattern reading over time</li>
+    </ul>
+    
+    <p><strong>Prototype path:</strong></p>
+    <ul>
+      <li>Watchy e-ink for software concept validation</li>
+      <li>Blank dive watch case + printed dial for mechanical feel test</li>
+      <li>3D printed bezel inserts for timer marking exploration</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p>Gs Watch Development — Expanded Mockups v1</p>
+  <p class="mono" style="margin-top: 0.25rem;">Hybrid · Girard · Mechanical · Numbers</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/deep Assessment — Gs Watch Complete Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --surface: #fff;
+      --sheet: #f5f0e8;
+      --ink: #2a2622;
+      --ink-soft: #6b6560;
+      --slate: #8a8580;
+      --border: #e5e0db;
+      --accent: #c45d3a;
+      --accent-light: rgba(196, 93, 58, 0.08);
+      --success: #4a8a5a;
+      --success-light: rgba(74, 138, 90, 0.08);
+      --warning: #d4a044;
+      --warning-light: rgba(212, 160, 68, 0.1);
+      --error: #b54a2a;
+      --error-light: rgba(181, 74, 42, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 500; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.2rem; margin: 2.5rem 0 1rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: 1rem; margin: 1.5rem 0 0.75rem; }
+    h4 { font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+
+    p { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 0.75rem; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .subtitle { color: var(--slate); font-size: 0.95rem; }
+
+    /* Assessment cards */
+    .assessment-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .score-label {
+      flex: 1;
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+
+    .score-bar {
+      flex: 0 0 150px;
+      height: 8px;
+      background: var(--sheet);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .score-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .score-fill.high { background: var(--success); }
+    .score-fill.medium { background: var(--warning); }
+    .score-fill.low { background: var(--error); }
+
+    .score-value {
+      flex: 0 0 40px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      text-align: right;
+    }
+
+    /* Issue/opportunity cards */
+    .issue-card {
+      border-left: 3px solid var(--error);
+      background: var(--error-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .opportunity-card {
+      border-left: 3px solid var(--success);
+      background: var(--success-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .neutral-card {
+      border-left: 3px solid var(--warning);
+      background: var(--warning-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .issue-card .card-label { color: var(--error); }
+    .opportunity-card .card-label { color: var(--success); }
+    .neutral-card .card-label { color: var(--warning); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th { font-weight: 600; background: var(--sheet); }
+    td { color: var(--ink-soft); }
+
+    /* Comparison columns */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .compare-col {
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .compare-col.before {
+      background: var(--sheet);
+      border: 1px dashed var(--border);
+    }
+
+    .compare-col.after {
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
+    }
+
+    .compare-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-col.before .compare-label { color: var(--slate); }
+    .compare-col.after .compare-label { color: var(--accent); }
+
+    /* Lists */
+    ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: var(--ink-soft); font-size: 0.9rem; }
+    li { margin-bottom: 0.35rem; }
+
+    /* Sections */
+    .section-divider {
+      margin: 3rem 0 2rem;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    /* Checklist */
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li { padding-left: 1.5rem; position: relative; }
+    .checklist li::before {
+      content: "○";
+      position: absolute;
+      left: 0;
+      color: var(--slate);
+    }
+    .checklist li.pass::before { content: "✓"; color: var(--success); }
+    .checklist li.fail::before { content: "✗"; color: var(--error); }
+    .checklist li.partial::before { content: "◐"; color: var(--warning); }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="mono">/ DEEP ASSESSMENT</p>
+  <h1>Gs Watch Complete Deck — Multi-Dimensional Analysis</h1>
+  <p class="subtitle">Evaluating against design philosophy, usability principles, and brand coherence.</p>
+</header>
+
+<!-- ============================================ -->
+<!-- EXECUTIVE SUMMARY -->
+<!-- ============================================ -->
+
+<h2>Executive Summary</h2>
+
+<p>The deck has made significant progress toward embodying the "Tools for Expression" philosophy, but several areas still drift into prescription and self-expression. The visual design is strong; the conceptual framework needs deepening.</p>
+
+<div class="assessment-card">
+  <div class="score-row">
+    <span class="score-label">Philosophy alignment</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 65%"></div></div>
+    <span class="score-value">65%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Visual coherence</span>
+    <div class="score-bar"><div class="score-fill high" style="width: 85%"></div></div>
+    <span class="score-value">85%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Conceptual depth</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 70%"></div></div>
+    <span class="score-value">70%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Practical clarity</span>
+    <div class="score-bar"><div class="score-fill high" style="width: 80%"></div></div>
+    <span class="score-value">80%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Reader agency</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 55%"></div></div>
+    <span class="score-value">55%</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 1: PHILOSOPHY ALIGNMENT -->
+<!-- ============================================ -->
+
+<h2>Dimension 1: Philosophy Alignment</h2>
+
+<p>Testing against the four core principles from the Design Philosophy document.</p>
+
+<h3>Principle Checklist</h3>
+
+<ul class="checklist">
+  <li class="partial"><strong>Frameworks, not conclusions</strong> — Lenses section exists, but watches still deliver conclusions about what they "do"</li>
+  <li class="partial"><strong>Prompts, not prescriptions</strong> — Invitation prompts added, but vignettes still prescribe use cases</li>
+  <li class="pass"><strong>Space, not text</strong> — Reflection blanks are present; good use of dashed boxes</li>
+  <li class="fail"><strong>Paths, not sequences</strong> — Document is still strictly linear; no alternative entry points</li>
+</ul>
+
+<div class="issue-card">
+  <p class="card-label">Issue</p>
+  <h4>Vignettes are prescriptions in disguise</h4>
+  <p>"Ways this has been used" sounds invitational, but the vignettes are still us telling readers what the watch is for. They narrow rather than open.</p>
+  <p><strong>Example:</strong> "I set it before difficult phone calls" implies the Focus Bezel is for phone calls. Someone who'd never use it that way might feel excluded.</p>
+</div>
+
+<div class="compare-grid">
+  <div class="compare-col before">
+    <p class="compare-label">Current</p>
+    <p style="font-size: 0.85rem; font-style: italic;">"I set it before difficult phone calls. The boundary helps me stay present."</p>
+  </div>
+  <div class="compare-col after">
+    <p class="compare-label">More open</p>
+    <p style="font-size: 0.85rem; font-style: italic;">"Some mark beginnings. Some mark endings. Some mark the middle of something they don't want to lose."</p>
+  </div>
+</div>
+
+<div class="issue-card">
+  <p class="card-label">Issue</p>
+  <h4>Watch descriptions still declare function</h4>
+  <p>"A rotating bezel creates a colored arc. The minute hand travels through it. When the hand exits the color, something ends."</p>
+  <p>This is better than before, but still positions us as the authority on what the watch does. The reader is told, not invited to discover.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Reframe watch cards as "observations" not "explanations"</h4>
+  <p>Instead of explaining what the watch does, describe what's physically there and let readers draw conclusions.</p>
+  <p><strong>Try:</strong> "There's a colored sector on the bezel. The minute hand moves. The sector can be rotated. What would you do with this?"</p>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 2: STRUCTURE & NAVIGATION -->
+<!-- ============================================ -->
+
+<h2>Dimension 2: Structure & Navigation</h2>
+
+<p>"Paths, not sequences" — the document should allow multiple entry points.</p>
+
+<div class="issue-card">
+  <p class="card-label">Issue</p>
+  <h4>Strictly linear structure</h4>
+  <p>The current structure forces: Philosophy → Lenses → Focus Bezel → Day Map → etc. A reader who wants to start with straps or hybrids has no map.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Add a visual navigation map</h4>
+  <p>A single-page overview showing all concepts as nodes. Readers can start anywhere. Each section becomes self-contained.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Make each watch card standalone</h4>
+  <p>Currently, watch cards assume you've read the philosophy section. Each card should work if encountered alone. Add a one-line "lens" reference at the top of each card.</p>
+</div>
+
+<h3>Suggested Structure Revision</h3>
+
+<table>
+  <tr>
+    <th>Current</th>
+    <th>Proposed</th>
+  </tr>
+  <tr>
+    <td>Linear scroll, 3 parts</td>
+    <td>Navigation map + modular sections</td>
+  </tr>
+  <tr>
+    <td>Philosophy → Watches → Hybrid</td>
+    <td>Map → Any section → Cross-references</td>
+  </tr>
+  <tr>
+    <td>Straps buried in Hybrid appendix</td>
+    <td>Straps as standalone section</td>
+  </tr>
+  <tr>
+    <td>Lenses only in philosophy section</td>
+    <td>Lens tags on every watch card</td>
+  </tr>
+</table>
+
+<!-- ============================================ -->
+<!-- DIMENSION 3: VISUAL DESIGN -->
+<!-- ============================================ -->
+
+<h2>Dimension 3: Visual Design</h2>
+
+<p>Assessing warmth, imperfection, space, and coherence.</p>
+
+<ul class="checklist">
+  <li class="pass"><strong>Warm palette</strong> — Girard-inspired colors are well-applied</li>
+  <li class="pass"><strong>Soft edges</strong> — Rounded corners throughout</li>
+  <li class="partial"><strong>Imperfection as intention</strong> — Icons are geometric, not hand-drawn</li>
+  <li class="pass"><strong>Space to breathe</strong> — Generous margins, reflection blanks</li>
+  <li class="partial"><strong>Warm shadows</strong> — Some pure black in SVG strokes</li>
+</ul>
+
+<div class="neutral-card">
+  <p class="card-label">Observation</p>
+  <h4>Watch SVGs are polished, not warm</h4>
+  <p>The watch mockups are clean vectors. This works for manufacturing specs, but for a philosophy-driven deck, a slightly hand-drawn quality might reinforce the "folk art DNA" mentioned in the design system.</p>
+  <p><strong>Consider:</strong> Adding subtle stroke variation, imperfect circles, or hand-drawn hour markers to at least one variant.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Lens icons could be hand-drawn</h4>
+  <p>The six lens icons (◯ ▱ → ◎ ≈ □) are Unicode characters. Custom hand-drawn versions would reinforce warmth and differentiate from corporate design systems.</p>
+</div>
+
+<div class="issue-card">
+  <p class="card-label">Issue</p>
+  <h4>Strap mockups are too technical</h4>
+  <p>The detailed strap SVGs show construction details (spring bars, buckle pins). This is useful for manufacturing but feels clinical for an invitational deck. Consider softer, more illustrative versions for the philosophy deck, with technical versions reserved for spec documents.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 4: LANGUAGE & TONE -->
+<!-- ============================================ -->
+
+<h2>Dimension 4: Language & Tone</h2>
+
+<p>Testing for prescriptive vs. invitational language.</p>
+
+<h3>Language Audit</h3>
+
+<table>
+  <tr>
+    <th>Location</th>
+    <th>Current</th>
+    <th>Issue</th>
+    <th>Suggestion</th>
+  </tr>
+  <tr>
+    <td>Focus Bezel</td>
+    <td>"When the hand exits the color, something ends."</td>
+    <td>Declarative</td>
+    <td>"When the hand exits the color, what happens?"</td>
+  </tr>
+  <tr>
+    <td>Day Map</td>
+    <td>"The hour hand points to where you are in the day's cycle."</td>
+    <td>Tells function</td>
+    <td>"The hour hand moves through colored zones. What do you notice?"</td>
+  </tr>
+  <tr>
+    <td>Philosophy intro</td>
+    <td>"The watches that follow aren't prescriptions. They're lenses."</td>
+    <td>Tells reader what to think</td>
+    <td>"What follows are objects. What they become for you is open."</td>
+  </tr>
+  <tr>
+    <td>Strap philosophy</td>
+    <td>"These straps are designed to show use, not hide it."</td>
+    <td>Designer authority</td>
+    <td>"These straps change with wear. Whether that's a feature or a flaw is yours to decide."</td>
+  </tr>
+  <tr>
+    <td>Hybrid guardrails</td>
+    <td>"Forbidden: Notifications of any kind"</td>
+    <td>Appropriate for internal spec</td>
+    <td>Keep as-is (this is guardrails, not customer-facing)</td>
+  </tr>
+</table>
+
+<div class="neutral-card">
+  <p class="card-label">Observation</p>
+  <h4>Tone varies by section</h4>
+  <p>The philosophy sections are invitational. The hybrid appendix is prescriptive (appropriately — it's internal spec). The watch cards sit awkwardly in between. Consider making the split explicit: philosophy deck vs. spec deck.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 5: CONCEPTUAL DEPTH -->
+<!-- ============================================ -->
+
+<h2>Dimension 5: Conceptual Depth</h2>
+
+<p>Are the ideas fully developed? Are there gaps?</p>
+
+<div class="issue-card">
+  <p class="card-label">Gap</p>
+  <h4>Lenses aren't connected to watches</h4>
+  <p>The six lenses (Position, Container, Momentum, Anchor, Rhythm, Boundary) are introduced, then each watch gets a lens tag, but there's no exploration of how the same watch might serve different lenses for different people.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Add a "lens matrix"</h4>
+  <p>A grid showing each watch against each lens, with question prompts at intersections. This makes explicit that the same object can be multiple tools.</p>
+</div>
+
+<table>
+  <tr>
+    <th></th>
+    <th>Position</th>
+    <th>Container</th>
+    <th>Boundary</th>
+    <th>Rhythm</th>
+  </tr>
+  <tr>
+    <td><strong>Focus Bezel</strong></td>
+    <td>Where is the hand?</td>
+    <td>How much color remains?</td>
+    <td>Where does the arc end?</td>
+    <td>How many sessions today?</td>
+  </tr>
+  <tr>
+    <td><strong>Day Map</strong></td>
+    <td>Which zone am I in?</td>
+    <td>How much day is left?</td>
+    <td>When does this zone end?</td>
+    <td>Does this day match yesterday?</td>
+  </tr>
+  <tr>
+    <td><strong>Tide Dial</strong></td>
+    <td>High or low?</td>
+    <td>—</td>
+    <td>When does the tide turn?</td>
+    <td>Same rhythm as the sea</td>
+  </tr>
+</table>
+
+<div class="issue-card">
+  <p class="card-label">Gap</p>
+  <h4>No "anti-personas" or edge cases</h4>
+  <p>The deck implicitly assumes readers will connect with the philosophy. What about someone who finds the whole framing pretentious? Or someone who just wants a watch? Acknowledging these perspectives would make the deck more honest.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Add a "This might not be for you if..." section</h4>
+  <p>Honest acknowledgment of who won't connect with this. Paradoxically, this increases trust with the intended audience.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 6: READER AGENCY -->
+<!-- ============================================ -->
+
+<h2>Dimension 6: Reader Agency</h2>
+
+<p>Does the document give readers real choices? Can they meaningfully respond?</p>
+
+<ul class="checklist">
+  <li class="pass"><strong>Reflection blanks exist</strong> — Space for writing is present</li>
+  <li class="fail"><strong>Blanks are functional</strong> — In HTML, the blanks are just styled divs, not inputs</li>
+  <li class="partial"><strong>Questions are open</strong> — Some questions have implicit "right answers"</li>
+  <li class="fail"><strong>Reader can disagree</strong> — No mechanism to express "this isn't for me"</li>
+</ul>
+
+<div class="issue-card">
+  <p class="card-label">Issue</p>
+  <h4>Reflection blanks are decorative</h4>
+  <p>The dashed boxes say "(your words here)" but can't actually receive input. For a printed or PDF version this is fine, but for HTML it feels incomplete.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Make reflection blanks functional</h4>
+  <p>Add contenteditable or textarea inputs. Store responses in localStorage. This transforms the deck from document to tool.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Opportunity</p>
+  <h4>Add a "your lens" discovery flow</h4>
+  <p>A short series of questions that surface which lens(es) resonate most. Not a quiz with a "result" — just a framework for self-reflection. Output could be: "You seem drawn to Boundary and Rhythm. The Focus Bezel and Quarter Chime might be worth exploring."</p>
+</div>
+
+<!-- ============================================ -->
+<!-- DIMENSION 7: PRACTICAL COMPLETENESS -->
+<!-- ============================================ -->
+
+<h2>Dimension 7: Practical Completeness</h2>
+
+<p>Does the deck contain what's needed for its purpose?</p>
+
+<h3>For Internal Strategy</h3>
+
+<ul class="checklist">
+  <li class="pass">Concept definitions — Clear</li>
+  <li class="pass">Visual mockups — Present for all concepts</li>
+  <li class="pass">Hybrid guardrails — Explicit</li>
+  <li class="partial">Manufacturing considerations — Mentioned but not detailed</li>
+  <li class="fail">Timeline / phasing — Not present</li>
+  <li class="fail">Cost estimates — Not present</li>
+</ul>
+
+<h3>For Partner / Customer Presentation</h3>
+
+<ul class="checklist">
+  <li class="pass">Emotional hook — Philosophy section works</li>
+  <li class="partial">Product clarity — Concepts clear, specs light</li>
+  <li class="fail">Pricing — Not present</li>
+  <li class="fail">Call to action — No next step for reader</li>
+  <li class="fail">Contact / waitlist — Not present</li>
+</ul>
+
+<div class="neutral-card">
+  <p class="card-label">Observation</p>
+  <h4>Deck serves two masters</h4>
+  <p>It's trying to be both internal strategy document and external-facing philosophy piece. These audiences need different things. Consider splitting into two versions.</p>
+</div>
+
+<!-- ============================================ -->
+<!-- RECOMMENDATIONS -->
+<!-- ============================================ -->
+
+<div class="section-divider">Recommendations</div>
+
+<h2>Priority Actions</h2>
+
+<h3>High Priority</h3>
+
+<ol>
+  <li><strong>Rewrite vignettes as open observations</strong> — Remove specific use cases; describe patterns without prescribing</li>
+  <li><strong>Add lens tags to every watch card</strong> — Make the framework visible throughout</li>
+  <li><strong>Create navigation map</strong> — Allow non-linear exploration</li>
+  <li><strong>Split into two documents</strong> — Internal spec vs. external philosophy</li>
+</ol>
+
+<h3>Medium Priority</h3>
+
+<ol>
+  <li><strong>Make reflection blanks functional</strong> — contenteditable + localStorage</li>
+  <li><strong>Add lens matrix</strong> — Show how each watch serves multiple lenses</li>
+  <li><strong>Hand-draw lens icons</strong> — Reinforce warmth and folk art DNA</li>
+  <li><strong>Add "This might not be for you" section</strong> — Honest acknowledgment</li>
+</ol>
+
+<h3>Lower Priority (Polish)</h3>
+
+<ol>
+  <li>Create hand-drawn watch variant for philosophy deck</li>
+  <li>Soften strap mockups for non-spec contexts</li>
+  <li>Add discovery flow for lens identification</li>
+  <li>Include timeline and cost estimates for internal version</li>
+</ol>
+
+<!-- ============================================ -->
+<!-- APPENDIX: SPECIFIC REWRITES -->
+<!-- ============================================ -->
+
+<h2>Appendix: Specific Rewrites</h2>
+
+<h3>Focus Bezel — Rewritten for Agency</h3>
+
+<div class="compare-grid">
+  <div class="compare-col before">
+    <p class="compare-label">Current</p>
+    <p style="font-size: 0.85rem;">"A rotating bezel creates a colored arc. The minute hand travels through it. When the hand exits the color, something ends."</p>
+    <p style="font-size: 0.85rem;">"What that 'something' is — a work session, a conversation, a pause — is yours to decide."</p>
+  </div>
+  <div class="compare-col after">
+    <p class="compare-label">Rewritten</p>
+    <p style="font-size: 0.85rem;">"There's a bezel that rotates. There's a colored sector. There's a minute hand that moves."</p>
+    <p style="font-size: 0.85rem;">"What happens when the hand enters the color? What happens when it exits? What would you use this for?"</p>
+  </div>
+</div>
+
+<h3>Day Map — Rewritten for Agency</h3>
+
+<div class="compare-grid">
+  <div class="compare-col before">
+    <p class="compare-label">Current</p>
+    <p style="font-size: 0.85rem;">"The dial is divided into colored zones. The hour hand points to where you are in the day's cycle."</p>
+    <p style="font-size: 0.85rem;">"What each zone means — rest, focus, transition, care — is for you to discover."</p>
+  </div>
+  <div class="compare-col after">
+    <p class="compare-label">Rewritten</p>
+    <p style="font-size: 0.85rem;">"The dial has colors. They shift from cool to warm and back. The hour hand moves through them."</p>
+    <p style="font-size: 0.85rem;">"Some people name the zones. Some don't. What do you see?"</p>
+  </div>
+</div>
+
+<h3>Vignettes — Rewritten as Open Observations</h3>
+
+<div class="compare-grid">
+  <div class="compare-col before">
+    <p class="compare-label">Current</p>
+    <p style="font-size: 0.85rem;">"I set it before difficult phone calls. The boundary helps me stay present."</p>
+    <p style="font-size: 0.85rem;">"25 minutes of writing. When the hand exits, I stop mid-sentence."</p>
+  </div>
+  <div class="compare-col after">
+    <p class="compare-label">Rewritten</p>
+    <p style="font-size: 0.85rem;">"Some mark beginnings. Some mark endings. Some mark middles they don't want to lose."</p>
+    <p style="font-size: 0.85rem;">"Some rotate before. Some rotate during. Some never rotate at all."</p>
+  </div>
+</div>
+
+<footer>
+  <p>/deep Assessment — Gs Watch Complete Deck</p>
+  <p style="margin-top: 0.25rem;">January 2026</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gs Watch — Complete Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      /* Core palette */
+      --color-paper: #faf8f5;
+      --color-sheet: #f5f0e8;
+      --color-cream: #f0ebe3;
+      --color-ink: #2a2622;
+      --color-ink-soft: #6b6560;
+      --color-slate: #8a8580;
+      --color-slate-soft: #b0aba5;
+      
+      /* Accent colors (Girard-inspired) */
+      --color-terracotta: #c45d3a;
+      --color-rose: #d4847a;
+      --color-gold: #d4a044;
+      --color-olive: #7a8a4a;
+      --color-teal: #4a8a8a;
+      --color-brown: #6a4a3a;
+      --color-rust: #b54a2a;
+      
+      /* Day zone colors - revised for warmth and distinction */
+      --zone-night: #5a6a7a;
+      --zone-dawn: #e8b4a0;
+      --zone-morning: #f0d488;
+      --zone-midday: #f5ecd8;
+      --zone-afternoon: #e8c078;
+      --zone-evening: #d08050;
+      
+      /* Typography */
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      
+      /* Spacing & radius */
+      --radius-soft: 8px;
+      --radius-card: 12px;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      line-height: 1.7;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+    }
+
+    p {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ============================================
+       CARD SYSTEM
+       ============================================ */
+    .card {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ============================================
+       SECTION HEADERS
+       ============================================ */
+    .section-header {
+      margin: 4rem 0 2rem;
+      text-align: center;
+    }
+
+    .section-header .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header .subtitle {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ============================================
+       PHILOSOPHY SECTION
+       ============================================ */
+    .philosophy-card {
+      background: var(--color-sheet);
+      border: none;
+      padding: 2.5rem;
+    }
+
+    .philosophy-card h2 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--color-terracotta);
+    }
+
+    .quote-block {
+      background: var(--color-paper);
+      border-left: 3px solid var(--color-terracotta);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .quote-text {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .quote-attribution {
+      font-size: 0.8rem;
+      color: var(--color-slate);
+    }
+
+    /* ============================================
+       REFLECTION FRAMES
+       ============================================ */
+    .reflection-frame {
+      background: var(--color-paper);
+      border: 2px dashed var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .reflection-frame h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: var(--color-ink);
+    }
+
+    .reflection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .reflection-grid { grid-template-columns: 1fr; }
+    }
+
+    .reflection-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-slate);
+      margin-bottom: 0.75rem;
+    }
+
+    .reflection-blank {
+      background: var(--color-sheet);
+      border: 1px dashed var(--color-slate-soft);
+      border-radius: var(--radius-soft);
+      min-height: 80px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-slate);
+      font-style: italic;
+    }
+
+    .reflection-prompt {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-ink);
+      text-align: center;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-slate-soft);
+    }
+
+    /* ============================================
+       LENSES (not conclusions)
+       ============================================ */
+    .lenses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .lens-card {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-soft);
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .lens-card .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .lens-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .lens-card p {
+      font-size: 0.8rem;
+      margin: 0;
+    }
+
+    /* ============================================
+       WATCH CARDS - INVITATIONAL FRAMING
+       ============================================ */
+    .watch-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    @media (min-width: 700px) {
+      .watch-card {
+        grid-template-columns: 280px 1fr;
+      }
+    }
+
+    .watch-viz {
+      background: var(--color-sheet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    @media (min-width: 700px) {
+      .watch-viz {
+        border-bottom: none;
+        border-right: 1px solid rgba(0,0,0,0.05);
+      }
+    }
+
+    .physical-svg {
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+      transition: transform 0.3s ease;
+    }
+
+    .watch-card:hover .physical-svg {
+      transform: scale(1.02);
+    }
+
+    .content-side {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-side h2 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0 0.75rem;
+      color: var(--color-ink);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .tag.warm { background: rgba(196, 93, 58, 0.1); color: var(--color-terracotta); }
+    .tag.cool { background: rgba(74, 138, 138, 0.1); color: var(--color-teal); }
+    .tag.gold { background: rgba(212, 160, 68, 0.12); color: #9b6a22; }
+    .tag.olive { background: rgba(122, 138, 74, 0.12); color: var(--color-olive); }
+    .tag.phase { background: rgba(0,0,0,0.04); color: var(--color-slate); }
+
+    /* Invitational prompt instead of "hook" */
+    .invitation {
+      margin-top: auto;
+      padding-top: 1.25rem;
+      border-top: 2px dashed var(--color-cream);
+    }
+
+    .invitation-prompt {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--color-ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .invitation-space {
+      background: var(--color-sheet);
+      border: 1px dashed var(--color-slate-soft);
+      border-radius: var(--radius-soft);
+      min-height: 40px;
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-slate);
+      font-style: italic;
+    }
+
+    /* Ways used (vignettes, not prescriptions) */
+    .ways-used {
+      margin: 1rem 0;
+      padding: 1rem;
+      background: var(--color-sheet);
+      border-radius: var(--radius-soft);
+    }
+
+    .ways-used h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-slate);
+      margin-bottom: 0.75rem;
+    }
+
+    .vignette {
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+      padding-left: 1rem;
+      border-left: 2px solid var(--color-slate-soft);
+      margin-bottom: 0.75rem;
+      font-style: italic;
+    }
+
+    .vignette:last-child { margin-bottom: 0; }
+
+    /* ============================================
+       WATCH GRID (for multiple concepts)
+       ============================================ */
+    .watch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .watch-grid-item {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .watch-grid-item .watch-viz {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      border-right: none;
+    }
+
+    .watch-grid-item .content-side {
+      padding: 1.25rem;
+    }
+
+    .watch-grid-item h3 {
+      font-size: 1.1rem;
+      margin: 0.25rem 0 0.5rem;
+    }
+
+    .watch-grid-item p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ============================================
+       SECTION DIVIDERS
+       ============================================ */
+    .section-divider {
+      margin: 4rem 0 2rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-slate);
+      position: relative;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 20%;
+      height: 1px;
+      background: var(--color-slate-soft);
+    }
+
+    .section-divider::before { left: 5%; }
+    .section-divider::after { right: 5%; }
+
+    /* ============================================
+       HYBRID / DIVERGENT SECTION
+       ============================================ */
+    .hybrid-section {
+      background: var(--color-paper);
+      border: 1px dashed var(--color-slate-soft);
+      padding: 2rem;
+    }
+
+    .hybrid-intro {
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+
+    .hybrid-intro h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hybrid-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .hybrid-card {
+      background: var(--color-sheet);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .hybrid-card-header {
+      padding: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .hybrid-card-header svg {
+      flex: 0 0 120px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+
+    .hybrid-card-header .copy {
+      flex: 1;
+    }
+
+    .hybrid-card-header h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .hybrid-card-header .meta {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .hybrid-card-header p {
+      font-size: 0.85rem;
+      margin: 0;
+    }
+
+    .hybrid-card-details {
+      padding: 1rem 1.5rem;
+      border-top: 1px dashed rgba(0,0,0,0.06);
+      font-size: 0.8rem;
+    }
+
+    .hybrid-card-details h4 {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+
+    .hybrid-card-details ul {
+      margin: 0 0 0 1rem;
+      color: var(--color-ink-soft);
+    }
+
+    .hybrid-card-details li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ============================================
+       STRAP GALLERY
+       ============================================ */
+    .strap-section {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-slate-soft);
+    }
+
+    .strap-section h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .strap-section > p {
+      margin-bottom: 1.5rem;
+    }
+
+    .strap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    /* Detailed strap cards */
+    .strap-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .strap-detail-card {
+      background: var(--color-sheet);
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .strap-mockup {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: var(--color-paper);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .strap-detail-info {
+      padding: 1rem 1.25rem;
+    }
+
+    .strap-detail-info h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .strap-detail-desc {
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+      margin: 0 0 0.75rem 0;
+      line-height: 1.5;
+    }
+
+    .strap-detail-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .strap-detail-specs span {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: rgba(0,0,0,0.04);
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      color: var(--color-slate);
+    }
+
+    .strap-philosophy {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: rgba(0,0,0,0.02);
+      border-radius: var(--radius-soft);
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+    }
+
+    .strap-philosophy strong {
+      color: var(--color-ink);
+    }
+
+    .strap-card {
+      background: var(--color-sheet);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: var(--radius-soft);
+      padding: 0.75rem 1rem;
+    }
+
+    .strap-swatch {
+      height: 20px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .strap-swatch.nylon { background: linear-gradient(90deg, #3a4a5a 0%, #4a5a6a 50%, #3a4a5a 100%); }
+    .strap-swatch.denim { background: linear-gradient(90deg, #1c2430 0%, #2a3440 100%); }
+    .strap-swatch.canvas { background: repeating-linear-gradient(45deg, #e3dbc8, #e3dbc8 3px, #f1ead9 3px, #f1ead9 6px); }
+    .strap-swatch.cactus { background: linear-gradient(90deg, #325646, #486c56); }
+    .strap-swatch.cork { background: linear-gradient(90deg, #c4a882, #d4b892, #c4a882); }
+    .strap-swatch.pinatex { background: linear-gradient(90deg, #8a7a5a, #9a8a6a); }
+
+    .strap-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .strap-meta {
+      font-size: 0.7rem;
+      color: var(--color-slate);
+      line-height: 1.4;
+    }
+
+    /* ============================================
+       GUARDRAILS
+       ============================================ */
+    .guardrails {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(196, 93, 58, 0.05);
+      border: 1px solid rgba(196, 93, 58, 0.2);
+      border-radius: var(--radius-card);
+    }
+
+    .guardrails h3 {
+      font-size: 0.95rem;
+      color: var(--color-terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .guardrails-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .guardrails-grid { grid-template-columns: 1fr; }
+    }
+
+    .guardrails-col h4 {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .guardrails-col.allowed h4 { color: var(--color-olive); }
+    .guardrails-col.forbidden h4 { color: var(--color-rust); }
+
+    .guardrails-col ul {
+      margin: 0 0 0 1rem;
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+    }
+
+    .guardrails-col li { margin-bottom: 0.3rem; }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-slate-soft);
+      text-align: center;
+      color: var(--color-slate);
+      font-size: 0.8rem;
+    }
+
+    footer .brand {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--color-ink);
+      margin-bottom: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================
+     PART 1: PHILOSOPHICAL FOUNDATION
+     ============================================ -->
+
+<div class="section-header" style="margin-top: 0;">
+  <p class="eyebrow">Part One</p>
+  <h2>A Framework for Noticing</h2>
+  <p class="subtitle">Before the watches, a way of seeing.</p>
+</div>
+
+<div class="card philosophy-card">
+  <div class="quote-block">
+    <div class="quote-text">"I have no desire to express myself. What I wish to do is provide the means of expression for people."</div>
+    <div class="quote-attribution">— Alexander Girard</div>
+  </div>
+  
+  <p>This project isn't about our conclusions regarding time. It's about building tools that help you notice your own relationship with it.</p>
+  
+  <p>The watches that follow aren't prescriptions. They're lenses. Different shapes for different ways of seeing.</p>
+</div>
+
+<div class="reflection-frame">
+  <h3>Some questions to sit with</h3>
+  
+  <div class="reflection-grid">
+    <div class="reflection-col">
+      <h4>Time feels like...</h4>
+      <div class="reflection-blank">(your words here)</div>
+    </div>
+    <div class="reflection-col">
+      <h4>I wish time felt like...</h4>
+      <div class="reflection-blank">(your words here)</div>
+    </div>
+  </div>
+  
+  <p class="reflection-prompt">The gap between these two might be where a tool could help.</p>
+</div>
+
+<div class="card philosophy-card">
+  <h2>Some Lenses for Noticing</h2>
+  <p>These aren't types of people. They're modes that shift throughout a day, a season, a life.</p>
+  
+  <div class="lenses-grid">
+    <div class="lens-card">
+      <div class="icon">◯</div>
+      <h4>Position</h4>
+      <p>Where am I in the cycle?</p>
+    </div>
+    <div class="lens-card">
+      <div class="icon">▱</div>
+      <h4>Container</h4>
+      <p>How much is held?</p>
+    </div>
+    <div class="lens-card">
+      <div class="icon">→</div>
+      <h4>Momentum</h4>
+      <p>What direction, what pace?</p>
+    </div>
+    <div class="lens-card">
+      <div class="icon">◎</div>
+      <h4>Anchor</h4>
+      <p>What holds me here?</p>
+    </div>
+    <div class="lens-card">
+      <div class="icon">≈</div>
+      <h4>Rhythm</h4>
+      <p>What pattern repeats?</p>
+    </div>
+    <div class="lens-card">
+      <div class="icon">□</div>
+      <h4>Boundary</h4>
+      <p>Where does this end?</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================
+     PART 2: ANALOG PROTOTYPES
+     ============================================ -->
+
+<div class="section-header">
+  <p class="eyebrow">Part Two</p>
+  <h2>Analog Prototypes</h2>
+  <p class="subtitle">No screens. No menus. Just geography.</p>
+</div>
+
+<!-- FOCUS BEZEL -->
+<article class="card watch-card">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <!-- Case -->
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <!-- Bezel body -->
+      <circle cx="100" cy="100" r="90" fill="#3a3632"/>
+      <!-- Focus sector (25 min = 150°) -->
+      <path d="M100,100 L100,15 A85,85 0 0,1 173,58 L100,100 Z" fill="var(--color-terracotta)" opacity="0.85"/>
+      <!-- Bezel markers -->
+      <g stroke="#888" stroke-width="1">
+        <line x1="100" y1="12" x2="100" y2="22" stroke="#fff" stroke-width="2"/>
+        <line x1="173" y1="58" x2="165" y2="63" stroke="#fff" stroke-width="2"/>
+        <line x1="188" y1="100" x2="178" y2="100"/>
+      </g>
+      <!-- Lume pip -->
+      <circle cx="100" cy="17" r="3" fill="#e8e4d8"/>
+      <!-- Dial -->
+      <circle cx="100" cy="100" r="75" fill="#f5f0e8"/>
+      <!-- Hour markers -->
+      <g fill="#2a2622">
+        <rect x="97" y="30" width="6" height="12" rx="1"/>
+        <rect x="158" y="97" width="12" height="6" rx="1"/>
+        <rect x="97" y="158" width="6" height="12" rx="1"/>
+        <rect x="30" y="97" width="12" height="6" rx="1"/>
+      </g>
+      <!-- Small indices -->
+      <g fill="#ccc">
+        <circle cx="125" cy="35" r="1.5"/>
+        <circle cx="150" cy="50" r="1.5"/>
+        <circle cx="165" cy="75" r="1.5"/>
+        <circle cx="165" cy="125" r="1.5"/>
+        <circle cx="150" cy="150" r="1.5"/>
+        <circle cx="125" cy="165" r="1.5"/>
+        <circle cx="75" cy="165" r="1.5"/>
+        <circle cx="50" cy="150" r="1.5"/>
+        <circle cx="35" cy="125" r="1.5"/>
+        <circle cx="35" cy="75" r="1.5"/>
+        <circle cx="50" cy="50" r="1.5"/>
+        <circle cx="75" cy="35" r="1.5"/>
+      </g>
+      <!-- Hands -->
+      <line x1="100" y1="100" x2="65" y2="65" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="140" y2="80" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="45" stroke="var(--color-terracotta)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Center -->
+      <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+      <circle cx="100" cy="100" r="2" fill="var(--color-terracotta)"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag cool">Boundary · Container</span>
+    <h2>Focus Bezel</h2>
+    <p>A rotating bezel creates a colored arc. The minute hand travels through it. When the hand exits the color, something ends.</p>
+    <p>What that "something" is — a work session, a conversation, a pause — is yours to decide.</p>
+    
+    <div class="ways-used">
+      <h4>Ways this has been used</h4>
+      <div class="vignette">"I set it before difficult phone calls. The boundary helps me stay present without checking the clock."</div>
+      <div class="vignette">"25 minutes of writing. When the hand exits, I stop mid-sentence. Easier to return."</div>
+      <div class="vignette">"I use it backwards — rotating to mark when I started, not when I'll stop."</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What would you contain?</p>
+      <div class="invitation-space">(your use here)</div>
+    </div>
+  </div>
+</article>
+
+<!-- DAY MAP -->
+<article class="card watch-card">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <!-- Case -->
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      
+      <!-- Dial base -->
+      <circle cx="100" cy="100" r="85" fill="var(--zone-midday)"/>
+      
+      <!-- Day zones - using proper arc math for 12-hour dial -->
+      <!-- Night: 10pm-5am (positioned at ~10-5 on dial, going counterclockwise from top) -->
+      <path d="M100,100 L100,15 A85,85 0 0,0 23,68 Z" fill="var(--zone-night)"/>
+      <!-- Dawn: 5am-7am -->
+      <path d="M100,100 L23,68 A85,85 0 0,0 15,100 Z" fill="var(--zone-dawn)"/>
+      <!-- Morning: 7am-11am -->
+      <path d="M100,100 L15,100 A85,85 0 0,0 58,173 Z" fill="var(--zone-morning)"/>
+      <!-- Midday: 11am-2pm (base color shows through) -->
+      <!-- Afternoon: 2pm-6pm -->
+      <path d="M100,100 L142,173 A85,85 0 0,0 185,100 Z" fill="var(--zone-afternoon)"/>
+      <!-- Evening: 6pm-10pm -->
+      <path d="M100,100 L185,100 A85,85 0 0,0 100,15 Z" fill="var(--zone-evening)"/>
+      
+      <!-- Center clean zone -->
+      <circle cx="100" cy="100" r="32" fill="#f5f0e8"/>
+      
+      <!-- Zone labels (positioned at zone centers) -->
+      <g font-family="var(--font-mono)" font-size="7" fill="rgba(255,255,255,0.85)" font-weight="500">
+        <text x="52" y="52" text-anchor="middle">night</text>
+      </g>
+      <g font-family="var(--font-mono)" font-size="6" fill="rgba(0,0,0,0.6)">
+        <text x="28" y="88" text-anchor="middle">dawn</text>
+        <text x="45" y="140" text-anchor="middle">morning</text>
+        <text x="100" y="168" text-anchor="middle">midday</text>
+        <text x="155" y="140" text-anchor="middle">afternoon</text>
+      </g>
+      <g font-family="var(--font-mono)" font-size="7" fill="rgba(255,255,255,0.9)" font-weight="500">
+        <text x="152" y="52" text-anchor="middle">evening</text>
+      </g>
+      
+      <!-- Hour markers -->
+      <g fill="#2a2622">
+        <circle cx="100" cy="22" r="3"/>
+        <circle cx="178" cy="100" r="3"/>
+        <circle cx="100" cy="178" r="3"/>
+        <circle cx="22" cy="100" r="3"/>
+      </g>
+      
+      <!-- Hands (showing ~9:30am - in morning zone) -->
+      <line x1="100" y1="100" x2="45" y2="100" stroke="#2a2622" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+      
+      <!-- Center -->
+      <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag warm">Position · Rhythm</span>
+    <h2>Day Map</h2>
+    <p>The dial is divided into colored zones. The hour hand points to where you are in the day's cycle.</p>
+    <p>What each zone means — rest, focus, transition, care — is for you to discover. The watch just shows position.</p>
+    
+    <div class="ways-used">
+      <h4>Ways this has been used</h4>
+      <div class="vignette">"I stopped asking 'what time is it' and started asking 'what field am I in.' Different question."</div>
+      <div class="vignette">"The afternoon zone is when I schedule nothing. The watch reminds me that's intentional."</div>
+      <div class="vignette">"I noticed I was always looking at it during the evening transition. That taught me something."</div>
+    </div>
+    
+    <div class="invitation">
+      <p class="invitation-prompt">What would you notice about your position?</p>
+      <div class="invitation-space">(your observation here)</div>
+    </div>
+  </div>
+</article>
+
+<!-- MORE ANALOG CONCEPTS -->
+<div class="watch-grid">
+  
+  <!-- STUDIO CHRONO -->
+  <div class="watch-grid-item">
+    <div class="watch-viz">
+      <svg class="physical-svg" width="160" height="160" viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="85" fill="#f5f0e8"/>
+        <!-- Subdial at 3 -->
+        <g transform="translate(140, 100)">
+          <circle cx="0" cy="0" r="25" fill="#fff" stroke="#ddd" stroke-width="1"/>
+          <path d="M0,0 L0,-25 A25,25 0 0,1 21,12.5 Z" fill="var(--color-gold)" opacity="0.8"/>
+          <line x1="0" y1="0" x2="12" y2="12" stroke="#2a2622" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="0" cy="0" r="2" fill="#2a2622"/>
+        </g>
+        <!-- Hour markers -->
+        <g fill="#2a2622">
+          <rect x="97" y="20" width="6" height="12" rx="1"/>
+          <rect x="97" y="168" width="6" height="12" rx="1"/>
+          <rect x="20" y="97" width="12" height="6" rx="1"/>
+        </g>
+        <!-- Hands -->
+        <line x1="100" y1="100" x2="60" y2="100" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+        <line x1="100" y1="100" x2="100" y2="45" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Pushers -->
+        <rect x="188" y="70" width="8" height="14" fill="#888" rx="2"/>
+        <rect x="188" y="116" width="8" height="14" fill="#888" rx="2"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="content-side">
+      <span class="tag gold">Container · Momentum</span>
+      <h3>Studio Chrono</h3>
+      <p>A chronograph with a 25-minute sector in the subdial. Click to begin. The hand sweeps. A tactile ritual for starting.</p>
+      <p class="invitation-prompt" style="font-size: 0.85rem; margin-top: 0.75rem;">What ritual begins your work?</p>
+    </div>
+  </div>
+  
+  <!-- TIDE DIAL -->
+  <div class="watch-grid-item">
+    <div class="watch-viz">
+      <svg class="physical-svg" width="160" height="160" viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="85" fill="#e8f0f4"/>
+        <!-- Tide wave pattern -->
+        <path d="M15,100 Q40,70 65,100 T115,100 T165,100 T185,100" fill="none" stroke="var(--color-teal)" stroke-width="3" opacity="0.3"/>
+        <path d="M15,115 Q40,85 65,115 T115,115 T165,115 T185,115" fill="none" stroke="var(--color-teal)" stroke-width="2" opacity="0.2"/>
+        <!-- High/Low markers -->
+        <text x="100" y="45" text-anchor="middle" font-family="var(--font-mono)" font-size="8" fill="var(--color-teal)">HIGH</text>
+        <text x="100" y="165" text-anchor="middle" font-family="var(--font-mono)" font-size="8" fill="var(--color-teal)">LOW</text>
+        <!-- Single hand pointing to tide state -->
+        <line x1="100" y1="100" x2="100" y2="55" stroke="var(--color-teal)" stroke-width="3" stroke-linecap="round"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="6" fill="var(--color-teal)"/>
+        <circle cx="100" cy="100" r="3" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="content-side">
+      <span class="tag cool">Rhythm · Position</span>
+      <h3>Tide Dial</h3>
+      <p>A single hand moves between high and low over ~12 hours. For those who think in swells and ebbs, not hours and minutes.</p>
+      <p class="invitation-prompt" style="font-size: 0.85rem; margin-top: 0.75rem;">What rises and falls in your day?</p>
+    </div>
+  </div>
+  
+  <!-- BREATH MARKER -->
+  <div class="watch-grid-item">
+    <div class="watch-viz">
+      <svg class="physical-svg" width="160" height="160" viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+        <!-- Dial - very minimal -->
+        <circle cx="100" cy="100" r="85" fill="#f8f6f2"/>
+        <!-- Single dot at 12 -->
+        <circle cx="100" cy="25" r="4" fill="#2a2622"/>
+        <!-- Sweeping seconds hand only -->
+        <line x1="100" y1="100" x2="100" y2="30" stroke="var(--color-olive)" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Subtle concentric circles -->
+        <circle cx="100" cy="100" r="60" fill="none" stroke="#e5e0da" stroke-width="0.5"/>
+        <circle cx="100" cy="100" r="40" fill="none" stroke="#e5e0da" stroke-width="0.5"/>
+        <circle cx="100" cy="100" r="20" fill="none" stroke="#e5e0da" stroke-width="0.5"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="4" fill="var(--color-olive)"/>
+      </svg>
+    </div>
+    <div class="content-side">
+      <span class="tag olive">Rhythm · Anchor</span>
+      <h3>Breath Marker</h3>
+      <p>Almost nothing on the dial. Just a sweeping hand and concentric rings. Some find the movement grounding. Others find it anxious.</p>
+      <p class="invitation-prompt" style="font-size: 0.85rem; margin-top: 0.75rem;">What does watching movement do for you?</p>
+    </div>
+  </div>
+  
+  <!-- QUARTER CHIME (concept) -->
+  <div class="watch-grid-item">
+    <div class="watch-viz">
+      <svg class="physical-svg" width="160" height="160" viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="85" fill="#f5f0e8"/>
+        <!-- Quarter markers emphasized -->
+        <g fill="var(--color-terracotta)">
+          <rect x="96" y="20" width="8" height="16" rx="2"/>
+          <rect x="164" y="96" width="16" height="8" rx="2"/>
+          <rect x="96" y="164" width="8" height="16" rx="2"/>
+          <rect x="20" y="96" width="16" height="8" rx="2"/>
+        </g>
+        <!-- Haptic indicator icon -->
+        <g transform="translate(100, 100)">
+          <circle cx="0" cy="0" r="15" fill="none" stroke="var(--color-terracotta)" stroke-width="1" stroke-dasharray="2,2"/>
+          <circle cx="0" cy="0" r="10" fill="none" stroke="var(--color-terracotta)" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+          <circle cx="0" cy="0" r="5" fill="var(--color-terracotta)" opacity="0.3"/>
+        </g>
+        <!-- Hands -->
+        <line x1="100" y1="100" x2="65" y2="70" stroke="#2a2622" stroke-width="3.5" stroke-linecap="round"/>
+        <line x1="100" y1="100" x2="135" y2="85" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="content-side">
+      <span class="tag warm">Rhythm · Boundary</span>
+      <h3>Quarter Chime</h3>
+      <p>A subtle vibration at each quarter hour. Not an alert — a gentle tap that says "still here." Some find it orienting. Some find it intrusive.</p>
+      <p class="invitation-prompt" style="font-size: 0.85rem; margin-top: 0.75rem;">Would you want to be tapped?</p>
+    </div>
+  </div>
+  
+</div>
+
+<!-- ============================================
+     PART 3: DIVERGENT APPENDIX
+     ============================================ -->
+
+<div class="section-divider">Divergent Appendix — Internal Concepts</div>
+
+<section class="card hybrid-section">
+  <div class="hybrid-intro">
+    <h2>Hybrid Explorations</h2>
+    <p>These concepts add a thin digital layer to analog timekeeping. The analog remains primary. The digital is a whisper, not a shout.</p>
+    <p style="font-size: 0.85rem; color: var(--color-slate);">Later-phase. Limited runs. Included here for completeness, not commitment.</p>
+  </div>
+  
+  <div class="hybrid-grid">
+    
+    <!-- ANCHOR WINDOW -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#f0ebe3"/>
+          <!-- Dial -->
+          <circle cx="100" cy="100" r="85" fill="#fff"/>
+          <!-- Sunburst -->
+          <g stroke="rgba(0,0,0,0.04)" stroke-width="1">
+            <line x1="100" y1="100" x2="100" y2="20"/>
+            <line x1="100" y1="100" x2="156" y2="44"/>
+            <line x1="100" y1="100" x2="180" y2="100"/>
+            <line x1="100" y1="100" x2="156" y2="156"/>
+            <line x1="100" y1="100" x2="100" y2="180"/>
+            <line x1="100" y1="100" x2="44" y2="156"/>
+            <line x1="100" y1="100" x2="20" y2="100"/>
+            <line x1="100" y1="100" x2="44" y2="44"/>
+          </g>
+          <!-- Hour markers -->
+          <g stroke="rgba(0,0,0,0.12)" stroke-width="2">
+            <line x1="100" y1="18" x2="100" y2="30"/>
+            <line x1="182" y1="100" x2="170" y2="100"/>
+            <line x1="100" y1="182" x2="100" y2="170"/>
+            <line x1="18" y1="100" x2="30" y2="100"/>
+          </g>
+          <!-- Anchor window -->
+          <rect x="168" y="70" width="10" height="60" rx="5" fill="#f0ebe3" stroke="rgba(0,0,0,0.08)"/>
+          <circle cx="173" cy="85" r="2.5" fill="rgba(0,0,0,0.06)"/>
+          <circle cx="173" cy="100" r="2.5" fill="var(--color-terracotta)"/>
+          <circle cx="173" cy="115" r="2.5" fill="rgba(0,0,0,0.06)"/>
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="100" y2="45" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="140" y2="110" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+        </svg>
+        <div class="copy">
+          <h3>Anchor Window</h3>
+          <div class="meta">Visual signal · Calendar sync</div>
+          <p>A small window shows when a chosen "anchor" event is active. Therapy. Rehearsal. Pickup. One bit of information: you're in it, or you're not.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>Syncs with calendar for 1-3 user-selected events</li>
+          <li>Window glows or shifts when anchor is live</li>
+          <li>No notifications, no text, no alerts</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- HAPTIC HOUR -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#f0ebe3"/>
+          <!-- Dial -->
+          <circle cx="100" cy="100" r="85" fill="#fff"/>
+          <!-- Haptic waves emanating from center -->
+          <circle cx="100" cy="100" r="25" fill="none" stroke="var(--color-gold)" stroke-width="1.5" opacity="0.6"/>
+          <circle cx="100" cy="100" r="40" fill="none" stroke="var(--color-gold)" stroke-width="1" opacity="0.4"/>
+          <circle cx="100" cy="100" r="55" fill="none" stroke="var(--color-gold)" stroke-width="0.5" opacity="0.2"/>
+          <!-- Hour markers -->
+          <g fill="#2a2622">
+            <circle cx="100" cy="22" r="3"/>
+            <circle cx="178" cy="100" r="3"/>
+            <circle cx="100" cy="178" r="3"/>
+            <circle cx="22" cy="100" r="3"/>
+          </g>
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="70" y2="70" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="130" y2="90" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+        </svg>
+        <div class="copy">
+          <h3>Haptic Hour</h3>
+          <div class="meta">Vibration patterns · No visual</div>
+          <p>A gentle pulse at the hour. Long buzz + short pulses encode the time (3pm = one long, three short). Learn the pattern or ignore it.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>Subtle vibration at hour and half-hour</li>
+          <li>Pattern encodes time without looking</li>
+          <li>Completely optional — default off</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- ZONE WINDOW -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#f0ebe3"/>
+          <!-- Dial -->
+          <circle cx="100" cy="100" r="85" fill="#fff"/>
+          <!-- Hour markers -->
+          <g stroke="rgba(0,0,0,0.12)" stroke-width="2">
+            <line x1="100" y1="18" x2="100" y2="30"/>
+            <line x1="182" y1="100" x2="170" y2="100"/>
+            <line x1="100" y1="182" x2="100" y2="170"/>
+            <line x1="18" y1="100" x2="30" y2="100"/>
+          </g>
+          <!-- E-ink zone window at 6 o'clock -->
+          <rect x="80" y="130" width="40" height="20" rx="4" fill="#f5f0e8" stroke="rgba(0,0,0,0.1)"/>
+          <text x="100" y="144" text-anchor="middle" font-family="var(--font-mono)" font-size="8" fill="var(--color-ink-soft)">afternoon</text>
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="75" y2="75" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="125" y2="95" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+        </svg>
+        <div class="copy">
+          <h3>Zone Window</h3>
+          <div class="meta">E-ink subdisplay · Day position</div>
+          <p>A small e-ink window shows the current day zone in words. "morning" becomes "afternoon" becomes "evening." Position made explicit.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>Updates a few times per day (ultra-low power)</li>
+          <li>User sets zone boundaries in companion app</li>
+          <li>If battery dies, analog still works</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- COMPANION OBJECT -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Desk base -->
+          <rect x="30" y="140" width="140" height="8" rx="4" fill="#d4c4a8"/>
+          <!-- Object body -->
+          <rect x="70" y="60" width="60" height="80" rx="8" fill="#f5f0e8" stroke="#d0c8b8" stroke-width="2"/>
+          <!-- Glow indicator -->
+          <circle cx="100" cy="100" r="15" fill="var(--color-terracotta)" opacity="0.3"/>
+          <circle cx="100" cy="100" r="8" fill="var(--color-terracotta)" opacity="0.6"/>
+          <!-- Small watch icon -->
+          <circle cx="100" cy="45" r="12" fill="none" stroke="#aaa" stroke-width="1.5"/>
+          <line x1="100" y1="45" x2="100" y2="38" stroke="#aaa" stroke-width="1"/>
+          <line x1="100" y1="45" x2="105" y2="48" stroke="#aaa" stroke-width="1"/>
+        </svg>
+        <div class="copy">
+          <h3>Companion Object</h3>
+          <div class="meta">Desk object · Paired indicator</div>
+          <p>Not on the watch. A small object for your desk that glows when your calendar anchor is active. The watch stays analog. The signal lives elsewhere.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>Syncs via Bluetooth to phone</li>
+          <li>Glows ambient color during anchor events</li>
+          <li>Watch remains fully analog</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- TIMER BAR -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#f0ebe3"/>
+          <!-- Dial -->
+          <circle cx="100" cy="100" r="85" fill="#fff"/>
+          <!-- Hour markers -->
+          <g fill="#2a2622">
+            <circle cx="100" cy="22" r="3"/>
+            <circle cx="178" cy="100" r="3"/>
+            <circle cx="100" cy="178" r="3"/>
+            <circle cx="22" cy="100" r="3"/>
+          </g>
+          <!-- E-ink timer bar at bottom -->
+          <rect x="50" y="150" width="100" height="12" rx="2" fill="#f0ebe3" stroke="rgba(0,0,0,0.1)"/>
+          <!-- Progress fill -->
+          <rect x="52" y="152" width="60" height="8" rx="1" fill="var(--color-teal)"/>
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="70" y2="70" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="130" y2="90" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+        </svg>
+        <div class="copy">
+          <h3>Timer Bar</h3>
+          <div class="meta">E-ink progress · Session tracking</div>
+          <p>A thin bar depletes as your timer runs. Analog shows time; digital shows "how much is left" without numbers.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>User sets timer via crown or button</li>
+          <li>Bar shrinks as time depletes</li>
+          <li>Optional vibration at end</li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- NIGHT SHIFT -->
+    <div class="hybrid-card">
+      <div class="hybrid-card-header">
+        <svg width="120" height="120" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#3a3a42"/>
+          <!-- Dial - dark mode -->
+          <circle cx="100" cy="100" r="85" fill="#2a2a32"/>
+          <!-- Dim hour markers -->
+          <g fill="#5a5a62">
+            <circle cx="100" cy="22" r="3"/>
+            <circle cx="178" cy="100" r="3"/>
+            <circle cx="100" cy="178" r="3"/>
+            <circle cx="22" cy="100" r="3"/>
+          </g>
+          <!-- Moon phase indicator -->
+          <circle cx="100" cy="60" r="12" fill="#4a4a52"/>
+          <circle cx="95" cy="60" r="12" fill="#2a2a32"/>
+          <!-- Dim hands -->
+          <line x1="100" y1="100" x2="75" y2="80" stroke="#6a6a72" stroke-width="3" stroke-linecap="round"/>
+          <line x1="100" y1="100" x2="120" y2="95" stroke="#6a6a72" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="4" fill="#5a5a62"/>
+        </svg>
+        <div class="copy">
+          <h3>Night Shift</h3>
+          <div class="meta">Auto-dim · Moon phase</div>
+          <p>Display dims automatically after sunset. A small moon phase complication. For those whose relationship with time changes after dark.</p>
+        </div>
+      </div>
+      <div class="hybrid-card-details">
+        <h4>What it does</h4>
+        <ul>
+          <li>Light sensor triggers dim mode</li>
+          <li>Moon phase tracks monthly cycle</li>
+          <li>Fully analog mechanics, digital dimming</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- GUARDRAILS -->
+  <div class="guardrails">
+    <h3>Guardrails for All Hybrid Concepts</h3>
+    <div class="guardrails-grid">
+      <div class="guardrails-col allowed">
+        <h4>Allowed</h4>
+        <ul>
+          <li>Single-purpose digital additions</li>
+          <li>Opt-in features (default off)</li>
+          <li>Multi-week battery targets</li>
+          <li>Graceful degradation (analog works if digital dies)</li>
+          <li>Setup-only companion app</li>
+        </ul>
+      </div>
+      <div class="guardrails-col forbidden">
+        <h4>Forbidden</h4>
+        <ul>
+          <li>Notifications of any kind</li>
+          <li>Fitness tracking, steps, heart rate</li>
+          <li>Multiple screens or menus</li>
+          <li>Frequent charging requirements</li>
+          <li>Features that train checking behavior</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- STRAPS -->
+  <div class="strap-section">
+    <h3>Strap Ecosystem</h3>
+    <p>Vegan. Repair-forward. Designed to age well. Each tells a different story about care and use.</p>
+    
+    <div class="strap-detail-grid">
+      
+      <!-- OCEAN NYLON -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body -->
+          <rect x="10" y="20" width="220" height="60" rx="4" fill="#3a4a5a"/>
+          <!-- Weave texture -->
+          <g stroke="#4a5a6a" stroke-width="0.5" opacity="0.5">
+            <line x1="15" y1="20" x2="15" y2="80"/><line x1="20" y1="20" x2="20" y2="80"/>
+            <line x1="25" y1="20" x2="25" y2="80"/><line x1="30" y1="20" x2="30" y2="80"/>
+            <line x1="35" y1="20" x2="35" y2="80"/><line x1="40" y1="20" x2="40" y2="80"/>
+            <line x1="45" y1="20" x2="45" y2="80"/><line x1="50" y1="20" x2="50" y2="80"/>
+            <line x1="55" y1="20" x2="55" y2="80"/><line x1="60" y1="20" x2="60" y2="80"/>
+            <line x1="65" y1="20" x2="65" y2="80"/><line x1="70" y1="20" x2="70" y2="80"/>
+            <line x1="75" y1="20" x2="75" y2="80"/><line x1="80" y1="20" x2="80" y2="80"/>
+          </g>
+          <!-- Keeper loop -->
+          <rect x="95" y="24" width="22" height="52" rx="2" fill="#2a3a4a" stroke="#4a5a6a" stroke-width="1"/>
+          <!-- Hardware - brushed steel buckle -->
+          <rect x="185" y="18" width="40" height="64" rx="3" fill="#b0b0b0"/>
+          <rect x="188" y="22" width="34" height="56" rx="2" fill="#909090"/>
+          <rect x="202" y="26" width="6" height="48" rx="1" fill="#a0a0a0"/>
+          <!-- Pin -->
+          <circle cx="205" cy="50" r="2.5" fill="#c0c0c0"/>
+          <!-- Quick-release spring bar -->
+          <rect x="5" y="45" width="8" height="10" rx="2" fill="#888"/>
+          <circle cx="9" cy="50" r="2.5" fill="#666"/>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Ocean Nylon</h4>
+          <p class="strap-detail-desc">Woven recycled ocean plastic. Dense weave resists fraying. Quick-dry after water exposure.</p>
+          <div class="strap-detail-specs">
+            <span>Recycled HDPE</span>
+            <span>Brushed steel</span>
+            <span>Quick-release</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RAW DENIM -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body - raw denim -->
+          <rect x="10" y="20" width="220" height="60" rx="3" fill="#1c2430"/>
+          <!-- Selvedge edge (white/red line) -->
+          <rect x="10" y="20" width="5" height="60" fill="#f5f0e6"/>
+          <rect x="13" y="20" width="1.5" height="60" fill="#c45d3a"/>
+          <!-- Denim texture - diagonal twill -->
+          <g stroke="#2a3440" stroke-width="0.4" opacity="0.4">
+            <line x1="20" y1="20" x2="40" y2="80"/><line x1="30" y1="20" x2="50" y2="80"/>
+            <line x1="40" y1="20" x2="60" y2="80"/><line x1="50" y1="20" x2="70" y2="80"/>
+            <line x1="60" y1="20" x2="80" y2="80"/><line x1="70" y1="20" x2="90" y2="80"/>
+            <line x1="80" y1="20" x2="100" y2="80"/><line x1="90" y1="20" x2="110" y2="80"/>
+          </g>
+          <!-- Sashiko repair stitching area -->
+          <g stroke="#f5f0e6" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.85">
+            <line x1="130" y1="32" x2="160" y2="32"/>
+            <line x1="128" y1="40" x2="162" y2="40"/>
+            <line x1="130" y1="48" x2="160" y2="48"/>
+            <line x1="128" y1="56" x2="162" y2="56"/>
+            <line x1="130" y1="64" x2="160" y2="64"/>
+          </g>
+          <!-- Keeper -->
+          <rect x="85" y="24" width="18" height="52" rx="2" fill="#141c28"/>
+          <!-- Hardware - matte black -->
+          <rect x="185" y="18" width="40" height="64" rx="3" fill="#2a2a2a"/>
+          <rect x="188" y="22" width="34" height="56" rx="2" fill="#1a1a1a"/>
+          <rect x="202" y="26" width="6" height="48" rx="1" fill="#333"/>
+          <!-- Contrast gold stitching at edges -->
+          <g stroke="#d4a044" stroke-width="1" stroke-dasharray="3,2">
+            <line x1="17" y1="23" x2="17" y2="77"/>
+            <line x1="227" y1="23" x2="227" y2="77"/>
+          </g>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Raw Denim + Sashiko</h4>
+          <p class="strap-detail-desc">Selvedge denim with visible repair stitching. Fades uniquely with wear. Red selvedge ID, gold contrast stitching.</p>
+          <div class="strap-detail-specs">
+            <span>14oz selvedge</span>
+            <span>Sashiko repair</span>
+            <span>Matte black hardware</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- DEADSTOCK CANVAS -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body - canvas -->
+          <rect x="10" y="20" width="220" height="60" rx="3" fill="#e3dbc8"/>
+          <!-- Canvas weave texture - grid pattern -->
+          <g fill="#d4ccb8" opacity="0.5">
+            <rect x="15" y="25" width="3" height="3"/><rect x="22" y="32" width="3" height="3"/>
+            <rect x="15" y="39" width="3" height="3"/><rect x="22" y="46" width="3" height="3"/>
+            <rect x="15" y="53" width="3" height="3"/><rect x="22" y="60" width="3" height="3"/>
+            <rect x="15" y="67" width="3" height="3"/><rect x="29" y="25" width="3" height="3"/>
+            <rect x="36" y="32" width="3" height="3"/><rect x="29" y="39" width="3" height="3"/>
+            <rect x="36" y="46" width="3" height="3"/><rect x="29" y="53" width="3" height="3"/>
+            <rect x="36" y="60" width="3" height="3"/><rect x="29" y="67" width="3" height="3"/>
+            <rect x="43" y="25" width="3" height="3"/><rect x="50" y="32" width="3" height="3"/>
+            <rect x="43" y="39" width="3" height="3"/><rect x="50" y="46" width="3" height="3"/>
+            <rect x="43" y="53" width="3" height="3"/><rect x="50" y="60" width="3" height="3"/>
+            <rect x="57" y="25" width="3" height="3"/><rect x="64" y="32" width="3" height="3"/>
+            <rect x="57" y="39" width="3" height="3"/><rect x="64" y="46" width="3" height="3"/>
+          </g>
+          <!-- Bound edges -->
+          <rect x="10" y="20" width="220" height="4" rx="1" fill="#c4b8a0"/>
+          <rect x="10" y="76" width="220" height="4" rx="1" fill="#c4b8a0"/>
+          <!-- Metal keeper with rivets -->
+          <rect x="95" y="22" width="24" height="56" rx="1" fill="#c8c0b0" stroke="#b8b0a0" stroke-width="1"/>
+          <circle cx="101" cy="30" r="2" fill="#a0a0a0"/>
+          <circle cx="113" cy="30" r="2" fill="#a0a0a0"/>
+          <circle cx="101" cy="70" r="2" fill="#a0a0a0"/>
+          <circle cx="113" cy="70" r="2" fill="#a0a0a0"/>
+          <!-- Hardware - warm brass -->
+          <rect x="185" y="18" width="40" height="64" rx="3" fill="#c4a060"/>
+          <rect x="188" y="22" width="34" height="56" rx="2" fill="#b49050"/>
+          <rect x="202" y="26" width="6" height="48" rx="1" fill="#d4b070"/>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Deadstock Canvas</h4>
+          <p class="strap-detail-desc">Reclaimed cotton canvas with bound edges. Washable. Softens and picks up character over time.</p>
+          <div class="strap-detail-specs">
+            <span>Deadstock cotton</span>
+            <span>Bound edges</span>
+            <span>Brass hardware</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CORK HYBRID -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body - cork -->
+          <rect x="10" y="20" width="220" height="60" rx="4" fill="#c4a882"/>
+          <!-- Cork texture (organic dots) -->
+          <g fill="#b49872" opacity="0.5">
+            <circle cx="20" cy="32" r="2"/><circle cx="35" cy="38" r="1.5"/>
+            <circle cx="28" cy="52" r="2.5"/><circle cx="45" cy="45" r="1.8"/>
+            <circle cx="22" cy="68" r="2"/><circle cx="55" cy="58" r="1.5"/>
+            <circle cx="40" cy="72" r="2.2"/><circle cx="62" cy="32" r="1.8"/>
+            <circle cx="70" cy="50" r="2.5"/><circle cx="78" cy="65" r="1.5"/>
+            <circle cx="52" cy="28" r="1.5"/><circle cx="85" cy="38" r="2"/>
+            <circle cx="65" cy="70" r="1.8"/><circle cx="92" cy="55" r="2.2"/>
+          </g>
+          <!-- Textile liner visible at bottom edge -->
+          <rect x="10" y="76" width="220" height="4" rx="1" fill="#8a7a5a"/>
+          <!-- Rounded keeper - same cork -->
+          <rect x="100" y="24" width="20" height="52" rx="8" fill="#b49872" stroke="#a48862" stroke-width="1"/>
+          <!-- Hardware - rose gold -->
+          <rect x="185" y="18" width="40" height="64" rx="4" fill="#d4a088"/>
+          <rect x="188" y="22" width="34" height="56" rx="3" fill="#c49078"/>
+          <rect x="202" y="26" width="6" height="48" rx="1" fill="#e4b098"/>
+          <!-- Stitching -->
+          <g stroke="#8a7050" stroke-width="0.8" stroke-dasharray="4,2">
+            <line x1="14" y1="24" x2="14" y2="76"/>
+            <line x1="226" y1="24" x2="226" y2="76"/>
+          </g>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Cork + Textile</h4>
+          <p class="strap-detail-desc">Portuguese cork face with natural linen backing. Soft cushioning. Warm on skin. Develops rich patina.</p>
+          <div class="strap-detail-specs">
+            <span>Sustainable cork</span>
+            <span>Linen backing</span>
+            <span>Rose gold hardware</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- CACTUS LEATHER -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body - cactus leather, tapered -->
+          <path d="M10,25 L10,75 Q10,80 15,80 L225,76 Q230,76 230,70 L230,30 Q230,24 225,24 L15,20 Q10,20 10,25 Z" fill="#325646"/>
+          <!-- Subtle grain texture -->
+          <g fill="#3a6050" opacity="0.35">
+            <ellipse cx="25" cy="38" rx="10" ry="4"/>
+            <ellipse cx="50" cy="55" rx="8" ry="3"/>
+            <ellipse cx="35" cy="68" rx="9" ry="3.5"/>
+            <ellipse cx="70" cy="35" rx="7" ry="2.5"/>
+            <ellipse cx="60" cy="72" rx="10" ry="3"/>
+            <ellipse cx="85" cy="52" rx="8" ry="3"/>
+            <ellipse cx="45" cy="42" rx="6" ry="2"/>
+            <ellipse cx="78" cy="68" rx="9" ry="3"/>
+          </g>
+          <!-- Stitched edge -->
+          <g stroke="#4a7a5a" stroke-width="1" stroke-dasharray="3,2">
+            <line x1="18" y1="24" x2="18" y2="76"/>
+            <line x1="222" y1="28" x2="222" y2="72"/>
+          </g>
+          <!-- Keeper - matching green -->
+          <rect x="100" y="26" width="18" height="48" rx="2" fill="#2a4a3a" stroke="#3a5a4a" stroke-width="1"/>
+          <!-- Hardware - polished silver deployant -->
+          <rect x="185" y="22" width="40" height="56" rx="3" fill="#d0d0d0"/>
+          <rect x="188" y="26" width="34" height="48" rx="2" fill="#c0c0c0"/>
+          <!-- Deployant clasp detail -->
+          <rect x="188" y="40" width="34" height="20" rx="1" fill="#b0b0b0"/>
+          <line x1="205" y1="42" x2="205" y2="58" stroke="#909090" stroke-width="1.5"/>
+          <rect x="200" y="30" width="10" height="40" rx="1" fill="#d8d8d8"/>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Cactus Leather</h4>
+          <p class="strap-detail-desc">Desserto nopal cactus material. Soft hand feel, dressier tapered profile. Deployant clasp for comfort.</p>
+          <div class="strap-detail-specs">
+            <span>Nopal cactus</span>
+            <span>Tapered width</span>
+            <span>Deployant clasp</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PIÑATEX -->
+      <div class="strap-detail-card">
+        <svg class="strap-mockup" viewBox="0 0 240 100">
+          <!-- Strap body - piñatex -->
+          <rect x="10" y="20" width="220" height="60" rx="3" fill="#8a7a5a"/>
+          <!-- Distinctive piñatex fiber texture -->
+          <g stroke="#7a6a4a" stroke-width="0.6" opacity="0.5">
+            <line x1="15" y1="25" x2="28" y2="48"/><line x1="22" y1="22" x2="18" y2="52"/>
+            <line x1="32" y1="28" x2="45" y2="55"/><line x1="38" y1="22" x2="35" y2="48"/>
+            <line x1="50" y1="25" x2="60" y2="52"/><line x1="55" y1="20" x2="52" y2="45"/>
+            <line x1="15" y1="52" x2="25" y2="78"/><line x1="28" y1="48" x2="22" y2="75"/>
+            <line x1="38" y1="55" x2="52" y2="80"/><line x1="48" y1="50" x2="42" y2="78"/>
+            <line x1="62" y1="48" x2="72" y2="75"/><line x1="68" y1="45" x2="65" y2="70"/>
+            <line x1="75" y1="28" x2="85" y2="55"/><line x1="80" y1="55" x2="78" y2="78"/>
+            <line x1="88" y1="25" x2="95" y2="50"/><line x1="92" y1="52" x2="88" y2="75"/>
+          </g>
+          <!-- Raw edge (intentional unfinished look) -->
+          <rect x="10" y="20" width="220" height="3" fill="#9a8a6a" opacity="0.6"/>
+          <rect x="10" y="77" width="220" height="3" fill="#9a8a6a" opacity="0.6"/>
+          <!-- Keeper - contrasting darker -->
+          <rect x="100" y="24" width="20" height="52" rx="2" fill="#6a5a3a" stroke="#5a4a2a" stroke-width="1"/>
+          <!-- Hardware - antique brass with patina -->
+          <rect x="185" y="18" width="40" height="64" rx="3" fill="#a08050"/>
+          <rect x="188" y="22" width="34" height="56" rx="2" fill="#907040"/>
+          <rect x="202" y="26" width="6" height="48" rx="1" fill="#b09060"/>
+          <!-- Patina spots -->
+          <circle cx="192" cy="35" r="4" fill="#705020" opacity="0.25"/>
+          <circle cx="218" cy="65" r="5" fill="#705020" opacity="0.2"/>
+          <circle cx="195" cy="70" r="3" fill="#705020" opacity="0.3"/>
+        </svg>
+        <div class="strap-detail-info">
+          <h4>Piñatex</h4>
+          <p class="strap-detail-desc">Pineapple leaf fiber with distinctive natural texture. Raw edges embrace the material's character. Antique brass patinas over time.</p>
+          <div class="strap-detail-specs">
+            <span>Pineapple fiber</span>
+            <span>Raw edges</span>
+            <span>Antique brass</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Strap philosophy note -->
+    <div class="strap-philosophy">
+      <p><strong>On aging:</strong> These straps are designed to show use, not hide it. Fading denim, darkening cork, softening canvas — these are features, not flaws. The strap becomes a record of how the watch has traveled with you.</p>
+    </div>
+  </div>
+  
+</section>
+
+<!-- ============================================
+     CLOSING REFLECTION
+     ============================================ -->
+
+<div class="card philosophy-card" style="margin-top: 3rem;">
+  <h2>A Final Frame</h2>
+  
+  <p>These aren't watches that tell you how to relate to time. They're tools for noticing how you already do.</p>
+  
+  <p>The colored sector doesn't mean "focus time." It means whatever you decide it means. The day zones don't prescribe a schedule. They show position.</p>
+  
+  <div class="reflection-frame" style="margin: 2rem 0;">
+    <div class="reflection-grid">
+      <div class="reflection-col">
+        <h4>What I notice about time now...</h4>
+        <div class="reflection-blank">(your observation)</div>
+      </div>
+      <div class="reflection-col">
+        <h4>What tool might help me notice more...</h4>
+        <div class="reflection-blank">(your answer)</div>
+      </div>
+    </div>
+  </div>
+  
+  <p style="text-align: center; margin-bottom: 0;">The watches are lenses. What you see through them is yours.</p>
+</div>
+
+<footer>
+  <div class="brand">Gs Watch</div>
+  <p>Tools for expression, not self-expression.</p>
+  <p style="margin-top: 0.5rem; font-size: 0.7rem;">Internal deck — January 2026</p>
+</footer>
+
+</body>
+</html>

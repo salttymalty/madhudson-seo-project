@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gs Watch — Analog Prototypes + Hybrid Appendix</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       DESIGN TOKENS
+       ============================================ */
+    :root {
+      /* Core palette */
+      --color-paper: #faf8f5;
+      --color-sheet: #f5f0e8;
+      --color-cream: #f0ebe3;
+      --color-ink: #2a2622;
+      --color-ink-soft: #6b6560;
+      --color-slate: #8a8580;
+      --color-slate-soft: #b0aba5;
+      
+      /* Accent colors (Girard-inspired) */
+      --color-terracotta: #c45d3a;
+      --color-rose: #d4847a;
+      --color-gold: #d4a044;
+      --color-olive: #8a9a4a;
+      --color-teal: #4a8a8a;
+      --color-brown: #6a4a3a;
+      
+      /* Day zone colors */
+      --zone-dawn: #e8d4c0;
+      --zone-morning: #f5e0c0;
+      --zone-midday: #f0e8d8;
+      --zone-afternoon: #e0d0b8;
+      --zone-evening: #c8b8a0;
+      --zone-night: #a09080;
+      
+      /* Typography */
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      
+      /* Spacing & radius */
+      --radius-soft: 8px;
+      --radius-card: 12px;
+    }
+
+    /* ============================================
+       BASE STYLES
+       ============================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      background-image: radial-gradient(var(--color-slate-soft) 0.5px, transparent 0.5px);
+      background-size: 24px 24px;
+      color: var(--color-ink);
+      line-height: 1.7;
+      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+    }
+
+    p {
+      color: var(--color-ink-soft);
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ============================================
+       CARD SYSTEM
+       ============================================ */
+    .card {
+      background: var(--color-paper);
+      border: 1px solid var(--color-slate-soft);
+      border-radius: var(--radius-card);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ============================================
+       WATCH CARDS
+       ============================================ */
+    .watch-card {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    @media (min-width: 700px) {
+      .watch-card {
+        grid-template-columns: 280px 1fr;
+      }
+    }
+
+    .watch-viz {
+      background: var(--color-sheet);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    @media (min-width: 700px) {
+      .watch-viz {
+        border-bottom: none;
+        border-right: 1px solid rgba(0,0,0,0.05);
+      }
+    }
+
+    .physical-svg {
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.12));
+      transition: transform 0.3s ease;
+    }
+
+    .watch-card:hover .physical-svg {
+      transform: scale(1.02);
+    }
+
+    .content-side {
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-side h2 {
+      font-size: 1.4rem;
+      margin: 0.5rem 0 0.75rem;
+      color: var(--color-ink);
+    }
+
+    /* ============================================
+       TAGS
+       ============================================ */
+    .tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .tag.warm {
+      background: rgba(196, 93, 58, 0.1);
+      color: var(--color-terracotta);
+    }
+
+    .tag.cool {
+      background: rgba(74, 138, 138, 0.1);
+      color: var(--color-teal);
+    }
+
+    .tag.gold {
+      background: rgba(212, 160, 68, 0.12);
+      color: #9b6a22;
+    }
+
+    .tag.phase {
+      background: rgba(0,0,0,0.04);
+      color: var(--color-slate);
+    }
+
+    /* ============================================
+       ONE-FINGER SUMMARY (HOOK)
+       ============================================ */
+    .hook {
+      margin-top: auto;
+      padding-top: 1.25rem;
+      border-top: 2px dashed var(--color-cream);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-terracotta);
+    }
+
+    .hook strong {
+      color: var(--color-ink-soft);
+    }
+
+    /* ============================================
+       SECTION DIVIDER
+       ============================================ */
+    .section-divider {
+      margin: 3rem 0 2rem;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-slate);
+      position: relative;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 25%;
+      height: 1px;
+      background: var(--color-slate-soft);
+    }
+
+    .section-divider::before { left: 0; }
+    .section-divider::after { right: 0; }
+
+    /* ============================================
+       HYBRID SECTION
+       ============================================ */
+    .hybrid-section {
+      background: var(--color-paper);
+      border: 1px dashed var(--color-slate-soft);
+    }
+
+    .hybrid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 800px) {
+      .hybrid-layout {
+        grid-template-columns: 280px 1fr;
+        align-items: start;
+      }
+    }
+
+    .hybrid-hero {
+      background: radial-gradient(circle at 20% 0%, rgba(196,93,58,0.12), transparent 50%),
+                  radial-gradient(circle at 80% 100%, rgba(74,138,138,0.1), transparent 50%),
+                  var(--color-sheet);
+      border-radius: var(--radius-soft);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hybrid-copy h2 {
+      font-size: 1.3rem;
+      margin: 0 0 0.5rem;
+    }
+
+    .hybrid-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .meta-pill {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.03);
+      border: 1px dashed rgba(0,0,0,0.08);
+      color: var(--color-slate);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (min-width: 600px) {
+      .detail-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .detail-card {
+      background: var(--color-sheet);
+      border: 1px dashed rgba(0,0,0,0.06);
+      border-radius: var(--radius-soft);
+      padding: 1rem 1.25rem;
+    }
+
+    .detail-card h3 {
+      font-size: 0.9rem;
+      margin: 0 0 0.75rem;
+    }
+
+    .detail-card ul {
+      margin: 0 0 0 1rem;
+      font-size: 0.85rem;
+      color: var(--color-ink-soft);
+    }
+
+    .detail-card li {
+      margin-bottom: 0.4rem;
+    }
+
+    .detail-card li strong {
+      color: var(--color-ink);
+    }
+
+    /* ============================================
+       STRAP GALLERY
+       ============================================ */
+    .strap-gallery {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .strap-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1rem;
+    }
+
+    .strap-header h3 {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    .strap-header span {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--color-slate);
+    }
+
+    .strap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .strap-card {
+      background: var(--color-sheet);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: var(--radius-soft);
+      padding: 0.75rem 1rem;
+    }
+
+    .strap-swatch {
+      height: 18px;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .strap-swatch.nylon {
+      background: linear-gradient(90deg, #3a4a5a 0%, #4a5a6a 50%, #3a4a5a 100%);
+    }
+
+    .strap-swatch.denim {
+      background: linear-gradient(90deg, #1c2430 0%, #1c2430 55%, #f5f0e6 55%, #f5f0e6 100%);
+      position: relative;
+    }
+
+    .strap-swatch.denim::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 35%;
+      right: 35%;
+      bottom: 4px;
+      border: 1px dashed rgba(255,255,255,0.4);
+      border-radius: 999px;
+    }
+
+    .strap-swatch.canvas {
+      background: repeating-linear-gradient(45deg, #e3dbc8, #e3dbc8 3px, #f1ead9 3px, #f1ead9 6px);
+    }
+
+    .strap-swatch.cactus {
+      background: linear-gradient(90deg, #325646, #486c56);
+    }
+
+    .strap-swatch.cork {
+      background: linear-gradient(90deg, #c4a882, #d4b892, #c4a882);
+    }
+
+    .strap-title {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .strap-meta {
+      font-size: 0.7rem;
+      color: var(--color-slate);
+      line-height: 1.4;
+    }
+
+    /* ============================================
+       ROADMAP NOTE
+       ============================================ */
+    .roadmap-note {
+      margin-top: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-slate);
+      background: rgba(0,0,0,0.02);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-soft);
+    }
+
+    /* ============================================
+       HEADER
+       ============================================ */
+    header.card {
+      border-left: 5px solid var(--color-terracotta);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    header .subtitle {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--color-ink-soft);
+      font-style: italic;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="card">
+  <div class="header-row">
+    <h1>Analog Prototypes</h1>
+    <span class="tag phase">Phase: Converge</span>
+  </div>
+  <p class="subtitle">Time, held gently. No screens. No menus. Just geography.</p>
+</header>
+
+<!-- ============================================
+     FOCUS BEZEL
+     ============================================ -->
+<article class="card watch-card">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <!-- Case -->
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <!-- Bezel body -->
+      <circle cx="100" cy="100" r="90" fill="#3a3632"/>
+      <!-- Focus sector (25 min = 150°) -->
+      <path d="M100,100 L100,15 A85,85 0 0,1 173,58 L100,100 Z" 
+            fill="var(--color-terracotta)" opacity="0.85"/>
+      <!-- Bezel markers -->
+      <g stroke="#888" stroke-width="1">
+        <line x1="100" y1="12" x2="100" y2="22" stroke="#fff" stroke-width="2"/>
+        <line x1="173" y1="58" x2="165" y2="63" stroke="#fff" stroke-width="2"/>
+        <line x1="188" y1="100" x2="178" y2="100"/>
+      </g>
+      <!-- Lume pip -->
+      <circle cx="100" cy="17" r="3" fill="#e8e4d8"/>
+      <!-- Dial -->
+      <circle cx="100" cy="100" r="75" fill="#f5f0e8"/>
+      <!-- Hour markers -->
+      <g fill="#2a2622">
+        <rect x="97" y="30" width="6" height="12" rx="1"/>
+        <rect x="158" y="97" width="12" height="6" rx="1"/>
+        <rect x="97" y="158" width="6" height="12" rx="1"/>
+        <rect x="30" y="97" width="12" height="6" rx="1"/>
+      </g>
+      <!-- Small indices -->
+      <g fill="#ccc">
+        <circle cx="125" cy="35" r="1.5"/>
+        <circle cx="150" cy="50" r="1.5"/>
+        <circle cx="165" cy="75" r="1.5"/>
+        <circle cx="165" cy="125" r="1.5"/>
+        <circle cx="150" cy="150" r="1.5"/>
+        <circle cx="125" cy="165" r="1.5"/>
+        <circle cx="75" cy="165" r="1.5"/>
+        <circle cx="50" cy="150" r="1.5"/>
+        <circle cx="35" cy="125" r="1.5"/>
+        <circle cx="35" cy="75" r="1.5"/>
+        <circle cx="50" cy="50" r="1.5"/>
+        <circle cx="75" cy="35" r="1.5"/>
+      </g>
+      <!-- Hands -->
+      <line x1="100" y1="100" x2="65" y2="65" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="140" y2="80" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="45" stroke="var(--color-terracotta)" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Center -->
+      <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+      <circle cx="100" cy="100" r="2" fill="var(--color-terracotta)"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag cool">Low Risk · Phase 1</span>
+    <h2>Focus Bezel</h2>
+    <p>A dive watch, re-contextualized. The rotating bezel isn't for oxygen — it's for attention.</p>
+    <p>Rotate the terracotta sector to align with your minute hand. That colored arc becomes a container for your focus. When the hand exits the zone, the session is complete.</p>
+    <p>No buzzing. No countdown. Just a landscape of time you've claimed.</p>
+    
+    <div class="hook">
+      <strong>The Hook:</strong> It's just a dive timer, but warmer and for your attention.
+    </div>
+  </div>
+</article>
+
+<!-- ============================================
+     DAY MAP
+     ============================================ -->
+<article class="card watch-card">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <!-- Case -->
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <!-- Dial with day zones -->
+      <circle cx="100" cy="100" r="85" fill="var(--zone-midday)"/>
+      
+      <!-- Day zones (6 sectors, starting from 12 o'clock going clockwise) -->
+      <!-- Night: 12-4 (top-left quadrant-ish, 120°) -->
+      <path d="M100,100 L100,15 A85,85 0 0,0 32,68 Z" fill="var(--zone-night)"/>
+      <!-- Dawn: 4-7 (60°) -->
+      <path d="M100,100 L32,68 A85,85 0 0,0 32,132 Z" fill="var(--zone-dawn)"/>
+      <!-- Morning: 7-11 (80°) -->
+      <path d="M100,100 L32,132 A85,85 0 0,0 100,185 Z" fill="var(--zone-morning)"/>
+      <!-- Midday: 11-2 (60°) - base fill covers this -->
+      <!-- Afternoon: 2-6 (80°) -->
+      <path d="M100,100 L168,132 A85,85 0 0,0 168,68 Z" fill="var(--zone-afternoon)"/>
+      <!-- Evening: 6-10 (80°) -->
+      <path d="M100,100 L168,68 A85,85 0 0,0 100,15 Z" fill="var(--zone-evening)"/>
+      
+      <!-- Zone labels (subtle) -->
+      <g font-family="var(--font-mono)" font-size="6" fill="var(--color-ink-soft)" opacity="0.7">
+        <text x="55" y="50" text-anchor="middle">night</text>
+        <text x="35" y="100" text-anchor="middle">dawn</text>
+        <text x="55" y="155" text-anchor="middle">morning</text>
+        <text x="100" y="175" text-anchor="middle">midday</text>
+        <text x="155" y="120" text-anchor="middle">afternoon</text>
+        <text x="155" y="55" text-anchor="middle">evening</text>
+      </g>
+      
+      <!-- Center clean zone -->
+      <circle cx="100" cy="100" r="30" fill="#f5f0e8"/>
+      
+      <!-- Hour markers (dots at 12, 3, 6, 9) -->
+      <circle cx="100" cy="22" r="2.5" fill="#2a2622"/>
+      <circle cx="178" cy="100" r="2.5" fill="#2a2622"/>
+      <circle cx="100" cy="178" r="2.5" fill="#2a2622"/>
+      <circle cx="22" cy="100" r="2.5" fill="#2a2622"/>
+      
+      <!-- Hands -->
+      <line x1="100" y1="100" x2="75" y2="65" stroke="#2a2622" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+      
+      <!-- Center -->
+      <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag warm">Cycles & Orientation</span>
+    <h2>Day Map</h2>
+    <p>Cyclical time, printed directly on the dial. This isn't about precise minutes — it's about orientation.</p>
+    <p>The zones shift from night to dawn to morning to midday. You don't read the time; you check your location in the day. The hour hand tells you which field you're in.</p>
+    <p>No math. No calculation. Just position.</p>
+    
+    <div class="hook">
+      <strong>The Hook:</strong> A clock that tells you <em>where</em> you are, not <em>when</em>.
+    </div>
+  </div>
+</article>
+
+<!-- ============================================
+     STUDIO CHRONO
+     ============================================ -->
+<article class="card watch-card">
+  <div class="watch-viz">
+    <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+      <!-- Case -->
+      <circle cx="100" cy="100" r="95" fill="#4a4642"/>
+      <!-- Dial -->
+      <circle cx="100" cy="100" r="85" fill="#f5f0e8"/>
+      
+      <!-- Subdial at 3 o'clock -->
+      <g transform="translate(140, 100)">
+        <circle cx="0" cy="0" r="25" fill="#fff" stroke="#ddd" stroke-width="1"/>
+        <!-- 25-minute sector -->
+        <path d="M0,0 L0,-25 A25,25 0 0,1 21,12.5 Z" fill="var(--color-terracotta)" opacity="0.8"/>
+        <!-- Subdial hand -->
+        <line x1="0" y1="0" x2="12" y2="12" stroke="#2a2622" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="0" cy="0" r="2" fill="#2a2622"/>
+      </g>
+      
+      <!-- Hour markers -->
+      <g fill="#2a2622">
+        <rect x="97" y="20" width="6" height="12" rx="1"/>
+        <rect x="97" y="168" width="6" height="12" rx="1"/>
+        <rect x="20" y="97" width="12" height="6" rx="1"/>
+      </g>
+      
+      <!-- Small indices -->
+      <g fill="#ccc">
+        <circle cx="125" cy="30" r="1.5"/>
+        <circle cx="150" cy="50" r="1.5"/>
+        <circle cx="150" cy="150" r="1.5"/>
+        <circle cx="125" cy="170" r="1.5"/>
+        <circle cx="75" cy="170" r="1.5"/>
+        <circle cx="50" cy="150" r="1.5"/>
+        <circle cx="30" cy="125" r="1.5"/>
+        <circle cx="30" cy="75" r="1.5"/>
+        <circle cx="50" cy="50" r="1.5"/>
+        <circle cx="75" cy="30" r="1.5"/>
+      </g>
+      
+      <!-- Main hands -->
+      <line x1="100" y1="100" x2="60" y2="100" stroke="#2a2622" stroke-width="4" stroke-linecap="round"/>
+      <line x1="100" y1="100" x2="100" y2="45" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round"/>
+      
+      <!-- Pushers -->
+      <rect x="188" y="70" width="8" height="14" fill="#888" rx="2"/>
+      <rect x="188" y="116" width="8" height="14" fill="#888" rx="2"/>
+      
+      <!-- Center -->
+      <circle cx="100" cy="100" r="5" fill="#2a2622"/>
+    </svg>
+  </div>
+  
+  <div class="content-side">
+    <span class="tag gold">Studio Tool · Phase 2</span>
+    <h2>Studio Chrono</h2>
+    <p>A meca-quartz chronograph. Standard chronographs count up to 60 minutes. This one features a dedicated 25-minute sector in the subdial.</p>
+    <p>The tactile click of the pusher becomes the ritual that starts the work. The sweeping hand travels through the colored zone. When it exits, the session is complete.</p>
+    
+    <div class="hook">
+      <strong>The Hook:</strong> A stopwatch for your creative focus blocks.
+    </div>
+  </div>
+</article>
+
+<!-- ============================================
+     HYBRID APPENDIX
+     ============================================ -->
+<div class="section-divider">Divergent Appendix — Internal Concept</div>
+
+<section class="card hybrid-section">
+  <div class="hybrid-layout">
+    <!-- Visualization -->
+    <div class="hybrid-hero">
+      <svg class="physical-svg" width="200" height="200" viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#f0ebe3"/>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="85" fill="#fff"/>
+        
+        <!-- Subtle sunburst -->
+        <g stroke="rgba(0,0,0,0.05)" stroke-width="1">
+          <line x1="100" y1="100" x2="100" y2="20"/>
+          <line x1="100" y1="100" x2="156" y2="44"/>
+          <line x1="100" y1="100" x2="180" y2="100"/>
+          <line x1="100" y1="100" x2="156" y2="156"/>
+          <line x1="100" y1="100" x2="100" y2="180"/>
+          <line x1="100" y1="100" x2="44" y2="156"/>
+          <line x1="100" y1="100" x2="20" y2="100"/>
+          <line x1="100" y1="100" x2="44" y2="44"/>
+        </g>
+        
+        <!-- Hour markers -->
+        <g stroke="rgba(0,0,0,0.15)" stroke-width="2">
+          <line x1="100" y1="18" x2="100" y2="32"/>
+          <line x1="182" y1="100" x2="168" y2="100"/>
+          <line x1="100" y1="182" x2="100" y2="168"/>
+          <line x1="18" y1="100" x2="32" y2="100"/>
+        </g>
+        
+        <!-- Anchor window (vertical pill on right edge) -->
+        <rect x="168" y="65" width="12" height="70" rx="6" fill="#f0ebe3" stroke="rgba(0,0,0,0.1)"/>
+        <!-- Three anchor dots -->
+        <circle cx="174" cy="82" r="3" fill="rgba(0,0,0,0.06)"/>
+        <circle cx="174" cy="100" r="3" fill="var(--color-terracotta)"/>
+        <circle cx="174" cy="118" r="3" fill="rgba(0,0,0,0.06)"/>
+        <!-- Active indicator line -->
+        <line x1="162" y1="100" x2="148" y2="100" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+        
+        <!-- Hands -->
+        <line x1="100" y1="100" x2="100" y2="42" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+        <line x1="100" y1="100" x2="145" y2="115" stroke="#2a2622" stroke-width="2" stroke-linecap="round"/>
+        
+        <!-- Center -->
+        <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+      </svg>
+    </div>
+    
+    <!-- Copy -->
+    <div class="hybrid-copy">
+      <div class="hybrid-meta">
+        <span class="meta-pill">Anchor Window Hybrid</span>
+        <span class="meta-pill">Analog-first + quiet sync</span>
+        <span class="meta-pill">Later phase</span>
+      </div>
+      
+      <h2>Anchor Window Hybrid</h2>
+      <p>A mechanical-feeling analog watch with a single, quiet bridge to your calendar: an "anchor window" that glows or shifts only when a chosen anchor event is live or imminent.</p>
+      <p>No notification stream. No menus. Just a subtle prompt that you're inside (or drifting from) the commitments you already decided to care about.</p>
+      
+      <div class="detail-grid">
+        <div class="detail-card">
+          <h3>What It Is</h3>
+          <ul>
+            <li><strong>Analog-first:</strong> Three-hand layout for everyday reading; works if smart layer is off</li>
+            <li><strong>Single signal:</strong> Anchor window is one-bit — active vs not. No text, no alerts</li>
+            <li><strong>Opt-in sync:</strong> Companion app lets wearer pick which events become "anchors"</li>
+            <li><strong>No fitness stack:</strong> No steps, heart rate, or sleep scoring</li>
+          </ul>
+        </div>
+        
+        <div class="detail-card">
+          <h3>Guardrails</h3>
+          <ul>
+            <li><strong>Power budget:</strong> Ultra-low-power display so watch doesn't beg for charging</li>
+            <li><strong>Fail-soft:</strong> If battery dies, watch behaves like regular analog piece</li>
+            <li><strong>Respect attention:</strong> Minimal haptics, no vibration patterns</li>
+            <li><strong>Language discipline:</strong> Frame as "one possible lens," not universal fix</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Strap Gallery -->
+      <div class="strap-gallery">
+        <div class="strap-header">
+          <h3>Strap Ecosystem</h3>
+          <span>Vegan · Repair-forward · Low-impact</span>
+        </div>
+        
+        <div class="strap-grid">
+          <div class="strap-card">
+            <div class="strap-swatch nylon"></div>
+            <div class="strap-title">Ocean Nylon</div>
+            <div class="strap-meta">Recycled ocean plastic. Quick-dry. Lead strap option.</div>
+          </div>
+          
+          <div class="strap-card">
+            <div class="strap-swatch denim"></div>
+            <div class="strap-title">Raw Denim + Sashiko</div>
+            <div class="strap-meta">Selvedge denim with visible repair stitching at stress points.</div>
+          </div>
+          
+          <div class="strap-card">
+            <div class="strap-swatch canvas"></div>
+            <div class="strap-title">Deadstock Canvas</div>
+            <div class="strap-meta">Cotton canvas. Washable. Picks up patina over time.</div>
+          </div>
+          
+          <div class="strap-card">
+            <div class="strap-swatch cork"></div>
+            <div class="strap-title">Cork + Textile</div>
+            <div class="strap-meta">Portuguese cork core with natural fiber outer. Warm feel.</div>
+          </div>
+          
+          <div class="strap-card">
+            <div class="strap-swatch cactus"></div>
+            <div class="strap-title">Cactus Leather</div>
+            <div class="strap-meta">Plant-based. Dressier option. Vegan-aligned.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="roadmap-note">
+        <strong>Internal note:</strong> This hybrid should remain later-phase and limited-run. The analog range proves the design language and material story first; the hybrid explores a narrow, clearly defined sync feature rather than competing with smartwatches.
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

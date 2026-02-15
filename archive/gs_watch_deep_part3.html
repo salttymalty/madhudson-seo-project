@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gs Watch /Deep Assessment Part 3: Market Reality & Development Path</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-paper: #faf8f5;
+      --color-sheet: #f5f0e8;
+      --color-cream: #f0ebe3;
+      --color-ink: #2a2622;
+      --color-ink-soft: #6b6560;
+      --color-slate: #8a8580;
+      --color-terracotta: #c45d3a;
+      --color-gold: #d4a044;
+      --color-olive: #7a8a4a;
+      --color-teal: #4a8a8a;
+      --font-display: 'Fraunces', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: var(--font-body);
+      background: var(--color-paper);
+      color: var(--color-ink);
+      line-height: 1.7;
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    h1 { font-family: var(--font-display); font-size: 1.75rem; margin-bottom: 0.5rem; }
+    h2 { font-family: var(--font-display); font-size: 1.3rem; margin: 2.5rem 0 1rem; color: var(--color-terracotta); }
+    h3 { font-family: var(--font-display); font-size: 1.1rem; margin: 1.5rem 0 0.75rem; }
+    h4 { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-slate); margin: 1.25rem 0 0.5rem; }
+    
+    p { color: var(--color-ink-soft); font-size: 0.95rem; margin-bottom: 1rem; }
+    
+    .header {
+      border-bottom: 2px solid var(--color-terracotta);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .header .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-slate);
+      margin-bottom: 0.5rem;
+    }
+    
+    .summary-box {
+      background: var(--color-sheet);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    
+    .summary-box h4 { margin-top: 0; }
+    
+    .summary-box ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    
+    .summary-box li {
+      font-size: 0.9rem;
+      color: var(--color-ink-soft);
+      margin-bottom: 0.5rem;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.85rem;
+    }
+    
+    th, td {
+      border: 1px solid #d5d0c8;
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    
+    th {
+      background: var(--color-sheet);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-slate);
+    }
+    
+    td { color: var(--color-ink-soft); }
+    
+    .tier-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.25rem;
+    }
+    
+    .tier-easy { background: rgba(122,138,74,0.2); color: var(--color-olive); }
+    .tier-medium { background: rgba(212,160,68,0.2); color: var(--color-gold); }
+    .tier-hard { background: rgba(196,93,58,0.2); color: var(--color-terracotta); }
+    
+    .competitor-card {
+      background: var(--color-paper);
+      border: 1px solid #d5d0c8;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+    
+    .competitor-card h4 {
+      color: var(--color-ink);
+      margin-top: 0;
+      font-size: 0.85rem;
+    }
+    
+    .competitor-card .price {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-terracotta);
+    }
+    
+    .gap-card {
+      background: rgba(196,93,58,0.05);
+      border-left: 3px solid var(--color-terracotta);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+    }
+    
+    .gap-card h4 {
+      color: var(--color-terracotta);
+      margin-top: 0;
+    }
+    
+    .recommendation {
+      background: var(--color-sheet);
+      border: 2px solid var(--color-olive);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .recommendation h3 {
+      color: var(--color-olive);
+      margin-top: 0;
+    }
+    
+    .ecosystem-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px dashed #d5d0c8;
+    }
+    
+    .ecosystem-item:last-child { border-bottom: none; }
+    
+    .ecosystem-category {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-teal);
+    }
+    
+    .footnote {
+      font-size: 0.8rem;
+      color: var(--color-slate);
+      border-top: 1px solid #d5d0c8;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <p class="eyebrow">/Deep Assessment Part 3</p>
+  <h1>Market Reality & Development Path</h1>
+  <p>Competitive landscape, manufacturing complexity, and ecosystem expansion opportunities for Gs Watch concepts.</p>
+</div>
+
+<div class="summary-box">
+  <h4>Executive Summary</h4>
+  <ul>
+    <li><strong>Where it's already happening:</strong> Tactile (Eone Bradley, Citizen), 24-hour (BOTTA, Slow), haptic wellness (Apollo Neuro, Lief, Doppel), time blindness tools (Time Timer, Weel app)</li>
+    <li><strong>Easiest to develop:</strong> Focus Bezel, Day Map — standard movements, custom dial printing only</li>
+    <li><strong>Highest differentiation potential:</strong> Fill, Pulse, Companion — no existing competitors</li>
+    <li><strong>Ecosystem expansion:</strong> Desk companions, visual timers, analog stationery, zone-marked planners</li>
+  </ul>
+</div>
+
+<h2>1. Competitive Landscape: Where This Is Already Happening</h2>
+
+<h3>Direct Competitors by Concept</h3>
+
+<div class="competitor-card">
+  <h4>TACTILE TIME-TELLING (Orbit, Stone, Pulse concepts)</h4>
+  <p class="price">$140 – $350</p>
+  <p><strong>Eone Bradley:</strong> Two ball bearings (hour edge, minute face) controlled by magnets. Swiss quartz. 95% of purchasers are sighted — proves tactile watches have mainstream appeal beyond accessibility market. TikTok reviewers note ball bearings work as fidget, useful for ADHD/anxiety.</p>
+  <p><strong>Citizen AC2200-55E:</strong> Raised hour markers, arrow-shaped hour hand, flip-open cover. Developed with input from blind students in Thailand. $140. More conservative design.</p>
+  <p><strong>Dot Watch:</strong> Braille smartwatch with 4-cell refreshable display. $300+. Full notifications — violates Gs Watch guardrails.</p>
+  <p><strong>Gap for Gs Watch:</strong> Eone is positioned as "inclusive design" (accessibility framing). No one positions tactile as "grounding tool" or "different relationship with time."</p>
+</div>
+
+<div class="competitor-card">
+  <h4>24-HOUR DISPLAYS (Horizon, Day Map 24 concepts)</h4>
+  <p class="price">$200 – $600</p>
+  <p><strong>BOTTA UNO 24:</strong> Single hand completes full rotation in 24 hours. Day/night split dial (light top, dark bottom). German design, Swiss quartz. 40mm titanium. Designed to "slow the perception of time down" — prescriptive framing.</p>
+  <p><strong>Slow Watch:</strong> One hand rotating once every 24 hours. Swiss Ronda 505.24 GMT movement (4 hands, only 1 shown). Philosophy: "stop chasing every minute." Direct-to-consumer, ~$200-300.</p>
+  <p><strong>MeisterSinger:</strong> Single-hand watches, but 12-hour display. Higher price point ($800+).</p>
+  <p><strong>Gap for Gs Watch:</strong> Both BOTTA and Slow frame their philosophy as "slow down" (prescriptive). Gs Watch could reframe as "see your whole day at once" (orienting, invitational) — especially valuable for time blindness/ADHD.</p>
+</div>
+
+<div class="competitor-card">
+  <h4>HAPTIC WELLNESS WEARABLES (Breath, Pulse concepts)</h4>
+  <p class="price">$200 – $400</p>
+  <p><strong>Apollo Neuro:</strong> Wrist/ankle band with frequency-based vibrations. Claims to activate parasympathetic nervous system. Modes include "clear and focused" and "relax and unwind." $350. Not a watch — no time-telling.</p>
+  <p><strong>Doppel:</strong> Wrist-worn wearable providing vibrations linked to heart rate. Studied for ADHD anxiety/focus improvement. 80% of users reported reduced stress after meditation sessions.</p>
+  <p><strong>Lief:</strong> Chest patch measuring HRV with haptic breathing guidance. Clinical approach. $200+.</p>
+  <p><strong>Apple Watch Taptic Time:</strong> Buried in accessibility settings. Encodes time as haptic pulses. Secondary feature, not primary.</p>
+  <p><strong>Gap for Gs Watch:</strong> All current haptic products are either (a) not watches, or (b) smartwatch features buried in menus. No analog watch designed primarily as grounding/breathing tool.</p>
+</div>
+
+<div class="competitor-card">
+  <h4>FOCUS/POMODORO TOOLS (Focus Bezel, Quarter Tap concepts)</h4>
+  <p class="price">$30 – $100 (timers); watches vary</p>
+  <p><strong>Time Timer:</strong> Visual timer with red disc that depletes. Allows you to "see time passing in vivid red". Wall-mounted or desk. No wrist version.</p>
+  <p><strong>Pomodoro desk timers:</strong> Dual display with tactile dial. USB or battery powered. $30-50. Desk-bound, not wearable.</p>
+  <p><strong>Weel App:</strong> 24-hour clock displays time in terms of direction or angle instead of numbers. Apple Watch complication. Digital, requires smartphone ecosystem.</p>
+  <p><strong>Dive bezel watches:</strong> Every dive watch has elapsed-time bezel. But no one markets it for focus/pomodoro — always "diving."</p>
+  <p><strong>Gap for Gs Watch:</strong> Focus Bezel is a dive bezel with pomodoro marketing. Zero development complexity beyond dial/bezel color — pure positioning opportunity.</p>
+</div>
+
+<h3>Adjacent Market Trends</h3>
+
+<div class="gap-card">
+  <h4>"Analog Wellness" — 2025's #1 Wellness Trend</h4>
+  <p>77% of people aged 35-54 said they wanted to return to a time before the internet and smartphones (Harris Poll via Global Wellness Institute). GWI names "Analog Wellness" the top trend for 2025.</p>
+  <p>"Digital detox vacations — where phones are locked up or properties have no Wi-Fi — have been growing in popularity for years". Hotels now offer "analog-on" experiences with retro tech, vinyl listening bars, crafts programming.</p>
+  <p><strong>Implication:</strong> Market timing is optimal. Analog watches positioned as wellness tools (not fashion accessories) align with a multi-billion-dollar trend wave.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Time Blindness as Mainstream Concept</h4>
+  <p>"Time blindness, or a lack of awareness of the passage of time, is a common difficulty among many people with ADHD... The solution is to externalize time as much as possible."</p>
+  <p>"Put several large analog clocks all over the place. Especially in the bathroom and living areas. Visual timers are also useful tools."</p>
+  <p>15-20% of population is neurodivergent. Time blindness awareness has moved from clinical to mainstream (TikTok, HuffPost, product roundups).</p>
+  <p><strong>Implication:</strong> Day Map, Fill, Horizon concepts directly address time blindness. Position as "see your whole day" rather than "be more productive."</p>
+</div>
+
+<h2>2. Development Complexity Assessment</h2>
+
+<h3>Manufacturing Reality Check</h3>
+
+<p>Minimum order quantity of 300 pieces for custom designs. At around $200 per watch, the math gets scary fast.</p>
+<p>First-year costs for proper microbrand launch: ~$110,000. Timeline: 12-18 months from design to first shipment.</p>
+<p>Standard movements readily available: Seiko NH35 ($20-30), Miyota 9015 ($50-70), Sellita SW200 ($80-120), Ronda quartz ($10-30).</p>
+
+<h3>Concept-by-Concept Development Matrix</h3>
+
+<table>
+  <tr>
+    <th>Concept</th>
+    <th>Movement</th>
+    <th>Special Parts</th>
+    <th>Complexity</th>
+    <th>Est. Unit Cost</th>
+  </tr>
+  <tr>
+    <td><strong>Focus Bezel</strong></td>
+    <td>Standard 3-hand quartz</td>
+    <td>Colored rotating bezel only</td>
+    <td><span class="tier-label tier-easy">Easy</span></td>
+    <td>$80-120</td>
+  </tr>
+  <tr>
+    <td><strong>Day Map</strong></td>
+    <td>Standard 3-hand quartz</td>
+    <td>Custom printed dial with zone colors</td>
+    <td><span class="tier-label tier-easy">Easy</span></td>
+    <td>$80-130</td>
+  </tr>
+  <tr>
+    <td><strong>Studio Chrono</strong></td>
+    <td>Meca-quartz (Seiko VK64)</td>
+    <td>Subdial with colored sector</td>
+    <td><span class="tier-label tier-medium">Medium</span></td>
+    <td>$120-180</td>
+  </tr>
+  <tr>
+    <td><strong>Tide Dial</strong></td>
+    <td>Tide movement (quartz)</td>
+    <td>Specialized dial layout</td>
+    <td><span class="tier-label tier-medium">Medium</span></td>
+    <td>$100-150</td>
+  </tr>
+  <tr>
+    <td><strong>Horizon (24hr)</strong></td>
+    <td>24hr GMT movement (Ronda 505.24)</td>
+    <td>Horizon-line dial, single marker</td>
+    <td><span class="tier-label tier-medium">Medium</span></td>
+    <td>$100-150</td>
+  </tr>
+  <tr>
+    <td><strong>Quarter Tap</strong></td>
+    <td>Quartz + vibration motor</td>
+    <td>Haptic module, battery management</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$150-250</td>
+  </tr>
+  <tr>
+    <td><strong>Pulse</strong></td>
+    <td>Quartz + haptic system</td>
+    <td>Touch sensor, haptic encoding, blank dial</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$200-350</td>
+  </tr>
+  <tr>
+    <td><strong>Fill</strong></td>
+    <td>Custom mechanism OR e-ink</td>
+    <td>Linear display, user-set endpoints</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$250-400</td>
+  </tr>
+  <tr>
+    <td><strong>Orbit</strong></td>
+    <td>Custom (ball bearing tracks)</td>
+    <td>3 magnetic tracks, precision balls</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$200-350</td>
+  </tr>
+  <tr>
+    <td><strong>Breath</strong></td>
+    <td>Quartz + pulsing LED/mechanical</td>
+    <td>Breathing rhythm display</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$200-350</td>
+  </tr>
+  <tr>
+    <td><strong>Stone</strong></td>
+    <td>24hr movement</td>
+    <td>Organic case tooling, tactile marker</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$200-350</td>
+  </tr>
+  <tr>
+    <td><strong>Companion</strong></td>
+    <td>Watch: Standard quartz<br>Object: BLE module</td>
+    <td>Two separate products, sync system</td>
+    <td><span class="tier-label tier-hard">Hard</span></td>
+    <td>$300-500 (system)</td>
+  </tr>
+</table>
+
+<div class="recommendation">
+  <h3>Recommended Launch Sequence</h3>
+  <p><strong>Phase 1 (Immediate):</strong> Focus Bezel + Day Map. Standard movements, custom dials/bezels only. Proves philosophy, builds community. Retail: $175-250.</p>
+  <p><strong>Phase 2 (6-12 months):</strong> Horizon (24hr) + Studio Chrono. Slightly more complex movements, still off-the-shelf. Retail: $275-350.</p>
+  <p><strong>Phase 3 (18+ months):</strong> ONE breakthrough concept — Fill, Pulse, or Stone. Category-defining piece that proves the philosophy isn't just marketing. Retail: $400-600.</p>
+</div>
+
+<h2>3. Innovation Gap Analysis: Where No One Is Playing</h2>
+
+<div class="gap-card">
+  <h4>Gap 1: Tactile-Primary for General Market</h4>
+  <p>Eone serves "inclusive design" (accessibility framing). Apple Taptic Time is buried setting. No product makes tactile time-telling primary for mainstream users wanting to reduce phone-checking.</p>
+  <p><strong>Gs Watch opportunity:</strong> "Feel time. Don't look at it." Privacy, presence, grounding — not disability accommodation.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 2: 24-Hour for Time Blindness, Not "Slow Life"</h4>
+  <p>BOTTA and Slow position as lifestyle choice ("slow down"). No one frames 24-hour display as orienting tool for ADHD/neurodivergent users.</p>
+  <p><strong>Gs Watch opportunity:</strong> "Where are you in your day? See the whole thing at once." Functional, not aspirational.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 3: Container/Fill Metaphor</h4>
+  <p>No watch shows time as "how much day is left" — a container filling or depleting. Time Timer does this for intervals, but not for the full day.</p>
+  <p><strong>Gs Watch opportunity:</strong> Fill concept reframes time as finite resource. "The tank is 60% full" is instantly understood by time-blind users.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 4: Watch + Companion Object System</h4>
+  <p>Smartwatches try to do everything. Traditional watches do nothing beyond time. No product separates "pure analog time-telling" from "contextual awareness" into two objects.</p>
+  <p><strong>Gs Watch opportunity:</strong> Companion concept keeps watch pure, adds smart features to desk object. Best of both worlds without violating guardrails.</p>
+</div>
+
+<div class="gap-card">
+  <h4>Gap 5: Grounding/Breathing as Primary Purpose</h4>
+  <p>Apollo Neuro, Doppel, Lief all provide haptic calming — but aren't watches. Apple Watch has "breathe" app buried in menus. No analog watch designed primarily for nervous system regulation.</p>
+  <p><strong>Gs Watch opportunity:</strong> Breath concept inverts watch purpose. Time-telling secondary to rhythm provision. For anxiety/ADHD users who need regulation more than scheduling.</p>
+</div>
+
+<h2>4. Ecosystem Expansion Opportunities</h2>
+
+<p>Beyond watches, "time held gently" philosophy can extend to:</p>
+
+<div class="ecosystem-item">
+  <div class="ecosystem-category">Desk Objects</div>
+  <div>
+    <p><strong>Zone Clock:</strong> Wall or desk clock with Day Map zones. Makes time visible for entire room.</p>
+    <p><strong>Fill Timer:</strong> Physical vessel that depletes over work session. Visual pomodoro without screens.</p>
+    <p><strong>Companion Object:</strong> Glowing desk stone that syncs with watch for anchor events. Watch stays pure analog.</p>
+  </div>
+</div>
+
+<div class="ecosystem-item">
+  <div class="ecosystem-category">Paper Goods</div>
+  <div>
+    <p><strong>Day Map Planner:</strong> Daily pages with zone-colored time blocks. Matches watch dial colors.</p>
+    <p><strong>Reflection Journal:</strong> Prompts from watch deck philosophy. "Time feels like... I wish time felt like..."</p>
+    <p><strong>Anchor Cards:</strong> Physical cards for planning day's anchor events. Slot into desk holder.</p>
+  </div>
+</div>
+
+<div class="ecosystem-item">
+  <div class="ecosystem-category">Straps & Accessories</div>
+  <div>
+    <p><strong>Seasonal Strap Sets:</strong> Colors that match Day Map zones. Dawn coral, midday cream, evening rust.</p>
+    <p><strong>Watch Roll:</strong> Travel case with reflection prompt embossed inside.</p>
+    <p><strong>Strap Tool:</strong> Branded spring bar tool. Utilitarian object with philosophy touch.</p>
+  </div>
+</div>
+
+<div class="ecosystem-item">
+  <div class="ecosystem-category">Digital (Guardrail-Compliant)</div>
+  <div>
+    <p><strong>Setup-Only App:</strong> Configure watch settings (zone times, anchor events). No notifications, no daily use.</p>
+    <p><strong>Apple Watch Face:</strong> Day Map or Fill as watch face. Reaches users before physical product.</p>
+    <p><strong>PDF Worksheets:</strong> Free downloads for lens exploration. Lead generation, community building.</p>
+  </div>
+</div>
+
+<div class="ecosystem-item">
+  <div class="ecosystem-category">Collaborations</div>
+  <div>
+    <p><strong>Stationery Brand:</strong> Co-branded planners with Baron Fig, Field Notes, etc.</p>
+    <p><strong>ADHD/Neurodivergent Community:</strong> Partner with ADDitude, How to ADHD, or similar platforms.</p>
+    <p><strong>Wellness Retreats:</strong> "Analog wellness" packages including watch, journal, phone lockbox.</p>
+  </div>
+</div>
+
+<h2>5. Strategic Recommendations</h2>
+
+<div class="summary-box">
+  <h4>Immediate Actions</h4>
+  <ul>
+    <li><strong>Validate demand:</strong> Pre-order campaign for Focus Bezel + Day Map. Tests philosophy resonance before full production.</li>
+    <li><strong>Claim positioning:</strong> Publish philosophy deck publicly. Establish "tools for noticing, not prescriptions" territory before competitors arrive.</li>
+    <li><strong>Build community:</strong> Free reflection worksheets, lens exploration content. Attract people who resonate with philosophy before products ship.</li>
+    <li><strong>Apple Watch face:</strong> Release Day Map as free watch face. Zero manufacturing cost, maximum reach, validates concept with real users.</li>
+  </ul>
+</div>
+
+<div class="summary-box">
+  <h4>Medium-Term Priorities</h4>
+  <ul>
+    <li><strong>Develop Fill or Pulse:</strong> One breakthrough concept that no competitor can match. Accept higher development cost for category ownership.</li>
+    <li><strong>Ecosystem products:</strong> Zone Clock, Day Map Planner. Lower complexity than watches, extends brand presence.</li>
+    <li><strong>ADHD/time-blindness positioning:</strong> Partner with neurodivergent advocates. Reframe from "slow life" (prescriptive) to "see your day" (orienting).</li>
+  </ul>
+</div>
+
+<div class="summary-box">
+  <h4>What to Avoid</h4>
+  <ul>
+    <li><strong>Don't compete on specs:</strong> Water resistance, movement grade, case materials — these are commodity battles. Compete on philosophy and form factor.</li>
+    <li><strong>Don't over-engineer Phase 1:</strong> Focus Bezel and Day Map should ship with standard components. Prove the market before custom development.</li>
+    <li><strong>Don't violate guardrails for features:</strong> Notifications, fitness tracking, daily charging — these destroy the core value proposition even if users request them.</li>
+  </ul>
+</div>
+
+<div class="footnote">
+  <p><strong>Sources:</strong> Research conducted January 2026 via web search. Competitive pricing from manufacturer websites. Manufacturing estimates based on microbrand industry data.</p>
+  <p><strong>Next steps:</strong> If pursuing pre-order validation, recommend Focus Bezel + Day Map bundle with philosophy deck as Kickstarter/pre-order package. Target: 300 units (minimum MOQ) at $200-250 retail, ~$100-130 cost.</p>
+</div>
+
+</body>
+</html>

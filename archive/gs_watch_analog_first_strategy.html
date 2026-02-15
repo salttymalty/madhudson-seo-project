@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gs Watch — Analog-First Strategy</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2a2622;
+      --text-muted: #6b6560;
+      --accent: #c45d3a;
+      --accent-light: #f5e8e3;
+      --surface: #fff;
+      --border: #e5e0db;
+      
+      /* Girard palette */
+      --girard-red: #c94a3a;
+      --girard-orange: #e07a3a;
+      --girard-gold: #d4a044;
+      --girard-olive: #8a9a4a;
+      --girard-teal: #4a8a8a;
+      --girard-brown: #6a4a3a;
+      --girard-cream: #f5e8d8;
+      
+      /* Day zones */
+      --dawn: #e8d4c0;
+      --morning: #f0e0c0;
+      --midday: #e8e0d0;
+      --afternoon: #d8c8b0;
+      --evening: #c0b0a0;
+      --night: #a09080;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 3rem 2rem 5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+    .doc-tag {
+      display: inline-block;
+      background: var(--girard-olive);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h2 { 
+      font-size: 1.1rem; 
+      font-weight: 600; 
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+    h4 { font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.5rem; color: var(--accent); }
+
+    p { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem; }
+
+    section { margin-bottom: 3rem; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    /* Content boxes */
+    .content-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .content-box h3 { margin-top: 0; }
+
+    .callout {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout p { margin: 0; color: var(--text); }
+
+    .warning {
+      background: #f5e8e0;
+      border-left: 4px solid var(--girard-orange);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .warning p { margin: 0; color: var(--text); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    td { color: var(--text-muted); }
+
+    /* Lists */
+    ul, ol {
+      margin: 0.75rem 0 1rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    li { margin-bottom: 0.4rem; }
+
+    /* Watch diagrams */
+    .watch-row {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 1.5rem 0;
+    }
+
+    .watch-diagram {
+      flex: 0 0 auto;
+    }
+
+    .watch-explain {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* Focus Bezel SVG */
+    .watch-svg {
+      width: 200px;
+      height: 200px;
+    }
+
+    /* Language terms */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .term-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .term-card h4 {
+      margin: 0 0 0.5rem 0;
+      color: var(--girard-teal);
+    }
+
+    .term-card p { 
+      margin: 0 0 0.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    .term-card .usage {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .term-card .avoid {
+      font-size: 0.75rem;
+      color: var(--girard-red);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.25rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-left: -4px;
+    }
+
+    .timeline-item h4 {
+      margin: 0 0 0.25rem 0;
+      color: var(--text);
+    }
+
+    .timeline-item p {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .timeline-item.future::before {
+      background: var(--border);
+      border: 2px solid var(--accent);
+    }
+
+    /* Spec tables */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .spec-grid { grid-template-columns: 1fr; }
+    }
+
+    .spec-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .spec-card h4 {
+      margin: 0 0 0.75rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="doc-tag">Internal Strategy</span>
+  <h1>Gs Watch — Analog-First Strategy</h1>
+  <p class="subtitle">Reframed concepts, language system, manufacturing roadmap. Aligned with brand philosophy.</p>
+</header>
+
+<!-- ============================================ -->
+<!-- SECTION 1: RECONCILIATION -->
+<!-- ============================================ -->
+
+<section>
+  <h2>01 — Reconciliation: E-ink Concepts → Analog Execution</h2>
+  
+  <p>Our exploratory work developed strong concepts (radial rings for day orientation, depletion visualization for timers, haptic time cues). However, the execution path drifted toward a smartwatch form factor that conflicts with the brand's analog-first philosophy.</p>
+  
+  <p>This document reframes those concepts for analog-first execution.</p>
+  
+  <div class="content-box">
+    <h3>Concept Translation</h3>
+    <table>
+      <tr>
+        <th>E-ink Concept</th>
+        <th>Analog Execution</th>
+        <th>Product</th>
+      </tr>
+      <tr>
+        <td>Depletion Arc (timer countdown)</td>
+        <td>Rotating bezel with colored sector</td>
+        <td><strong>Focus Bezel</strong></td>
+      </tr>
+      <tr>
+        <td>Radial Rings (day remaining)</td>
+        <td>Printed dial zones + hour hand position</td>
+        <td><strong>Day Map</strong></td>
+      </tr>
+      <tr>
+        <td>Timer bar + digital countdown</td>
+        <td>Chronograph subdial with focus sector</td>
+        <td><strong>Studio Chrono</strong></td>
+      </tr>
+      <tr>
+        <td>Haptic cuckoo (hourly vibration)</td>
+        <td>Small e-ink subdial + optional haptic</td>
+        <td><strong>Anchor Window</strong> (later phase)</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="callout">
+    <p><strong>Key shift:</strong> Analog hands remain the primary time-telling interface. Any digital element is supplementary context, not a replacement for the watch face.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 2: ANALOG CONCEPTS DETAILED -->
+<!-- ============================================ -->
+
+<section>
+  <h2>02 — Analog Concepts: Detailed Specifications</h2>
+  
+  <!-- FOCUS BEZEL -->
+  <div class="content-box">
+    <div class="watch-row">
+      <div class="watch-diagram">
+        <svg class="watch-svg" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#4a4642" />
+          
+          <!-- Bezel with timer sector -->
+          <circle cx="100" cy="100" r="90" fill="#3a3632" />
+          <path d="M100,100 L100,15 A85,85 0 0,1 172,55 Z" fill="#c45d3a" opacity="0.8"/>
+          
+          <!-- Bezel ticks -->
+          <g stroke="#888" stroke-width="1">
+            <line x1="100" y1="12" x2="100" y2="22" />
+            <line x1="142" y1="23" x2="138" y2="32" />
+            <line x1="177" y1="58" x2="168" y2="63" />
+            <line x1="188" y1="100" x2="178" y2="100" />
+            <line x1="177" y1="142" x2="168" y2="137" />
+            <line x1="142" y1="177" x2="138" y2="168" />
+            <line x1="100" y1="188" x2="100" y2="178" />
+            <line x1="58" y1="177" x2="63" y2="168" />
+            <line x1="23" y1="142" x2="32" y2="137" />
+            <line x1="12" y1="100" x2="22" y2="100" />
+            <line x1="23" y1="58" x2="32" y2="63" />
+            <line x1="58" y1="23" x2="63" y2="32" />
+          </g>
+          
+          <!-- Dial -->
+          <circle cx="100" cy="100" r="75" fill="#f5f0e8" />
+          
+          <!-- Hour markers -->
+          <g fill="#2a2622">
+            <circle cx="100" cy="32" r="3" />
+            <circle cx="168" cy="100" r="3" />
+            <circle cx="100" cy="168" r="3" />
+            <circle cx="32" cy="100" r="3" />
+          </g>
+          
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="4" stroke-linecap="round" />
+          <line x1="100" y1="100" x2="145" y2="70" stroke="#2a2622" stroke-width="2" stroke-linecap="round" />
+          
+          <!-- Center -->
+          <circle cx="100" cy="100" r="6" fill="#2a2622" />
+        </svg>
+      </div>
+      
+      <div class="watch-explain">
+        <h3>Focus Bezel</h3>
+        <p><strong>The core product.</strong> A dive-watch-style rotating bezel repurposed for attention, not oxygen.</p>
+        
+        <h4>Mechanism</h4>
+        <ul>
+          <li>Standard 3-hand quartz or automatic movement</li>
+          <li>Unidirectional rotating bezel (60 clicks)</li>
+          <li>Colored sector on bezel marks focus duration</li>
+          <li>User rotates bezel to align sector start with minute hand</li>
+          <li>When minute hand exits sector, session is complete</li>
+        </ul>
+        
+        <h4>Experience</h4>
+        <p class="mono">"Twist to begin. The watch holds your focus window. When the hand exits the color, you're done."</p>
+      </div>
+    </div>
+    
+    <h4>Manufacturing Notes</h4>
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Specification</th>
+        <th>Complexity</th>
+      </tr>
+      <tr>
+        <td>Movement</td>
+        <td>Miyota 9039 (auto) or 2035 (quartz)</td>
+        <td>Low — standard supply</td>
+      </tr>
+      <tr>
+        <td>Case</td>
+        <td>38-40mm, 316L steel or recycled aluminum</td>
+        <td>Low — standard tooling</td>
+      </tr>
+      <tr>
+        <td>Bezel</td>
+        <td>Aluminum insert, 60-click unidirectional</td>
+        <td>Low — dive watch standard</td>
+      </tr>
+      <tr>
+        <td>Bezel insert</td>
+        <td>Custom print with 25-min colored sector</td>
+        <td>Low — print/anodize</td>
+      </tr>
+      <tr>
+        <td>Dial</td>
+        <td>Minimal indices, warm cream/white</td>
+        <td>Low</td>
+      </tr>
+    </table>
+  </div>
+  
+  <!-- DAY MAP -->
+  <div class="content-box">
+    <div class="watch-row">
+      <div class="watch-diagram">
+        <svg class="watch-svg" viewBox="0 0 200 200">
+          <!-- Case -->
+          <circle cx="100" cy="100" r="95" fill="#4a4642" />
+          
+          <!-- Dial with zones -->
+          <circle cx="100" cy="100" r="85" fill="#e8e0d0" />
+          
+          <!-- Day zones (6 sectors) -->
+          <path d="M100,100 L100,15 A85,85 0 0,1 173,57 Z" fill="#e8d4c0" /> <!-- dawn 5-8 -->
+          <path d="M100,100 L173,57 A85,85 0 0,1 173,143 Z" fill="#f0e0c0" /> <!-- morning 8-12 -->
+          <path d="M100,100 L173,143 A85,85 0 0,1 100,185 Z" fill="#e8e0d0" /> <!-- midday 12-4 -->
+          <path d="M100,100 L100,185 A85,85 0 0,1 27,143 Z" fill="#d8c8b0" /> <!-- afternoon 4-8 -->
+          <path d="M100,100 L27,143 A85,85 0 0,1 27,57 Z" fill="#c0b0a0" /> <!-- evening 8-12 -->
+          <path d="M100,100 L27,57 A85,85 0 0,1 100,15 Z" fill="#a09080" /> <!-- night 12-5 -->
+          
+          <!-- Zone labels (subtle) -->
+          <text x="130" y="45" font-family="DM Sans" font-size="7" fill="#6b6560">dawn</text>
+          <text x="160" y="100" font-family="DM Sans" font-size="7" fill="#6b6560">morning</text>
+          <text x="130" y="165" font-family="DM Sans" font-size="7" fill="#6b6560">midday</text>
+          <text x="55" y="165" font-family="DM Sans" font-size="7" fill="#6b6560">afternoon</text>
+          <text x="25" y="100" font-family="DM Sans" font-size="7" fill="#6b6560">evening</text>
+          <text x="55" y="45" font-family="DM Sans" font-size="7" fill="#6b6560">night</text>
+          
+          <!-- Center clean zone -->
+          <circle cx="100" cy="100" r="35" fill="#f5f0e8" />
+          
+          <!-- Minimal hour dots at 12, 3, 6, 9 -->
+          <circle cx="100" cy="25" r="2" fill="#2a2622" />
+          <circle cx="175" cy="100" r="2" fill="#2a2622" />
+          <circle cx="100" cy="175" r="2" fill="#2a2622" />
+          <circle cx="25" cy="100" r="2" fill="#2a2622" />
+          
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="140" y2="75" stroke="#2a2622" stroke-width="3" stroke-linecap="round" />
+          <line x1="100" y1="100" x2="100" y2="45" stroke="#2a2622" stroke-width="2" stroke-linecap="round" />
+          
+          <!-- Center -->
+          <circle cx="100" cy="100" r="5" fill="#2a2622" />
+        </svg>
+      </div>
+      
+      <div class="watch-explain">
+        <h3>Day Map</h3>
+        <p><strong>Orientation over precision.</strong> The dial shows where you are in your day, not just what time it is.</p>
+        
+        <h4>Mechanism</h4>
+        <ul>
+          <li>Standard 2-hand or 3-hand movement</li>
+          <li>Dial printed with colored zones (dawn, morning, midday, afternoon, evening, night)</li>
+          <li>Hour hand position shows current zone at a glance</li>
+          <li>No numbers required — color = orientation</li>
+        </ul>
+        
+        <h4>Experience</h4>
+        <p class="mono">"Glance at your wrist. You're in the morning field. The afternoon coast is ahead. No math, just position."</p>
+      </div>
+    </div>
+    
+    <h4>Zone Calibration Options</h4>
+    <table>
+      <tr>
+        <th>Option</th>
+        <th>Zone Layout</th>
+        <th>Best For</th>
+      </tr>
+      <tr>
+        <td>Standard (6-zone)</td>
+        <td>Dawn / Morning / Midday / Afternoon / Evening / Night</td>
+        <td>General use</td>
+      </tr>
+      <tr>
+        <td>Early Riser (shifted)</td>
+        <td>Zones shifted earlier (dawn starts at 4am position)</td>
+        <td>Morning people</td>
+      </tr>
+      <tr>
+        <td>Night Owl (shifted)</td>
+        <td>Zones shifted later (morning extends to noon position)</td>
+        <td>Late schedules</td>
+      </tr>
+      <tr>
+        <td>Quarterly (4-zone)</td>
+        <td>Morning / Afternoon / Evening / Night</td>
+        <td>Simpler read</td>
+      </tr>
+    </table>
+    
+    <div class="warning">
+      <p><strong>Tone note:</strong> Avoid language like "optimize your day zones" or "track your productivity across zones." Position as orientation and rhythm, not measurement.</p>
+    </div>
+  </div>
+  
+  <!-- STUDIO CHRONO -->
+  <div class="content-box">
+    <h3>Studio Chrono</h3>
+    <p>A meca-quartz chronograph with one subdial tuned to focus sessions. The tactile pusher click begins a work block.</p>
+    
+    <h4>Key Features</h4>
+    <ul>
+      <li>Meca-quartz movement (Seiko VK63 or similar) — sweeping chrono hand, quartz reliability</li>
+      <li>30-minute subdial with bold 25-minute sector highlighted</li>
+      <li>Pusher at 2 o'clock starts/stops; pusher at 4 o'clock resets</li>
+      <li>Main dial remains a functional time-telling watch</li>
+    </ul>
+    
+    <h4>Experience</h4>
+    <p class="mono">"Click. The hand sweeps. When it crosses the bold line, the block is done. A stopwatch for making things."</p>
+    
+    <h4>Complexity</h4>
+    <p>Medium. Meca-quartz movements are available but require more case engineering (pushers, gaskets). Higher cost than Focus Bezel. Consider as second product after Focus Bezel proves demand.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 3: LANGUAGE SYSTEM -->
+<!-- ============================================ -->
+
+<section>
+  <h2>03 — Language System</h2>
+  
+  <p>A consistent vocabulary for use across products, straps, and marketing. Words should feel warm, grounded, and intelligent — never clinical, hustle-culture, or appropriative.</p>
+  
+  <div class="term-grid">
+    <div class="term-card">
+      <h4>anchor</h4>
+      <p>A chosen moment that matters. A point of orientation in the day.</p>
+      <p class="usage">Use: "Set your anchor." "The watch holds your anchor."</p>
+      <p class="avoid">Avoid: "productivity anchor," "time anchor"</p>
+    </div>
+    
+    <div class="term-card">
+      <h4>field</h4>
+      <p>A zone or period of the day. Implies open space, not rigid blocks.</p>
+      <p class="usage">Use: "morning field," "evening field," "transition field"</p>
+      <p class="avoid">Avoid: "time block," "productivity zone"</p>
+    </div>
+    
+    <div class="term-card">
+      <h4>map</h4>
+      <p>The dial as orientation device. Shows where you are, not what you must do.</p>
+      <p class="usage">Use: "Day Map," "mapping your rhythm"</p>
+      <p class="avoid">Avoid: "time map," "schedule map"</p>
+    </div>
+    
+    <div class="term-card">
+      <h4>companion</h4>
+      <p>The watch as a gentle presence, not a monitor or tracker.</p>
+      <p class="usage">Use: "a quiet companion," "companion app" (for setup only)</p>
+      <p class="avoid">Avoid: "assistant," "coach," "guide"</p>
+    </div>
+    
+    <div class="term-card">
+      <h4>ritual</h4>
+      <p>Repeated actions with care and intention. Charging, winding, strap care.</p>
+      <p class="usage">Use: "charging ritual," "care ritual," "morning ritual"</p>
+      <p class="avoid">Avoid: "routine," "habit," "practice" (too productivity-coded)</p>
+    </div>
+    
+    <div class="term-card">
+      <h4>session</h4>
+      <p>A bounded period of focus. Has a beginning and end.</p>
+      <p class="usage">Use: "focus session," "studio session"</p>
+      <p class="avoid">Avoid: "sprint," "block," "pomodoro" (too productivity-coded)</p>
+    </div>
+  </div>
+  
+  <h3>Phrases to Avoid</h3>
+  
+  <table>
+    <tr>
+      <th>Avoid</th>
+      <th>Why</th>
+      <th>Replace With</th>
+    </tr>
+    <tr>
+      <td>"Time blindness support"</td>
+      <td>Implies fixing a deficit</td>
+      <td>"Gentle orientation" or "finding your place in the day"</td>
+    </tr>
+    <tr>
+      <td>"ND-focused" / "ADHD-friendly"</td>
+      <td>Medicalizes; risks overclaiming</td>
+      <td>"For different relationships with time"</td>
+    </tr>
+    <tr>
+      <td>"Optimize your time"</td>
+      <td>Hustle culture</td>
+      <td>"Orient in your day"</td>
+    </tr>
+    <tr>
+      <td>"Indigenous time concepts"</td>
+      <td>Appropriative without collaboration</td>
+      <td>"Cyclical rhythms" or "relational time"</td>
+    </tr>
+    <tr>
+      <td>"Productivity system"</td>
+      <td>Self-optimization framing</td>
+      <td>"A way of being with time"</td>
+    </tr>
+    <tr>
+      <td>"Track your focus"</td>
+      <td>Surveillance framing</td>
+      <td>"Hold your focus" or "mark a session"</td>
+    </tr>
+    <tr>
+      <td>"Urgency zone"</td>
+      <td>Anxiety-inducing</td>
+      <td>"Transition field" or "evening coast"</td>
+    </tr>
+  </table>
+  
+  <div class="callout">
+    <p><strong>Litmus test:</strong> Would this language make someone with ADHD feel seen and supported, or judged and pathologized? Would it make anyone feel they're broken and need fixing? If yes, rewrite.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 4: MANUFACTURING ROADMAP -->
+<!-- ============================================ -->
+
+<section>
+  <h2>04 — Manufacturing Roadmap</h2>
+  
+  <div class="timeline">
+    <div class="timeline-item">
+      <h4>Phase 1: Focus Bezel</h4>
+      <p><strong>First product. Lowest risk. Proves core concept.</strong></p>
+      <p>Standard dive watch construction. Off-the-shelf movement. Custom bezel insert is only unique component. Can use existing case tooling from HK partners with minor modifications.</p>
+      <p class="mono" style="margin-top: 0.5rem;">Est. MOQ: 300-500 | Est. unit cost: $45-65 | Timeline: 3-4 months</p>
+    </div>
+    
+    <div class="timeline-item">
+      <h4>Phase 2: Day Map</h4>
+      <p><strong>Second product. Tests zone dial concept.</strong></p>
+      <p>Same case and movement as Focus Bezel. Unique component is printed dial with zone colors. Could offer as variant dial for same case (reduces tooling).</p>
+      <p class="mono" style="margin-top: 0.5rem;">Est. additional cost: Dial printing setup | Timeline: +1-2 months after Phase 1</p>
+    </div>
+    
+    <div class="timeline-item">
+      <h4>Phase 3: Studio Chrono</h4>
+      <p><strong>Third product. Higher complexity. Validates premium tier.</strong></p>
+      <p>Requires meca-quartz movement, pusher engineering, larger case. Consider only after Focus Bezel/Day Map prove demand. Could partner with existing chrono manufacturer to reduce tooling.</p>
+      <p class="mono" style="margin-top: 0.5rem;">Est. unit cost: $80-120 | Timeline: 6-8 months</p>
+    </div>
+    
+    <div class="timeline-item future">
+      <h4>Phase 4: Anchor Window Hybrid</h4>
+      <p><strong>Later-phase. Limited run. Internal R&D continues.</strong></p>
+      <p>Analog movement + small e-ink subdial. Requires custom PCB, battery management, companion app. Only pursue after analog line is profitable and brand is established.</p>
+      <p class="mono" style="margin-top: 0.5rem;">Est. unit cost: $150-250 | Timeline: 12-18 months | Run: Limited (500-1000)</p>
+    </div>
+  </div>
+  
+  <h3>Strap Manufacturing</h3>
+  
+  <div class="spec-grid">
+    <div class="spec-card">
+      <h4>Recycled Ocean Nylon</h4>
+      <p><strong>Lead strap.</strong> Widely available from sustainable suppliers. Quick-release hardware standard. Multiple colorways.</p>
+      <p class="mono">Est. cost: $8-12/unit</p>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Cork + Textile Hybrid</h4>
+      <p>More specialized. Cork suppliers in Portugal. Requires custom layering. Distinctive texture and patina.</p>
+      <p class="mono">Est. cost: $15-22/unit</p>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Raw Denim</h4>
+      <p>Selvedge denim sourced from mills. Requires edge binding. Fades uniquely over time. Workwear aesthetic.</p>
+      <p class="mono">Est. cost: $12-18/unit</p>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Plant-Based Leather (Cactus)</h4>
+      <p>Premium option. Desserto or similar supplier. Dressier look while maintaining vegan ethics.</p>
+      <p class="mono">Est. cost: $20-30/unit</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 5: ANCHOR WINDOW SPEC -->
+<!-- ============================================ -->
+
+<section>
+  <h2>05 — Anchor Window Hybrid: Internal Spec</h2>
+  
+  <p><em>Later-phase concept. Not for initial launch. Included here for continuity with exploratory work.</em></p>
+  
+  <div class="content-box">
+    <h3>Core Principle</h3>
+    <p>Analog timekeeping is primary. The digital element is a small "window" that provides quiet context about the day — not a screen, not a UI, not a smartwatch.</p>
+    
+    <h4>Allowed Behaviors</h4>
+    <ul>
+      <li>Display current day zone (dawn/morning/midday/afternoon/evening/night)</li>
+      <li>Show timer countdown when active (user-initiated via crown or button)</li>
+      <li>Sync with calendar for 1-3 user-selected "anchor" events (therapy, rehearsal, pickup)</li>
+      <li>Subtle indicator when anchor is approaching or active</li>
+      <li>Optional gentle haptic at hour, half-hour, or anchor time (default off)</li>
+    </ul>
+    
+    <h4>Forbidden Behaviors</h4>
+    <ul>
+      <li>Notifications of any kind (messages, email, social)</li>
+      <li>Fitness tracking, step counts, heart rate, rings, streaks</li>
+      <li>Multiple screens, menus, scrolling, gestures</li>
+      <li>Bright display, frequent updates, anything that invites checking</li>
+      <li>Behavior that requires the app to function day-to-day</li>
+    </ul>
+  </div>
+  
+  <h3>Technical Architecture</h3>
+  
+  <table>
+    <tr>
+      <th>Component</th>
+      <th>Specification</th>
+    </tr>
+    <tr>
+      <td>Analog movement</td>
+      <td>Standard quartz 3-hand (Miyota or similar)</td>
+    </tr>
+    <tr>
+      <td>Digital subdial</td>
+      <td>~0.5" circular e-ink segment, ultra-low power</td>
+    </tr>
+    <tr>
+      <td>Microcontroller</td>
+      <td>ESP32-S3 or nRF52 (BLE for sync)</td>
+    </tr>
+    <tr>
+      <td>Battery</td>
+      <td>CR2032 or small LiPo, 3-6 week target life</td>
+    </tr>
+    <tr>
+      <td>Haptic</td>
+      <td>Small ERM or LRA motor, optional use</td>
+    </tr>
+    <tr>
+      <td>Companion app</td>
+      <td>Setup and config only; no daily engagement</td>
+    </tr>
+  </table>
+  
+  <h3>Graceful Degradation</h3>
+  <p>If the digital module loses power or fails:</p>
+  <ul>
+    <li>Analog movement continues to tell time correctly</li>
+    <li>Watch remains fully functional as an analog timepiece</li>
+    <li>E-ink subdial shows last state (static, but not blank)</li>
+    <li>User can continue using watch indefinitely without digital features</li>
+  </ul>
+  
+  <div class="callout">
+    <p><strong>Key test:</strong> If someone wore this watch for a month without ever syncing or using the digital features, would it still feel like a complete, satisfying watch? The answer must be yes.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 6: NEXT ACTIONS -->
+<!-- ============================================ -->
+
+<section>
+  <h2>06 — Next Actions</h2>
+  
+  <div class="content-box">
+    <h4>Immediate (This Week)</h4>
+    <ol>
+      <li>Review existing ChatGPT HTML docs against this strategy; flag misalignments</li>
+      <li>Finalize Focus Bezel bezel insert design (sector angle, color, markings)</li>
+      <li>Request quotes from HK partners for Focus Bezel case + movement</li>
+    </ol>
+    
+    <h4>Near-term (Next 2-4 Weeks)</h4>
+    <ol>
+      <li>Develop Day Map dial artwork (zone colors, labels, index style)</li>
+      <li>Source strap samples (ocean nylon, cork hybrid) for photography</li>
+      <li>Draft external-facing one-pager for Focus Bezel (using language system)</li>
+    </ol>
+    
+    <h4>Later (Phase 2+)</h4>
+    <ol>
+      <li>Prototype Anchor Window using Watchy platform (internal validation only)</li>
+      <li>User testing with 3-5 people who relate differently to time</li>
+      <li>Develop Studio Chrono case and movement spec</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>Gs Watch — Internal Strategy Document</p>
+  <p class="mono" style="margin-top: 0.25rem;">Analog-First · Language System · Manufacturing Roadmap · Anchor Window Spec</p>
+  <p class="mono" style="margin-top: 0.5rem;">Last updated: January 2026</p>
+</footer>
+
+</body>
+</html>

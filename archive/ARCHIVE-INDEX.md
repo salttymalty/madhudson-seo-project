@@ -1,8 +1,8 @@
 # Mad Hudson Consulting Archive
 
-Pre-SEO consulting documents from December 2025. These were produced during Garen's initial strategic consulting engagement with Mad Hudson, before the SEO optimization project began in February 2026.
+Pre-SEO consulting documents from December 2025 and January 2026. Produced during Garen's strategic consulting engagement with Mad Hudson, before the SEO optimization project began in February 2026.
 
-## Documents
+## Consulting Documents (Dec 2025)
 
 | File | Type | What It Contains |
 |------|------|-----------------|
@@ -16,6 +16,27 @@ Pre-SEO consulting documents from December 2025. These were produced during Gare
 | `Mad_Hudson_Operations_Improvement.docx` | Margin optimization | Movement economics (Miyota/Seiko/Sellita comparison), price tier expansion ($149-799 architecture), accessory upsell margins, email infrastructure, growth infrastructure. |
 | `Mad_Hudson_Brand_Positioning_Framework.docx` | Brand architecture | "One part design house, one part watch company." Dual-audience positioning, website architecture (/watches + /design + /studio), artist collaboration categories, competitive differentiation, tagline options. |
 | `mad-hudson-collab-concepts.html` | Expansion concepts | Analog lifestyle expansion. 6 detailed collaboration concepts (Franklin-Christoph, Awagami, Galen Leather, Hinze Pen, Light Phone, Echizen Washi). Solo product line ideas. Teenage Engineering lessons applied. Market segmentation. |
+
+## Gs Watch Concepts (Dec 2025 – Jan 2026)
+
+Garen's original watch concept designs and pitches — developed independently and shared with Mad Hudson. These represent product-level thinking (not SEO content), but contain competitive landscape research and market positioning that could inform content strategy.
+
+| File | What It Contains |
+|------|-----------------|
+| `gs_focus_bezel_external.html` | Focus Bezel pitch — "A Watch for Your Attention." Warm terracotta bezel arc for time-boxing. |
+| `gs_focus_bezel_spec.html` | Focus Bezel product specification. Component-level spec, manufacturing path. |
+| `gs_watch_analog_first_strategy.html` | Analog-first strategy document. Philosophy of invitational design vs. prescriptive. |
+| `gs_watch_complete_deck.html` | Complete concept deck — all Gs Watch concepts in one presentation. |
+| `gs_watch_concepts_consolidated.html` | Analog prototypes + hybrid appendix. Consolidated concept overview. |
+| `gs_watch_converge_prototype.html` | Converge prototype — narrowing from concepts to buildable spec. |
+| `gs_watch_deep_assessment.html` | /deep assessment of the complete deck. Competitive analysis, feasibility. |
+| `gs_watch_deep_part2.html` | /deep part 2 — cognitive accessibility, new concepts, innovation analysis. |
+| `gs_watch_deep_part3.html` | /deep part 3 — market reality, development path, ecosystem expansion. |
+| `gs_watch_expanded_deck.html` | "Some Concepts for Time" — expanded concept deck. |
+| `gs_watch_expanded_mockups.html` | Expanded visual mockups of concepts. |
+| `gs_watch_extended_mockups.html` | Extended mockups — additional design explorations. |
+| `gs_watch_ring_logic_watchy.html` | Ring Logic + Watchy spec — e-ink/open-source hardware exploration. |
+| `gs_deep_assessment.docx` | Full /deep assessment — competitive landscape (BOTTA, Slow, Eone), development feasibility tiers, strap ecosystem ($12.8B market), breathing/anxiety wearable gap analysis. |
 
 ## Accuracy Notes
 

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gs Watch — Ring Logic + Watchy Spec</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2a2622;
+      --text-muted: #6b6560;
+      --accent: #c45d3a;
+      --accent-light: #f5e8e3;
+      --surface: #fff;
+      --border: #e5e0db;
+      --girard-teal: #4a8a8a;
+      --girard-gold: #d4a044;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 3rem 2rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+    .phase-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h2 { font-size: 1.2rem; font-weight: 600; margin: 3rem 0 1.5rem; }
+    h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; }
+    p { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem; }
+    section { margin-bottom: 4rem; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    /* Diagram container */
+    .diagram-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .diagram-row {
+      display: flex;
+      gap: 3rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .diagram-viz {
+      flex: 0 0 280px;
+    }
+
+    .diagram-explain {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .diagram-explain h3 {
+      margin-bottom: 1rem;
+    }
+
+    .diagram-explain ul {
+      margin: 0 0 1rem 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .diagram-explain li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Ring diagram */
+    .ring-diagram {
+      width: 260px;
+      height: 260px;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .ring-layer {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ring-layer.outer {
+      top: 0; left: 0;
+      width: 260px; height: 260px;
+      background: #f0ece8;
+    }
+
+    .ring-layer.r3 {
+      top: 30px; left: 30px;
+      width: 200px; height: 200px;
+      background: #e8e4e0;
+    }
+
+    .ring-layer.r2 {
+      top: 60px; left: 60px;
+      width: 140px; height: 140px;
+      background: #e0dcd8;
+    }
+
+    .ring-layer.r1 {
+      top: 90px; left: 90px;
+      width: 80px; height: 80px;
+      background: #d8d4d0;
+    }
+
+    .ring-layer.now {
+      top: 110px; left: 110px;
+      width: 40px; height: 40px;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .ring-label {
+      position: absolute;
+      font-size: 0.65rem;
+      font-family: 'Space Mono', monospace;
+      color: var(--text-muted);
+      background: var(--surface);
+      padding: 0.15rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    .ring-label.l-outer { top: -10px; left: 50%; transform: translateX(-50%); }
+    .ring-label.l-r3 { top: 20px; left: 50%; transform: translateX(-50%); }
+    .ring-label.l-r2 { top: 50px; left: 50%; transform: translateX(-50%); }
+    .ring-label.l-r1 { top: 80px; left: 50%; transform: translateX(-50%); }
+    .ring-label.l-now { top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; background: transparent; }
+
+    /* Annotation lines */
+    .annotation {
+      position: absolute;
+      font-size: 0.7rem;
+      color: var(--accent);
+    }
+
+    .annotation.a1 { top: 5px; right: -80px; }
+    .annotation.a2 { top: 45px; right: -100px; }
+    .annotation.a3 { top: 85px; right: -90px; }
+    .annotation.a4 { top: 125px; right: -70px; }
+
+    .annotation::before {
+      content: '←';
+      margin-right: 0.25rem;
+    }
+
+    /* Time progression */
+    .progression-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .progression-state {
+      text-align: center;
+    }
+
+    .progression-state .time-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .mini-ring {
+      width: 120px;
+      height: 120px;
+      position: relative;
+      margin: 0 auto 0.5rem;
+    }
+
+    .mini-ring .mr {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+    }
+
+    .mini-ring .mr.outer { top: 0; left: 0; width: 120px; height: 120px; background: #f0ece8; }
+    .mini-ring .mr.r3 { top: 14px; left: 14px; width: 92px; height: 92px; background: #e8e4e0; }
+    .mini-ring .mr.r2 { top: 28px; left: 28px; width: 64px; height: 64px; background: #e0dcd8; }
+    .mini-ring .mr.r1 { top: 42px; left: 42px; width: 36px; height: 36px; background: #d8d4d0; }
+    .mini-ring .mr.now { 
+      position: absolute;
+      width: 16px; height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: none;
+    }
+
+    .mini-ring .mr.collapsed {
+      background: transparent !important;
+      border-color: transparent !important;
+    }
+
+    .mini-ring .mr.active {
+      background: var(--accent-light) !important;
+      border-color: var(--accent) !important;
+    }
+
+    .progression-state .desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Watchy mockup */
+    .watchy-container {
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .watchy-device {
+      flex: 0 0 auto;
+    }
+
+    .watchy-frame {
+      width: 220px;
+      height: 280px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      padding: 20px 15px;
+      position: relative;
+    }
+
+    .watchy-screen {
+      width: 190px;
+      height: 190px;
+      background: #e8e4dc;
+      border: 2px solid #2a2a2a;
+      position: relative;
+    }
+
+    .watchy-btn {
+      position: absolute;
+      width: 8px;
+      height: 20px;
+      background: #3a3a3a;
+      border-radius: 2px;
+    }
+
+    .watchy-btn.tl { top: 40px; left: -6px; }
+    .watchy-btn.bl { top: 80px; left: -6px; }
+    .watchy-btn.tr { top: 40px; right: -6px; }
+    .watchy-btn.br { top: 80px; right: -6px; }
+
+    .watchy-label {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: #4a4a4a;
+      letter-spacing: 0.1em;
+    }
+
+    /* Watchy screen content */
+    .watchy-face {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .wf-time {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .wf-date {
+      position: absolute;
+      top: 42px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: #4a4a4a;
+    }
+
+    .wf-rings {
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 100px;
+    }
+
+    .wf-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid #1a1a1a;
+    }
+
+    .wf-ring.wr1 { top: 0; left: 0; width: 100px; height: 100px; }
+    .wf-ring.wr2 { top: 15px; left: 15px; width: 70px; height: 70px; }
+    .wf-ring.wr3 { top: 30px; left: 30px; width: 40px; height: 40px; }
+
+    .wf-ring.active {
+      background: #c8c4bc;
+    }
+
+    .wf-now {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      background: #1a1a1a;
+      border-radius: 50%;
+    }
+
+    .wf-timer-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      right: 12px;
+      height: 16px;
+      background: #d8d4cc;
+      border: 2px solid #1a1a1a;
+    }
+
+    .wf-timer-fill {
+      height: 100%;
+      width: 65%;
+      background: #1a1a1a;
+    }
+
+    .wf-timer-label {
+      position: absolute;
+      bottom: 32px;
+      left: 12px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      color: #4a4a4a;
+    }
+
+    .watchy-spec {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .spec-table {
+      width: 100%;
+      font-size: 0.85rem;
+      border-collapse: collapse;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-table th {
+      font-weight: 600;
+      color: var(--text);
+      width: 40%;
+    }
+
+    .spec-table td {
+      color: var(--text-muted);
+    }
+
+    /* Haptic section */
+    .haptic-diagram {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .haptic-timeline {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hour-row {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hour-time {
+      width: 60px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .hour-pattern {
+      flex: 1;
+      display: flex;
+      gap: 4px;
+    }
+
+    .vibe {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .vibe.on {
+      background: var(--accent);
+    }
+
+    .vibe.long {
+      width: 24px;
+      border-radius: 6px;
+    }
+
+    .hour-desc {
+      width: 120px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    .haptic-legend {
+      background: var(--accent-light);
+      padding: 1.25rem;
+      border-radius: 8px;
+      min-width: 200px;
+    }
+
+    .haptic-legend h4 {
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Info boxes */
+    .info-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-box h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+      color: var(--accent);
+    }
+
+    .info-box p {
+      margin-bottom: 0.5rem;
+    }
+
+    .info-box ul {
+      margin: 0.5rem 0 0 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .info-box li {
+      margin-bottom: 0.35rem;
+    }
+
+    /* Recommendation */
+    .recommendation {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin-top: 2rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .recommendation h3 { color: var(--accent); margin-bottom: 0.75rem; }
+    .recommendation p { margin: 0 0 0.75rem 0; color: var(--text); }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="phase-tag">Ring Logic Diagram</span>
+  <h1>Gs Watch — How the Rings Work</h1>
+  <p class="subtitle">Clear specification. Watchy implementation. Haptic cuckoo concept.</p>
+</header>
+
+<!-- SECTION 1: Ring Logic Explained -->
+<h2>01 — Ring Logic: Time Remaining in Day</h2>
+
+<section>
+  <div class="diagram-section">
+    <div class="diagram-row">
+      <div class="diagram-viz">
+        <div class="ring-diagram">
+          <div class="ring-layer outer"></div>
+          <div class="ring-layer r3"></div>
+          <div class="ring-layer r2"></div>
+          <div class="ring-layer r1"></div>
+          <div class="ring-layer now"></div>
+          
+          <span class="ring-label l-outer">TIMER ARC</span>
+          <span class="ring-label l-r3">6+ hrs</span>
+          <span class="ring-label l-r2">3-6 hrs</span>
+          <span class="ring-label l-r1">1-3 hrs</span>
+          <span class="ring-label l-now">NOW</span>
+          
+          <span class="annotation a1">Depletion timer (user-set)</span>
+          <span class="annotation a2">Evening zone</span>
+          <span class="annotation a3">Afternoon zone</span>
+          <span class="annotation a4">Urgent zone</span>
+        </div>
+      </div>
+      
+      <div class="diagram-explain">
+        <h3>The Core Concept</h3>
+        <p><strong>Center = NOW. Rings = time remaining until end of waking day.</strong></p>
+        
+        <p>As the day progresses, outer rings "collapse" inward. By evening, only the innermost ring remains. This creates urgency awareness without clock-reading.</p>
+        
+        <ul>
+          <li><strong>Outer ring (6+ hours):</strong> Plenty of day left. Relaxed.</li>
+          <li><strong>Middle ring (3-6 hours):</strong> Afternoon. Day is progressing.</li>
+          <li><strong>Inner ring (1-3 hours):</strong> Evening approaching. Limited time.</li>
+          <li><strong>Center only (&lt;1 hour):</strong> Day ending. Wind down.</li>
+        </ul>
+        
+        <p class="mono" style="margin-top: 1rem;">Key insight: You don't need to know "it's 4:37pm" — you need to know "I have about 4 hours of day left."</p>
+      </div>
+    </div>
+    
+    <h3 style="margin-top: 2rem;">Day Progression (Example: Wake 7am, Sleep 11pm)</h3>
+    
+    <div class="progression-grid">
+      <div class="progression-state">
+        <div class="time-label">7:00 AM</div>
+        <div class="mini-ring">
+          <div class="mr outer"></div>
+          <div class="mr r3"></div>
+          <div class="mr r2"></div>
+          <div class="mr r1"></div>
+          <div class="mr now" style="top: 52px; left: 52px;"></div>
+        </div>
+        <div class="desc">All rings visible<br>16 hours ahead</div>
+      </div>
+      
+      <div class="progression-state">
+        <div class="time-label">12:00 PM</div>
+        <div class="mini-ring">
+          <div class="mr outer collapsed"></div>
+          <div class="mr r3"></div>
+          <div class="mr r2"></div>
+          <div class="mr r1"></div>
+          <div class="mr now" style="top: 52px; left: 52px;"></div>
+        </div>
+        <div class="desc">Outer fades<br>11 hours ahead</div>
+      </div>
+      
+      <div class="progression-state">
+        <div class="time-label">5:00 PM</div>
+        <div class="mini-ring">
+          <div class="mr outer collapsed"></div>
+          <div class="mr r3 collapsed"></div>
+          <div class="mr r2 active"></div>
+          <div class="mr r1"></div>
+          <div class="mr now" style="top: 52px; left: 52px;"></div>
+        </div>
+        <div class="desc">Two rings left<br>6 hours ahead</div>
+      </div>
+      
+      <div class="progression-state">
+        <div class="time-label">8:00 PM</div>
+        <div class="mini-ring">
+          <div class="mr outer collapsed"></div>
+          <div class="mr r3 collapsed"></div>
+          <div class="mr r2 collapsed"></div>
+          <div class="mr r1 active"></div>
+          <div class="mr now" style="top: 52px; left: 52px;"></div>
+        </div>
+        <div class="desc">Inner ring only<br>3 hours ahead</div>
+      </div>
+      
+      <div class="progression-state">
+        <div class="time-label">10:30 PM</div>
+        <div class="mini-ring">
+          <div class="mr outer collapsed"></div>
+          <div class="mr r3 collapsed"></div>
+          <div class="mr r2 collapsed"></div>
+          <div class="mr r1 collapsed"></div>
+          <div class="mr now" style="top: 52px; left: 52px;"></div>
+        </div>
+        <div class="desc">Center only<br>Wind down</div>
+      </div>
+    </div>
+    
+    <div class="info-box">
+      <h4>Why This Works for Time Blindness</h4>
+      <ul>
+        <li><strong>Spatial metaphor:</strong> "Lots of space" = lots of time. "Shrinking" = time running out.</li>
+        <li><strong>No math required:</strong> Don't need to calculate "11pm minus 4:37pm = 6hr 23min"</li>
+        <li><strong>Embodied urgency:</strong> Physical compression creates felt sense of day ending</li>
+        <li><strong>Customizable day:</strong> User sets their wake/sleep times — rings calibrate automatically</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: Watchy Implementation -->
+<h2>02 — Watchy Implementation</h2>
+
+<section>
+  <div class="diagram-section">
+    <div class="watchy-container">
+      <div class="watchy-device">
+        <div class="watchy-frame">
+          <div class="watchy-btn tl"></div>
+          <div class="watchy-btn bl"></div>
+          <div class="watchy-btn tr"></div>
+          <div class="watchy-btn br"></div>
+          
+          <div class="watchy-screen">
+            <div class="watchy-face">
+              <div class="wf-time">2:45</div>
+              <div class="wf-date">FRI DEC 27</div>
+              
+              <div class="wf-rings">
+                <div class="wf-ring wr1"></div>
+                <div class="wf-ring wr2 active"></div>
+                <div class="wf-ring wr3"></div>
+                <div class="wf-now"></div>
+              </div>
+              
+              <div class="wf-timer-label">TIMER 19:32</div>
+              <div class="wf-timer-bar">
+                <div class="wf-timer-fill"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="watchy-label">WATCHY</div>
+        </div>
+      </div>
+      
+      <div class="watchy-spec">
+        <h3>Watchy Specs + Gs Watch Fit</h3>
+        
+        <table class="spec-table">
+          <tr>
+            <th>Display</th>
+            <td>200×200 px e-ink, 1.54"<br>Monochrome (black/white)</td>
+          </tr>
+          <tr>
+            <th>Processor</th>
+            <td>ESP32 dual-core<br>WiFi + Bluetooth LE</td>
+          </tr>
+          <tr>
+            <th>Battery</th>
+            <td>~7 days (time only)<br>2-3 days (with WiFi)</td>
+          </tr>
+          <tr>
+            <th>Vibration</th>
+            <td>Yes — motor included<br>Programmable patterns</td>
+          </tr>
+          <tr>
+            <th>Buttons</th>
+            <td>4 physical buttons<br>Timer start/stop, settings</td>
+          </tr>
+          <tr>
+            <th>Platform</th>
+            <td>Open source (Arduino/ESP-IDF)<br>Custom watch faces supported</td>
+          </tr>
+          <tr>
+            <th>Cost</th>
+            <td>$55-70 assembled<br>DIY kits available</td>
+          </tr>
+        </table>
+        
+        <div class="info-box" style="margin-top: 1rem;">
+          <h4>Gs Watch Face Elements</h4>
+          <ul>
+            <li><strong>Top:</strong> Digital time (fallback readability)</li>
+            <li><strong>Center:</strong> Radial rings (day remaining)</li>
+            <li><strong>Bottom:</strong> Timer bar (depletion visualization)</li>
+            <li><strong>Buttons:</strong> TL=timer start, BL=timer stop, TR=settings, BR=mode</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: Haptic Cuckoo -->
+<h2>03 — Haptic Cuckoo: Vibration Patterns</h2>
+
+<section>
+  <div class="diagram-section">
+    <p>Like a cuckoo clock, the watch vibrates on the hour and half-hour. Pattern encodes time without looking.</p>
+    
+    <div class="haptic-diagram">
+      <div class="haptic-timeline">
+        <h3 style="margin-bottom: 1rem;">Vibration Pattern by Time</h3>
+        
+        <div class="hour-row">
+          <div class="hour-time">:00</div>
+          <div class="hour-pattern">
+            <div class="vibe on long"></div>
+          </div>
+          <div class="hour-desc">1 long pulse</div>
+        </div>
+        
+        <div class="hour-row">
+          <div class="hour-time">:30</div>
+          <div class="hour-pattern">
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+          </div>
+          <div class="hour-desc">2 short pulses</div>
+        </div>
+        
+        <div class="hour-row" style="background: var(--accent-light);">
+          <div class="hour-time">:00</div>
+          <div class="hour-pattern">
+            <div class="vibe on long"></div>
+            <div class="vibe"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+          </div>
+          <div class="hour-desc">Long + 3 short = 3pm</div>
+        </div>
+        
+        <div class="hour-row">
+          <div class="hour-time">:00</div>
+          <div class="hour-pattern">
+            <div class="vibe on long"></div>
+            <div class="vibe"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+          </div>
+          <div class="hour-desc">Long + 6 short = 6pm</div>
+        </div>
+        
+        <div class="hour-row">
+          <div class="hour-time">TIMER</div>
+          <div class="hour-pattern">
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+            <div class="vibe on"></div>
+          </div>
+          <div class="hour-desc">Distinct pattern</div>
+        </div>
+      </div>
+      
+      <div class="haptic-legend">
+        <h4>Pattern Key</h4>
+        <div class="legend-item">
+          <div class="vibe on long"></div>
+          <span>Long pulse (300ms)</span>
+        </div>
+        <div class="legend-item">
+          <div class="vibe on"></div>
+          <span>Short pulse (100ms)</span>
+        </div>
+        <div class="legend-item">
+          <div class="vibe"></div>
+          <span>Gap (200ms)</span>
+        </div>
+        
+        <h4 style="margin-top: 1.5rem;">Hour Encoding</h4>
+        <p style="font-size: 0.8rem; margin: 0;">Long pulse = hour marker<br>Short pulses = hour count (1-12)</p>
+        <p style="font-size: 0.75rem; margin-top: 0.5rem; color: var(--text-muted);">User learns pattern over time. No visual check needed.</p>
+      </div>
+    </div>
+    
+    <div class="info-box">
+      <h4>Haptic Options</h4>
+      <ul>
+        <li><strong>Minimal:</strong> Vibrate on hour only (long pulse). Half-hour optional.</li>
+        <li><strong>Encoded:</strong> Long + count pulses = actual hour (learn over time)</li>
+        <li><strong>Ring transitions:</strong> Subtle buzz when a ring collapses (day progressing)</li>
+        <li><strong>Timer warnings:</strong> Gentle pulse at 5min, 1min remaining. Distinct pattern at zero.</li>
+        <li><strong>Quiet hours:</strong> Disable haptics during user-defined sleep window</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: Full Concept Summary -->
+<h2>04 — Complete Watchy Gs Watch Concept</h2>
+
+<section>
+  <div class="diagram-section">
+    <h3>Watch Face Modes</h3>
+    
+    <table class="spec-table">
+      <tr>
+        <th>Mode</th>
+        <th>Display</th>
+        <th>Button</th>
+      </tr>
+      <tr>
+        <td><strong>Default</strong></td>
+        <td>Digital time + radial rings + timer bar</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td><strong>Timer Active</strong></td>
+        <td>Timer countdown prominent, rings dimmed</td>
+        <td>TL to start</td>
+      </tr>
+      <tr>
+        <td><strong>Minimal</strong></td>
+        <td>Rings only, no digital time</td>
+        <td>BR to toggle</td>
+      </tr>
+      <tr>
+        <td><strong>Settings</strong></td>
+        <td>Wake time, sleep time, haptic prefs</td>
+        <td>TR to enter</td>
+      </tr>
+    </table>
+    
+    <h3 style="margin-top: 2rem;">User Settings</h3>
+    
+    <table class="spec-table">
+      <tr>
+        <th>Setting</th>
+        <th>Options</th>
+      </tr>
+      <tr>
+        <td>Wake time</td>
+        <td>5am - 11am (default 7am)</td>
+      </tr>
+      <tr>
+        <td>Sleep time</td>
+        <td>8pm - 2am (default 11pm)</td>
+      </tr>
+      <tr>
+        <td>Ring count</td>
+        <td>3 or 4 rings</td>
+      </tr>
+      <tr>
+        <td>Haptic: hourly</td>
+        <td>On / Off / Encoded</td>
+      </tr>
+      <tr>
+        <td>Haptic: half-hour</td>
+        <td>On / Off</td>
+      </tr>
+      <tr>
+        <td>Haptic: ring collapse</td>
+        <td>On / Off</td>
+      </tr>
+      <tr>
+        <td>Timer presets</td>
+        <td>15 / 25 / 45 / 60 min</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="recommendation">
+    <h3>Development Path</h3>
+    <p><strong>Phase 1:</strong> Build Watchy watch face with ring logic + timer bar. Test haptic patterns. Validate with 3-5 ND users.</p>
+    <p><strong>Phase 2:</strong> Refine based on feedback. Add settings UI. Create 2-3 aesthetic variants (minimal, Girard color, dark mode).</p>
+    <p><strong>Phase 3:</strong> If validated, explore mechanical hybrid (printed dial with ring zones + rotating bezel timer + haptic module).</p>
+    <p class="mono" style="margin-top: 1rem;">Watchy is lowest-barrier path to test core concept before any hardware investment.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Gs Watch Development — Ring Logic + Watchy Spec v1</p>
+  <p class="mono" style="margin-top: 0.25rem;">Radial Rings · Haptic Cuckoo · E-ink Platform</p>
+</footer>
+
+</body>
+</html>

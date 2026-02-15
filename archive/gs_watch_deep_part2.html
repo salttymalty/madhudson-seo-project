@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>/deep — Cognitive Accessibility, New Concepts, Innovation Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --surface: #fff;
+      --sheet: #f5f0e8;
+      --ink: #2a2622;
+      --ink-soft: #6b6560;
+      --slate: #8a8580;
+      --border: #e5e0db;
+      --accent: #c45d3a;
+      --accent-light: rgba(196, 93, 58, 0.08);
+      --success: #4a8a5a;
+      --success-light: rgba(74, 138, 90, 0.08);
+      --warning: #d4a044;
+      --warning-light: rgba(212, 160, 68, 0.1);
+      --error: #b54a2a;
+      --error-light: rgba(181, 74, 42, 0.08);
+      --teal: #4a8a8a;
+      --teal-light: rgba(74, 138, 138, 0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3 { font-family: 'Fraunces', serif; font-weight: 500; }
+    h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.2rem; margin: 2.5rem 0 1rem; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    h3 { font-size: 1rem; margin: 1.5rem 0 0.75rem; }
+    h4 { font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+
+    p { color: var(--ink-soft); font-size: 0.9rem; margin-bottom: 0.75rem; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+
+    header { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .subtitle { color: var(--slate); font-size: 0.95rem; }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1rem 0;
+    }
+
+    .issue-card {
+      border-left: 3px solid var(--error);
+      background: var(--error-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .opportunity-card {
+      border-left: 3px solid var(--success);
+      background: var(--success-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .neutral-card {
+      border-left: 3px solid var(--warning);
+      background: var(--warning-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .innovation-card {
+      border-left: 3px solid var(--teal);
+      background: var(--teal-light);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .card-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .issue-card .card-label { color: var(--error); }
+    .opportunity-card .card-label { color: var(--success); }
+    .neutral-card .card-label { color: var(--warning); }
+    .innovation-card .card-label { color: var(--teal); }
+
+    /* Score rows */
+    .score-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .score-label {
+      flex: 1;
+      font-size: 0.85rem;
+      color: var(--ink);
+    }
+
+    .score-bar {
+      flex: 0 0 150px;
+      height: 8px;
+      background: var(--sheet);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .score-fill {
+      height: 100%;
+      border-radius: 4px;
+    }
+
+    .score-fill.high { background: var(--success); }
+    .score-fill.medium { background: var(--warning); }
+    .score-fill.low { background: var(--error); }
+
+    .score-value {
+      flex: 0 0 40px;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      text-align: right;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.6rem 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th { font-weight: 600; background: var(--sheet); }
+    td { color: var(--ink-soft); }
+
+    /* Concept grid */
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .concept-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .concept-viz {
+      background: var(--sheet);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+    }
+
+    .concept-info {
+      padding: 1.25rem;
+    }
+
+    .concept-info h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      margin: 0 0 0.25rem 0;
+    }
+
+    .concept-info .lens {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-info p {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .concept-info .innovation {
+      font-size: 0.8rem;
+      font-style: italic;
+      color: var(--accent);
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--border);
+      margin-top: 0.5rem;
+    }
+
+    /* Lists */
+    ul, ol { margin: 0.75rem 0 1rem 1.5rem; color: var(--ink-soft); font-size: 0.9rem; }
+    li { margin-bottom: 0.35rem; }
+
+    /* Checklist */
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li { padding-left: 1.5rem; position: relative; }
+    .checklist li::before {
+      content: "○";
+      position: absolute;
+      left: 0;
+      color: var(--slate);
+    }
+    .checklist li.pass::before { content: "✓"; color: var(--success); }
+    .checklist li.fail::before { content: "✗"; color: var(--error); }
+    .checklist li.partial::before { content: "◐"; color: var(--warning); }
+
+    /* Section dividers */
+    .section-divider {
+      margin: 3rem 0 2rem;
+      text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--slate);
+      position: relative;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 20%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-divider::before { left: 5%; }
+    .section-divider::after { right: 5%; }
+
+    /* Comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    @media (max-width: 600px) {
+      .compare-grid { grid-template-columns: 1fr; }
+    }
+
+    .compare-col {
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .compare-col.before {
+      background: var(--sheet);
+      border: 1px dashed var(--border);
+    }
+
+    .compare-col.after {
+      background: var(--accent-light);
+      border: 1px solid var(--accent);
+    }
+
+    .compare-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+
+    .compare-col.before .compare-label { color: var(--slate); }
+    .compare-col.after .compare-label { color: var(--accent); }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--slate);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <p class="mono">/ DEEP ASSESSMENT — PART 2</p>
+  <h1>Cognitive Accessibility, New Concepts & Innovation Analysis</h1>
+  <p class="subtitle">Readability audit, 10 new watch concepts, and competitive landscape for truly innovative positioning.</p>
+</header>
+
+<!-- ============================================ -->
+<!-- PART 1: COGNITIVE ACCESSIBILITY ASSESSMENT -->
+<!-- ============================================ -->
+
+<h2>Part 1: Cognitive Accessibility & Readability Assessment</h2>
+
+<p>Evaluating the current deck against WCAG cognitive accessibility guidelines and neurodivergent-friendly design principles.</p>
+
+<h3>Overall Cognitive Accessibility Scores</h3>
+
+<div class="card">
+  <div class="score-row">
+    <span class="score-label">Reading level appropriateness</span>
+    <div class="score-bar"><div class="score-fill high" style="width: 80%"></div></div>
+    <span class="score-value">80%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Visual hierarchy clarity</span>
+    <div class="score-bar"><div class="score-fill high" style="width: 85%"></div></div>
+    <span class="score-value">85%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Cognitive load management</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 65%"></div></div>
+    <span class="score-value">65%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Predictable navigation</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 60%"></div></div>
+    <span class="score-value">60%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Sensory-friendly design</span>
+    <div class="score-bar"><div class="score-fill high" style="width: 90%"></div></div>
+    <span class="score-value">90%</span>
+  </div>
+  <div class="score-row">
+    <span class="score-label">Information chunking</span>
+    <div class="score-bar"><div class="score-fill medium" style="width: 70%"></div></div>
+    <span class="score-value">70%</span>
+  </div>
+</div>
+
+<h3>WCAG Cognitive Accessibility Checklist</h3>
+
+<ul class="checklist">
+  <li class="pass"><strong>Readable fonts</strong> — DM Sans (body) and Fraunces (display) are clean, legible choices</li>
+  <li class="pass"><strong>Sufficient contrast</strong> — Text/background ratios meet AA standards</li>
+  <li class="pass"><strong>No autoplay media</strong> — No distracting animations or sounds</li>
+  <li class="pass"><strong>No flashing content</strong> — Static design, no seizure triggers</li>
+  <li class="partial"><strong>Consistent navigation</strong> — Linear scroll works but no jump-to navigation</li>
+  <li class="partial"><strong>Clear structure</strong> — Good headings but some sections are text-heavy</li>
+  <li class="partial"><strong>Sufficient spacing</strong> — Good line height (1.7) but some cards are dense</li>
+  <li class="fail"><strong>Reading level</strong> — Some philosophical sections exceed lower secondary level</li>
+  <li class="fail"><strong>Predictable layout</strong> — Different card formats create cognitive switching</li>
+  <li class="fail"><strong>Time-free interaction</strong> — N/A for static doc, but reflection blanks have no save state</li>
+</ul>
+
+<h3>Specific Issues Found</h3>
+
+<div class="issue-card">
+  <p class="card-label">Readability Issue</p>
+  <h4>Philosophy section reading level too high</h4>
+  <p>Flesch-Kincaid analysis of the opening philosophy section estimates Grade 11-12 reading level. Target should be Grade 8 or below for cognitive accessibility.</p>
+  <p><strong>Example:</strong> "This project isn't about our conclusions regarding time. It's about building tools that help you notice your own relationship with it." — This sentence has nested clauses and abstract concepts.</p>
+  <p><strong>Simplified:</strong> "These watches help you see time differently. Not our way. Your way."</p>
+</div>
+
+<div class="issue-card">
+  <p class="card-label">Cognitive Load Issue</p>
+  <h4>Six lenses presented simultaneously</h4>
+  <p>The "Lenses for Noticing" section presents six abstract concepts (Position, Container, Momentum, Anchor, Rhythm, Boundary) in a grid with no progressive disclosure. This creates high cognitive load, especially for users with ADHD or processing differences.</p>
+  <p><strong>Recommendation:</strong> Present 2-3 lenses at a time, or offer a "Which lens speaks to you?" flow that reveals one at a time.</p>
+</div>
+
+<div class="issue-card">
+  <p class="card-label">Navigation Issue</p>
+  <h4>No table of contents or section anchors</h4>
+  <p>For a document this length (~1700 lines), users with attention or memory challenges need clear wayfinding. Currently, the only navigation is scrolling.</p>
+  <p><strong>Recommendation:</strong> Add a sticky TOC sidebar or top navigation bar with section links.</p>
+</div>
+
+<div class="issue-card">
+  <p class="card-label">Format Inconsistency</p>
+  <h4>Card formats vary unpredictably</h4>
+  <p>Some watch cards have "Ways this has been used" sections, some don't. Some have invitation prompts, some don't. This unpredictability increases cognitive switching cost.</p>
+  <p><strong>Recommendation:</strong> Standardize all watch cards to identical format, even if some fields are optional.</p>
+</div>
+
+<h3>Strengths</h3>
+
+<div class="opportunity-card">
+  <p class="card-label">Strength</p>
+  <h4>Sensory-friendly palette</h4>
+  <p>The warm, muted Girard-inspired colors avoid high-saturation hues that can be overwhelming for sensory-sensitive users. Good choice of cream backgrounds over pure white.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Strength</p>
+  <h4>Generous whitespace</h4>
+  <p>The deck uses adequate margins and padding, giving content room to breathe. This reduces visual overwhelm.</p>
+</div>
+
+<div class="opportunity-card">
+  <p class="card-label">Strength</p>
+  <h4>Reflection blanks signal agency</h4>
+  <p>The dashed-box "your words here" pattern is a clear visual cue that something is expected from the reader. This predictability helps users with executive function challenges.</p>
+</div>
+
+<h3>Readability Improvements</h3>
+
+<table>
+  <tr>
+    <th>Current</th>
+    <th>Issue</th>
+    <th>Simplified Version</th>
+  </tr>
+  <tr>
+    <td>"This project isn't about our conclusions regarding time."</td>
+    <td>Nested negation</td>
+    <td>"These watches show time differently."</td>
+  </tr>
+  <tr>
+    <td>"The watches that follow aren't prescriptions. They're lenses."</td>
+    <td>Abstract metaphor</td>
+    <td>"These watches don't tell you what to do. They help you see."</td>
+  </tr>
+  <tr>
+    <td>"What that 'something' is — a work session, a conversation, a pause — is yours to decide."</td>
+    <td>Embedded list in parenthetical</td>
+    <td>"You decide what it means. A work session. A conversation. A pause."</td>
+  </tr>
+  <tr>
+    <td>"These aren't types of people. They're modes that shift throughout a day, a season, a life."</td>
+    <td>Compound abstract concepts</td>
+    <td>"These modes change. They shift during a day. During a year. During a life."</td>
+  </tr>
+</table>
+
+<div class="section-divider">Part 2: New Watch Concepts</div>
+
+<!-- ============================================ -->
+<!-- PART 2: 10 NEW WATCH CONCEPTS -->
+<!-- ============================================ -->
+
+<h2>Part 2: Ten New Watch Concepts</h2>
+
+<p>Informed by research on: Slow watches (24-hour single-hand), Eone Bradley (tactile ball bearings), BOTTA 24-hour (sun-synchronous), wearable haptics, and cognitive accessibility principles.</p>
+
+<div class="concept-grid">
+
+  <!-- CONCEPT 1: HORIZON -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Horizon line -->
+        <line x1="15" y1="100" x2="185" y2="100" stroke="#d0c8b8" stroke-width="2"/>
+        <!-- Day half (light) -->
+        <path d="M100,10 A90,90 0 0,1 100,190" fill="rgba(245,220,180,0.3)"/>
+        <!-- Night half (darker) -->
+        <path d="M100,10 A90,90 0 0,0 100,190" fill="rgba(90,106,122,0.15)"/>
+        <!-- Sun position marker -->
+        <circle cx="140" cy="50" r="8" fill="#d4a044"/>
+        <!-- Cardinal markers -->
+        <text x="100" y="25" text-anchor="middle" font-size="8" fill="#888">noon</text>
+        <text x="100" y="185" text-anchor="middle" font-size="8" fill="#888">midnight</text>
+        <text x="20" y="104" text-anchor="start" font-size="8" fill="#888">6am</text>
+        <text x="180" y="104" text-anchor="end" font-size="8" fill="#888">6pm</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Position · Rhythm</p>
+      <h4>Horizon</h4>
+      <p>A 24-hour watch where a single marker (the "sun") travels above and below a horizon line. Above = day. Below = night. No numbers needed.</p>
+      <p class="innovation">Innovation: Combines BOTTA's sun-synchronous concept with radical simplicity. Position relative to horizon is instantly readable without learning a new system.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 2: PULSE -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Minimal dial - just center dot -->
+        <circle cx="100" cy="100" r="4" fill="#2a2622"/>
+        <!-- Haptic indicator rings -->
+        <circle cx="100" cy="100" r="25" fill="none" stroke="#d0c8b8" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="100" cy="100" r="45" fill="none" stroke="#d0c8b8" stroke-width="1" stroke-dasharray="4,4"/>
+        <circle cx="100" cy="100" r="65" fill="none" stroke="#d0c8b8" stroke-width="1" stroke-dasharray="4,4"/>
+        <!-- Vibration symbol -->
+        <g transform="translate(100, 100)">
+          <path d="M-8,-3 Q-12,0 -8,3" stroke="#c45d3a" stroke-width="2" fill="none"/>
+          <path d="M8,-3 Q12,0 8,3" stroke="#c45d3a" stroke-width="2" fill="none"/>
+        </g>
+        <text x="100" y="160" text-anchor="middle" font-size="7" fill="#888">tap to feel time</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Anchor · Rhythm</p>
+      <h4>Pulse</h4>
+      <p>An almost-blank dial. Tap the crystal and feel the time through haptic pulses. Long pulse = 5 hours. Short pulse = 1 hour. Completely private.</p>
+      <p class="innovation">Innovation: Draws from Apple Watch's Taptic Time but makes it primary, not secondary. The visual dial is intentionally empty — time is felt, not seen.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 3: ORBIT -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Orbital tracks -->
+        <circle cx="100" cy="100" r="70" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <circle cx="100" cy="100" r="45" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <circle cx="100" cy="100" r="20" fill="none" stroke="#e5e0da" stroke-width="1"/>
+        <!-- Ball bearings (Eone-inspired) -->
+        <circle cx="170" cy="100" r="6" fill="#4a8a8a"/>
+        <circle cx="55" cy="100" r="5" fill="#d4a044"/>
+        <circle cx="100" cy="80" r="4" fill="#c45d3a"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="3" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Position · Momentum</p>
+      <h4>Orbit</h4>
+      <p>Three ball bearings on concentric tracks: hours (outer), minutes (middle), seconds (inner). Inspired by Eone Bradley but with three bodies instead of two.</p>
+      <p class="innovation">Innovation: Multiple orbiting elements create a "solar system" metaphor. Can be read visually or tactilely. The seconds ball provides meditative movement.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 4: WEIGHT -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Balance beam -->
+        <line x1="30" y1="100" x2="170" y2="90" stroke="#2a2622" stroke-width="3" stroke-linecap="round"/>
+        <!-- Fulcrum -->
+        <polygon points="100,100 90,120 110,120" fill="#2a2622"/>
+        <!-- Hour weight (heavier, lower) -->
+        <circle cx="40" cy="110" r="12" fill="#c45d3a"/>
+        <!-- Minute weight (lighter, higher) -->
+        <circle cx="160" cy="80" r="8" fill="#d4a044"/>
+        <!-- Scale marks -->
+        <text x="30" y="140" text-anchor="middle" font-size="7" fill="#888">am</text>
+        <text x="170" y="70" text-anchor="end" font-size="7" fill="#888">pm</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Container · Boundary</p>
+      <h4>Weight</h4>
+      <p>A balance beam that tilts throughout the day. Morning: tilted left. Evening: tilted right. Noon: level. Feel the "weight" of the day shifting.</p>
+      <p class="innovation">Innovation: Physicality metaphor — time has mass, the day has weight. Highly intuitive for kinesthetic learners. No numbers needed.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 5: FILL -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Container outline -->
+        <rect x="60" y="30" width="80" height="140" rx="8" fill="none" stroke="#d0c8b8" stroke-width="2"/>
+        <!-- Fill level (showing ~60% of day passed) -->
+        <rect x="62" y="86" width="76" height="82" rx="6" fill="#4a8a8a" opacity="0.6"/>
+        <!-- Level markers -->
+        <line x1="55" y1="50" x2="60" y2="50" stroke="#aaa" stroke-width="1"/>
+        <line x1="55" y1="100" x2="60" y2="100" stroke="#aaa" stroke-width="1"/>
+        <line x1="55" y1="150" x2="60" y2="150" stroke="#aaa" stroke-width="1"/>
+        <!-- Labels -->
+        <text x="48" y="53" text-anchor="end" font-size="6" fill="#888">wake</text>
+        <text x="48" y="103" text-anchor="end" font-size="6" fill="#888">noon</text>
+        <text x="48" y="153" text-anchor="end" font-size="6" fill="#888">sleep</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Container · Boundary</p>
+      <h4>Fill</h4>
+      <p>A vessel that fills from bottom to top throughout your waking hours. Wake time and sleep time are user-set. Shows "how much day is left" as a liquid level.</p>
+      <p class="innovation">Innovation: Reframes time as a finite resource filling/depleting. Highly intuitive for people with time blindness — "the tank is 60% full."</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 6: SPOKE -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- 12 spokes radiating from center -->
+        <g stroke="#e5e0da" stroke-width="1">
+          <line x1="100" y1="100" x2="100" y2="20"/>
+          <line x1="100" y1="100" x2="150" y2="30"/>
+          <line x1="100" y1="100" x2="180" y2="60"/>
+          <line x1="100" y1="100" x2="180" y2="100"/>
+          <line x1="100" y1="100" x2="180" y2="140"/>
+          <line x1="100" y1="100" x2="150" y2="170"/>
+          <line x1="100" y1="100" x2="100" y2="180"/>
+          <line x1="100" y1="100" x2="50" y2="170"/>
+          <line x1="100" y1="100" x2="20" y2="140"/>
+          <line x1="100" y1="100" x2="20" y2="100"/>
+          <line x1="100" y1="100" x2="20" y2="60"/>
+          <line x1="100" y1="100" x2="50" y2="30"/>
+        </g>
+        <!-- Highlighted current hour spoke -->
+        <line x1="100" y1="100" x2="150" y2="30" stroke="#c45d3a" stroke-width="4" stroke-linecap="round"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="6" fill="#2a2622"/>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Position · Anchor</p>
+      <h4>Spoke</h4>
+      <p>Twelve fixed spokes. One spoke lights up (or is textured differently) to indicate the current hour. No moving parts — just activation.</p>
+      <p class="innovation">Innovation: Eliminates the need to track moving hands. Position is absolute, not relative. Could work as LED, mechanical reveal, or tactile texture change.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 7: SHADOW -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Gnomon (sundial pointer) -->
+        <line x1="100" y1="100" x2="100" y2="50" stroke="#2a2622" stroke-width="3"/>
+        <circle cx="100" cy="50" r="4" fill="#2a2622"/>
+        <!-- Shadow (showing ~2pm) -->
+        <line x1="100" y1="100" x2="140" y2="130" stroke="rgba(0,0,0,0.15)" stroke-width="8" stroke-linecap="round"/>
+        <!-- Hour arc markers -->
+        <g fill="#d0c8b8" font-size="8">
+          <circle cx="60" cy="130" r="2"/>
+          <circle cx="100" cy="150" r="2"/>
+          <circle cx="140" cy="130" r="2"/>
+          <circle cx="155" cy="100" r="2"/>
+          <circle cx="140" cy="70" r="2"/>
+        </g>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Position · Rhythm</p>
+      <h4>Shadow</h4>
+      <p>A sundial on your wrist. A fixed gnomon casts a "shadow" (projected by internal light or mechanical cam) that moves with the sun's path.</p>
+      <p class="innovation">Innovation: Reconnects to oldest timekeeping method. The "shadow" could be actual (outdoor use) or simulated (internal LED + frosted crystal). Deeply intuitive.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 8: THRESHOLD -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Three threshold lines -->
+        <line x1="30" y1="60" x2="170" y2="60" stroke="#e8b4a0" stroke-width="3"/>
+        <line x1="30" y1="100" x2="170" y2="100" stroke="#f0d488" stroke-width="3"/>
+        <line x1="30" y1="140" x2="170" y2="140" stroke="#d08050" stroke-width="3"/>
+        <!-- Current position marker -->
+        <circle cx="120" cy="100" r="8" fill="#2a2622"/>
+        <!-- Labels -->
+        <text x="25" y="63" text-anchor="end" font-size="7" fill="#888">morning</text>
+        <text x="25" y="103" text-anchor="end" font-size="7" fill="#888">midday</text>
+        <text x="25" y="143" text-anchor="end" font-size="7" fill="#888">evening</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Boundary · Position</p>
+      <h4>Threshold</h4>
+      <p>Three horizontal lines represent transitions. A marker moves right throughout the day AND drops down to the next line at each threshold. Position = time, row = phase.</p>
+      <p class="innovation">Innovation: Combines linear progress (left-right) with categorical phase (row). Makes day phases explicit while showing within-phase progress.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 9: STONE -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <!-- Organic, stone-like shape -->
+        <path d="M100,15 Q160,20 175,60 Q185,100 170,140 Q150,180 100,185 Q50,180 30,140 Q15,100 25,60 Q40,20 100,15" fill="#e5e0da"/>
+        <!-- Subtle texture -->
+        <circle cx="60" cy="70" r="15" fill="rgba(0,0,0,0.03)"/>
+        <circle cx="140" cy="90" r="20" fill="rgba(0,0,0,0.02)"/>
+        <circle cx="90" cy="140" r="18" fill="rgba(0,0,0,0.025)"/>
+        <!-- Single tactile marker (raised bump) -->
+        <circle cx="130" cy="60" r="6" fill="#c4a882"/>
+        <!-- Text -->
+        <text x="100" y="200" text-anchor="middle" font-size="7" fill="#888">feel the marker</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Anchor · Rhythm</p>
+      <h4>Stone</h4>
+      <p>An organic, pebble-shaped case with no visible dial. A single raised bump (the "marker") slowly migrates around the edge over 24 hours. Time is felt, not seen.</p>
+      <p class="innovation">Innovation: Inspired by Eone Bradley's tactile approach but removes all visual time-telling. The object is a worry stone that happens to tell time.</p>
+    </div>
+  </div>
+
+  <!-- CONCEPT 10: BREATH -->
+  <div class="concept-card">
+    <div class="concept-viz">
+      <svg width="140" height="140" viewBox="0 0 200 200">
+        <circle cx="100" cy="100" r="90" fill="#f5f0e8"/>
+        <!-- Expanding/contracting circle (showing "inhale" state) -->
+        <circle cx="100" cy="100" r="50" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.6"/>
+        <circle cx="100" cy="100" r="40" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.4"/>
+        <circle cx="100" cy="100" r="30" fill="none" stroke="#7a8a4a" stroke-width="2" opacity="0.2"/>
+        <!-- Center -->
+        <circle cx="100" cy="100" r="8" fill="#7a8a4a"/>
+        <!-- Labels -->
+        <text x="100" y="170" text-anchor="middle" font-size="8" fill="#888">4 sec in · 4 sec out</text>
+      </svg>
+    </div>
+    <div class="concept-info">
+      <p class="lens">Rhythm · Anchor</p>
+      <h4>Breath</h4>
+      <p>The dial pulses at a fixed breathing rhythm (e.g., 4 seconds expand, 4 seconds contract). Not a timer — a pacer. The time is secondary to the rhythm.</p>
+      <p class="innovation">Innovation: Inverts the watch's purpose. Time-telling becomes secondary to nervous system regulation. For anxiety/ADHD users who need grounding more than scheduling.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section-divider">Part 3: Innovation Analysis</div>
+
+<!-- ============================================ -->
+<!-- PART 3: COMPETITIVE LANDSCAPE & INNOVATION -->
+<!-- ============================================ -->
+
+<h2>Part 3: Competitive Landscape & Innovation Gaps</h2>
+
+<p>Mapping existing products to identify where Gs Watch can truly differentiate.</p>
+
+<h3>Competitive Product Map</h3>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Core Innovation</th>
+    <th>Limitation</th>
+    <th>Gs Watch Opportunity</th>
+  </tr>
+  <tr>
+    <td><strong>Slow Watch</strong></td>
+    <td>24-hour single hand, "slow life" philosophy</td>
+    <td>Still visual-centric; no tactile option; philosophy is prescriptive ("slow down")</td>
+    <td>Offer 24-hour but with invitational framing ("what do you notice?")</td>
+  </tr>
+  <tr>
+    <td><strong>BOTTA UNO 24</strong></td>
+    <td>Sun-synchronous display, day/night halves</td>
+    <td>German precision aesthetic; clinical feel; $400+ price point</td>
+    <td>Warmer aesthetic, lower price, accessible language</td>
+  </tr>
+  <tr>
+    <td><strong>Eone Bradley</strong></td>
+    <td>Tactile ball bearings, inclusive design</td>
+    <td>Positioned primarily as accessibility product; limited emotional/philosophical framing</td>
+    <td>Tactile features with broader "different relationships with time" positioning</td>
+  </tr>
+  <tr>
+    <td><strong>Apple Watch Taptic Time</strong></td>
+    <td>Haptic time-telling</td>
+    <td>Secondary feature; requires smartwatch ecosystem; notification-heavy device</td>
+    <td>Haptic as primary, no notifications, no ecosystem lock-in</td>
+  </tr>
+  <tr>
+    <td><strong>Ressence</strong></td>
+    <td>Orbital disc display, no hands</td>
+    <td>$15,000+ luxury positioning; inaccessible</td>
+    <td>Orbital concepts at accessible price</td>
+  </tr>
+  <tr>
+    <td><strong>Gradient Watch (Lawa)</strong></td>
+    <td>Overlapping color gradients</td>
+    <td>Still conventional time-telling with aesthetic overlay</td>
+    <td>Color as meaning, not just decoration</td>
+  </tr>
+</table>
+
+<h3>Innovation Gap Analysis</h3>
+
+<div class="innovation-card">
+  <p class="card-label">Gap 1</p>
+  <h4>No one is doing "time as felt sense" for the general market</h4>
+  <p>Eone Bradley serves blind/low-vision users. Apple Taptic Time is buried in settings. No product makes tactile time-telling the primary selling point for mainstream users who want to reduce phone-checking.</p>
+  <p><strong>Gs Watch position:</strong> "Feel time. Don't look at it."</p>
+</div>
+
+<div class="innovation-card">
+  <p class="card-label">Gap 2</p>
+  <h4>24-hour watches exist but don't serve neurodivergent needs</h4>
+  <p>Slow and BOTTA make 24-hour watches, but they're positioned as "slow life" lifestyle products, not as tools for time blindness or ADHD. The framing is "slow down" (prescriptive) not "see your whole day" (orienting).</p>
+  <p><strong>Gs Watch position:</strong> "Where are you in your day? See the whole thing at once."</p>
+</div>
+
+<div class="innovation-card">
+  <p class="card-label">Gap 3</p>
+  <h4>No one combines tactile + 24-hour + day zones</h4>
+  <p>Eone is tactile but 12-hour. BOTTA is 24-hour but visual. Day Map has zones but no tactile. No product combines all three.</p>
+  <p><strong>Gs Watch position:</strong> Develop a hybrid concept: 24-hour dial with color zones AND tactile markers at zone boundaries.</p>
+</div>
+
+<div class="innovation-card">
+  <p class="card-label">Gap 4</p>
+  <h4>Nothing positions watches as "grounding tools" for anxiety</h4>
+  <p>Smartwatches have "breathe" apps, but they're buried in menus. No analog watch is designed primarily as a nervous system regulation tool.</p>
+  <p><strong>Gs Watch position:</strong> The "Breath" concept — a watch that paces, not schedules.</p>
+</div>
+
+<h3>What Would Be Truly Innovative</h3>
+
+<div class="card">
+  <h4>Innovation Tier 1: Incremental (Expected)</h4>
+  <ul>
+    <li>Warm color palette on existing dive bezel timer</li>
+    <li>Vegan straps on conventional watch</li>
+    <li>Day zone colors on standard dial</li>
+  </ul>
+  <p style="font-size: 0.8rem; color: var(--slate);">These are table stakes. Many brands could do this.</p>
+</div>
+
+<div class="card">
+  <h4>Innovation Tier 2: Meaningful (Differentiating)</h4>
+  <ul>
+    <li>24-hour dial with sun-synchronous zone colors</li>
+    <li>Tactile markers at zone transitions</li>
+    <li>Invitational philosophy (tools for expression, not prescriptions)</li>
+    <li>Haptic hour chimes (vibration, not sound)</li>
+  </ul>
+  <p style="font-size: 0.8rem; color: var(--slate);">These differentiate Gs Watch from Slow, BOTTA, and standard microbrands.</p>
+</div>
+
+<div class="card">
+  <h4>Innovation Tier 3: Breakthrough (Category-Creating)</h4>
+  <ul>
+    <li><strong>Tactile-primary watch:</strong> Dial is intentionally blank or minimal; time is felt through ball bearing position or haptic pulse</li>
+    <li><strong>Breath-pacer watch:</strong> Not a timer, but a pacing tool that helps regulate nervous system</li>
+    <li><strong>"Fill" watch:</strong> Visual metaphor of container filling/depleting; shows "how much day is left" relative to user-set wake/sleep</li>
+    <li><strong>Companion object separation:</strong> Signal lives off the watch (desk object glows when anchor event active); watch stays purely analog</li>
+  </ul>
+  <p style="font-size: 0.8rem; color: var(--accent);">These create a new category. No existing brand occupies this space.</p>
+</div>
+
+<h3>Recommended Focus</h3>
+
+<div class="opportunity-card">
+  <p class="card-label">Strategic Recommendation</p>
+  <h4>Lead with one Tier 3 concept + two Tier 2 concepts</h4>
+  <p>The temptation is to launch with incremental improvements. But Gs Watch's brand positioning ("time held gently") demands at least one breakthrough concept to prove the philosophy isn't just marketing.</p>
+  <p><strong>Suggested launch lineup:</strong></p>
+  <ul>
+    <li><strong>Focus Bezel</strong> (Tier 2) — Warm, accessible, immediate utility</li>
+    <li><strong>Day Map 24</strong> (Tier 2) — 24-hour with sun-synchronous zones</li>
+    <li><strong>Fill</strong> or <strong>Pulse</strong> (Tier 3) — The category-defining piece</li>
+  </ul>
+</div>
+
+<footer>
+  <p>/deep Assessment Part 2 — Cognitive Accessibility, Concepts, Innovation</p>
+  <p style="margin-top: 0.25rem;">January 2026</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gs Watch — Converge Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2a2622;
+      --text-muted: #6b6560;
+      --accent: #c45d3a;
+      --accent-light: #f5e8e3;
+      --surface: #fff;
+      --border: #e5e0db;
+      
+      /* Time-of-day palette */
+      --dawn: #e8c4a0;
+      --morning: #f5d67a;
+      --midday: #f0e6d0;
+      --afternoon: #d4a574;
+      --evening: #9b7e6a;
+      --night: #4a4a5a;
+      
+      /* Timer states */
+      --timer-full: #d9ece8;
+      --timer-mid: #f5e8c4;
+      --timer-low: #f5d4c4;
+      --timer-urgent: #e8c4c4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      padding: 3rem 2rem 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .phase-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .converge-rationale {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .converge-rationale h3 {
+      margin-bottom: 1rem;
+    }
+
+    .criteria-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .criterion {
+      background: var(--accent-light);
+      padding: 1rem;
+      border-radius: 6px;
+    }
+
+    .criterion strong {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .criterion span {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    /* Prototype cards */
+    .prototype-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .prototype-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .prototype-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .prototype-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .prototype-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-timer {
+      background: var(--timer-full);
+      color: #2a5a50;
+    }
+
+    .tag-clock {
+      background: #e8e4f0;
+      color: #5a4a6a;
+    }
+
+    .tag-hybrid {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .prototype-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 700px) {
+      .prototype-body {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .prototype-viz {
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f3f0;
+      min-height: 320px;
+    }
+
+    .prototype-info {
+      padding: 2rem;
+    }
+
+    .prototype-info p {
+      font-size: 0.9rem;
+    }
+
+    .attributes {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .attributes li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .attributes li:last-child {
+      border-bottom: none;
+    }
+
+    .mono {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    /* ===================== */
+    /* PROTOTYPE 1: DEPLETION ARC */
+    /* ===================== */
+    
+    .depletion-watch {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #2a2622;
+      position: relative;
+      box-shadow: 
+        0 4px 20px rgba(0,0,0,0.15),
+        inset 0 2px 10px rgba(255,255,255,0.05);
+    }
+
+    .depletion-ring {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 0deg,
+        #c45d3a 0deg,
+        #c45d3a var(--depletion-angle, 270deg),
+        #3a3632 var(--depletion-angle, 270deg),
+        #3a3632 360deg
+      );
+      animation: deplete 20s linear infinite;
+    }
+
+    @keyframes deplete {
+      0% { --depletion-angle: 360deg; }
+      100% { --depletion-angle: 0deg; }
+    }
+
+    /* Fallback for browsers without @property */
+    .depletion-ring {
+      animation: deplete-fallback 20s linear infinite;
+    }
+
+    @keyframes deplete-fallback {
+      0% { 
+        background: conic-gradient(from 0deg, #c45d3a 0deg, #c45d3a 360deg, #3a3632 360deg, #3a3632 360deg);
+      }
+      25% {
+        background: conic-gradient(from 0deg, #c45d3a 0deg, #c45d3a 270deg, #3a3632 270deg, #3a3632 360deg);
+      }
+      50% {
+        background: conic-gradient(from 0deg, #c45d3a 0deg, #c45d3a 180deg, #3a3632 180deg, #3a3632 360deg);
+      }
+      75% {
+        background: conic-gradient(from 0deg, #c45d3a 0deg, #c45d3a 90deg, #3a3632 90deg, #3a3632 360deg);
+      }
+      100% {
+        background: conic-gradient(from 0deg, #c45d3a 0deg, #c45d3a 0deg, #3a3632 0deg, #3a3632 360deg);
+      }
+    }
+
+    .depletion-center {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #2a2622;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .depletion-label {
+      color: #f5f3f0;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.6;
+    }
+
+    /* ===================== */
+    /* PROTOTYPE 2: RADIAL NOW */
+    /* ===================== */
+
+    .radial-watch {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #f5f3f0;
+      position: relative;
+      box-shadow: 
+        0 4px 20px rgba(0,0,0,0.1),
+        inset 0 0 30px rgba(0,0,0,0.03);
+    }
+
+    .radial-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid;
+      opacity: 0.3;
+    }
+
+    .radial-ring.r1 {
+      top: 10px; left: 10px;
+      width: 180px; height: 180px;
+      border-color: var(--evening);
+      animation: pulse-ring 4s ease-in-out infinite;
+    }
+
+    .radial-ring.r2 {
+      top: 25px; left: 25px;
+      width: 150px; height: 150px;
+      border-color: var(--afternoon);
+      animation: pulse-ring 4s ease-in-out infinite 0.5s;
+    }
+
+    .radial-ring.r3 {
+      top: 40px; left: 40px;
+      width: 120px; height: 120px;
+      border-color: var(--morning);
+      animation: pulse-ring 4s ease-in-out infinite 1s;
+    }
+
+    .radial-ring.r4 {
+      top: 55px; left: 55px;
+      width: 90px; height: 90px;
+      border-color: var(--dawn);
+      animation: pulse-ring 4s ease-in-out infinite 1.5s;
+    }
+
+    @keyframes pulse-ring {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.02); }
+    }
+
+    .radial-now {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: breathe 3s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.1); }
+    }
+
+    .radial-now::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    /* ===================== */
+    /* PROTOTYPE 3: BLOCK STATE */
+    /* ===================== */
+
+    .block-watch {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #2a2622;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .block-segments {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .block-segment {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(50% 50%, 50% 0%, 100% 0%);
+      opacity: 0.3;
+    }
+
+    .block-segment.seg1 {
+      background: var(--dawn);
+      clip-path: polygon(50% 50%, 50% 0%, 75% 0%, 100% 25%, 100% 50%);
+    }
+
+    .block-segment.seg2 {
+      background: var(--morning);
+      clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 75% 100%);
+    }
+
+    .block-segment.seg3 {
+      background: var(--afternoon);
+      clip-path: polygon(50% 50%, 75% 100%, 25% 100%);
+    }
+
+    .block-segment.seg4 {
+      background: var(--evening);
+      clip-path: polygon(50% 50%, 25% 100%, 0% 100%, 0% 50%);
+    }
+
+    .block-segment.seg5 {
+      background: var(--night);
+      clip-path: polygon(50% 50%, 0% 50%, 0% 0%, 50% 0%);
+    }
+
+    .block-segment.active {
+      opacity: 1;
+      animation: block-glow 2s ease-in-out infinite;
+    }
+
+    @keyframes block-glow {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 1; }
+    }
+
+    .block-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #2a2622;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .block-dot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .block-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4a4642;
+    }
+
+    .block-dot.lit {
+      background: var(--morning);
+    }
+
+    /* Decision matrix */
+    .decision-matrix {
+      margin-top: 3rem;
+      overflow-x: auto;
+    }
+
+    .decision-matrix table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .decision-matrix th,
+    .decision-matrix td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .decision-matrix th {
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .decision-matrix td {
+      color: var(--text-muted);
+    }
+
+    .score {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .score-high {
+      background: var(--timer-full);
+      color: #2a5a50;
+    }
+
+    .score-mid {
+      background: var(--timer-mid);
+      color: #6a5a2a;
+    }
+
+    .score-low {
+      background: var(--timer-low);
+      color: #6a3a2a;
+    }
+
+    /* Recommendation */
+    .recommendation {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 1.5rem 2rem;
+      margin-top: 3rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .recommendation h3 {
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .recommendation p {
+      margin: 0;
+      color: var(--text);
+    }
+
+    /* Next steps */
+    .next-steps {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .next-steps ol {
+      margin: 1rem 0 0 1.5rem;
+    }
+
+    .next-steps li {
+      margin-bottom: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* Animation controls */
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .control-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .control-btn:hover {
+      background: var(--accent-light);
+    }
+
+    .control-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="phase-tag">/deep Converge + Prototype</span>
+  <h1>Gs Watch — Narrowed Directions</h1>
+  <p class="subtitle">3 candidates refined from diverge research. Interactive prototypes for validation.</p>
+</header>
+
+<!-- Converge Rationale -->
+<section>
+  <div class="converge-rationale">
+    <h3>Selection Criteria (from diverge)</h3>
+    <p>Filtered 14 concepts through research-backed requirements:</p>
+    
+    <div class="criteria-list">
+      <div class="criterion">
+        <strong>Time Blindness</strong>
+        <span>Discrete states > continuous. Externalized > felt.</span>
+      </div>
+      <div class="criterion">
+        <strong>Cognitive Load</strong>
+        <span>Pattern recognition > number decoding. Glanceable.</span>
+      </div>
+      <div class="criterion">
+        <strong>Tufte Principle</strong>
+        <span>Maximize data-ink. Position/color = meaning.</span>
+      </div>
+      <div class="criterion">
+        <strong>Embodied Grounding</strong>
+        <span>Consumption or spatial metaphor. Felt, not abstract.</span>
+      </div>
+      <div class="criterion">
+        <strong>Manufacturing</strong>
+        <span>E-ink compatible. Discrete states. Low refresh.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Prototype 1: Depletion Arc -->
+<section>
+  <h2>Converged Prototypes</h2>
+  
+  <div class="prototype-grid">
+    
+    <!-- DEPLETION ARC -->
+    <div class="prototype-card">
+      <div class="prototype-header">
+        <div>
+          <h3>A. Depletion Arc</h3>
+          <p class="mono" style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Candle clock inheritance</p>
+        </div>
+        <span class="prototype-tag tag-timer">Timer Mode</span>
+      </div>
+      <div class="prototype-body">
+        <div class="prototype-viz">
+          <div class="depletion-watch">
+            <div class="depletion-ring"></div>
+            <div class="depletion-center">
+              <span class="depletion-label">remaining</span>
+            </div>
+          </div>
+        </div>
+        <div class="prototype-info">
+          <h3>Mechanism</h3>
+          <p>Arc depletes as time is consumed. Material = time. When arc is gone, duration is over.</p>
+          
+          <h3>Cognitive Model</h3>
+          <p>Bounded ownership. "This is my time, I'm using it." No infinite tracking — just what you have.</p>
+          
+          <ul class="attributes">
+            <li>Strong timer metaphor (candle, water clock)</li>
+            <li>Clear start/end boundary</li>
+            <li>Works for Pomodoro, meetings, tasks</li>
+            <li>E-ink: 12 discrete steps sufficient</li>
+            <li>Weakness: Less useful for "what time is it"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- RADIAL NOW -->
+    <div class="prototype-card">
+      <div class="prototype-header">
+        <div>
+          <h3>B. Radial Now</h3>
+          <p class="mono" style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Expanding circle from center</p>
+        </div>
+        <span class="prototype-tag tag-clock">Clock Mode</span>
+      </div>
+      <div class="prototype-body">
+        <div class="prototype-viz">
+          <div class="radial-watch">
+            <div class="radial-ring r1"></div>
+            <div class="radial-ring r2"></div>
+            <div class="radial-ring r3"></div>
+            <div class="radial-ring r4"></div>
+            <div class="radial-now"></div>
+          </div>
+        </div>
+        <div class="prototype-info">
+          <h3>Mechanism</h3>
+          <p>Center = now. Rings expand outward = future hours. Edge = day's horizon. You are the center, not peripheral.</p>
+          
+          <h3>Cognitive Model</h3>
+          <p>Embodied "here" concept. Future approaches you rather than you chasing time. Inverts traditional clock anxiety.</p>
+          
+          <ul class="attributes">
+            <li>Strong spatial grounding (near/far)</li>
+            <li>Day overview at a glance</li>
+            <li>Works for situating in day</li>
+            <li>E-ink: Concentric rings easy to render</li>
+            <li>Weakness: Less precise for exact time</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCK STATE -->
+    <div class="prototype-card">
+      <div class="prototype-header">
+        <div>
+          <h3>C. Block State</h3>
+          <p class="mono" style="color: var(--text-muted); margin: 0.5rem 0 0 0;">Discrete time-of-day zones</p>
+        </div>
+        <span class="prototype-tag tag-hybrid">Hybrid</span>
+      </div>
+      <div class="prototype-body">
+        <div class="prototype-viz">
+          <div class="block-watch">
+            <div class="block-segments">
+              <div class="block-segment seg1"></div>
+              <div class="block-segment seg2 active"></div>
+              <div class="block-segment seg3"></div>
+              <div class="block-segment seg4"></div>
+              <div class="block-segment seg5"></div>
+            </div>
+            <div class="block-center">
+              <div class="block-dot-grid">
+                <div class="block-dot lit"></div>
+                <div class="block-dot lit"></div>
+                <div class="block-dot"></div>
+                <div class="block-dot lit"></div>
+                <div class="block-dot"></div>
+                <div class="block-dot"></div>
+                <div class="block-dot"></div>
+                <div class="block-dot"></div>
+                <div class="block-dot"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="prototype-info">
+          <h3>Mechanism</h3>
+          <p>5-6 day blocks (dawn, morning, midday, afternoon, evening, night). Active block highlighted. Dot grid shows progress within block.</p>
+          
+          <h3>Cognitive Model</h3>
+          <p>Ambient awareness via color. "What part of day am I in?" vs "What exact time?" Aligns with incense clock multi-sensory approach.</p>
+          
+          <ul class="attributes">
+            <li>Best for time blindness (discrete states)</li>
+            <li>Ambient time-feel without reading</li>
+            <li>Dot grid adds precision without numbers</li>
+            <li>E-ink: Perfect fit (5-6 states)</li>
+            <li>Weakness: Cultural time blocks vary</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Decision Matrix -->
+<section>
+  <h2>Evaluation Matrix</h2>
+  
+  <div class="decision-matrix">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>A. Depletion</th>
+          <th>B. Radial</th>
+          <th>C. Block</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Time blindness support</td>
+          <td><span class="score score-high">★</span> Bounded duration</td>
+          <td><span class="score score-mid">◐</span> Spatial but continuous</td>
+          <td><span class="score score-high">★</span> Discrete states</td>
+        </tr>
+        <tr>
+          <td>Glanceability</td>
+          <td><span class="score score-high">★</span> One arc read</td>
+          <td><span class="score score-mid">◐</span> Ring count needed</td>
+          <td><span class="score score-high">★</span> Color = instant</td>
+        </tr>
+        <tr>
+          <td>Timer function</td>
+          <td><span class="score score-high">★</span> Primary mode</td>
+          <td><span class="score score-low">○</span> Not natural fit</td>
+          <td><span class="score score-mid">◐</span> Within-block timer</td>
+        </tr>
+        <tr>
+          <td>Clock function</td>
+          <td><span class="score score-low">○</span> Not natural fit</td>
+          <td><span class="score score-high">★</span> Day overview</td>
+          <td><span class="score score-high">★</span> Part-of-day awareness</td>
+        </tr>
+        <tr>
+          <td>E-ink compatibility</td>
+          <td><span class="score score-high">★</span> 12 steps</td>
+          <td><span class="score score-high">★</span> 4-6 rings</td>
+          <td><span class="score score-high">★</span> 5-6 blocks</td>
+        </tr>
+        <tr>
+          <td>Emotional tone</td>
+          <td><span class="score score-mid">◐</span> Can feel urgent</td>
+          <td><span class="score score-high">★</span> Grounding, calm</td>
+          <td><span class="score score-high">★</span> Ambient, gentle</td>
+        </tr>
+        <tr>
+          <td>Differentiation</td>
+          <td><span class="score score-mid">◐</span> Time Timer exists</td>
+          <td><span class="score score-high">★</span> Novel inversion</td>
+          <td><span class="score score-high">★</span> Unique hybrid</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="recommendation">
+    <h3>Converge Recommendation</h3>
+    <p><strong>Primary direction: C. Block State</strong> — Best balance of timer/clock, strongest time blindness support, highest differentiation. <strong>Secondary: A. Depletion Arc</strong> as dedicated timer mode. Consider B. Radial as "calm mode" variant within Block State system.</p>
+  </div>
+</section>
+
+<!-- Validation Questions -->
+<section>
+  <h2>External Validation Required</h2>
+  
+  <div class="next-steps">
+    <h3>Before further development</h3>
+    <ol>
+      <li><strong>User testing:</strong> Show prototypes to 3-5 people with ADHD/time blindness. Which resonates? Which confuses?</li>
+      <li><strong>Mechanism check:</strong> Does "Block State" actually help time-blind users, or does it just feel intuitive to designer?</li>
+      <li><strong>Existing research:</strong> Any studies comparing visual timer formats for ND users?</li>
+      <li><strong>Cultural blocks:</strong> Are 5-6 day divisions universal enough, or too culturally specific?</li>
+    </ol>
+    
+    <p class="mono" style="margin-top: 1.5rem; color: var(--text-muted);">/deep protocol: Pause here for external validation before committing to production path.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Gs Watch Development — Converge Prototype v1</p>
+  <p class="mono" style="margin-top: 0.25rem;">Depletion Arc · Radial Now · Block State</p>
+</footer>
+
+</body>
+</html>

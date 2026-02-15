@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Focus Bezel — Product Specification</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --text: #2a2622;
+      --text-muted: #6b6560;
+      --accent: #c45d3a;
+      --accent-light: #f5e8e3;
+      --surface: #fff;
+      --border: #e5e0db;
+      
+      /* Bezel colors */
+      --bezel-body: #3a3632;
+      --bezel-sector: #c45d3a;
+      --bezel-sector-alt: #d4a044;
+      --dial-cream: #f5f0e8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 3rem 2rem 5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    h1 { font-size: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .subtitle { color: var(--text-muted); font-size: 0.95rem; }
+
+    h2 { 
+      font-size: 1.1rem; 
+      font-weight: 600; 
+      margin: 3rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 { font-size: 0.95rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+    h4 { font-size: 0.85rem; font-weight: 600; margin: 1rem 0 0.5rem; color: var(--accent); }
+
+    p { margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem; }
+
+    .mono { font-family: 'Space Mono', monospace; font-size: 0.8rem; }
+
+    section { margin-bottom: 3rem; }
+
+    /* Content boxes */
+    .content-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .callout {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .callout p { margin: 0; color: var(--text); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      margin: 1rem 0;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    td { color: var(--text-muted); }
+
+    ul, ol {
+      margin: 0.75rem 0 1rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    li { margin-bottom: 0.4rem; }
+
+    /* Watch display grid */
+    .watch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .watch-card {
+      text-align: center;
+    }
+
+    .watch-card svg {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 1rem;
+    }
+
+    .watch-card h4 {
+      margin: 0 0 0.25rem 0;
+      color: var(--text);
+    }
+
+    .watch-card p {
+      margin: 0;
+      font-size: 0.8rem;
+    }
+
+    /* Bezel detail diagram */
+    .bezel-detail {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      margin: 1.5rem 0;
+    }
+
+    .bezel-detail svg {
+      flex: 0 0 300px;
+    }
+
+    .bezel-detail .annotations {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    /* Spec grid */
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    .spec-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+
+    .spec-card h4 {
+      margin: 0 0 0.75rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      font-size: 0.85rem;
+      border-bottom: 1px dotted var(--border);
+    }
+
+    .spec-row:last-child { border-bottom: none; }
+    .spec-row .label { color: var(--text-muted); }
+    .spec-row .value { color: var(--text); font-weight: 500; }
+
+    /* Color swatches */
+    .swatch-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .swatch-color {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .swatch-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="doc-tag">Product Specification</span>
+  <h1>Focus Bezel</h1>
+  <p class="subtitle">Detailed specification for manufacturing. Phase 1 product.</p>
+</header>
+
+<!-- ============================================ -->
+<!-- SECTION 1: OVERVIEW -->
+<!-- ============================================ -->
+
+<section>
+  <h2>01 — Product Overview</h2>
+  
+  <div class="content-box">
+    <h3>Concept</h3>
+    <p>A dive-watch-style rotating bezel repurposed for attention, not oxygen. The wearer rotates the bezel to align a colored sector with the minute hand, marking the start of a focus session. When the minute hand exits the sector, the session is complete.</p>
+    
+    <h4>One-Line Description</h4>
+    <p class="mono" style="font-size: 1rem; color: var(--text);">"It's just a dive timer, but warmer and for your attention."</p>
+  </div>
+  
+  <div class="watch-grid">
+    <div class="watch-card">
+      <svg viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642" />
+        <!-- Bezel -->
+        <circle cx="100" cy="100" r="90" fill="#3a3632" />
+        <!-- Focus sector: 25 minutes = 150° -->
+        <path d="M100,100 L100,15 A85,85 0 0,1 172,55 L100,100 Z" fill="#c45d3a" opacity="0.85"/>
+        <!-- Bezel minute ticks -->
+        <g stroke="#666" stroke-width="1">
+          <line x1="100" y1="12" x2="100" y2="20" stroke="#888" stroke-width="2"/>
+          <line x1="115" y1="13" x2="114" y2="19" />
+          <line x1="130" y1="16" x2="128" y2="22" />
+          <line x1="144" y1="22" x2="141" y2="27" />
+          <line x1="156" y1="30" x2="152" y2="35" stroke="#888" stroke-width="2"/>
+          <line x1="167" y1="41" x2="162" y2="45" />
+          <line x1="176" y1="54" x2="170" y2="57" />
+          <line x1="183" y1="68" x2="177" y2="70" />
+          <line x1="188" y1="84" x2="181" y2="85" />
+          <line x1="188" y1="100" x2="180" y2="100" stroke="#888" stroke-width="2"/>
+        </g>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="75" fill="#f5f0e8" />
+        <!-- Hour markers -->
+        <g fill="#2a2622">
+          <rect x="97" y="30" width="6" height="12" rx="1" />
+          <rect x="158" y="97" width="12" height="6" rx="1" />
+          <rect x="97" y="158" width="6" height="12" rx="1" />
+          <rect x="30" y="97" width="12" height="6" rx="1" />
+        </g>
+        <!-- Small indices -->
+        <g fill="#888">
+          <circle cx="125" cy="35" r="2" />
+          <circle cx="150" cy="50" r="2" />
+          <circle cx="165" cy="75" r="2" />
+          <circle cx="165" cy="125" r="2" />
+          <circle cx="150" cy="150" r="2" />
+          <circle cx="125" cy="165" r="2" />
+          <circle cx="75" cy="165" r="2" />
+          <circle cx="50" cy="150" r="2" />
+          <circle cx="35" cy="125" r="2" />
+          <circle cx="35" cy="75" r="2" />
+          <circle cx="50" cy="50" r="2" />
+          <circle cx="75" cy="35" r="2" />
+        </g>
+        <!-- Hands - showing ~10:10 -->
+        <line x1="100" y1="100" x2="65" y2="60" stroke="#2a2622" stroke-width="4" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="140" y2="75" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="100" y2="45" stroke="#c45d3a" stroke-width="1.5" stroke-linecap="round" />
+        <!-- Center -->
+        <circle cx="100" cy="100" r="5" fill="#2a2622" />
+        <circle cx="100" cy="100" r="2" fill="#c45d3a" />
+      </svg>
+      <h4>Terracotta Sector</h4>
+      <p>Primary colorway. Warm, grounded.</p>
+    </div>
+    
+    <div class="watch-card">
+      <svg viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642" />
+        <!-- Bezel -->
+        <circle cx="100" cy="100" r="90" fill="#3a3632" />
+        <!-- Focus sector: gold -->
+        <path d="M100,100 L100,15 A85,85 0 0,1 172,55 L100,100 Z" fill="#d4a044" opacity="0.85"/>
+        <!-- Bezel ticks -->
+        <g stroke="#666" stroke-width="1">
+          <line x1="100" y1="12" x2="100" y2="20" stroke="#888" stroke-width="2"/>
+          <line x1="156" y1="30" x2="152" y2="35" stroke="#888" stroke-width="2"/>
+          <line x1="188" y1="100" x2="180" y2="100" stroke="#888" stroke-width="2"/>
+        </g>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="75" fill="#f5f0e8" />
+        <!-- Hour markers -->
+        <g fill="#2a2622">
+          <rect x="97" y="30" width="6" height="12" rx="1" />
+          <rect x="158" y="97" width="12" height="6" rx="1" />
+          <rect x="97" y="158" width="6" height="12" rx="1" />
+          <rect x="30" y="97" width="12" height="6" rx="1" />
+        </g>
+        <!-- Hands -->
+        <line x1="100" y1="100" x2="65" y2="60" stroke="#2a2622" stroke-width="4" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="140" y2="75" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="100" y2="45" stroke="#d4a044" stroke-width="1.5" stroke-linecap="round" />
+        <!-- Center -->
+        <circle cx="100" cy="100" r="5" fill="#2a2622" />
+        <circle cx="100" cy="100" r="2" fill="#d4a044" />
+      </svg>
+      <h4>Gold Sector</h4>
+      <p>Alternate colorway. Softer warmth.</p>
+    </div>
+    
+    <div class="watch-card">
+      <svg viewBox="0 0 200 200">
+        <!-- Case -->
+        <circle cx="100" cy="100" r="95" fill="#4a4642" />
+        <!-- Bezel -->
+        <circle cx="100" cy="100" r="90" fill="#3a3632" />
+        <!-- Focus sector: olive/teal -->
+        <path d="M100,100 L100,15 A85,85 0 0,1 172,55 L100,100 Z" fill="#4a8a8a" opacity="0.85"/>
+        <!-- Bezel ticks -->
+        <g stroke="#666" stroke-width="1">
+          <line x1="100" y1="12" x2="100" y2="20" stroke="#888" stroke-width="2"/>
+          <line x1="156" y1="30" x2="152" y2="35" stroke="#888" stroke-width="2"/>
+          <line x1="188" y1="100" x2="180" y2="100" stroke="#888" stroke-width="2"/>
+        </g>
+        <!-- Dial -->
+        <circle cx="100" cy="100" r="75" fill="#f5f0e8" />
+        <!-- Hour markers -->
+        <g fill="#2a2622">
+          <rect x="97" y="30" width="6" height="12" rx="1" />
+          <rect x="158" y="97" width="12" height="6" rx="1" />
+          <rect x="97" y="158" width="6" height="12" rx="1" />
+          <rect x="30" y="97" width="12" height="6" rx="1" />
+        </g>
+        <!-- Hands -->
+        <line x1="100" y1="100" x2="65" y2="60" stroke="#2a2622" stroke-width="4" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="140" y2="75" stroke="#2a2622" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="100" y1="100" x2="100" y2="45" stroke="#4a8a8a" stroke-width="1.5" stroke-linecap="round" />
+        <!-- Center -->
+        <circle cx="100" cy="100" r="5" fill="#2a2622" />
+        <circle cx="100" cy="100" r="2" fill="#4a8a8a" />
+      </svg>
+      <h4>Teal Sector</h4>
+      <p>Cool variant. Calm focus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 2: BEZEL INSERT SPEC -->
+<!-- ============================================ -->
+
+<section>
+  <h2>02 — Bezel Insert Specification</h2>
+  
+  <div class="bezel-detail">
+    <svg viewBox="0 0 300 300">
+      <!-- Outer ring (bezel body) -->
+      <circle cx="150" cy="150" r="145" fill="none" stroke="#3a3632" stroke-width="30"/>
+      
+      <!-- Insert area -->
+      <circle cx="150" cy="150" r="130" fill="none" stroke="#555" stroke-width="1" stroke-dasharray="4,2"/>
+      
+      <!-- Focus sector (25 min = 150°) -->
+      <path d="M150,150 L150,25 A125,125 0 0,1 258,87 L150,150 Z" fill="#c45d3a" opacity="0.9"/>
+      
+      <!-- Sector edge markers -->
+      <line x1="150" y1="25" x2="150" y2="45" stroke="#fff" stroke-width="3"/>
+      <line x1="258" y1="87" x2="245" y2="95" stroke="#fff" stroke-width="3"/>
+      
+      <!-- Minute markers around full bezel -->
+      <g stroke="#888" stroke-width="1.5">
+        <!-- 0/60 -->
+        <line x1="150" y1="25" x2="150" y2="40" stroke="#fff" stroke-width="2"/>
+        <!-- 5 -->
+        <line x1="188" y1="30" x2="185" y2="44" />
+        <!-- 10 -->
+        <line x1="222" y1="48" x2="215" y2="60" />
+        <!-- 15 -->
+        <line x1="247" y1="78" x2="237" y2="86" />
+        <!-- 20 -->
+        <line x1="262" y1="115" x2="250" y2="120" />
+        <!-- 25 - end of sector -->
+        <line x1="267" y1="156" x2="253" y2="156" stroke="#fff" stroke-width="2"/>
+        <!-- 30 -->
+        <line x1="262" y1="197" x2="250" y2="192" />
+        <!-- 35 -->
+        <line x1="247" y1="234" x2="237" y2="226" />
+        <!-- 40 -->
+        <line x1="222" y1="264" x2="215" y2="252" />
+        <!-- 45 -->
+        <line x1="188" y1="282" x2="185" y2="268" />
+        <!-- 50 -->
+        <line x1="150" y1="287" x2="150" y2="273" />
+        <!-- 55 -->
+        <line x1="112" y1="282" x2="115" y2="268" />
+      </g>
+      
+      <!-- Numerals -->
+      <text x="150" y="65" text-anchor="middle" font-family="Space Mono" font-size="14" fill="#fff" font-weight="bold">0</text>
+      <text x="240" y="160" text-anchor="middle" font-family="Space Mono" font-size="12" fill="#888">25</text>
+      <text x="150" y="260" text-anchor="middle" font-family="Space Mono" font-size="12" fill="#888">30</text>
+      <text x="60" y="160" text-anchor="middle" font-family="Space Mono" font-size="12" fill="#888">45</text>
+      
+      <!-- Dimension annotations -->
+      <line x1="150" y1="150" x2="150" y2="25" stroke="#666" stroke-width="0.5" stroke-dasharray="2,2"/>
+      <line x1="150" y1="150" x2="258" y2="87" stroke="#666" stroke-width="0.5" stroke-dasharray="2,2"/>
+      
+      <!-- Angle annotation -->
+      <path d="M150,100 A50,50 0 0,1 193,118" fill="none" stroke="#666" stroke-width="1"/>
+      <text x="178" y="95" font-family="Space Mono" font-size="10" fill="#666">150°</text>
+      
+      <!-- Pip/lume dot at 12 -->
+      <circle cx="150" cy="32" r="4" fill="#e8e4d8" stroke="#ccc" stroke-width="1"/>
+    </svg>
+    
+    <div class="annotations">
+      <h3>Bezel Insert Details</h3>
+      
+      <h4>Focus Sector</h4>
+      <ul>
+        <li><strong>Arc:</strong> 150° (25 minutes)</li>
+        <li><strong>Position:</strong> Starts at 12 o'clock (0 marker)</li>
+        <li><strong>End marker:</strong> Bold white line at 25-minute position</li>
+        <li><strong>Color:</strong> Solid fill, no gradient</li>
+      </ul>
+      
+      <h4>Minute Markers</h4>
+      <ul>
+        <li><strong>Major ticks:</strong> Every 5 minutes (bold)</li>
+        <li><strong>Minor ticks:</strong> Every minute (lighter, optional)</li>
+        <li><strong>Numerals:</strong> 0, 25, 30, 45 only</li>
+        <li><strong>0 marker:</strong> White, bold, with lume pip</li>
+      </ul>
+      
+      <h4>Materials</h4>
+      <ul>
+        <li><strong>Insert:</strong> Anodized aluminum or ceramic</li>
+        <li><strong>Print:</strong> Pad-printed or laser-etched markers</li>
+        <li><strong>Lume:</strong> C3 SuperLuminova on 0 pip and hands</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h3>Color Specifications</h3>
+  
+  <div class="swatch-row">
+    <div class="swatch">
+      <div class="swatch-color" style="background: #c45d3a;"></div>
+      <span class="swatch-label">Terracotta #c45d3a</span>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #d4a044;"></div>
+      <span class="swatch-label">Gold #d4a044</span>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #4a8a8a;"></div>
+      <span class="swatch-label">Teal #4a8a8a</span>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #3a3632;"></div>
+      <span class="swatch-label">Bezel body #3a3632</span>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background: #f5f0e8;"></div>
+      <span class="swatch-label">Dial cream #f5f0e8</span>
+    </div>
+  </div>
+  
+  <div class="callout">
+    <p><strong>Why 25 minutes?</strong> Common focus session length. Long enough for deep work, short enough to feel achievable. Not branded as "pomodoro" — just a useful default. Future variants could offer 15, 30, or 45-minute sectors.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 3: CASE & MOVEMENT -->
+<!-- ============================================ -->
+
+<section>
+  <h2>03 — Case & Movement Specifications</h2>
+  
+  <div class="spec-grid">
+    <div class="spec-card">
+      <h4>Case</h4>
+      <div class="spec-row">
+        <span class="label">Diameter</span>
+        <span class="value">38mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Thickness</span>
+        <span class="value">11-12mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Lug-to-lug</span>
+        <span class="value">44-46mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Lug width</span>
+        <span class="value">20mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Material</span>
+        <span class="value">316L stainless steel</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Finish</span>
+        <span class="value">Brushed sides, polished top</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Water resistance</span>
+        <span class="value">100m / 10 ATM</span>
+      </div>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Bezel</h4>
+      <div class="spec-row">
+        <span class="label">Type</span>
+        <span class="value">120-click unidirectional</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Insert diameter</span>
+        <span class="value">36mm outer, 30mm inner</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Insert material</span>
+        <span class="value">Anodized aluminum</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Grip</span>
+        <span class="value">Knurled edge, 60 teeth</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Action</span>
+        <span class="value">Firm, tactile click</span>
+      </div>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Movement</h4>
+      <div class="spec-row">
+        <span class="label">Caliber</span>
+        <span class="value">Miyota 9039 (automatic)</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Alt. caliber</span>
+        <span class="value">Miyota 2035 (quartz)</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Functions</span>
+        <span class="value">Hours, minutes, seconds</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Power reserve</span>
+        <span class="value">42 hours (auto)</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Accuracy</span>
+        <span class="value">±20 sec/day (auto)</span>
+      </div>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Dial & Hands</h4>
+      <div class="spec-row">
+        <span class="label">Dial color</span>
+        <span class="value">Warm cream/off-white</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Finish</span>
+        <span class="value">Matte, slight texture</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Indices</span>
+        <span class="value">Applied baton at 12/3/6/9</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Hour hand</span>
+        <span class="value">Broad sword, lumed</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Minute hand</span>
+        <span class="value">Slim sword, lumed</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Seconds hand</span>
+        <span class="value">Accent color tip</span>
+      </div>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Crystal & Caseback</h4>
+      <div class="spec-row">
+        <span class="label">Crystal</span>
+        <span class="value">Sapphire, AR coated</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Caseback</span>
+        <span class="value">Screw-down, solid</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Caseback finish</span>
+        <span class="value">Brushed with engraving</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Crown</span>
+        <span class="value">Screw-down, signed</span>
+      </div>
+    </div>
+    
+    <div class="spec-card">
+      <h4>Strap (Default)</h4>
+      <div class="spec-row">
+        <span class="label">Material</span>
+        <span class="value">Recycled ocean nylon</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Width</span>
+        <span class="value">20mm</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Hardware</span>
+        <span class="value">Brushed steel, quick-release</span>
+      </div>
+      <div class="spec-row">
+        <span class="label">Buckle</span>
+        <span class="value">Signed tang buckle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 4: USER EXPERIENCE -->
+<!-- ============================================ -->
+
+<section>
+  <h2>04 — User Experience Flow</h2>
+  
+  <div class="content-box">
+    <h3>Starting a Focus Session</h3>
+    
+    <ol>
+      <li><strong>Glance at watch</strong> — Note where minute hand currently points</li>
+      <li><strong>Rotate bezel</strong> — Align the colored sector's start (0 marker) with current minute hand position</li>
+      <li><strong>Feel the click</strong> — Tactile confirmation that session has begun</li>
+      <li><strong>Work</strong> — No need to watch the watch; time is held</li>
+      <li><strong>Session complete</strong> — When minute hand exits the colored sector, the session is done</li>
+    </ol>
+    
+    <h4>Key Affordances</h4>
+    <ul>
+      <li><strong>Unidirectional bezel:</strong> Can only rotate counterclockwise, preventing accidental extension</li>
+      <li><strong>Tactile feedback:</strong> Each click = 30 seconds, allowing fine adjustment</li>
+      <li><strong>Visual boundary:</strong> Clear start/end markers on sector</li>
+      <li><strong>No counting:</strong> Position-based, not number-based</li>
+    </ul>
+  </div>
+  
+  <div class="callout">
+    <p><strong>Why this works:</strong> Unlike a timer that counts down, the bezel creates a spatial container for time. You're not watching numbers decrease — you're watching your hand travel through a defined space. When it exits, you're done. No buzzing, no alarms, no interruption.</p>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 5: MANUFACTURING NOTES -->
+<!-- ============================================ -->
+
+<section>
+  <h2>05 — Manufacturing Notes</h2>
+  
+  <div class="content-box">
+    <h3>Sourcing Strategy</h3>
+    
+    <table>
+      <tr>
+        <th>Component</th>
+        <th>Source</th>
+        <th>Notes</th>
+      </tr>
+      <tr>
+        <td>Case + bezel assembly</td>
+        <td>HK partner (existing relationship)</td>
+        <td>Standard dive case tooling, minor mods</td>
+      </tr>
+      <tr>
+        <td>Bezel insert</td>
+        <td>Same or specialized insert supplier</td>
+        <td>Custom print/anodize for sector</td>
+      </tr>
+      <tr>
+        <td>Movement</td>
+        <td>Miyota direct or distributor</td>
+        <td>High availability, proven reliability</td>
+      </tr>
+      <tr>
+        <td>Dial</td>
+        <td>HK partner or Swiss dial maker</td>
+        <td>Cream finish, applied indices</td>
+      </tr>
+      <tr>
+        <td>Hands</td>
+        <td>Standard supply</td>
+        <td>Sword style, custom seconds tip color</td>
+      </tr>
+      <tr>
+        <td>Straps</td>
+        <td>Recycled nylon supplier</td>
+        <td>Quick-release spring bars included</td>
+      </tr>
+    </table>
+    
+    <h4>Complexity Assessment</h4>
+    <p><strong>Low complexity.</strong> All components use standard dive watch construction. The only custom element is the bezel insert print/color. No new tooling required beyond insert artwork.</p>
+    
+    <h4>Estimated Unit Cost</h4>
+    <table>
+      <tr>
+        <th>Variant</th>
+        <th>Movement</th>
+        <th>Est. Cost</th>
+        <th>Target Retail</th>
+      </tr>
+      <tr>
+        <td>Focus Bezel (Quartz)</td>
+        <td>Miyota 2035</td>
+        <td>$45-55</td>
+        <td>$175-195</td>
+      </tr>
+      <tr>
+        <td>Focus Bezel (Auto)</td>
+        <td>Miyota 9039</td>
+        <td>$65-80</td>
+        <td>$245-295</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SECTION 6: VARIANT ROADMAP -->
+<!-- ============================================ -->
+
+<section>
+  <h2>06 — Variant Roadmap</h2>
+  
+  <table>
+    <tr>
+      <th>Variant</th>
+      <th>Sector Duration</th>
+      <th>Positioning</th>
+      <th>Priority</th>
+    </tr>
+    <tr>
+      <td>Focus Bezel 25</td>
+      <td>25 minutes (150°)</td>
+      <td>Core product, standard focus session</td>
+      <td>Launch</td>
+    </tr>
+    <tr>
+      <td>Focus Bezel 15</td>
+      <td>15 minutes (90°)</td>
+      <td>Short bursts, frequent breaks</td>
+      <td>V2</td>
+    </tr>
+    <tr>
+      <td>Focus Bezel 45</td>
+      <td>45 minutes (270°)</td>
+      <td>Deep work, longer sessions</td>
+      <td>V2</td>
+    </tr>
+    <tr>
+      <td>Focus Bezel 60</td>
+      <td>60 minutes (360°)</td>
+      <td>Full hour, meeting timer</td>
+      <td>V3</td>
+    </tr>
+  </table>
+  
+  <h3>Color Variants (All Durations)</h3>
+  <ul>
+    <li><strong>Terracotta</strong> — Launch color, warm and grounded</li>
+    <li><strong>Gold</strong> — Launch color, softer warmth</li>
+    <li><strong>Teal</strong> — V2, cool and calm</li>
+    <li><strong>Olive</strong> — V2, natural and understated</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Focus Bezel — Product Specification</p>
+  <p class="mono" style="margin-top: 0.25rem;">Gs Watch · Phase 1 Product · Manufacturing Ready</p>
+  <p class="mono" style="margin-top: 0.5rem;">Last updated: January 2026</p>
+</footer>
+
+</body>
+</html>
