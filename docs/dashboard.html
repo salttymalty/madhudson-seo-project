@@ -33,7 +33,8 @@
 
       /* UI */
       --color-border: rgba(196, 112, 75, 0.12);
-      --color-shadow: hsla(25, 40%, 30%, 0.08);
+      --color-shadow: hsla(25, 40%, 30%, 0.06);
+      --color-shadow-lg: hsla(25, 40%, 30%, 0.12);
 
       /* Typography */
       --font-display: 'Fraunces', Georgia, serif;
@@ -62,6 +63,7 @@
       color: var(--color-text);
       background: var(--color-bg);
       padding: 1.5rem;
+      -webkit-font-smoothing: antialiased;
     }
 
     h1, h2, h3, h4 {
@@ -94,6 +96,7 @@
 
     p {
       margin-bottom: 1rem;
+      max-width: 72ch;
     }
 
     code, .mono {
@@ -367,6 +370,15 @@
       border-radius: var(--radius);
       margin-bottom: 1.75rem;
       border-left: 4px solid;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+
+    .callout strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
     }
 
     .callout-info {
@@ -412,9 +424,14 @@
        ═══════════════════════════════════════════════════════════════ */
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       margin: 1.5rem 0;
       font-size: 0.9375rem;
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 1px 4px var(--color-shadow);
     }
 
     thead {
@@ -424,10 +441,13 @@
     th {
       text-align: left;
       padding: 0.75rem 1rem;
-      font-weight: 700;
-      color: var(--color-text);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       border-bottom: 2px solid var(--color-border);
-      font-size: 0.875rem;
     }
 
     td {
@@ -668,14 +688,21 @@
        ═══════════════════════════════════════════════════════════════ */
     .section-label {
       font-family: var(--font-mono);
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: var(--color-text-muted);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-primary);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 1rem;
       margin-top: 0.5rem;
       padding-left: 0.25rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
     }
 
     @media (max-width: 768px) {
@@ -740,6 +767,31 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
+       ROADMAP LINKS
+       ═══════════════════════════════════════════════════════════════ */
+    .roadmap-link {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+    }
+    .roadmap-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      text-decoration: none;
+      padding: 0.625rem 1rem;
+      border-radius: var(--radius);
+      background: rgba(196, 112, 75, 0.06);
+      min-height: var(--touch-target);
+      transition: background 0.2s ease;
+    }
+    .roadmap-link a:hover {
+      background: rgba(196, 112, 75, 0.12);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
        PRINT STYLES
        ═══════════════════════════════════════════════════════════════ */
     @media print {
@@ -779,7 +831,7 @@
   </style>
 </head>
 <body>
-  <div class="container">
+  <main class="container">
     <header>
       <h1>Mad Hudson Watches — SEO Review</h1>
       <p class="subtitle">Invisible improvements that help Google understand what makes Mad Hudson different — February 2026</p>
@@ -804,6 +856,8 @@
       <div class="nav-group">
         <span class="nav-label">Growth</span>
         <a href="#growth" class="nav-primary">Growth Projections</a>
+        <a href="#aeo" class="nav-primary">AEO</a>
+        <a href="#untapped" class="nav-primary">Untapped Channels</a>
       </div>
       <div class="nav-divider"></div>
       <div class="nav-group">
@@ -828,15 +882,19 @@
       <div class="card-header">
         <div class="card-header-text">
           <h2>What's Already Working</h2>
-          <div class="card-summary">0.85% real conversion rate — 5 genuine strengths to build on</div>
+          <div class="card-summary">0.12–0.85% estimated real conversion rate — 5 genuine strengths to build on</div>
         </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
         <div class="hero-stat">
-          <div class="hero-stat-value">0.85%</div>
-          <div class="hero-stat-label">Real Conversion Rate (Human Traffic Only)</div>
-          <p class="hero-stat-note">Once bot and amplified traffic is filtered out, the actual conversion rate is within normal range for fashion accessories direct-to-consumer (DTC). The industry benchmark is 1.6-1.9%. Mad Hudson is at roughly 50% of target — not 4% of target as the raw numbers suggest. Some high-traffic days may reflect Brad's social posts driving real interest, with bots amplifying on top. This is a measurement clarity problem, not a product problem.</p>
+          <div class="hero-stat-value">0.12–0.85%</div>
+          <div class="hero-stat-label">Estimated Real Conversion Rate (Human Traffic Only)</div>
+          <p class="hero-stat-note">The range reflects two ways of reading the data. The best single day (Feb 3: 236 sessions, 2 conversions) yields 0.85%. But across all 19 lower-traffic days (&lt;400 sessions, more likely to be human), the rate is ~0.12%. The true number is somewhere in this range — a proper segmentation cross-referencing Brad's posting history with session spikes is needed to pin it down. Either way, Shopify's reported 0.06% is artificially deflated by bot traffic. This is still a measurement problem, not a product problem.</p>
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>Data note:</strong> Revenue and conversion baselines ($52K / 289 orders / ~$180 AOV) include free orders — gifts, giveaways, and content shipments. Once Connor flags those order numbers, these figures will be recalculated to reflect paid transactions only.
         </div>
 
         <div class="stats-row">
@@ -1075,6 +1133,10 @@
         <div class="callout callout-success">
           <strong>What you'll see:</strong> When you Google your watch names, the text below the link changes from generic auto-generated copy to your custom description — with artist names, edition sizes, and your own language.
         </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/technical-seo.html">Explore the full Technical SEO roadmap →</a>
+        </div>
       </div>
     </section>
 
@@ -1156,6 +1218,10 @@
 
         <div class="callout callout-primary">
           <strong>Automation available:</strong> Alt text for all product images can now be updated in a single script run. Provide descriptive text in the JSON template, run the script, and every image gets its alt text at once. No clicking through Shopify admin image by image.
+        </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/technical-seo.html#alt-text">Explore the full Technical SEO roadmap →</a>
         </div>
       </div>
     </section>
@@ -1252,6 +1318,10 @@
           <p style="font-style: italic; color: var(--color-text-secondary);">"The [Watch Name] is a limited edition artist collaboration watch designed by [Artist Name] for Mad Hudson Watches. [2-3 sentences about the design — colors, motifs, visual approach]. [Artist Name] is a [City]-based [medium] artist known for [brief description of their work]. This collaboration brings their [specific style element] to a wearable format for the first time. Produced in an edition of [N] pieces. Each watch features a [movement type] movement, [case size] case in [material], and [strap description]. Water resistant to [depth]."</p>
           <p style="margin-top: 1rem;"><strong>Word count:</strong> ~150-200 words (expandable to 400+ with full artist bio). <strong>Keywords present:</strong> "limited edition," "artist collaboration watch," artist name, "Mad Hudson Watches." <strong>Artist mentioned:</strong> Yes, with context. <strong>Edition size:</strong> Yes.</p>
         </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/product-content.html">Explore the full Product Content roadmap →</a>
+        </div>
       </div>
     </section>
 
@@ -1329,6 +1399,10 @@
         <div class="callout callout-success">
           <strong>What you'll see over time:</strong> Richer Google search results — star ratings, price displays, "limited edition" badges next to your listings. Your results will look more complete and trustworthy than competitors'.
         </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/schema-markup.html">Explore the full Schema Markup roadmap →</a>
+        </div>
       </div>
     </section>
 
@@ -1340,15 +1414,15 @@
       <div class="card-header">
         <div class="card-header-text">
           <h2>Conversion Diagnostics</h2>
-          <div class="card-summary">0.85% real rate vs 0.06% reported — measurement clarity, not a product problem</div>
+          <div class="card-summary">0.12–0.85% estimated real rate vs 0.06% reported — measurement clarity, not a product problem</div>
         </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
         <div class="hero-stat">
-          <div class="hero-stat-value">0.85%</div>
-          <div class="hero-stat-label">Real Conversion Rate (Human Traffic)</div>
-          <p class="hero-stat-note">Calculated from Feb 3: 236 sessions, 2 conversions. Shopify reports 0.06% across all 12,983 sessions, but a significant portion of that traffic appears to be bots based on the inverse correlation between session volume and conversion rate. Some high-traffic days likely reflect real spikes from Brad's social posts, but bot traffic appears to amplify those days well beyond the organic reach.</p>
+          <div class="hero-stat-value">0.12–0.85%</div>
+          <div class="hero-stat-label">Estimated Real Conversion Rate (Human Traffic)</div>
+          <p class="hero-stat-note">The earlier version of this analysis cited 0.85% from a single day (Feb 3: 236 sessions, 2 conversions). That was the best day, not a proper segment. Across all 19 days with &lt;400 sessions (~5,900 sessions total, 7 conversions), the rate is approximately 0.12%. The true human-traffic conversion rate is somewhere in the 0.12–0.85% range — likely around 0.15–0.30% once bot traffic is properly filtered and free orders (gifts, giveaways, content shipments) are excluded. Shopify reports 0.06% across all 12,983 sessions, which remains artificially deflated by bots.</p>
         </div>
 
         <h3>Bot Traffic Analysis</h3>
@@ -1491,8 +1565,8 @@
         <h3>Benchmark Comparison</h3>
         <div class="benchmark-box">
           <h4>Fashion Accessories DTC Context</h4>
-          <p>At ~$200, Mad Hudson is priced in the fashion accessories category, not luxury watches. Fashion accessories DTC benchmarks: <strong>1.6-1.9% conversion</strong>. Current 0.85% real rate represents approximately 50% of target. The gap is trust infrastructure (social proof, payment flexibility, guarantees), not product-market fit.</p>
-          <p><strong>Key insight:</strong> This is a measurement problem compounded by a trust problem, not a product problem. Enable bot filtering to reveal the true baseline, then cross-reference high-traffic days with Brad's posting history to understand how much social-driven traffic is real. Then address trust signals to close the gap to category benchmarks.</p>
+          <p>At ~$200, Mad Hudson is priced in the fashion accessories category, not luxury watches. Fashion accessories DTC benchmarks: <strong>1.6-1.9% conversion</strong>. Current estimated real rate (0.12–0.85%) means the gap to benchmark is significant but closeable — the site is at roughly 7-50% of target depending on the true baseline, not 4% of target as the raw 0.06% suggests.</p>
+          <p><strong>Key insight:</strong> This is a measurement problem compounded by a trust problem, not a product problem. Three steps to pin down the real number: (1) Enable bot filtering in Shopify to reveal the true session baseline, (2) cross-reference high-traffic days with Brad's posting history to separate real social spikes from bot amplification, and (3) exclude free orders (gifts, giveaways, content) from the conversion denominator. Then address trust signals to close the gap to category benchmarks.</p>
         </div>
       </div>
     </section>
@@ -1546,6 +1620,10 @@
 
         <div class="callout callout-info">
           <strong>The unattributed $28.3K is the biggest number and the biggest question.</strong> These 179 orders had no tracked referrer. Some are likely repeat customers typing the URL directly. Some may be search visitors whose referrer wasn't captured. Some may be Brad-driven social traffic that lost attribution between Instagram and checkout. Understanding this bucket is the key to knowing which growth lever is actually biggest.
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>The $11K Google Search number is likely inflated by branded search.</strong> Some portion of those 53 orders came from people who saw Mad Hudson content on Instagram or YouTube, then opened a browser and searched "mad hudson watches." That shows up as Google organic traffic, but the real driver was social content. This means: (1) the true organic discovery number is smaller than $11K, and (2) genuinely new non-branded search traffic — queries like "artist collaboration watches" or "unique watches under $300" — would be truly incremental revenue on top of what social already drives. Google Search Console data (branded vs. non-branded queries) plus UTM tracking on social links will quantify the split.
         </div>
 
         <h3>Projected ROI by Intervention</h3>
@@ -1675,6 +1753,293 @@
         <div class="callout callout-warning">
           <strong>Prioritize content for the slow movers.</strong> The current plan treats all products equally for SEO. But Dogma (282 units, 5% sell-through), Eddie (92 units, 8%), Marshall (95 units, 5%), and Miami (97 units, 3%) need the help most. These 566 watches represent potentially $90K+ in tied-up inventory. Write their product descriptions first — even modest sell-through improvements on that inventory have outsized revenue impact.
         </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/growth-model.html">Explore the full Growth Model roadmap →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION: ANSWER ENGINE OPTIMIZATION (AEO)
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="section-label">AEO</div>
+    <section id="aeo" class="card tier-primary">
+      <div class="card-header">
+        <div class="card-header-text">
+          <h2>Answer Engine Optimization</h2>
+          <div class="card-summary">55% of commercial prompts trigger live web search — Mad Hudson needs to be extractable</div>
+        </div>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">55%</div>
+            <div class="stat-label">Commercial prompts that trigger real-time web search</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">3</div>
+            <div class="stat-label">Gates content must pass: Fetchable → Choosable → Extractable</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2.6%</div>
+            <div class="stat-label">Citations from tier-1 publications</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">1</div>
+            <div class="stat-label">ChatGPT referral orders Mad Hudson already has</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">$188</div>
+            <div class="stat-label">Revenue from ChatGPT</div>
+          </div>
+        </div>
+
+        <h3>How Answer Engines Work</h3>
+        <p>When someone asks ChatGPT "best artist collaboration watches" or "unique watches under $300," the model doesn't search with that exact query. It rewrites the prompt into 3-4 shorter queries — a process called "query fan-out." Then it searches the web, pulls back results, and runs them through three gates:</p>
+
+        <ol>
+          <li><strong>Fetchable</strong> — Can the answer engine access the page? JavaScript-rendered sites and crawl-blocked content get bypassed entirely. LLMs are increasingly sensitive to the compute cost of parsing complex pages.</li>
+          <li><strong>Choosable</strong> — Does the page contain the answer? The model picks 2-3 pages per fan-out query that look most relevant.</li>
+          <li><strong>Extractable</strong> — Can the model clip a clean 1-3 sentence chunk? Answer engines don't summarize — they literally clip and quote. If the answer is buried in 4 paragraphs of marketing fluff, it won't get extracted. A competitor with 4 clean sentences wins.</li>
+        </ol>
+
+        <h3>Why This Matters for Mad Hudson</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Mad Hudson Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Fetchable</strong> (crawlable HTML, not JS-rendered)</td>
+              <td>Shopify themes vary — needs verification that product content renders in source HTML, not client-side JS</td>
+            </tr>
+            <tr>
+              <td><strong>Fan-out keyword alignment</strong> ("best" dominance)</td>
+              <td>Not present — answer engines flatten all varied queries to "best [category] 2026." Mad Hudson pages don't contain "best" naturally</td>
+            </tr>
+            <tr>
+              <td><strong>Entity validation</strong> (multiple coalescing sources)</td>
+              <td>Weak — Mad Hudson exists on its own site and Instagram, but lacks mentions on Reddit, watch blogs, Wikipedia, or review aggregators</td>
+            </tr>
+            <tr>
+              <td><strong>Extractable copy</strong> (1-3 sentence quotable chunks)</td>
+              <td>Missing — current product descriptions are ~30 words of generic copy, not structured for extraction</td>
+            </tr>
+            <tr>
+              <td><strong>Freshness signal</strong></td>
+              <td>Moderate — site is active but product descriptions haven't been updated with 2026 dates or recent context</td>
+            </tr>
+            <tr>
+              <td><strong>Niche publication citations</strong></td>
+              <td>Missing — 97.4% of answer engine citations come from trade publications, blogs, and Substacks, not tier-1 press. No coverage from Worn & Wound, Fratello, Hodinkee, or watch Substacks</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Extractable Copy: What It Looks Like</h3>
+        <div class="benchmark-box">
+          <h4>Current Product Copy (not extractable)</h4>
+          <p style="font-style: italic; color: var(--color-text-muted);">"A beautiful timepiece featuring original artwork. Available in limited quantities."</p>
+          <p><strong>Problem:</strong> No artist name, no price, no brand location, no specifics. An answer engine has nothing to clip and cite.</p>
+        </div>
+
+        <div class="benchmark-box" style="border: 2px solid var(--color-success);">
+          <h4>AEO-Optimized Copy (extractable)</h4>
+          <p style="font-style: italic; color: var(--color-text-secondary);">"The Mad Hudson CD Watch is a wearable tribute to mixtapes, burned CDs, and late-night listening sessions. Designed by Atlanta artist Riki Prosper, its holographic disc dial shifts color with every turn of the wrist. At $215, it's one of the best artist-collaboration watches under $300."</p>
+          <p><strong>Why it works:</strong> Self-contained. Quotable. Contains the artist name, price, city, and natural "best" keyword. An answer engine can clip any one of these sentences and cite it directly.</p>
+        </div>
+
+        <h3>AEO Priority Actions</h3>
+        <ol>
+          <li><strong>Rewrite product descriptions as extractable chunks</strong> — Draft copy exists (see aeo-product-copy.md). Each product gets: Hero (1-2 sentences), What It Is, Who It's For, Why It's Different, Specs table, Comparison chunk. Every chunk is self-contained and clippable.</li>
+          <li><strong>Verify site is fetchable by AI crawlers</strong> — Check robots.txt for AI bot blocking. Verify product content renders in HTML source, not via client-side JavaScript. LLMs skip JS-heavy pages.</li>
+          <li><strong>Seed "best" language naturally</strong> — Answer engines flatten all queries ("top," "recommended," "most popular") to "best [category] 2026." The word "best" should appear naturally in headings and copy: "one of the best artist-collaboration watches under $300."</li>
+          <li><strong>Build entity presence across multiple sources</strong> — Mad Hudson needs mentions on Reddit (r/watches, r/microbrands), niche watch blogs (Worn & Wound, Fratello), and review platforms. Entity validation requires confirmation from 3+ independent sources.</li>
+          <li><strong>Target niche publications, not tier-1 press</strong> — 97.4% of answer engine citations come from trade publications, blogs, and Substacks. Pitch to watch-specific outlets, not GQ or NYT.</li>
+          <li><strong>Add schema.org Product markup</strong> — Structured data (price, brand, creator, availability, reviews) helps answer engines parse products. This compounds with the existing schema recommendation.</li>
+          <li><strong>Update content quarterly for freshness</strong> — Answer engines favor recent content for commercial prompts. Include current year in descriptions and update review counts.</li>
+        </ol>
+
+        <div class="callout callout-success">
+          <h4>The Opportunity</h4>
+          <p>Mad Hudson already has 1 ChatGPT referral order ($188). The AEO landscape is early — like SEO in 2005. Most microbrand watch companies haven't optimized for answer engines at all. The extractable copy, schema markup, and entity-building work described here positions Mad Hudson to be cited when someone asks ChatGPT "what are the best independent watch brands?" or "best unique watches under $300." The window to establish this presence is now, before the category gets crowded.</p>
+        </div>
+
+        <div class="roadmap-link">
+          <a href="claude/consulting/madhudson/roadmaps/aeo-strategy.html">Explore the full AEO Strategy roadmap →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SECTION: UNTAPPED CHANNELS
+         ═══════════════════════════════════════════════════════════════ -->
+    <div class="section-label">Phase 2</div>
+    <section id="untapped" class="card tier-primary">
+      <div class="card-header">
+        <div class="card-header-text">
+          <h2>Untapped Channels</h2>
+          <div class="card-summary">Corporate gifting, museum wholesale, B2B design services, analog lifestyle content — from earlier research, not yet in play</div>
+        </div>
+        <span class="card-toggle">▼</span>
+      </div>
+      <div class="card-content">
+        <p>The current SEO strategy focuses on DTC watch sales. Earlier research documents (Operational Review, Operations Deep Dive, Brand Positioning Framework, Strategic Analysis) surface at least four additional revenue and content angles that aren't represented anywhere in the current site or SEO plan. These are Phase 2 opportunities — the DTC foundation comes first, but these should be on the roadmap.</p>
+
+        <h3>Corporate Gifting</h3>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">$200-300</div>
+            <div class="stat-label">Price point repeatedly called "perfect" for executive gifts</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">0</div>
+            <div class="stat-label">Current pages targeting corporate gifting keywords</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">High</div>
+            <div class="stat-label">Purchase intent for corporate gift searches</div>
+          </div>
+        </div>
+
+        <p>Every operational document identifies corporate gifting as high-ROI. The Operations Deep Dive builds out a full tiered program: Stock Selection (10-49 units), Custom Branding (50-99), and Fully Custom (300+). Corporate gifting searchers have completely different intent than individual watch buyers — and higher AOV.</p>
+
+        <p><strong>What's needed:</strong> A single dedicated landing page targeting uncontested keywords. This is lowest effort, highest ROI of any gap identified.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Target Keyword</th>
+              <th>Intent</th>
+              <th>Competition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"unique corporate gifts"</td>
+              <td>High purchase intent, bulk orders</td>
+              <td>Low for artist-designed niche</td>
+            </tr>
+            <tr>
+              <td>"artist-designed corporate gifts for clients"</td>
+              <td>Very specific, very high intent</td>
+              <td>Near zero</td>
+            </tr>
+            <tr>
+              <td>"custom watch corporate gifts"</td>
+              <td>Direct product match</td>
+              <td>Low</td>
+            </tr>
+            <tr>
+              <td>"creative executive gifts"</td>
+              <td>Decision-makers searching</td>
+              <td>Moderate</td>
+            </tr>
+            <tr>
+              <td>"distinctive employee recognition gifts"</td>
+              <td>HR/people ops buyer</td>
+              <td>Low</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-success">
+          <strong>Why this works for Mad Hudson specifically:</strong> The artist-collaboration model is a natural differentiator in the corporate gifts space. "We gave our top performers a limited-edition watch designed by [Artist Name]" is a story that generic corporate gift watches can't match. The existing product is the offering — only the landing page and CTA are missing.
+        </div>
+
+        <h3>Museum &amp; Wholesale Channel</h3>
+        <p>Museum gift shop partnerships are described as "already in motion" in the earlier research. Art Institute of Chicago, MCA, and design museums were cited as potential fits. The product-market fit is proven — artist-collaboration watches belong in museum shops alongside other design objects.</p>
+
+        <p><strong>What's needed:</strong> A "Wholesale" or "Carry Mad Hudson" page, optimized for inbound leads. Museum retail buyers research vendors online. This is low-volume, high-value traffic.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Target Keyword</th>
+              <th>Who's Searching</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>"artist watches wholesale"</td>
+              <td>Retail buyers, gallery owners</td>
+            </tr>
+            <tr>
+              <td>"museum gift shop vendor"</td>
+              <td>Museum retail managers</td>
+            </tr>
+            <tr>
+              <td>"contemporary design watches for retail"</td>
+              <td>Design store buyers</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-info">
+          <strong>Low-effort format:</strong> Even a simple page with a contact form, wholesale pricing tiers, and a line sheet PDF captures this intent. It doesn't need to be a full e-commerce wholesale portal — just proof that Mad Hudson works with retailers and a way to get in touch.
+        </div>
+
+        <h3>B2B Design Services</h3>
+        <p>Multiple earlier documents frame Mad Hudson as "one part design house, one part watch company." The Brand Positioning Framework proposes a full /design section on the website. The Macy's partnership is cited as proof of B2B capability. Three structural options for the B2B side were developed in the Operational Review.</p>
+
+        <p><strong>Decision needed from the team:</strong> Is B2B design services a real revenue stream, or was this aspirational? If real, there's an entire keyword universe untouched:</p>
+        <ul>
+          <li>"watch design services"</li>
+          <li>"product design studio Chicago"</li>
+          <li>"artist collaboration agency"</li>
+          <li>"custom watch design for brands"</li>
+          <li>"white label watch design"</li>
+        </ul>
+
+        <div class="callout callout-warning">
+          <strong>Don't build content for a phantom business line.</strong> This should only become a Phase 2 priority if the founders confirm they want to pursue B2B design work. If yes, a /design landing page with portfolio examples and a contact form is the minimum viable SEO play.
+        </div>
+
+        <h3>Content Angles Not Yet in Play</h3>
+        <p>Three content strategies from the earlier research that would broaden the audience funnel beyond "watches for creators":</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Content Angle</th>
+              <th>What It Is</th>
+              <th>Why It Matters for SEO</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Analog lifestyle</strong></td>
+              <td>Blog content about intentional physical objects — fountain pens, mechanical watches, notebooks, disconnecting from screens. The Collab Concepts doc builds an entire "Analog Wellness" thesis with market segmentation: Analog Converts, Heritage Collectors, Design Professionals, Mindful Gifters.</td>
+              <td>Captures a different audience than watch-specific searches. Top-of-funnel content positioning Mad Hudson in a broader cultural conversation. Even if the product expansion never happens, the content angle is valuable now.</td>
+            </tr>
+            <tr>
+              <td><strong>Manufacturing transparency</strong></td>
+              <td>"How a microbrand watch is made," component-level cost breakdowns, "artist-designed watch dials: from sketch to production." The Operations Deep Dive contains detailed COGS data (Miyota movements $3-6, 316L cases $8-12, pad-printed dials $4-8).</td>
+              <td>Satisfies informational intent. Builds topical authority in the watch space. Differentiates Mad Hudson as transparent and knowledgeable. Targets long-tail keywords the current plan ignores.</td>
+            </tr>
+            <tr>
+              <td><strong>Events &amp; pop-ups</strong></td>
+              <td>Quarterly pop-ups at Chicago galleries. August launch event already happened as proof of concept. Noissue packaging partnership (Sept 2025 feature) as content/link-building material.</td>
+              <td>Events = content = local SEO + backlinks. Each event produces photos, recaps, and social content that feeds the SEO flywheel. Chicago-specific content strengthens local search presence.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Phase 2 Checklist</h3>
+        <p>After the DTC SEO foundation is in place (product content, schema, AEO), these are the next moves:</p>
+        <ol>
+          <li><strong>Create a corporate gifting landing page</strong> — Single page, clear CTA, tiered pricing (10-49, 50-99, 300+ units). Lowest effort, highest ROI of anything listed here.</li>
+          <li><strong>Create a wholesale/stockists page</strong> — "Carry Mad Hudson" with contact form and line sheet. Captures inbound museum and retail interest.</li>
+          <li><strong>Decide on B2B design services</strong> — Real revenue stream or aspirational? If real, build /design page. If not, skip it.</li>
+          <li><strong>Add 2-3 analog lifestyle blog posts to the content calendar</strong> — Broadens the funnel beyond watch-specific searches.</li>
+          <li><strong>Add 1-2 manufacturing process blog posts</strong> — Builds topical authority, targets informational keywords.</li>
+          <li><strong>Plan a quarterly pop-up event and document it</strong> — Content, backlinks, local SEO, community. Each event pays dividends across multiple channels.</li>
+        </ol>
       </div>
     </section>
 
@@ -1770,17 +2135,32 @@
             <li><strong>Add UTM parameters to Instagram link-in-bio:</strong> Change the link-in-bio URL to include <code>?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=linkinbio</code>. Solves the $28K attribution blindspot — within a month you'll know if Instagram is actually your top revenue channel.</li>
           </ol>
         </div>
+
+        <div class="roadmap-link" style="margin-top: 2.5rem; padding-top: 2rem;">
+          <h4 style="margin-bottom: 1rem; font-family: var(--font-mono); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">Detailed Roadmaps</h4>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <a href="claude/consulting/madhudson/roadmaps/aeo-strategy.html">AEO Strategy →</a>
+            <a href="claude/consulting/madhudson/roadmaps/extractable-copy.html">Extractable Copy →</a>
+            <a href="claude/consulting/madhudson/roadmaps/entity-building.html">Entity Building →</a>
+            <a href="claude/consulting/madhudson/roadmaps/schema-markup.html">Schema Markup →</a>
+            <a href="claude/consulting/madhudson/roadmaps/product-content.html">Product Content →</a>
+            <a href="claude/consulting/madhudson/roadmaps/growth-model.html">Growth Model →</a>
+            <a href="claude/consulting/madhudson/roadmaps/technical-seo.html">Technical SEO →</a>
+          </div>
+        </div>
       </div>
     </section>
-  </div>
+  </main>
 
   <footer>
-    <h4>Research Methodology</h4>
-    <p>Website review based on: Shopify product page source review, image alt text analysis, meta tag assessment, schema markup evaluation, heading hierarchy check, and content word-count analysis across all product pages. Conversion diagnostics from Shopify Analytics export (31 days, Jan 10 - Feb 9, 2026). Competitor content comparison across Mr Jones, Swatch x Art, Baltic, and Brew product pages. All analysis conducted Feb 14, 2026.</p>
-
-    <h4>Generation Note</h4>
-    <p>Website review generated Feb 14, 2026. Source: Shopify product page analysis, 12-month analytics export (Feb 2025 – Jan 2026), 31-day daily detail (Jan 10 – Feb 9, 2026), competitor content comparison. Growth projections use actual revenue, AOV, and channel data; industry benchmarks flagged as assumptions. Improvements are ordered by impact-to-effort ratio — items 1-4 can be completed in an afternoon with zero visual changes to the site. Revisit after implementing to measure impact.</p>
-    <p>The product works. The story is genuine. These improvements help search engines see what's already true about the business.</p>
+    <div style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-text-muted); letter-spacing: 0.02em; line-height: 1.8;">
+      <p>Mad Hudson Watches — SEO Research Dashboard</p>
+      <p>Prepared February 2026 by Garen Hopkins</p>
+      <p>Data sources: Shopify Analytics (12-month export Feb 2025 – Jan 2026, 31-day daily detail Jan 10 – Feb 9, 2026), competitor content comparison (Mr Jones, Swatch x Art, Baltic, Brew), AEO analysis informed by G2 internal AEO keynote research (Josh Blyskal / Profound, Feb 2026)</p>
+      <p>Methodology: On-page audit, image alt text analysis, meta tag assessment, schema markup evaluation, heading hierarchy check, content word-count analysis, conversion diagnostics, channel attribution review</p>
+      <p>Growth projections use actual revenue, AOV, and channel data. Industry benchmarks flagged as assumptions where used.</p>
+      <p style="margin-top: 1rem; color: var(--color-text-secondary); font-family: var(--font-display); font-size: 0.9375rem; font-style: italic;">The product works. The story is genuine. These improvements help search engines see what's already true about the business.</p>
+    </div>
   </footer>
 
   <script>
