@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mad Hudson Watches — SEO Research, February 2026</title>
+  <title>Mockup C: Compass — Mad Hudson SEO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -42,17 +42,35 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Topbar ── */
+    .mockup-label {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--color-primary);
+      color: var(--color-surface);
+      text-align: center;
+      padding: 0.375rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      z-index: 100;
+    }
+
+    body { padding-top: 32px; }
+
     .topbar {
       background: var(--color-surface);
       border-bottom: 1px solid var(--color-border);
       padding: 0 2rem;
       display: flex;
       align-items: center;
+      gap: 0;
       height: 56px;
       box-shadow: 0 1px 4px var(--color-shadow);
       position: sticky;
-      top: 0;
+      top: 32px;
       z-index: 50;
     }
 
@@ -94,7 +112,6 @@
       font-weight: 600;
     }
 
-    /* ── Page ── */
     .page {
       max-width: 960px;
       margin: 0 auto;
@@ -134,18 +151,6 @@
       padding-left: 0.25rem;
     }
 
-    .status-dot {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 0.5rem;
-    }
-
-    .status-dot.start-here { background: var(--color-success); }
-    .status-dot.explore { background: var(--color-info); }
-
-    /* ── Featured Card ── */
     .featured-card {
       display: block;
       background: var(--color-surface);
@@ -182,7 +187,6 @@
       color: var(--color-text-muted);
     }
 
-    /* ── Map Grid ── */
     .map-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -239,7 +243,6 @@
       margin-top: 0.5rem;
     }
 
-    /* ── Compact List ── */
     .compact-list {
       display: flex;
       flex-direction: column;
@@ -267,9 +270,24 @@
     }
 
     .compact-item-title { font-weight: 600; font-size: 0.9375rem; color: var(--color-text); }
-    .compact-item-meta { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); }
 
-    /* ── Footer ── */
+    .compact-item-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+
+    .status-dot.start-here { background: var(--color-success); }
+    .status-dot.explore { background: var(--color-info); }
+
     footer {
       margin-top: 3rem;
       padding-top: 1.5rem;
@@ -280,8 +298,6 @@
       text-align: center;
     }
 
-    footer p { margin-bottom: 0.25rem; }
-
     @media (max-width: 768px) {
       .topbar { padding: 0 1rem; overflow-x: auto; }
       .topbar-link { padding: 0 0.75rem; font-size: 0.875rem; }
@@ -289,20 +305,18 @@
       .map-grid { grid-template-columns: 1fr; }
       .map-header h1 { font-size: 1.75rem; }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: 0.01ms !important; }
-    }
   </style>
 </head>
 <body>
+  <div class="mockup-label">MOCKUP C: COMPASS &mdash; Top-level tabs as orientation. Map view shows everything at a glance.</div>
+
   <nav class="topbar" aria-label="Primary navigation">
     <div class="topbar-brand">Mad Hudson SEO</div>
     <div class="topbar-nav">
-      <a href="index.html" class="topbar-link active">Map</a>
-      <a href="quick-wins.html" class="topbar-link">Quick Wins</a>
-      <a href="dashboard.html" class="topbar-link">Dashboard</a>
-      <a href="slides.html" class="topbar-link">Slides</a>
+      <a href="#" class="topbar-link active">Map</a>
+      <a href="#" class="topbar-link">Quick Wins</a>
+      <a href="#" class="topbar-link">Dashboard</a>
+      <a href="#" class="topbar-link">Slides</a>
     </div>
   </nav>
 
@@ -312,55 +326,53 @@
       <p>12 months of Shopify data, 11-brand audit, seven actionable roadmaps. Start anywhere that matters to you.</p>
     </div>
 
-    <!-- Start Here -->
     <div class="map-section">
       <div class="map-section-label"><span class="status-dot start-here"></span> Start here</div>
-      <a href="quick-wins.html" class="featured-card">
+      <a href="#" class="featured-card">
         <h2>Five same-day fixes</h2>
         <p>Alt text, meta descriptions, page titles, bot filtering, UTM tracking. None change how the site looks. All change how search sees it.</p>
         <div class="card-meta">5 items &middot; ~2 hours total &middot; No cost</div>
       </a>
     </div>
 
-    <!-- Roadmaps -->
     <div class="map-section">
       <div class="map-section-label"><span class="status-dot explore"></span> Roadmaps</div>
       <div class="map-grid">
-        <a href="claude/consulting/madhudson/roadmaps/product-content.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Biggest impact</div>
           <h3>Product Content</h3>
           <p>From ~30 words per product to 400-500 with structured blocks.</p>
           <div class="card-stat">0 of 15 products have artist bios</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/schema-markup.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">First mover</div>
           <h3>Schema Markup</h3>
           <p>Structured data for rich results and AI answer engines.</p>
           <div class="card-stat">0 competitors have Product schema</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/aeo-strategy.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Future-facing</div>
           <h3>AEO Strategy</h3>
           <p>Answer engine optimization. Where search is going.</p>
           <div class="card-stat">Position for AI-generated answers</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/entity-building.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Brand building</div>
           <h3>Entity Building</h3>
           <p>Establish Mad Hudson as a recognized entity in search knowledge graphs.</p>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/extractable-copy.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Content quality</div>
           <h3>Extractable Copy</h3>
           <p>Write product descriptions that AI systems can parse and cite.</p>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/growth-model.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Revenue model</div>
           <h3>Growth Model</h3>
           <p>Projections based on conversion rate improvements and channel fixes.</p>
           <div class="card-stat">$25-35K addressable annual upside</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/technical-seo.html" class="map-card">
+        <a href="#" class="map-card">
           <div class="map-card-type">Foundation</div>
           <h3>Technical SEO</h3>
           <p>Site speed, crawlability, URL structure, canonical tags.</p>
@@ -368,24 +380,27 @@
       </div>
     </div>
 
-    <!-- Full Documents -->
     <div class="map-section">
       <div class="map-section-label">Full documents</div>
       <div class="compact-list">
-        <a href="dashboard.html" class="compact-item">
+        <a href="#" class="compact-item">
           <span class="compact-item-title">Full Research Dashboard</span>
           <span class="compact-item-meta">Every finding, every data point</span>
         </a>
-        <a href="slides.html" class="compact-item">
+        <a href="#" class="compact-item">
           <span class="compact-item-title">Slide Deck</span>
           <span class="compact-item-meta">14 slides &middot; Arrow keys to navigate</span>
+        </a>
+        <a href="#" class="compact-item">
+          <span class="compact-item-title">Competitor Audit</span>
+          <span class="compact-item-meta">11 brands compared</span>
         </a>
       </div>
     </div>
 
     <footer>
-      <p>Prepared February 2026 by Garen Hopkins</p>
-      <p>Data: Shopify Analytics (12-month export, 130K+ sessions, 289 orders, $52K revenue), 31-day daily detail, 11-brand competitor audit, AEO framework</p>
+      <p>Mad Hudson SEO Research &middot; February 2026 &middot; Garen Hopkins</p>
+      <p>Shopify Analytics: 130K+ sessions, 289 orders, $52K revenue &middot; 11-brand competitor audit &middot; AEO framework</p>
     </footer>
   </div>
 </body>

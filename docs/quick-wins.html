@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Wins — Mad Hudson SEO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #c4704b;
+      --color-primary-dark: #a85a38;
+      --color-success: #6ba167;
+      --color-warning: #c4934a;
+      --color-info: #5a8fa6;
+      --color-surface: #ffffff;
+      --color-surface-alt: #fdf8f4;
+      --color-surface-warm: #faf7f4;
+      --color-bg: #f5f0eb;
+      --color-text: #3d2f2a;
+      --color-text-secondary: #6b5650;
+      --color-text-muted: #8a7a74;
+      --color-border: rgba(196, 112, 75, 0.12);
+      --color-shadow: hsla(25, 40%, 30%, 0.06);
+      --color-shadow-lg: hsla(25, 40%, 30%, 0.12);
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      box-shadow: 0 1px 4px var(--color-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-brand {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      padding-right: 1.5rem;
+      margin-right: 0.5rem;
+      border-right: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+
+    .topbar-nav { display: flex; height: 100%; }
+
+    .topbar-link {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .topbar-link:hover {
+      color: var(--color-primary);
+      background: rgba(196, 112, 75, 0.04);
+    }
+
+    .topbar-link.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    /* ── Page ── */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .page-header p {
+      font-size: 1.0625rem;
+      color: var(--color-text-secondary);
+      max-width: 60ch;
+    }
+
+    /* ── Win Card ── */
+    .wins-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .win-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      box-shadow: 0 2px 8px var(--color-shadow);
+    }
+
+    .win-number {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .win-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .win-path {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-info);
+      background: var(--color-surface-alt);
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--color-border);
+      margin-bottom: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .win-why {
+      font-size: 0.9375rem;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-border);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    footer p { margin-bottom: 0.25rem; }
+
+    @media (max-width: 768px) {
+      .topbar { padding: 0 1rem; overflow-x: auto; }
+      .topbar-link { padding: 0 0.75rem; font-size: 0.875rem; }
+      .page { padding: 1.5rem 1rem; }
+      .page-header h1 { font-size: 1.625rem; }
+      .win-card { padding: 1.5rem 1.25rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="topbar-brand">Mad Hudson SEO</div>
+    <div class="topbar-nav">
+      <a href="index.html" class="topbar-link">Map</a>
+      <a href="quick-wins.html" class="topbar-link active">Quick Wins</a>
+      <a href="dashboard.html" class="topbar-link">Dashboard</a>
+      <a href="slides.html" class="topbar-link">Slides</a>
+    </div>
+  </nav>
+
+  <div class="page">
+    <div class="page-header">
+      <h1>Five same-day fixes</h1>
+      <p>None change how the site looks. All change how search sees it. Start with what's fastest or what matters most to you.</p>
+    </div>
+
+    <div class="wins-list">
+      <div class="win-card">
+        <div class="win-number">Win 1</div>
+        <h2>Add alt text to every product image</h2>
+        <div class="win-path">Products → click image → Alt text</div>
+        <div class="win-why">Search engines can't see images without alt text. Every product image is currently invisible to Google.</div>
+      </div>
+
+      <div class="win-card">
+        <div class="win-number">Win 2</div>
+        <h2>Write custom meta descriptions</h2>
+        <div class="win-path">Products → Search engine listing → Description</div>
+        <div class="win-why">Shopify auto-generates these from page content. Custom descriptions control what appears in search results.</div>
+      </div>
+
+      <div class="win-card">
+        <div class="win-number">Win 3</div>
+        <h2>Update page titles with artist names</h2>
+        <div class="win-path">Products → Search engine listing → Page title</div>
+        <div class="win-why">Artist-collaboration is what differentiates Mad Hudson. Page titles should reflect that.</div>
+      </div>
+
+      <div class="win-card">
+        <div class="win-number">Win 4</div>
+        <h2>Enable bot filtering</h2>
+        <div class="win-path">Analytics → Settings → Exclude known bots</div>
+        <div class="win-why">Bot traffic inflates session counts and suppresses conversion rate metrics.</div>
+      </div>
+
+      <div class="win-card">
+        <div class="win-number">Win 5</div>
+        <h2>Add UTM parameters to link-in-bio</h2>
+        <div class="win-path">?utm_source=instagram&utm_medium=social&utm_campaign=linkinbio</div>
+        <div class="win-why">62% of revenue has no tracked source. UTM parameters close the attribution gap.</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Prepared February 2026 by Garen Hopkins</p>
+      <p>Data: Shopify Analytics (12-month export, 130K+ sessions, 289 orders, $52K revenue), 31-day daily detail, 11-brand competitor audit, AEO framework</p>
+    </footer>
+  </div>
+</body>
+</html>

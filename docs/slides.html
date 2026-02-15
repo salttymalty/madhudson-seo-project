@@ -88,6 +88,32 @@
       color: var(--color-primary-light);
     }
 
+    /* ── Back-to-map link ── */
+    .back-to-map {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-surface);
+      padding: 6px 14px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px var(--color-shadow);
+      text-decoration: none;
+      z-index: 60;
+      transition: color 0.15s ease, box-shadow 0.15s ease;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    .back-to-map:hover {
+      color: var(--color-primary);
+      box-shadow: 0 4px 12px var(--color-shadow-lg);
+      text-decoration: none;
+    }
+
     /* ── Slide section badge ── */
     .slide-badge {
       position: absolute;
@@ -988,13 +1014,15 @@
       .nav-hint,
       .slide-counter,
       .keyboard-hint,
-      .slide-progress {
+      .slide-progress,
+      .back-to-map {
         display: none;
       }
     }
   </style>
 </head>
 <body>
+  <a href="index.html" class="back-to-map">&larr; Map</a>
   <div class="keyboard-hint" id="keyboardHint">Use arrow keys to navigate</div>
   <div class="slide-counter" id="slideCounter">1 / 17</div>
   <div class="slide-progress" id="slideProgress"></div>

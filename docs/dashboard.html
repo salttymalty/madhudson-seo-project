@@ -47,6 +47,58 @@
       --touch-target: 44px;
     }
 
+    /* ── Topbar ── */
+    .topbar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      box-shadow: 0 1px 4px var(--color-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-brand {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      padding-right: 1.5rem;
+      margin-right: 0.5rem;
+      border-right: 1px solid var(--color-border);
+      white-space: nowrap;
+    }
+
+    .topbar-nav { display: flex; height: 100%; }
+
+    .topbar-link {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .topbar-link:hover {
+      color: var(--color-primary);
+      background: rgba(196, 112, 75, 0.04);
+    }
+
+    .topbar-link.active {
+      color: var(--color-primary);
+      border-bottom-color: var(--color-primary);
+      font-weight: 600;
+    }
+
     /* ═══════════════════════════════════════════════════════════════
        GLOBAL RESET & BASE
        ═══════════════════════════════════════════════════════════════ */
@@ -831,6 +883,15 @@
   </style>
 </head>
 <body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <div class="topbar-brand">Mad Hudson SEO</div>
+    <div class="topbar-nav">
+      <a href="index.html" class="topbar-link">Map</a>
+      <a href="quick-wins.html" class="topbar-link">Quick Wins</a>
+      <a href="dashboard.html" class="topbar-link active">Dashboard</a>
+      <a href="slides.html" class="topbar-link">Slides</a>
+    </div>
+  </nav>
   <main class="container">
     <header>
       <h1>The product works. Search doesn't see it yet.</h1>
@@ -844,35 +905,6 @@
         <strong>Data source:</strong> Shopify Analytics exports covering Feb 2025 – Jan 2026 (12 months, 130K+ sessions, 289 orders, $52K revenue) and Jan 10 – Feb 9, 2026 (31-day daily detail). Competitive analysis from SERP reviews of 11 brands. Analysis performed Feb 14, 2026.
       </div>
     </header>
-
-    <nav>
-      <div class="nav-group">
-        <span class="nav-label">Do now</span>
-        <a href="#whats-working" class="nav-primary">What's Working</a>
-        <a href="#progress" class="nav-primary">Progress</a>
-        <a href="#actions" class="nav-primary">Prioritized Actions</a>
-      </div>
-      <div class="nav-divider"></div>
-      <div class="nav-group">
-        <span class="nav-label">Growth</span>
-        <a href="#growth" class="nav-primary">Growth Projections</a>
-        <a href="#aeo" class="nav-primary">AEO</a>
-        <a href="#untapped" class="nav-primary">Untapped Channels</a>
-      </div>
-      <div class="nav-divider"></div>
-      <div class="nav-group">
-        <span class="nav-label">Research</span>
-        <a href="#html-opportunities">HTML Opportunities</a>
-        <a href="#images">Image Opportunities</a>
-        <a href="#product-content">Content Opportunities</a>
-        <a href="#schema">Schema Markup</a>
-      </div>
-      <div class="nav-divider"></div>
-      <div class="nav-group">
-        <span class="nav-label">Reference</span>
-        <a href="#conversion">Conversion Diagnostics</a>
-      </div>
-    </nav>
 
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 0: WHAT'S ALREADY WORKING
