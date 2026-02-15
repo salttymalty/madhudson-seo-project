@@ -882,11 +882,11 @@
       </div>
       <div class="card-content">
         <div class="callout callout-success">
-          <strong>Update (Feb 14):</strong> The automation tools described below are built, tested, and ready to use. The research phase is complete — we're now in execution mode.
+          <strong>Update (Feb 14):</strong> The automation tools described below are built, tested, and ready to use. The research phase is complete — everything is ready for execution.
         </div>
 
         <h3>What's Been Built</h3>
-        <p>Based on the research in this dashboard, we built a set of tools that automate the most impactful fixes. These run from the command line and update your Shopify store directly — no manual copy-pasting required.</p>
+        <p>Based on the research in this dashboard, I built a set of tools that automate the most impactful fixes. These run from the command line and update your Shopify store directly — no manual copy-pasting required.</p>
 
         <div class="segment-grid">
           <div class="segment-card primary">
@@ -1653,6 +1653,28 @@
         <div class="callout callout-info">
           <strong>Interesting signal:</strong> One order ($188) came from ChatGPT.com as the referrer. As AI-powered search grows, structured data (schema markup) becomes even more valuable — it's how AI search engines understand what your products are. This is another reason the schema work has compounding value.
         </div>
+
+        <h3>Strategic Insights from the Data</h3>
+
+        <div class="callout callout-warning">
+          <strong>The Instagram funnel is broken, not Instagram itself.</strong> Brad drives real attention — 60K+ sessions prove that. But the path from Instagram to purchase has a gap. Someone sees a compelling post, taps through on mobile, lands on a product page with 1-2 sentences of description and no social proof, and bounces. The gap between the Instagram experience (personality, energy, story) and the product page experience (sparse, transactional) is likely the kill zone. This is why product content expansion and trust signals are the highest-ROI investments — they fix the landing experience for Brad's traffic, not just search visitors.
+        </div>
+
+        <div class="callout callout-primary">
+          <strong>The unattributed $28.3K needs detective work.</strong> 179 orders (62% of total) have no tracked source. Some are probably repeat customers typing the URL. Some may be Instagram visitors whose referrer got stripped by the in-app browser. Some may be people Brad mentioned the URL to verbally or in stories. <strong>A simple fix:</strong> Add UTM parameters to Brad's Instagram link-in-bio and any email campaigns. This costs nothing, takes 10 minutes, and within a month you'll know what that $28K bucket actually is. If even a third of those orders are Instagram-origin, Instagram is actually the #1 revenue channel and the strategy shifts accordingly.
+        </div>
+
+        <div class="callout callout-info">
+          <strong>Seasonality is pronounced and plannable.</strong> November and December produced 79 of 289 annual orders — 27% of the year's revenue in two months. Conversion rates peaked at 0.28% (Nov) and 0.27% (Dec) vs. 0.07% in January. This means all SEO improvements should be landed by October 2026 to capture the next holiday season. The current timeline works, but the deadline is "ready for holiday traffic," not "whenever."
+        </div>
+
+        <div class="callout callout-success">
+          <strong>Merch sell-through validates the brand.</strong> Mad Cap: 95% sell-through. Black Eye Tee: 50-100% by size. Watchers Tee: 33-69%. People are buying the Mad Hudson identity, not just the watches. This is a brand health signal — and suggests merch could serve as a low-friction entry point. Someone who buys a $35 cap is in the email list and more likely to come back for a $200 watch.
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>Prioritize content for the slow movers.</strong> The current plan treats all products equally for SEO. But Dogma (282 units, 5% sell-through), Eddie (92 units, 8%), Marshall (95 units, 5%), and Miami (97 units, 3%) need the help most. These 566 watches represent potentially $90K+ in tied-up inventory. Write their product descriptions first — even modest sell-through improvements on that inventory have outsized revenue impact.
+        </div>
       </div>
     </section>
 
@@ -1664,12 +1686,12 @@
       <div class="card-header">
         <div class="card-header-text">
           <h2>Prioritized Actions</h2>
-          <div class="card-summary">4 same-day wins, 10 total opportunities</div>
+          <div class="card-summary">5 same-day wins, 11 total opportunities</div>
         </div>
         <span class="card-toggle">▼</span>
       </div>
       <div class="card-content">
-        <h3>10 Opportunities, Ranked by Impact</h3>
+        <h3>11 Opportunities, Ranked by Impact</h3>
         <ul class="action-list">
           <li class="action-item quick-win">
             <div class="action-title">Add alt text to every product image <span style="display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; background: rgba(107, 161, 103, 0.15); color: var(--color-success); vertical-align: middle; margin-left: 0.5rem;">AUTOMATED</span></div>
@@ -1693,6 +1715,12 @@
             <div class="action-title">Enable Shopify bot filtering</div>
             <div class="action-rationale">Free since Oct 2025. Current analytics show 12,983 sessions with only 8 conversions. Some of that traffic likely comes from Brad's social posts, but bot amplification inflates those days well beyond organic reach. Enabling bot filtering reveals the true conversion baseline (~0.85%) and makes all future analytics decisions trustworthy. Without this, every data-driven decision is built on numbers that mix real interest with bot noise. <strong>Next step:</strong> Cross-reference high-traffic days with Brad's Instagram/Meta posting history to separate genuine social-driven traffic from bot amplification.</div>
             <div class="action-meta">Effort: 5 min in Shopify admin → Analytics → Settings → toggle "Exclude known bots"</div>
+          </li>
+
+          <li class="action-item quick-win">
+            <div class="action-title">Add UTM parameters to Instagram link-in-bio and email campaigns</div>
+            <div class="action-rationale">179 orders ($28.3K — 62% of all revenue) have no tracked source. Instagram's in-app browser strips referrer data, so some of these "unattributed" orders may actually be Brad's Instagram traffic. Adding UTM parameters (<code>?utm_source=instagram&utm_medium=social&utm_campaign=linkinbio</code>) to the link-in-bio URL and any email links solves the attribution blindspot within a month. This costs nothing and tells you whether Instagram is your #1 revenue channel — which changes everything about where to invest next.</div>
+            <div class="action-meta">Effort: 10 minutes. Update the link-in-bio URL and any email template links with UTM parameters. Shopify tracks these automatically.</div>
           </li>
 
           <li class="action-item">
@@ -1733,12 +1761,13 @@
         </ul>
 
         <div class="callout callout-success" style="margin-top: 2rem;">
-          <h4 style="margin-bottom: 0.75rem;">Same-Day Wins (Nothing Changes Visually)</h4>
+          <h4 style="margin-bottom: 0.75rem;">Same-Day Wins (5 items — nothing changes visually)</h4>
           <ol style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
             <li><strong>Add alt text to all product images:</strong> Shopify Admin → Products → [Product] → click each image → add descriptive alt text with artist name, watch name, and visual description. Budget 2-3 minutes per image.</li>
             <li><strong>Write custom meta descriptions for every product:</strong> Shopify Admin → Products → [Product] → scroll to "Search engine listing preview" → Edit → fill in Description field. Use the template: "[Watch Name] — a limited edition watch designed by [Artist] for Mad Hudson. [Brief design note]. [Edition] pieces. Free shipping." 150-160 characters.</li>
             <li><strong>Update page titles to include artist names:</strong> Same "Search engine listing preview" section. Change from "[Watch Name] — Mad Hudson Watches" to "[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson."</li>
             <li><strong>Enable bot filtering:</strong> Shopify Admin → Analytics → Settings → toggle "Exclude known bots." Reveals true traffic baseline for all future analysis.</li>
+            <li><strong>Add UTM parameters to Instagram link-in-bio:</strong> Change the link-in-bio URL to include <code>?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=linkinbio</code>. Solves the $28K attribution blindspot — within a month you'll know if Instagram is actually your top revenue channel.</li>
           </ol>
         </div>
       </div>
