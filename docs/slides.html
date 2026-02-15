@@ -972,7 +972,7 @@
 </head>
 <body>
   <div class="keyboard-hint" id="keyboardHint">Use arrow keys to navigate</div>
-  <div class="slide-counter" id="slideCounter">1 / 15</div>
+  <div class="slide-counter" id="slideCounter">1 / 14</div>
   <div class="slide-progress" id="slideProgress"></div>
   <div class="nav-hint left" id="navLeft"></div>
   <div class="nav-hint right" id="navRight"></div>
@@ -1279,67 +1279,33 @@
       <p class="key-line">Instagram sends 7x more sessions than Google — but Google converts 7x better. Fixing the Instagram-to-purchase path is the biggest conversion opportunity.</p>
     </div>
 
-    <!-- Slide 11: What You'll See -->
+    <!-- Slide 11: What Changes Next -->
     <div class="slide slide-accent">
-      <span class="slide-badge">Results</span>
-      <h2 style="margin-bottom: 32px;">What You'll See</h2>
-      <p class="subtitle" style="margin-bottom: 40px;">In 2-4 weeks, Google starts seeing a dramatically better-organized site. Here's what changes for you.</p>
+      <span class="slide-badge">Next Layer</span>
+      <h2 style="margin-bottom: 32px;">What Changes Next</h2>
       <div class="audience-grid">
         <div class="audience-card">
-          <h3>After alt text</h3>
-          <p>Your product images start appearing in Google Image Search. This is a major traffic channel for visual products — and right now you're invisible there.</p>
-          <p class="source">Timeline: 2-4 weeks after changes</p>
+          <h3>After same-day wins</h3>
+          <p>Your images appear in Google Image Search. Your search listings show artist names and edition sizes instead of generic auto-text. Analytics start showing real human behavior.</p>
+          <p class="source">Timeline: days to 2-4 weeks</p>
         </div>
         <div class="audience-card">
-          <h3>After meta descriptions</h3>
-          <p>The text below your Google link changes from generic Shopify auto-text to your own words — artist names, edition sizes, the language that makes someone click.</p>
-          <p class="source">Timeline: next Google re-crawl (days to weeks)</p>
+          <h3>After product content</h3>
+          <p>Pages go from ~30 words to 400-500. You start ranking for long-tail queries: artist names, "artist collaboration watch," edition-specific searches. Your photos are doing the heavy lifting — the words catch up.</p>
+          <p class="source">Timeline: 2-4 weeks after publishing</p>
         </div>
         <div class="audience-card">
           <h3>After schema markup</h3>
-          <p>Over time, richer Google results — star ratings, price displays, "limited edition" badges. The kind of search results that stand out on the page.</p>
-          <p class="source">Timeline: 4-8 weeks (next phase)</p>
+          <p>Richer Google results — star ratings, price displays, "limited edition" badges. JSON-LD <code>creator</code> schema connects each watch to its artist in Google's Knowledge Graph. Zero competitors have this.</p>
+          <p class="source">Timeline: 4-8 weeks</p>
         </div>
         <div class="audience-card">
-          <h3>After bot filtering</h3>
-          <p>Fewer sessions in analytics, but much better conversion rate. You'll be able to see which traffic spikes come from Brad's posts and which are bot noise. Your dashboard starts telling the real story.</p>
-          <p class="source">Timeline: immediate</p>
+          <h3>After UTM tracking</h3>
+          <p>Within one month, you'll know what the $28K unattributed bucket actually is. If Instagram is the real #1 revenue channel, the strategy shifts toward fixing that funnel first.</p>
+          <p class="source">Timeline: 30 days of data collection</p>
         </div>
       </div>
-      <p class="key-line">The changes are invisible to your customers. The results show up in your analytics and search rankings.</p>
-    </div>
-
-    <!-- Slide 9: The Bigger Picture -->
-    <div class="slide">
-      <span class="slide-badge">Next Layer</span>
-      <h2 style="margin-bottom: 24px;">The Bigger Picture</h2>
-      <div class="seo-content">
-        <div class="benchmark-grid" style="grid-template-columns: repeat(3, 1fr);">
-          <div class="benchmark-card">
-            <h3>Current product<br>word count</h3>
-            <div class="value">~30</div>
-          </div>
-          <div class="benchmark-card highlight">
-            <h3>Target product<br>word count</h3>
-            <div class="value">400-500</div>
-          </div>
-          <div class="benchmark-card">
-            <h3>Products with<br>artist bio</h3>
-            <div class="value">0</div>
-          </div>
-        </div>
-        <ul class="seo-list" style="margin-top: 32px;">
-          <li>
-            <strong>Your photos are doing the heavy lifting. The words can catch up.</strong>
-            Each product page needs: expanded description (100-150 words), About the Artist (100-150 words), Design Intent (75-100 words), Specs (50-75 words), Edition Details (25-50 words). All in existing Shopify fields — no theme changes.
-          </li>
-          <li>
-            <strong>Schema markup — like engraving "Swiss Made" on the caseback</strong>
-            Information that authenticates and categorizes. JSON-LD <code>creator</code> schema connects each watch to its artist in Google's Knowledge Graph. <code>isLimitedEdition</code> tells Google these are scarce objects. Zero competitors have implemented this.
-          </li>
-        </ul>
-      </div>
-      <p class="key-line">Product content and schema are the next layer. They build on the same-day fixes and compound over time.</p>
+      <p class="key-line">Each layer builds on the last. The same-day wins are the foundation — content, schema, and attribution data compound on top.</p>
     </div>
 
     <!-- Slide 10: Next Phase -->
@@ -1391,7 +1357,7 @@
 
   <script>
     let currentSlide = 0;
-    const totalSlides = 15;
+    const totalSlides = 14;
     const deckContainer = document.getElementById('deckContainer');
     const slideCounter = document.getElementById('slideCounter');
     const keyboardHint = document.getElementById('keyboardHint');
