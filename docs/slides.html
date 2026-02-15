@@ -972,7 +972,7 @@
 </head>
 <body>
   <div class="keyboard-hint" id="keyboardHint">Use arrow keys to navigate</div>
-  <div class="slide-counter" id="slideCounter">1 / 13</div>
+  <div class="slide-counter" id="slideCounter">1 / 15</div>
   <div class="slide-progress" id="slideProgress"></div>
   <div class="nav-hint left" id="navLeft"></div>
   <div class="nav-hint right" id="navRight"></div>
@@ -1218,7 +1218,63 @@
       <p class="key-line">The manual work left is the creative work — writing the artist stories. Everything else is automated.</p>
     </div>
 
-    <!-- Slide 9: What You'll See -->
+    <!-- Slide 9: Growth Projections -->
+    <div class="slide slide-dark">
+      <span class="slide-badge">Growth</span>
+      <h2 style="margin-bottom: 32px;">The Revenue Opportunity</h2>
+      <div class="diagnosis-content" style="max-width: 960px;">
+        <div class="diagnosis-item success" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-success);">
+          <strong style="color: #faf7f4;">Current: $52K annual revenue (289 orders, ~$180 AOV)</strong>
+          <p style="color: #c4b4aa;">Broken Time drives 57% of revenue. Google search is the top attributed channel ($11K). Instagram sends 60K sessions but converts only 23 orders. 93% of traffic is mobile.</p>
+        </div>
+        <div class="diagnosis-item" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-primary-light);">
+          <strong style="color: #faf7f4;">Addressable upside: $25K – $35K/year from SEO + trust fixes</strong>
+          <p style="color: #c4b4aa;">Trust signals (guarantee badge, reviews, Shop Pay): <span style="color: var(--color-success); font-weight: 600;">$8K-$17K.</span> Product content expansion: <span style="color: var(--color-success); font-weight: 600;">$5.5K-$11K.</span> Schema markup + meta tags: <span style="color: var(--color-primary-light); font-weight: 600;">$3.7K-$7.2K.</span> Instagram conversion fix: <span style="color: var(--color-success); font-weight: 600;">$3.6K-$7.3K.</span></p>
+        </div>
+        <div class="diagnosis-item info" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--color-info);">
+          <strong style="color: #faf7f4;">Based on 12 months of actual Shopify data, not assumptions</strong>
+          <p style="color: #c4b4aa;">Revenue projections use your real AOV, real channel attribution, and real conversion rates. Growth multipliers come from industry research (Baymard, Moz, schema.org studies) — flagged as assumptions where used.</p>
+        </div>
+      </div>
+      <p class="key-line" style="margin-top: 48px;">The path from $52K to $75K-$85K is mostly invisible improvements — the same fixes outlined in this review.</p>
+    </div>
+
+    <!-- Slide 10: Revenue Breakdown -->
+    <div class="slide">
+      <span class="slide-badge">Data</span>
+      <h2 style="margin-bottom: 32px;">Where the Revenue Comes From</h2>
+      <div class="metrics-grid" style="grid-template-columns: repeat(5, 1fr); max-width: 1200px;">
+        <div class="metric-card">
+          <div class="metric-label">Google Search</div>
+          <div class="metric-value" style="font-size: 32px;">$11K</div>
+          <div class="metric-label">53 orders</div>
+        </div>
+        <div class="metric-card warning">
+          <div class="metric-label">Instagram</div>
+          <div class="metric-value" style="font-size: 32px;">$3.5K</div>
+          <div class="metric-label">23 orders (60K sessions)</div>
+        </div>
+        <div class="metric-card info">
+          <div class="metric-label">Shopify Email</div>
+          <div class="metric-value" style="font-size: 32px;">$2.9K</div>
+          <div class="metric-label">14 orders</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Direct / Unknown</div>
+          <div class="metric-value" style="font-size: 32px;">$28K</div>
+          <div class="metric-label">179 orders</div>
+        </div>
+        <div class="metric-card success">
+          <div class="metric-label">Other</div>
+          <div class="metric-value" style="font-size: 32px;">$6.3K</div>
+          <div class="metric-label">20 orders</div>
+        </div>
+      </div>
+      <p class="supporting-text" style="text-align: center; max-width: 900px; margin-top: 16px;">Instagram sends 7x more sessions than Google — but Google converts 7x better. The Instagram-to-purchase path is where the biggest conversion opportunity lives.</p>
+      <p class="key-line">Search is already your most efficient channel. Making it work better is the highest-ROI investment.</p>
+    </div>
+
+    <!-- Slide 11: What You'll See -->
     <div class="slide slide-accent">
       <span class="slide-badge">Results</span>
       <h2 style="margin-bottom: 32px;">What You'll See</h2>
@@ -1330,7 +1386,7 @@
 
   <script>
     let currentSlide = 0;
-    const totalSlides = 13;
+    const totalSlides = 15;
     const deckContainer = document.getElementById('deckContainer');
     const slideCounter = document.getElementById('slideCounter');
     const keyboardHint = document.getElementById('keyboardHint');
