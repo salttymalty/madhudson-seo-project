@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEO Strategy Guide — Mad Hudson Watches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="roadmap-base.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="page-nav">
+      <a href="../../../../dashboard.html#aeo">← Back to Dashboard</a>
+      <div class="page-nav-seq">
+        <span style="color: var(--color-text-muted); font-size: 0.875rem;">← Previous</span>
+        <a href="extractable-copy.html">Next: Extractable Copy →</a>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>AEO Strategy Guide</h1>
+      <p class="page-subtitle">How answer engines are changing product discovery — and what Mad Hudson can do about it</p>
+    </header>
+
+    <!-- TL;DR Box -->
+    <div class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li><strong>55% of commercial prompts trigger real-time web search</strong> — Models browse live pages, not training data. Mad Hudson doesn't need to be in training data; it needs to be findable and parseable right now.</li>
+        <li><strong>Answer engines clip 1-3 sentence chunks, not summaries</strong> — Clean copy wins over marketing fluff. A single extractable sentence beats four paragraphs of prose.</li>
+        <li><strong>97.4% of citations come from niche sources</strong> — Blogs, Substacks, and trade publications drive citations. Tier-1 press (NYT, Reuters) accounts for only 2.6%. For Mad Hudson, that means Worn & Wound and Fratello, not Forbes.</li>
+        <li><strong>Mad Hudson already has 1 ChatGPT referral order ($188)</strong> — This isn't theoretical. The window to own this space is now, before the category gets crowded.</li>
+      </ul>
+      <p class="bottom-line">Bottom line: AEO is SEO for the next decade. The brands that show up in ChatGPT recommendations this year set the baseline for the category.</p>
+    </div>
+
+    <!-- Section: The Paradigm Shift -->
+    <section class="section">
+      <div class="section-header">
+        <h2>The Paradigm Shift</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>Traditional SEO:</strong> User searches → clicks result → reads page → decides.</p>
+        <p><strong>Answer Engine Optimization (AEO):</strong> User asks question → model searches → model reads pages → model recommends.</p>
+
+        <div class="callout callout-primary">
+          <p><strong>The buyer never sees your page — only the model's recommendation.</strong></p>
+        </div>
+
+        <p>This is reference buying, not inference buying. Instead of browsing ten products and deciding, the user asks ChatGPT or Perplexity "what are the best artist collaboration watches under $300?" and gets 3 recommendations. The model does the browsing. It searches Google, clicks through results, reads product pages, and synthesizes an answer.</p>
+
+        <p>According to G2's internal AEO research (Feb 2026), <strong>50% of buyers now start commercial queries on ChatGPT instead of Google.</strong> That number is higher in younger demographics and growing month over month. For niche categories like independent watches, it's even more pronounced — buyers who want something different are more likely to ask an AI than wade through generic listicles.</p>
+
+        <h3>What This Means for Mad Hudson</h3>
+        <p>Your product page doesn't need to persuade a human to click "Add to Cart." It needs to persuade an LLM to cite it as a recommended option. That's a different kind of writing — shorter, more structured, more fact-dense. Less marketing voice, more Wikipedia voice.</p>
+
+        <p>The good news: Mad Hudson already has the raw material. The brand has personality, not corporate polish. The artist collaborations are genuinely unique. The challenge is <em>structuring</em> that content so an answer engine can extract clean, quotable chunks.</p>
+      </div>
+    </section>
+
+    <!-- Section: How Answer Engines Work -->
+    <section class="section">
+      <div class="section-header">
+        <h2>How Answer Engines Work</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>When a user prompts ChatGPT with "best artist collaboration watches," here's what happens behind the scenes:</p>
+
+        <h3>Step 1: Query Fan-Out</h3>
+        <p>The model rewrites the user's question into 3-4 shorter, more specific queries. This is called <strong>query fan-out</strong>. A prompt like "best artist collaboration watches" becomes:</p>
+        <ul>
+          <li>"best artist watches 2026"</li>
+          <li>"unique watches under $300"</li>
+          <li>"independent watch brands"</li>
+          <li>"limited edition artist watches"</li>
+        </ul>
+        <p>The model searches these terms, gets results, and browses the top 5-10 pages for each query. That's where the compute cost comes in — reading pages is expensive, so the model is selective.</p>
+
+        <h3>Step 2: The Three Gates</h3>
+        <p>For a page to get cited, it has to pass three gates:</p>
+
+        <div class="callout callout-info">
+          <h4>Gate 1: Fetchable</h4>
+          <p>Can the model access the page? If the content is rendered via client-side JavaScript (common in some Shopify themes), the LLM might not see it. JavaScript-heavy sites get skipped because they're computationally expensive to parse.</p>
+          <p><strong>Status for Mad Hudson:</strong> Needs verification. Shopify themes vary — we need to check whether product descriptions render in HTML source or get injected by JS.</p>
+        </div>
+
+        <div class="callout callout-warning">
+          <h4>Gate 2: Choosable</h4>
+          <p>Does the page match one of the fan-out queries? If your page uses the phrase "unique artist collaboration" but the model searched for "best artist watches 2026," the semantic distance matters. The word <strong>"best"</strong> is load-bearing — answer engines flatten all queries ("top," "recommended," "most popular") to "best [category] 2026."</p>
+          <p><strong>Status for Mad Hudson:</strong> Not present. The word "best" doesn't appear naturally in current product descriptions. This is an easy fix — seed it in headings and comparison copy ("one of the best artist-collaboration watches under $300").</p>
+        </div>
+
+        <div class="callout callout-success">
+          <h4>Gate 3: Extractable</h4>
+          <p>Can the model clip a clean 1-3 sentence chunk? If the answer is buried in four paragraphs of marketing copy, the model moves on. It's not summarizing — it's quoting. The best content for AEO is structured like a data card: Hero sentence. What It Is. Who It's For. Why It's Different.</p>
+          <p><strong>Status for Mad Hudson:</strong> Missing → Draft ready. Extractable product copy has been drafted (see <a href="extractable-copy.html">Extractable Copy Playbook</a>). Each product gets: Hero (1-2 sentences), What It Is, Who It's For, Why It's Different, Specs table, Comparison chunk.</p>
+        </div>
+
+        <h3>Step 3: Assembly</h3>
+        <p>The model picks 3-5 pages that passed all three gates, extracts a sentence or two from each, and synthesizes an answer. It cites the source ("according to Mad Hudson, the CD Watch features...") and often links directly to the product page.</p>
+
+        <p>That's the complete loop. The user never clicked a search result, never browsed ten tabs. The model did all the work. The brands that get cited are the ones that made it easy for the model to find, parse, and quote them.</p>
+      </div>
+    </section>
+
+    <!-- Section: Key Statistics -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Key Statistics</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">55%</div>
+            <div class="stat-label">Commercial prompts trigger real-time web search</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2.6%</div>
+            <div class="stat-label">Citations from tier-1 press (NYT, Reuters, AP)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">97.4%</div>
+            <div class="stat-label">Citations from niche sources (blogs, Substacks, trade pubs)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">"best"</div>
+            <div class="stat-label">Most common fan-out keyword across all queries</div>
+          </div>
+        </div>
+
+        <h3>What These Numbers Mean</h3>
+        <p><strong>55% commercial search trigger rate:</strong> More than half of prompts like "best watches under $300" cause the model to search the web in real-time. This is up from ~40% a year ago. The models are becoming less reliant on training data and more reliant on live browsing. That's good news for new brands — you don't need to wait for the next training cut.</p>
+
+        <p><strong>2.6% tier-1 citations:</strong> Major publications get cited less often than you'd think. Answer engines pull from the <em>most relevant</em> source, not the <em>most prestigious</em> one. A detailed review on Worn & Wound beats a passing mention in the New York Times.</p>
+
+        <p><strong>97.4% niche source citations:</strong> This is the actionable insight. For Mad Hudson, the target isn't Forbes or GQ — it's r/watches, Fratello, Hodinkee community posts, YouTube watch reviewers, and Substack watch nerds. Those are the sources answer engines cite when users ask for independent watch recommendations.</p>
+
+        <p><strong>"Best" as the dominant keyword:</strong> Users say "top watches," "recommended watches," "most popular watches" — but the model translates all of these to "best [category] 2026." The word "best" needs to appear naturally in your content, ideally in a comparison context: "one of the best artist-collaboration watches under $300."</p>
+      </div>
+    </section>
+
+    <!-- Section: Mad Hudson's Current AEO Position -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Mad Hudson's Current AEO Position</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Here's where Mad Hudson stands on each AEO requirement, as of Feb 2026:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Requirement</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Fetchable</strong></td>
+              <td style="color: var(--color-warning);">Needs Verification</td>
+              <td>Shopify themes vary. Need to confirm product content renders in HTML source, not via client-side JavaScript. LLMs skip JS-heavy pages.</td>
+            </tr>
+            <tr>
+              <td><strong>Fan-out Keyword Alignment</strong></td>
+              <td style="color: var(--color-warning);">Not Present</td>
+              <td>The word "best" doesn't appear naturally in product descriptions. Easy fix — seed it in headings and comparison copy.</td>
+            </tr>
+            <tr>
+              <td><strong>Entity Validation</strong></td>
+              <td style="color: var(--color-warning);">Weak</td>
+              <td>Mad Hudson exists on its own site + Instagram, but lacks independent validation. Answer engines want 3+ sources confirming the entity exists (Reddit mentions, blog reviews, etc.).</td>
+            </tr>
+            <tr>
+              <td><strong>Extractable Copy</strong></td>
+              <td style="color: var(--color-success);">Draft Ready</td>
+              <td>Extractable product descriptions have been drafted (see <a href="extractable-copy.html">Extractable Copy Playbook</a>). Each product gets: Hero, What It Is, Who It's For, Why It's Different, Specs, Comparison chunk.</td>
+            </tr>
+            <tr>
+              <td><strong>Freshness Signal</strong></td>
+              <td style="color: var(--color-info);">Moderate</td>
+              <td>Site is active, descriptions updated occasionally, but no explicit "2026" dates. Adding "available in 2026" or "designed in 2024" helps models understand currency.</td>
+            </tr>
+            <tr>
+              <td><strong>Niche Publication Citations</strong></td>
+              <td style="color: var(--color-warning);">Missing</td>
+              <td>No coverage yet from Worn & Wound, Fratello, Hodinkee, or r/watches. This is the biggest gap. Entity presence requires independent validation.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-primary">
+          <p><strong>The good news:</strong> Mad Hudson already has 1 ChatGPT referral order ($188). That means the brand is already appearing in some answer engine results. The challenge is to go from <em>occasional</em> citation to <em>consistent</em> citation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Prioritized AEO Action List -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Prioritized AEO Action List</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Here's the work, in priority order. Start at the top — each step makes the next one more effective.</p>
+
+        <ol style="line-height: 1.8;">
+          <li>
+            <strong>Rewrite product descriptions as extractable chunks</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Drafts exist (see <a href="extractable-copy.html">Extractable Copy Playbook</a>). Each product gets: Hero (1-2 sentences), What It Is, Who It's For, Why It's Different, Specs table, Comparison chunk. Every chunk is self-contained and clippable. Prioritize slow movers first (Dogma, Eddie, Marshall, Miami) — these have the most inventory to clear.</span>
+          </li>
+          <li>
+            <strong>Verify site is fetchable by AI crawlers</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Check <code>robots.txt</code> for AI bot blocking (GPTBot, Claude-Web, CCBot). Verify product content renders in HTML source — view source on a product page and confirm descriptions appear in the HTML, not injected by JavaScript. LLMs skip JS-heavy pages because they're computationally expensive to parse.</span>
+          </li>
+          <li>
+            <strong>Seed "best" language naturally in headings and copy</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Answer engines flatten all queries ("top," "recommended," "most popular") to "best [category] 2026." The word "best" should appear naturally in comparison contexts: "one of the best artist-collaboration watches under $300." Don't stuff it awkwardly — make it part of the comparison chunk.</span>
+          </li>
+          <li>
+            <strong>Build entity presence across multiple sources</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Mad Hudson needs mentions on Reddit (r/watches, r/microbrands), niche watch blogs (Worn & Wound, Fratello), and review platforms. Entity validation requires confirmation from 3+ independent sources. See <a href="entity-building.html">Entity Building Playbook</a> for outreach strategy.</span>
+          </li>
+          <li>
+            <strong>Target niche publications, not tier-1 press</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">97.4% of citations come from blogs, Substacks, and trade pubs. A detailed review on Fratello beats a passing mention in GQ. Pitch watch-specific publications, not general lifestyle outlets.</span>
+          </li>
+          <li>
+            <strong>Add schema.org Product markup</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Schema markup makes product data machine-readable — price, availability, artist name, SKU. LLMs parse schema directly instead of trying to extract structured data from prose. See <a href="schema-markup.html">Schema Markup Playbook</a> for implementation guide.</span>
+          </li>
+          <li>
+            <strong>Update content quarterly for freshness</strong><br>
+            <span style="color: var(--color-text-secondary); font-size: 0.9375rem;">Answer engines prefer recent content. Add "available in 2026" to product descriptions. Update artist bio sections with recent shows or collaborations. Even minor edits signal that the page is actively maintained.</span>
+          </li>
+        </ol>
+
+        <div class="callout callout-success">
+          <h4>The Opportunity Window</h4>
+          <p>The AEO landscape is early — like SEO in 2005. Most microbrand watch companies haven't optimized for answer engines at all. The extractable copy, schema markup, and entity-building work described here positions Mad Hudson to be cited when someone asks ChatGPT "what are the best independent watch brands?" or "best unique watches under $300."</p>
+          <p>The window to establish this presence is now, before the category gets crowded. Mad Hudson already has 1 ChatGPT referral order. That's proof of concept. The work ahead turns occasional citations into consistent ones.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Source Attribution -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Source Attribution</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>The statistics, mechanics, and strategic framework in this guide are drawn from G2's internal AEO keynote research, conducted by Josh Blyskal / Profound (Feb 2026). The keynote covered answer engine citation mechanics, query fan-out patterns, entity validation requirements, and the shift from tier-1 press to niche sources.</p>
+
+        <p><strong>Key research findings:</strong></p>
+        <ul>
+          <li>55% commercial search trigger rate (up from ~40% in 2024)</li>
+          <li>97.4% of citations from niche sources vs 2.6% from tier-1 press</li>
+          <li>"Best" as the dominant fan-out keyword across all queries</li>
+          <li>Entity validation requiring 3+ independent sources</li>
+          <li>Extractable chunks (1-3 sentences) outperforming long-form content</li>
+        </ul>
+
+        <p>This analysis was conducted Feb 14, 2026, specifically for Mad Hudson Watches. The roadmap applies G2's AEO framework to Mad Hudson's current site structure, product catalog, and target audience.</p>
+
+        <p><strong>Related G2 research:</strong> <a href="https://www.g2.com/articles/ai-overviews-guide" target="_blank" rel="noopener">AI Overviews Guide</a> (public-facing version of the AEO framework).</p>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Actionable Checklist</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Use this as a working checklist. Update status as work progresses.</p>
+
+        <ul class="checklist">
+          <li class="in-progress">Rewrite product descriptions as extractable chunks (drafts ready, needs deployment)</li>
+          <li>Verify site is fetchable by AI crawlers (check robots.txt + HTML rendering)</li>
+          <li>Seed "best" language naturally in headings and comparison copy</li>
+          <li>Build entity presence on Reddit (r/watches, r/microbrands)</li>
+          <li>Pitch niche watch publications (Worn & Wound, Fratello, Hodinkee community)</li>
+          <li>Add schema.org Product markup to all product pages</li>
+          <li>Update product descriptions with "available in 2026" freshness signals</li>
+          <li>Verify ChatGPT and Perplexity can access and cite Mad Hudson products</li>
+          <li>Set up quarterly content review to maintain freshness signals</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <h4>Methodology</h4>
+      <p>This roadmap is built on G2 internal AEO research (Josh Blyskal / Profound, Feb 2026), Google Search Console data (Oct 2023 - Jan 2026), Shopify analytics (2024-2025 orders and traffic), and Instagram insights (Brad Gillingham's account). Analysis conducted Feb 14, 2026.</p>
+
+      <h4>Related Pages</h4>
+      <div class="related-pages">
+        <a href="extractable-copy.html">Extractable Copy Playbook</a>
+        <a href="entity-building.html">Entity Building Playbook</a>
+        <a href="schema-markup.html">Schema Markup Guide</a>
+        <a href="same-day-wins.html">Same-Day Wins Checklist</a>
+        <a href="slow-mover-strategy.html">Slow Mover Strategy</a>
+        <a href="growth-projections.html">Growth Projections</a>
+        <a href="utm-tracking.html">UTM Tracking Setup</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Collapsible sections
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.section').classList.toggle('collapsed');
+      });
+    });
+  </script>
+</body>
+</html>

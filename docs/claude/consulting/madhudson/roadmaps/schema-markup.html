@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schema Markup Guide — Mad Hudson Watches</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="roadmap-base.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav class="page-nav">
+      <a href="../../../../dashboard.html#schema">← Back to Dashboard</a>
+      <div class="page-nav-seq">
+        <a href="entity-building.html">← Previous: Entity Building</a>
+        <a href="product-content.html">Next: Product Content →</a>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Schema Markup Guide</h1>
+      <p class="page-subtitle">Structured data that tells Google exactly what Mad Hudson products are — and who made them</p>
+    </header>
+
+    <!-- TL;DR Box -->
+    <div class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li><strong>Schema markup is invisible code that tells search engines what your content means</strong> — It's not for humans to read, it's for Google's algorithms to parse.</li>
+        <li><strong>It enables rich search results:</strong> star ratings, price displays, "limited edition" badges right in the search listing. This is how you stand out before anyone clicks.</li>
+        <li><strong>Zero of 11 competitors have artist/creator schema</strong> — They all have basic Product schema (Shopify default), but no one connects products to artists in structured data. First-mover advantage is wide open.</li>
+        <li><strong>One JSON-LD template in the product theme file auto-populates for every product</strong> — You add it once, and Shopify's Liquid variables fill in the product-specific details automatically.</li>
+        <li><strong>Typical CTR lift from rich results: 20-40%</strong> — When your listing shows stars, price, and "Limited Edition," people click.</li>
+      </ul>
+      <p class="bottom-line">Bottom line: This is a one-time template edit that compounds forever. The competitive gap is wide open.</p>
+    </div>
+
+    <!-- Section: What JSON-LD Schema Is -->
+    <section class="section">
+      <div class="section-header">
+        <h2>What JSON-LD Schema Is</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Schema markup is a block of code added to the <code>&lt;head&gt;</code> section of a page that describes the content in a structured way. It's written in <strong>JSON-LD</strong> (JavaScript Object Notation for Linked Data) and it's completely invisible to visitors.</p>
+
+        <p>Think of it like the nutrition label on food packaging — customers might not read it, but it's how the system categorizes and presents the product. Google reads schema markup to decide how to display your pages in search results.</p>
+
+        <div class="comparison-grid">
+          <div class="comparison-box before">
+            <div class="comparison-label">Without Schema</div>
+            <p>Plain text link, generic description, no visual features. Your listing looks like everyone else's.</p>
+          </div>
+          <div class="comparison-box after">
+            <div class="comparison-label">With Schema</div>
+            <p>Star ratings, price, availability, "limited edition" badge next to your listing. Stands out visually before anyone clicks.</p>
+          </div>
+        </div>
+
+        <h3>The Analogy</h3>
+        <p>Schema markup is like engraving "Swiss Made" on a caseback — it authenticates and categorizes. Visitors don't see it. But Google uses it to decide how to present your products.</p>
+
+        <p>Answer engines (ChatGPT, Perplexity) also read schema markup when browsing pages for recommendations. If your schema says <code>"creator": "Artist Name"</code>, the model can cite that directly: <em>"The CD Watch is designed by [Artist Name], based in Chicago."</em></p>
+      </div>
+    </section>
+
+    <!-- Section: Current Schema (Shopify Default) -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Current Schema (Shopify Default)</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Shopify automatically adds basic Product schema to every product page. This is the minimum — name, price, availability, image URL.</p>
+
+        <h3>What Shopify Auto-Generates (Simplified)</h3>
+        <pre><code>{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "CD Watch",
+  "image": "https://cdn.shopify.com/...",
+  "offers": {
+    "@type": "Offer",
+    "price": "215.00",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}</code></pre>
+
+        <h3>What's Missing</h3>
+        <ul>
+          <li><strong>No artist/creator info</strong> — The product isn't connected to a Person entity. Google can't surface "designed by [Artist]" in results.</li>
+          <li><strong>No edition details</strong> — No way to signal that this is a limited edition.</li>
+          <li><strong>No brand description</strong> — Just the brand name, no context about what Mad Hudson is.</li>
+          <li><strong>No materials</strong> — No structured data about case, strap, or movement specs.</li>
+          <li><strong>No review data</strong> — Even if you have reviews, they're not structured for rich results.</li>
+        </ul>
+
+        <div class="callout callout-warning">
+          <p><strong>Status:</strong> Shopify's default schema is functional but minimal. It works for basic listings, but it doesn't communicate what makes Mad Hudson different. Competitors with basic Shopify themes have the exact same schema. No differentiation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Recommended Schema Additions -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Schema Additions</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>These fields elevate Mad Hudson's schema from "generic product" to "artist-collaboration limited edition watch with structured specs." Each addition has a specific function in how Google (and answer engines) interpret the product.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Currently Present?</th>
+              <th>Value</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">creator (Person)</td>
+              <td>No</td>
+              <td>Artist name, URL, description</td>
+              <td>Connects products to artist in Knowledge Graph. Enables "designed by [Artist]" in results. Zero competitors have this.</td>
+            </tr>
+            <tr>
+              <td class="mono">isLimitedEdition</td>
+              <td>No</td>
+              <td>true/false</td>
+              <td>Signals scarcity. Google can surface in shopping results. Competitive advantage for Mad Hudson's limited runs.</td>
+            </tr>
+            <tr>
+              <td class="mono">material</td>
+              <td>No</td>
+              <td>Case material, strap material</td>
+              <td>Enables filtering in Google Shopping. Answers spec-comparison queries ("stainless steel watches under $300").</td>
+            </tr>
+            <tr>
+              <td class="mono">brand.description</td>
+              <td>No</td>
+              <td>"Artist collaboration watches from Chicago"</td>
+              <td>Enriches brand entity. Supports Knowledge Panel. Helps answer engines understand category positioning.</td>
+            </tr>
+            <tr>
+              <td class="mono">review / aggregateRating</td>
+              <td>No</td>
+              <td>Star ratings from reviews</td>
+              <td>Star rating display in search results. 15-25% CTR increase. Requires review system implementation.</td>
+            </tr>
+            <tr>
+              <td class="mono">additionalProperty</td>
+              <td>No</td>
+              <td>Edition size, movement type, case size, water resistance</td>
+              <td>Structured specifications for comparison shopping. Answer engines can extract specific specs ("40mm case size").</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-success">
+          <p><strong>First-Mover Advantage:</strong> Adding <code>creator</code> schema now means Mad Hudson defines how artist-collaboration watches are structured in Google's index. When competitors eventually add it, they'll be following Mad Hudson's lead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section: Complete JSON-LD Template -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Complete JSON-LD Template</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>This is the ready-to-paste template for your product theme file. Copy this entire block and add it to your product template. The Liquid variables (the parts in curly braces) auto-populate based on the product being viewed.</p>
+
+        <div class="callout callout-info">
+          <p><strong>Where this goes:</strong> In your Shopify theme's <code>product.liquid</code> file (or the product template section in newer themes), inside the <code>&lt;head&gt;</code> section or just before <code>&lt;/body&gt;</code>.</p>
+        </div>
+
+        <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title }}",
+  "description": "{{ product.description | strip_html | truncate: 500 }}",
+  "image": "{{ product.featured_image | image_url: width: 1200 }}",
+  "sku": "{{ product.selected_or_first_available_variant.sku }}",
+  "brand": {
+    "@type": "Brand",
+    "name": "Mad Hudson Watches",
+    "description": "Artist collaboration watches from Chicago. Each watch is designed by a named, credited independent artist.",
+    "url": "https://madhudsonwatches.com"
+  },
+  "creator": {
+    "@type": "Person",
+    "name": "[ARTIST NAME]",
+    "description": "[ARTIST BIO - 1-2 sentences]",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "[ARTIST CITY]",
+      "addressRegion": "[ARTIST STATE]"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "{{ product.price | money_without_currency }}",
+    "priceCurrency": "USD",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": "{{ shop.url }}{{ product.url }}",
+    "seller": {
+      "@type": "Organization",
+      "name": "Mad Hudson Watches"
+    }
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Movement",
+      "value": "Miyota Quartz"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Case Material",
+      "value": "Stainless Steel"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Case Size",
+      "value": "40mm"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Water Resistance",
+      "value": "3ATM"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Limited Edition",
+      "value": "true"
+    }
+  ]
+}
+&lt;/script&gt;</code></pre>
+
+        <h3>About the Template Variables</h3>
+        <p><strong>Auto-populating fields:</strong> <code>product.title</code>, <code>product.description</code>, <code>product.featured_image</code>, <code>product.price</code>, and <code>product.available</code> all pull from Shopify's product data automatically. You don't need to change these.</p>
+
+        <p><strong>Per-product fields:</strong> The <code>creator</code> section (artist name, bio, city, state) needs to be customized per product. The best way to do this is with <strong>Shopify metafields</strong> (explained in the next section). If you don't want to use metafields, you can hardcode per product using Liquid conditionals based on <code>product.handle</code>.</p>
+
+        <h3>Example: Hardcoding Per Product (Alternative)</h3>
+        <pre><code>{% if product.handle == 'cd-watch' %}
+  "creator": {
+    "@type": "Person",
+    "name": "Artist Name Here",
+    "description": "Chicago-based visual artist known for abstract geometric patterns.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Chicago",
+      "addressRegion": "IL"
+    }
+  },
+{% elsif product.handle == 'another-watch' %}
+  "creator": {
+    "@type": "Person",
+    "name": "Another Artist",
+    ...
+  },
+{% endif %}</code></pre>
+
+        <p>This works, but it gets unwieldy with many products. Metafields are cleaner.</p>
+      </div>
+    </section>
+
+    <!-- Section: Implementation in Shopify -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Implementation in Shopify</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Step-by-step instructions for adding the schema template to your Shopify theme.</p>
+
+        <h3>Step 1: Duplicate Your Theme (Safety First)</h3>
+        <p>Always backup before editing templates. In Shopify admin:</p>
+        <ol>
+          <li>Go to <strong>Online Store → Themes</strong></li>
+          <li>Find your current live theme</li>
+          <li>Click <strong>Actions → Duplicate</strong></li>
+          <li>Rename the duplicate to "[Theme Name] - Backup [Date]"</li>
+        </ol>
+        <p>If anything breaks, you can revert to this copy instantly.</p>
+
+        <h3>Step 2: Edit the Product Template</h3>
+        <ol>
+          <li>Go to <strong>Online Store → Themes → Actions → Edit code</strong></li>
+          <li>In the left sidebar, find <code>product.liquid</code> (or look in the <code>sections/</code> folder for <code>product-template.liquid</code> in newer themes)</li>
+          <li>Scroll to the end of the file, just before the closing <code>&lt;/body&gt;</code> tag</li>
+          <li>Paste the entire JSON-LD template from the section above</li>
+          <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <h3>Step 3: Set Up Metafields for Artist Data</h3>
+        <p>Metafields let you store custom data per product without hardcoding it in the theme. This is the cleanest approach for artist info.</p>
+
+        <ol>
+          <li>Go to <strong>Settings → Custom data → Products</strong></li>
+          <li>Click <strong>Add definition</strong></li>
+          <li>Create the following metafields:
+            <ul>
+              <li><strong>Namespace:</strong> <code>custom</code></li>
+              <li><strong>Name:</strong> <code>artist_name</code> (Type: Single line text)</li>
+              <li><strong>Name:</strong> <code>artist_bio</code> (Type: Multi-line text)</li>
+              <li><strong>Name:</strong> <code>artist_city</code> (Type: Single line text)</li>
+              <li><strong>Name:</strong> <code>artist_state</code> (Type: Single line text)</li>
+            </ul>
+          </li>
+          <li>Save each metafield definition</li>
+        </ol>
+
+        <h3>Step 4: Populate Metafields for Each Product</h3>
+        <ol>
+          <li>Go to <strong>Products</strong> in Shopify admin</li>
+          <li>Open a product (e.g., CD Watch)</li>
+          <li>Scroll down to the <strong>Metafields</strong> section</li>
+          <li>Fill in:
+            <ul>
+              <li><strong>artist_name:</strong> "Artist Full Name"</li>
+              <li><strong>artist_bio:</strong> "1-2 sentence bio about the artist's style and background"</li>
+              <li><strong>artist_city:</strong> "Chicago"</li>
+              <li><strong>artist_state:</strong> "IL"</li>
+            </ul>
+          </li>
+          <li>Save the product</li>
+          <li>Repeat for all products</li>
+        </ol>
+
+        <h3>Step 5: Update the Template to Use Metafields</h3>
+        <p>Replace the hardcoded <code>[ARTIST NAME]</code> placeholders in the JSON-LD template with metafield references:</p>
+
+        <pre><code>"creator": {
+  "@type": "Person",
+  "name": "{{ product.metafields.custom.artist_name }}",
+  "description": "{{ product.metafields.custom.artist_bio }}",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "{{ product.metafields.custom.artist_city }}",
+    "addressRegion": "{{ product.metafields.custom.artist_state }}"
+  }
+},</code></pre>
+
+        <h3>Step 6: Test the Schema</h3>
+        <p>Save the template, then test on a live product page (instructions in the next section).</p>
+      </div>
+    </section>
+
+    <!-- Section: Testing Your Schema -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Testing Your Schema</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>After adding the schema template, you need to verify that Google can read it correctly. Use these three tools:</p>
+
+        <h3>1. Google Rich Results Test</h3>
+        <p><strong>URL:</strong> <a href="https://search.google.com/test/rich-results" target="_blank">https://search.google.com/test/rich-results</a></p>
+        <ol>
+          <li>Paste your product page URL</li>
+          <li>Click "Test URL"</li>
+          <li>Wait for the scan to complete</li>
+          <li>Check that:
+            <ul>
+              <li>Product entity is detected</li>
+              <li>Creator info is present (look for "Person" entity nested under Product)</li>
+              <li>No critical errors</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="callout callout-success">
+          <p><strong>What you're looking for:</strong> "Product" badge in green with no errors. Click "View tested page" to see exactly what Google parsed. If creator info is missing, double-check your metafield names.</p>
+        </div>
+
+        <h3>2. Schema.org Validator</h3>
+        <p><strong>URL:</strong> <a href="https://validator.schema.org/" target="_blank">https://validator.schema.org/</a></p>
+        <ol>
+          <li>Copy the JSON-LD block directly from your page source (view-source in browser, Ctrl+F for "application/ld+json")</li>
+          <li>Paste into the validator</li>
+          <li>Click "Validate"</li>
+          <li>Check for syntax errors (missing commas, mismatched brackets)</li>
+        </ol>
+
+        <p>This validator is stricter than Google's test — it catches formatting errors that might not break rich results but could cause issues later.</p>
+
+        <h3>3. Google Search Console (Long-Term Monitoring)</h3>
+        <p>Once your schema is live, Google Search Console tracks how it performs over time.</p>
+        <ol>
+          <li>Go to <strong>Search Console → Enhancements → Products</strong></li>
+          <li>Wait 1-2 weeks for Google to re-crawl your product pages</li>
+          <li>Check for:
+            <ul>
+              <li>Number of valid product pages</li>
+              <li>Rich result impressions (how often your listings show with stars/price)</li>
+              <li>Errors or warnings</li>
+            </ul>
+          </li>
+        </ol>
+
+        <div class="callout callout-warning">
+          <p><strong>Patience required:</strong> Rich results don't appear instantly. It can take 2-4 weeks for Google to re-index your pages and start showing enhanced listings. The schema is working even if you don't see stars immediately.</p>
+        </div>
+
+        <h3>What Success Looks Like</h3>
+        <ul>
+          <li><strong>In Rich Results Test:</strong> Green "Product" badge, creator name visible in parsed data</li>
+          <li><strong>In Schema.org Validator:</strong> No errors, all fields present</li>
+          <li><strong>In Search Console:</strong> Product pages marked "Valid," rich result impressions increasing over time</li>
+          <li><strong>In live search:</strong> Eventually, your product listings show price, availability, and star ratings (once you implement reviews)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Section: Competitive Gap -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Competitive Gap</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Mad Hudson's opportunity: <strong>zero of 11 competitors have artist/creator schema.</strong> They all have Shopify's default Product schema (name, price, availability), but no one structures the artist relationship.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Basic Product Schema</th>
+              <th>Creator Schema</th>
+              <th>Review Schema</th>
+              <th>Limited Edition</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mr Jones Watches</strong></td>
+              <td>Yes (Shopify default)</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Swatch x Art</strong></td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Baltic</strong></td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>Partial</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Brew</strong></td>
+              <td>Yes (basic)</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Anicorn</strong></td>
+              <td>Yes</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Mad Hudson (current)</strong></td>
+              <td>Yes (Shopify default)</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+            </tr>
+            <tr style="background: rgba(107, 161, 103, 0.08); font-weight: 600;">
+              <td><strong>Mad Hudson (target)</strong></td>
+              <td>Enhanced</td>
+              <td>Yes — first mover</td>
+              <td>Yes (when reviews added)</td>
+              <td>Yes</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-primary">
+          <p><strong>The Implication:</strong> Being first to structure this data gives Mad Hudson a head start in how Google categorizes the entire artist-collaboration watch space. When a buyer searches "artist designed watches" or asks ChatGPT for recommendations, Mad Hudson's structured data makes it easier for algorithms to understand and surface the brand.</p>
+        </div>
+
+        <p>This isn't theoretical differentiation — it's infrastructural. The brands that define the category structure early become the reference point. Competitors who add creator schema later will be following Mad Hudson's lead.</p>
+      </div>
+    </section>
+
+    <!-- Section: Checklist -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Implementation Checklist</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <ul class="checklist">
+          <li>Duplicate current Shopify theme as backup</li>
+          <li>Create artist metafields in Shopify admin (artist_name, artist_bio, artist_city, artist_state)</li>
+          <li>Populate metafields for each product (CD Watch, etc.)</li>
+          <li>Add JSON-LD template to product template (product.liquid or product-template.liquid)</li>
+          <li>Update template to reference metafields instead of hardcoded placeholders</li>
+          <li>Test with Google Rich Results Test (verify Product + Person entities detected)</li>
+          <li>Test with Schema.org Validator (check for syntax errors)</li>
+          <li>Monitor Google Search Console for rich results over 2-4 weeks</li>
+          <li>Add review/rating schema when review system is implemented</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p><strong>Estimated time:</strong> 2-3 hours for initial setup (includes creating metafields, populating data for all products, and testing). After that, it's 5 minutes per new product to fill in artist info.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <h4>Related Pages</h4>
+      <div class="related-pages">
+        <a href="entity-building.html">Entity Building</a>
+        <a href="product-content.html">Product Content</a>
+        <a href="aeo-strategy.html">AEO Strategy</a>
+        <a href="extractable-copy.html">Extractable Copy</a>
+        <a href="../../../../dashboard.html">Dashboard</a>
+      </div>
+      <p style="margin-top: 1.5rem;">Schema Markup Guide — Mad Hudson Watches SEO Research, February 2026</p>
+    </footer>
+  </div>
+
+  <script>
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.section').classList.toggle('collapsed');
+      });
+    });
+  </script>
+</body>
+</html>

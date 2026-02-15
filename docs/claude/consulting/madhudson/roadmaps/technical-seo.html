@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technical SEO Checklist — Mad Hudson SEO Roadmap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="roadmap-base.css">
+
+  <style>
+    /* Page-specific styles */
+    .how-to-box {
+      background: rgba(90, 143, 166, 0.08);
+      border-left: 4px solid var(--color-info);
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+    }
+
+    .how-to-box h4 {
+      color: var(--color-info);
+      margin-top: 0;
+    }
+
+    .template-box {
+      background: var(--color-surface-warm);
+      border: 1px solid var(--color-border);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      margin: 1rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .effort-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      background: rgba(196, 147, 74, 0.1);
+      color: var(--color-warning);
+      border-radius: 4px;
+      margin-left: 0.5rem;
+    }
+
+    .priority-high {
+      color: var(--color-primary);
+      font-weight: 600;
+    }
+
+    .checklist-section {
+      margin: 2rem 0;
+    }
+
+    .checklist-section h3 {
+      font-size: 1.0625rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Navigation -->
+    <nav class="page-nav">
+      <a href="../../../../dashboard.html#html-opportunities">← Dashboard</a>
+      <div class="page-nav-seq">
+        <a href="growth-model.html">← Prev: Growth Model</a>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>Technical SEO Checklist</h1>
+      <p class="page-subtitle">Same-day wins and structural fixes that help Google see what's already there</p>
+    </header>
+
+    <!-- TL;DR Box -->
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li>Most of these fixes are <strong>invisible to customers</strong> — the site looks exactly the same</li>
+        <li>5 same-day wins can be done in a single afternoon in Shopify admin</li>
+        <li>Page titles, meta descriptions, and alt text are the highest-impact low-effort fixes</li>
+        <li>Bot filtering reveals your true conversion baseline (~0.85% vs reported 0.06%)</li>
+        <li>UTM parameters solve the $28K attribution blindspot within one month</li>
+      </ul>
+      <p class="bottom-line"><strong>Bottom line:</strong> These are the foundation. Everything else — content, schema, AEO — builds on top of clean technical SEO.</p>
+    </section>
+
+    <!-- Page Titles -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Page Titles</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>Current format:</strong> <code>[Watch Name] — Mad Hudson Watches</code> (Shopify auto-generated)</p>
+        <p><strong>Target format:</strong> <code>[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson</code></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Page Type</th>
+              <th>Current Title</th>
+              <th>Recommended Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product pages</td>
+              <td class="mono">[Watch Name] — Mad Hudson Watches</td>
+              <td class="mono">[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson</td>
+            </tr>
+            <tr>
+              <td>Homepage</td>
+              <td class="mono">Mad Hudson Watches</td>
+              <td class="mono">Mad Hudson Watches — Artist Collaboration Watches from Chicago</td>
+            </tr>
+            <tr>
+              <td>Collections</td>
+              <td class="mono">[Collection] — Mad Hudson Watches</td>
+              <td class="mono">[Collection] — Artist-Designed Limited Edition Watches | Mad Hudson</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="how-to-box">
+          <h4>How to change</h4>
+          <p>Shopify admin → <strong>Products</strong> → [Product] → scroll to <strong>"Search engine listing preview"</strong> → edit <strong>"Page title"</strong> field. No theme editing required.</p>
+        </div>
+
+        <p><strong>Why it matters:</strong> Page title is the most prominent text in search results. Including artist names captures searches like "[Artist Name] watch." Adding "limited edition" and "artist" captures category queries.</p>
+
+        <div class="callout callout-info">
+          <p><strong>Example:</strong> Instead of "The CD Watch — Mad Hudson Watches", use "The CD Watch by Riki Prosper — Limited Edition Artist Watch | Mad Hudson". This captures searches for "Riki Prosper watch", "artist collaboration watch", and "limited edition watch" all at once.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Meta Descriptions -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Meta Descriptions</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>Current state:</strong> Auto-generated from the first ~160 characters of thin product descriptions. Result: "A beautiful timepiece from Mad Hudson Watches." — generic, keyword-poor.</p>
+
+        <div class="template-box">
+          <strong>Template:</strong><br>
+          [Watch Name] — a limited edition watch designed by [Artist Name] for Mad Hudson. [One sentence about the design]. [Edition size] pieces. Free shipping.
+        </div>
+
+        <h3>Rules</h3>
+        <ul>
+          <li>Aim for 150-160 characters (Google's display limit)</li>
+          <li>Include artist name, edition info, "limited edition" or "artist collaboration"</li>
+          <li>Every product and the homepage need custom meta descriptions</li>
+          <li>Front-load the most important info (artist, watch name, key detail)</li>
+        </ul>
+
+        <div class="how-to-box">
+          <h4>How to change</h4>
+          <p>Same <strong>"Search engine listing preview"</strong> section in Shopify admin → <strong>Description</strong> field.</p>
+        </div>
+
+        <h3>Before/After Comparison</h3>
+
+        <div class="comparison-grid">
+          <div class="comparison-box before">
+            <div class="comparison-label">Before</div>
+            <blockquote>"A beautiful timepiece from Mad Hudson Watches."</blockquote>
+          </div>
+          <div class="comparison-box after">
+            <div class="comparison-label">After</div>
+            <blockquote>"The CD Watch — a limited edition wearable tribute to mixtapes, designed by Atlanta artist Riki Prosper. Holographic disc dial. $215. Free shipping."</blockquote>
+          </div>
+        </div>
+
+        <p><strong>Impact:</strong> Better CTR from search results. The "after" version tells the searcher exactly what makes this watch special, who designed it, and why it's worth clicking.</p>
+      </div>
+    </section>
+
+    <!-- Alt Text -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Alt Text</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>Current state:</strong> Empty or auto-generated filenames on all product images.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Image Type</th>
+              <th>Current Alt Text</th>
+              <th>Recommended Alt Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product hero shot</td>
+              <td class="mono">"" (empty) or filename</td>
+              <td class="mono">[Watch Name] by [Artist] — [brief visual description] — Mad Hudson Watches</td>
+            </tr>
+            <tr>
+              <td>Detail / dial close-up</td>
+              <td class="mono">"" (empty)</td>
+              <td class="mono">Close-up of [Watch Name] dial showing [specific design element] by artist [Name]</td>
+            </tr>
+            <tr>
+              <td>Wrist shot / lifestyle</td>
+              <td class="mono">"" (empty)</td>
+              <td class="mono">[Watch Name] artist collaboration watch worn on wrist — limited edition by [Artist]</td>
+            </tr>
+            <tr>
+              <td>Artist portrait</td>
+              <td>N/A (doesn't exist yet)</td>
+              <td class="mono">Artist [Name], designer of [Watch Name] for Mad Hudson Watches</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="how-to-box">
+          <h4>How to change</h4>
+          <p><strong>Products</strong> → click each image → <strong>Alt text</strong> field. Budget 2-3 minutes per image.</p>
+          <p><strong>Automation option:</strong> Alt text can be updated for all images in one script run — provide descriptions in a JSON template.</p>
+        </div>
+
+        <p><strong>Why it matters:</strong> Opens Google Image Search traffic (currently zero from this channel). "Artist collaboration watch," "limited edition art watch," and "[artist name] watch" are all image-searchable queries. Also improves accessibility.</p>
+
+        <div class="callout callout-success">
+          <p><strong>Quick win:</strong> Alt text takes 20-30 minutes for all product images and has immediate impact. Google Images often indexes faster than web search.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Heading Hierarchy -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Heading Hierarchy (H1-H6)</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <h3>Common Issues</h3>
+        <ul>
+          <li>Multiple H1 tags per page (theme uses H1 for both logo and product name)</li>
+          <li>Skipped heading levels (H1 → H3, skipping H2)</li>
+          <li>No H2 sections for content blocks (About the Artist, Specifications, Edition Details)</li>
+        </ul>
+
+        <h3>Target Structure</h3>
+        <ul>
+          <li><strong>One H1 per page</strong> (the product name)</li>
+          <li><strong>H2 for major sections</strong> (About the Artist, Specifications, Edition Details)</li>
+          <li><strong>H3 for subsections</strong> (Materials, Care Instructions, Shipping)</li>
+        </ul>
+
+        <div class="how-to-box">
+          <h4>How to check</h4>
+          <p>Right-click any product page → <strong>View Page Source</strong> → search for <code>&lt;h1</code>, <code>&lt;h2</code>, etc.</p>
+        </div>
+
+        <div class="how-to-box">
+          <h4>How to fix</h4>
+          <p><strong>Theme editor</strong> → product template. Change extra H1 tags to appropriate levels. This is a one-time fix.</p>
+        </div>
+
+        <p><strong>Why it matters:</strong> Search engines use heading hierarchy to understand page structure. Clean hierarchy helps Google extract featured snippets and better understand what's most important on the page.</p>
+      </div>
+    </section>
+
+    <!-- Image Optimization -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Image Optimization</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Filenames</h3>
+        <p><strong>Current pattern:</strong> Generic (IMG_4532.jpg). Existing images can't be renamed in Shopify.</p>
+        <p><strong>Future uploads:</strong> <code>mad-hudson-[watch-name]-[artist]-[view].jpg</code></p>
+        <p><strong>Example:</strong> <code>mad-hudson-cd-watch-riki-prosper-dial.jpg</code></p>
+
+        <div class="callout callout-info">
+          <p><strong>Note:</strong> Descriptive filenames are a minor ranking signal, but they help with organization and make alt text easier to write. Don't rename existing images — just follow the convention for new uploads.</p>
+        </div>
+
+        <h3>Format</h3>
+        <p>Shopify's CDN handles compression and WebP conversion automatically. <strong>No action needed.</strong></p>
+
+        <h3>Size</h3>
+        <p>Upload at <strong>2048px on the longest edge</strong>. Shopify generates all thumbnails. Don't upload 5000px+ originals — slows down admin.</p>
+
+        <div class="callout callout-warning">
+          <p><strong>Watch out:</strong> Uploading enormous files (5000px+, 10MB+ each) can slow down Shopify admin and doesn't improve display quality — the CDN will resize them anyway.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- URL Structure -->
+    <section class="section">
+      <div class="section-header">
+        <h2>URL Structure</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Shopify handles URLs well by default (<code>/products/[handle]</code>, <code>/collections/[handle]</code>).</p>
+
+        <h3>Main Opportunity</h3>
+        <p>Ensure product URL handles include artist name where they don't already. URL handles can be edited in Shopify — <strong>set up redirects if changing</strong>.</p>
+
+        <p><strong>Example:</strong></p>
+        <ul>
+          <li>Current: <code>/products/the-cd-watch</code></li>
+          <li>Better: <code>/products/cd-watch-riki-prosper</code> (if changing, redirect the old URL)</li>
+        </ul>
+
+        <div class="how-to-box">
+          <h4>How to change</h4>
+          <p><strong>Products</strong> → [Product] → scroll to <strong>"Search engine listing preview"</strong> → click <strong>"Edit website SEO"</strong> → change <strong>URL handle</strong>.</p>
+          <p><strong>Important:</strong> After changing, add a redirect: <strong>Navigation</strong> → <strong>URL Redirects</strong> → map old URL to new URL.</p>
+        </div>
+
+        <div class="callout callout-warning">
+          <p><strong>Caution:</strong> Only change URLs if the product hasn't been heavily promoted yet. Broken links lose SEO equity and frustrate customers. For existing watches with inbound links, keep the current URLs and use page titles/meta descriptions to include artist names instead.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bot Filtering -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Bot Filtering</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>One toggle in Shopify:</strong> Analytics → Settings → <strong>"Exclude known bots"</strong>. Available since Oct 2025.</p>
+
+        <h3>Why</h3>
+        <p>Current analytics show 12,983 sessions with only 8 conversions (0.06%). Real conversion rate on human traffic days is ~0.85%. <strong>Without bot filtering, every data-driven decision is built on unreliable numbers.</strong></p>
+
+        <h3>What Changes</h3>
+        <p>Fewer sessions reported, but much better conversion rate. Your analytics become trustworthy.</p>
+
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">0.06%</div>
+            <div class="stat-label">Current Reported CVR<br>(includes bots)</div>
+          </div>
+          <div class="stat-item highlight">
+            <div class="stat-value">~0.85%</div>
+            <div class="stat-label">True Human CVR<br>(after filtering)</div>
+          </div>
+        </div>
+
+        <h3>Next Step</h3>
+        <p>After enabling, cross-reference high-traffic days with Brad's Instagram posting history to separate genuine social traffic from bot amplification.</p>
+
+        <div class="callout callout-primary">
+          <p><strong>Do this first.</strong> Everything else — A/B tests, content decisions, channel prioritization — depends on accurate traffic data. Bot filtering is the foundation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- UTM Tracking -->
+    <section class="section">
+      <div class="section-header">
+        <h2>UTM Tracking</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p><strong>The $28.3K problem:</strong> 179 orders (62% of total revenue) have no tracked source.</p>
+
+        <h3>Fix</h3>
+        <p>Add UTM parameters to Instagram link-in-bio:</p>
+
+        <div class="template-box">
+          https://madhudsonwatches.com?utm_source=instagram&utm_medium=social&utm_campaign=linkinbio
+        </div>
+
+        <p>Also add to any email campaign links:</p>
+
+        <div class="template-box">
+          https://madhudsonwatches.com/products/cd-watch?utm_source=email&utm_medium=newsletter&utm_campaign=[campaign-name]
+        </div>
+
+        <h3>Timeline</h3>
+        <p>Within <strong>one month</strong> of implementing, you'll know what the unattributed bucket actually is. If Instagram is the real #1 channel, the entire strategy shifts.</p>
+
+        <h3>Effort</h3>
+        <p><span class="effort-tag">10 minutes</span> — Shopify tracks UTM parameters automatically. Just update the link-in-bio URL.</p>
+
+        <div class="callout callout-success">
+          <p><strong>Immediate value:</strong> UTM tracking costs nothing and solves one of the biggest unknowns in the entire dataset. Do this today.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Crawl Verification -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Crawl Verification</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Ensure Shopify theme serves product content as <strong>crawlable HTML</strong>, not JavaScript-only content. Some Shopify themes render product descriptions via client-side JS, which search engines and answer engines may not execute.</p>
+
+        <div class="how-to-box">
+          <h4>How to check</h4>
+          <p>Right-click a product page → <strong>View Page Source</strong> (not Inspect Element). Search for your product description text. If it's in the source, it's crawlable. If it only appears after JS runs, it's not.</p>
+        </div>
+
+        <h3>What to Do if JS-Only</h3>
+        <ul>
+          <li>Contact Shopify support or switch to a theme that server-renders content</li>
+          <li>Most modern Shopify themes (Dawn-based) server-render by default</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <p><strong>Good news:</strong> Most Shopify themes handle this correctly. This is a one-time check to confirm, not a likely problem.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Checklist -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Master Checklist</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-section">
+          <h3>Same-Day Wins</h3>
+          <ul class="checklist">
+            <li><span class="priority-high">Add alt text to all product images</span> <span class="effort-tag">20-30 min</span></li>
+            <li><span class="priority-high">Write custom meta descriptions for every product</span> <span class="effort-tag">1-2 hours</span></li>
+            <li><span class="priority-high">Update page titles with artist names</span> <span class="effort-tag">30 min</span></li>
+            <li><span class="priority-high">Enable bot filtering</span> <span class="effort-tag">2 min</span></li>
+            <li><span class="priority-high">Add UTM parameters to link-in-bio</span> <span class="effort-tag">10 min</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-section">
+          <h3>This Week</h3>
+          <ul class="checklist">
+            <li>Check heading hierarchy on all page types <span class="effort-tag">30 min</span></li>
+            <li>Verify product content renders in HTML source <span class="effort-tag">10 min</span></li>
+            <li>Establish image naming convention for future uploads <span class="effort-tag">5 min</span></li>
+          </ul>
+        </div>
+
+        <div class="checklist-section">
+          <h3>Ongoing</h3>
+          <ul class="checklist">
+            <li>Name future image uploads descriptively before uploading</li>
+            <li>Add UTM parameters to all new campaigns</li>
+            <li>Review alt text when new product images are added</li>
+          </ul>
+        </div>
+
+        <div class="callout callout-primary">
+          <p><strong>Total time for same-day wins:</strong> 3-4 hours. Total projected impact: foundational — everything else builds on this.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <h4>Related Pages</h4>
+      <div class="related-pages">
+        <a href="../../../../dashboard.html">Dashboard Overview</a>
+        <a href="product-content.html">Product Content Strategy</a>
+        <a href="growth-model.html">Growth Model & Projections</a>
+        <a href="instagram-funnel.html">Instagram Conversion</a>
+        <a href="trust-conversion.html">Trust & Conversion</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Collapsible sections
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.section').classList.toggle('collapsed');
+      });
+    });
+  </script>
+</body>
+</html>

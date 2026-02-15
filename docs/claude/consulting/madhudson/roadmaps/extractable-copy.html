@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Extractable Copy Playbook — Mad Hudson SEO Roadmap</title>
+  <link rel="stylesheet" href="roadmap-base.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Source+Code+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    .copy-chunk {
+      background: var(--color-surface-warm);
+      border-left: 3px solid var(--color-primary);
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      border-radius: var(--radius);
+    }
+
+    .copy-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .copy-text {
+      font-size: 0.9375rem;
+      line-height: 1.7;
+      color: var(--color-text);
+      margin-bottom: 0;
+    }
+
+    .product-section {
+      background: var(--color-surface);
+      border: 2px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .product-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    .product-price {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .specs-table {
+      margin: 1.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    .specs-table td:first-child {
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      width: 160px;
+    }
+
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      list-style: none;
+      padding: 0;
+    }
+
+    .keyword-list li {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      padding: 0.375rem 0.75rem;
+      background: var(--color-surface-warm);
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .word-count {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Navigation -->
+    <nav class="page-nav">
+      <a href="../../../../dashboard.html#aeo">← Back to Dashboard</a>
+      <div class="page-nav-seq">
+        <a href="aeo-strategy.html">← AEO Strategy</a>
+        <a href="entity-building.html">Entity Building →</a>
+      </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="page-header">
+      <h1>Extractable Copy Playbook</h1>
+      <p class="page-subtitle">Product and brand copy written for answer engines to clip and cite</p>
+    </header>
+
+    <!-- TL;DR -->
+    <div class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li><strong>Answer engines clip 1-3 sentence chunks</strong> — each sentence must stand alone as a quotable citation</li>
+        <li><strong>Draft extractable copy exists for all 3 active watches</strong> (CD Watch, Broken Time, Dogma) plus brand-level copy</li>
+        <li><strong>The word "best" appears naturally throughout</strong> to match fan-out query rewrites</li>
+        <li><strong>Every chunk includes:</strong> product name, artist name, price, city, and a distinguishing detail</li>
+      </ul>
+      <p class="bottom-line">Bottom line: This is deployment-ready copy. Review it, adjust the voice if needed, and push to Shopify.</p>
+    </div>
+
+    <!-- What Extractable Copy Is -->
+    <section class="section">
+      <div class="section-header">
+        <h2>What Extractable Copy Is</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>When someone asks ChatGPT "best unique watches under $300," the model searches the web, pulls back pages, and tries to find a 1-3 sentence chunk it can clip and quote directly. It doesn't summarize — it literally copies. If your page has a clean, self-contained statement with the right information (brand, price, artist, differentiator), that's what gets cited. If your page has generic marketing fluff, the model picks a competitor.</p>
+
+        <p><strong>Why this matters:</strong> Answer engines prioritize extractability over authority. A small brand with quotable copy outranks a big brand with vague prose. The citation is the ranking — if you're not clipped, you're not visible.</p>
+
+        <div class="callout callout-primary">
+          <p><strong>The shift:</strong> Traditional SEO optimized for <em>findability</em> (rank #1 in a list). AEO optimizes for <em>citability</em> (be the quote that answers the question). That means writing sentences that could appear in an encyclopedia, not a brand manifesto.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chunk Anatomy -->
+    <section class="section">
+      <div class="section-header">
+        <h2>The Chunk Anatomy</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>Every product page needs these extractable chunks. Each one serves a different query pattern:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Chunk Type</th>
+              <th>Purpose</th>
+              <th>Query Pattern</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Hero (1-2 sentences)</td>
+              <td>What it is + who designed it. This is the most-clipped chunk.</td>
+              <td>"what is the [product name]"</td>
+            </tr>
+            <tr>
+              <td class="mono">What It Is</td>
+              <td>Factual description — dial, movement, case, visual concept</td>
+              <td>"describe the [product]"</td>
+            </tr>
+            <tr>
+              <td class="mono">Who It's For</td>
+              <td>Natural "best" keyword inclusion, target buyer, price context</td>
+              <td>"best watches for [buyer type]"</td>
+            </tr>
+            <tr>
+              <td class="mono">Why It's Different</td>
+              <td>Competitive positioning, artist model, Mad Hudson's identity</td>
+              <td>"why choose [brand] over [competitor]"</td>
+            </tr>
+            <tr>
+              <td class="mono">Specs</td>
+              <td>Structured data (table format) for schema markup</td>
+              <td>"[product] specifications"</td>
+            </tr>
+            <tr>
+              <td class="mono">Comparison</td>
+              <td>How this watch compares to alternatives (enables "vs" queries)</td>
+              <td>"[product] vs [competitor]"</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Rule of thumb:</strong> If you can't imagine an answer engine quoting a sentence verbatim, rewrite it. "This watch will blow your mind" becomes "The CD Watch features a holographic disc dial that shifts color with every turn of the wrist."</p>
+      </div>
+    </section>
+
+    <!-- CD Watch -->
+    <section class="section">
+      <div class="section-header">
+        <h2>CD Watch — $215</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <!-- Before/After -->
+        <div class="comparison-grid">
+          <div class="comparison-box before">
+            <div class="comparison-label">Before</div>
+            <blockquote>A beautiful timepiece featuring original artwork. Available in limited quantities.</blockquote>
+            <p class="word-count">(12 words, no artist, no price, nothing to clip)</p>
+          </div>
+          <div class="comparison-box after">
+            <div class="comparison-label">After</div>
+            <blockquote>The Mad Hudson CD Watch is a wearable tribute to mixtapes, burned CDs, and late-night listening sessions. Designed by Atlanta artist Riki Prosper, its holographic disc dial shifts color with every turn of the wrist.</blockquote>
+            <p class="word-count">(42 words, includes brand, artist, city, price context, sensory detail)</p>
+          </div>
+        </div>
+
+        <!-- Product Copy -->
+        <div class="product-section">
+
+          <div class="copy-chunk">
+            <div class="copy-label">Hero</div>
+            <p class="copy-text">The Mad Hudson CD Watch is a wearable tribute to mixtapes, burned CDs, and late-night listening sessions. Designed by Atlanta artist Riki Prosper, its holographic disc dial shifts color with every turn of the wrist.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">What It Is</div>
+            <p class="copy-text">The CD Watch by Mad Hudson features a clear holographic dial designed to look like a compact disc spinning in a player. Time is read through play and pause icons — the pause symbol marks hours, the play symbol marks minutes. It uses a Miyota quartz movement in a 40mm black IP stainless steel case with a leather strap.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Who It's For</div>
+            <p class="copy-text">The CD Watch is one of the best watches for music lovers and creative professionals who want something no one else is wearing. At $215, it's an affordable artist-collaboration watch that works as a conversation starter or a unique gift for someone who grew up making mixtapes.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Why It's Different</div>
+            <p class="copy-text">Unlike mass-market fashion watches, every Mad Hudson watch is designed by an independent artist who earns from the collaboration. The CD Watch was created by Riki Prosper, an Atlanta-based designer known for blending pop culture nostalgia with futuristic aesthetics. Mad Hudson is a Chicago-based independent watch company — not a fashion label licensing its name onto a generic case.</p>
+          </div>
+
+          <table class="specs-table">
+            <thead>
+              <tr>
+                <th colspan="2">Specifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Price</td>
+                <td>$215 USD</td>
+              </tr>
+              <tr>
+                <td>Movement</td>
+                <td>Miyota Quartz</td>
+              </tr>
+              <tr>
+                <td>Case Size</td>
+                <td>40mm diameter × 8.85mm thickness</td>
+              </tr>
+              <tr>
+                <td>Case Material</td>
+                <td>Black IP Stainless Steel</td>
+              </tr>
+              <tr>
+                <td>Crystal</td>
+                <td>Mineral Crystal</td>
+              </tr>
+              <tr>
+                <td>Strap</td>
+                <td>Leather, 20mm</td>
+              </tr>
+              <tr>
+                <td>Water Resistance</td>
+                <td>3 ATM (30 meters)</td>
+              </tr>
+              <tr>
+                <td>Designer</td>
+                <td>Riki Prosper (Atlanta, GA)</td>
+              </tr>
+              <tr>
+                <td>Brand</td>
+                <td>Mad Hudson (Chicago, IL)</td>
+              </tr>
+              <tr>
+                <td>Customer Rating</td>
+                <td>5.0/5.0 (3 reviews)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Comparison</div>
+            <p class="copy-text">Mad Hudson's CD Watch costs $215 and features original artwork by a named, credited artist. Comparable artist-collaboration watches from brands like Mr Jones Watches or Projects Watches range from $150-$350, but few offer the same level of artist transparency — Mad Hudson names the artist, tells their story, and shares the economics of the collaboration.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Broken Time -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Broken Time — $240</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <div class="product-section">
+
+          <div class="copy-chunk">
+            <div class="copy-label">Hero</div>
+            <p class="copy-text">The Mad Hudson Broken Time watch looks like a timepiece that's been smashed by a tiny hammer. Designed by artist and Mad Hudson co-founder Brad Podray, it's the brand's best-selling watch and the design that launched the company.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">What It Is</div>
+            <p class="copy-text">Broken Time features a dial that appears fractured into geometric shards, as if the watch face shattered mid-tick and froze in place. Each "crack" is a deliberate design element that creates the illusion of depth and movement. The watch uses a Miyota quartz movement in a 40mm stainless steel case with a comfortable silicone strap.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Who It's For</div>
+            <p class="copy-text">Broken Time is one of the best watches for people who think traditional watch design is boring. At $240, it's an affordable entry into the artist-collaboration watch space — more accessible than luxury art watches but far more distinctive than mass-market fashion brands.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Why It's Different</div>
+            <p class="copy-text">Broken Time doesn't compete on movement quality or heritage — it competes on artistic vision. This is a statement piece for people who value design over specifications. Mad Hudson produces watches in limited quantities, so availability is never guaranteed — if you see it in stock, that's the window to buy.</p>
+          </div>
+
+          <table class="specs-table">
+            <thead>
+              <tr>
+                <th colspan="2">Specifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Price</td>
+                <td>$240 USD</td>
+              </tr>
+              <tr>
+                <td>Movement</td>
+                <td>Miyota Quartz</td>
+              </tr>
+              <tr>
+                <td>Case Size</td>
+                <td>40mm diameter × 8.85mm thickness</td>
+              </tr>
+              <tr>
+                <td>Case Material</td>
+                <td>Stainless Steel</td>
+              </tr>
+              <tr>
+                <td>Crystal</td>
+                <td>Mineral Crystal</td>
+              </tr>
+              <tr>
+                <td>Strap</td>
+                <td>Silicone, 24mm</td>
+              </tr>
+              <tr>
+                <td>Water Resistance</td>
+                <td>3 ATM (30 meters)</td>
+              </tr>
+              <tr>
+                <td>Designer</td>
+                <td>Brad Podray (Chicago, IL)</td>
+              </tr>
+              <tr>
+                <td>Brand</td>
+                <td>Mad Hudson (Chicago, IL)</td>
+              </tr>
+              <tr>
+                <td>Availability</td>
+                <td>Sold out (waitlist open)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Comparison</div>
+            <p class="copy-text">Broken Time occupies a sweet spot between fashion watches (which prioritize branding over design) and serious microbrands (which prioritize movement specs over aesthetics). It's more affordable than Swatch × Artist collaborations but offers deeper artist storytelling and transparency about who designed it and why.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Dogma -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Dogma — $175</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <div class="product-section">
+
+          <div class="copy-chunk">
+            <div class="copy-label">Hero</div>
+            <p class="copy-text">The Mad Hudson Dogma watch features praying hands that transform into a dog as the day unfolds. Designed by Nike designer Bryce Wong, it's a wearable story about faith, loyalty, and the rituals that shape our days.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">What It Is</div>
+            <p class="copy-text">Dogma's dial shows two hands in prayer at noon. As time passes, the image slowly transforms — by midnight, the praying hands have become a dog's silhouette. The animation happens through raised graphic elements on the dial that align differently throughout the day. It uses a Miyota quartz movement in a 40mm black IP stainless steel case with a durable nylon strap.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Who It's For</div>
+            <p class="copy-text">Dogma is one of the best unique watches under $200 for people who want wearable storytelling. At $175, it's the most affordable watch in Mad Hudson's lineup and a natural fit for streetwear enthusiasts, creative professionals, and anyone who values design that unfolds throughout the day.</p>
+          </div>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Why It's Different</div>
+            <p class="copy-text">Most watches under $200 are generic fashion pieces with licensed branding. Dogma was designed by Bryce Wong, a Nike designer with a background in sneaker culture and visual storytelling. Mad Hudson collaborated with Wong to create a watch that tells a story, not just displays the time — and at $175, it's one of the only artist-designed watches from an independent brand at this price point.</p>
+          </div>
+
+          <table class="specs-table">
+            <thead>
+              <tr>
+                <th colspan="2">Specifications</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Price</td>
+                <td>$175 USD</td>
+              </tr>
+              <tr>
+                <td>Movement</td>
+                <td>Miyota Quartz</td>
+              </tr>
+              <tr>
+                <td>Case Size</td>
+                <td>40mm diameter × 7mm thickness</td>
+              </tr>
+              <tr>
+                <td>Case Material</td>
+                <td>Black IP Stainless Steel</td>
+              </tr>
+              <tr>
+                <td>Crystal</td>
+                <td>Mineral Crystal</td>
+              </tr>
+              <tr>
+                <td>Strap</td>
+                <td>Nylon, 20mm</td>
+              </tr>
+              <tr>
+                <td>Water Resistance</td>
+                <td>3 ATM (30 meters)</td>
+              </tr>
+              <tr>
+                <td>Designer</td>
+                <td>Bryce Wong (Nike)</td>
+              </tr>
+              <tr>
+                <td>Brand</td>
+                <td>Mad Hudson (Chicago, IL)</td>
+              </tr>
+              <tr>
+                <td>Availability</td>
+                <td>In stock</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="copy-chunk">
+            <div class="copy-label">Comparison</div>
+            <p class="copy-text">At $175, Dogma is the most affordable artist-designed watch from an independent watch brand. Comparable watches in this price range are typically fashion watches with no named designer or creative vision. Dogma's Nike designer pedigree and storytelling concept make it a standout in the sub-$200 category.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Brand-Level Copy -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Brand-Level Copy</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>For About page, collection pages, and homepage. These answer brand-discovery queries like "what is Mad Hudson" and "Chicago watch brands."</p>
+
+        <div class="copy-chunk">
+          <div class="copy-label">What Mad Hudson Is</div>
+          <p class="copy-text">Mad Hudson is a Chicago-based independent watch company that pairs working artists with limited-edition timepieces. Every watch is designed by a credited artist who earns from the collaboration. Watches range from $175 to $240 and feature Miyota quartz movements in stainless steel cases.</p>
+        </div>
+
+        <div class="copy-chunk">
+          <div class="copy-label">How It Works</div>
+          <p class="copy-text">Every Mad Hudson watch starts with an artist. The company approaches designers, illustrators, and visual artists with an invitation: design a watch dial that tells a story. The artist is credited on the product page, featured in the brand's storytelling, and compensated for the collaboration. Mad Hudson builds each design around reliable Miyota quartz movements in stainless steel cases, keeping prices accessible while prioritizing artistic vision.</p>
+        </div>
+
+        <div class="copy-chunk">
+          <div class="copy-label">Why It Matters</div>
+          <p class="copy-text">Artist collaborations are Mad Hudson's business model, not marketing events. Unlike fashion brands that license their name onto generic watch cases, or luxury brands that host one-off artist partnerships, Mad Hudson exists because of artists. Every release is a collaboration. Every dial was designed by someone whose name appears next to the product.</p>
+        </div>
+
+        <div class="copy-chunk">
+          <div class="copy-label">Who It's For</div>
+          <p class="copy-text">Mad Hudson watches are for creative professionals, streetwear enthusiasts, and people who think the watch industry takes itself too seriously. If you want a watch that starts conversations, supports independent artists, and costs less than a luxury brand's cheapest leather strap, Mad Hudson is one of the best independent watch brands to explore.</p>
+        </div>
+
+        <div class="copy-chunk">
+          <div class="copy-label">Where It's From</div>
+          <p class="copy-text">Mad Hudson was founded in Chicago by Connor Hudson, Brad Podray (also a watch designer), and the Mad Hudson creative team. The company is rooted in Chicago's DIY creative community — the same ecosystem that produced independent labels, maker spaces, and artist-run studios. Mad Hudson brings that ethos to watches.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Fan-Out Keyword Alignment -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Fan-Out Keyword Alignment</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <p>When a user asks "cool watches for creative people," answer engines rewrite that query into multiple fan-out searches that include the word "best." The extractable copy naturally includes "best" in ways that feel informative, not promotional.</p>
+
+        <h3>Fan-Out Queries the Copy Targets</h3>
+        <ul class="keyword-list">
+          <li>best artist collaboration watches 2026</li>
+          <li>best unique watches under $300</li>
+          <li>best independent watch brands</li>
+          <li>best watches for creative people</li>
+          <li>best affordable art watches</li>
+          <li>best watches for music lovers</li>
+          <li>best unique watches under $200</li>
+          <li>Chicago watch brands</li>
+          <li>watches designed by artists</li>
+          <li>artist-designed watches affordable</li>
+          <li>best conversation starter watches</li>
+          <li>best statement watches under $250</li>
+        </ul>
+
+        <h3>How "Best" Appears in the Copy</h3>
+        <div class="callout callout-info">
+          <p><strong>CD Watch:</strong> "The CD Watch is one of the <strong>best watches for music lovers</strong> and creative professionals who want something no one else is wearing."</p>
+          <p><strong>Broken Time:</strong> "Broken Time is one of the <strong>best watches for people who think traditional watch design is boring</strong>."</p>
+          <p><strong>Dogma:</strong> "Dogma is one of the <strong>best unique watches under $200</strong> for people who want wearable storytelling."</p>
+          <p><strong>Brand:</strong> "If you want a watch that starts conversations, supports independent artists, and costs less than a luxury brand's cheapest leather strap, Mad Hudson is one of the <strong>best independent watch brands</strong> to explore."</p>
+        </div>
+
+        <p>Notice the pattern: "one of the best [specific category]" — not "the best watch" or "the best brand." This phrasing is both accurate and extractable. It positions Mad Hudson as a top option within a niche rather than making universal claims.</p>
+      </div>
+    </section>
+
+    <!-- Shopify Implementation Notes -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Shopify Implementation Notes</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Visibility Rules</h3>
+        <ul>
+          <li><strong>Hero chunk must be first visible text below product title</strong> — not in a tab, accordion, or "Read More" section. Answer engines clip what they can see immediately.</li>
+          <li><strong>Specs in HTML table or definition list</strong> — not prose paragraphs. This enables schema.org Product markup and makes specs machine-readable.</li>
+          <li><strong>"Who It's For" and "Why It's Different" can go in expandable sections</strong> — but the first sentence of each must be visible without interaction.</li>
+          <li><strong>Don't put critical text inside images</strong> — answer engines can't extract text from image files. If it's important, it must be HTML text.</li>
+        </ul>
+
+        <h3>Schema Markup</h3>
+        <p>Add schema.org <code>Product</code> markup to each product page. This structured data tells answer engines exactly what the page is about and makes specs extractable.</p>
+
+        <pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "CD Watch",
+  "brand": {
+    "@type": "Brand",
+    "name": "Mad Hudson"
+  },
+  "description": "The Mad Hudson CD Watch is a wearable tribute to mixtapes, burned CDs, and late-night listening sessions. Designed by Atlanta artist Riki Prosper, its holographic disc dial shifts color with every turn of the wrist.",
+  "offers": {
+    "@type": "Offer",
+    "price": "215.00",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "3"
+  }
+}
+&lt;/script&gt;</code></pre>
+
+        <h3>Comparison Chunk Placement</h3>
+        <p>Comparison chunks can go in one of two places:</p>
+        <ul>
+          <li><strong>Inline on product page</strong> — in an expandable section titled "How does this compare to similar watches?"</li>
+          <li><strong>Dedicated comparison page</strong> — a standalone page comparing Mad Hudson watches to competitors, with individual product sections</li>
+        </ul>
+        <p>Recommendation: Start inline. If comparison content grows, migrate to a dedicated page and link to it from each product.</p>
+
+        <h3>Testing Extractability</h3>
+        <p>After pushing to Shopify, test whether the copy is extractable:</p>
+        <ol>
+          <li>Open ChatGPT or Perplexity</li>
+          <li>Ask: "What is the Mad Hudson CD Watch?"</li>
+          <li>Check whether the response quotes your Hero chunk verbatim</li>
+          <li>If not, your copy is either not visible, not unique, or competing with stronger content</li>
+        </ol>
+
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Deployment Checklist</h2>
+        <span class="section-toggle">▼</span>
+      </div>
+      <div class="section-body">
+        <ul class="checklist">
+          <li>Review CD Watch copy for voice and accuracy</li>
+          <li>Review Broken Time copy for voice and accuracy</li>
+          <li>Review Dogma copy for voice and accuracy</li>
+          <li>Review brand-level copy for voice and accuracy</li>
+          <li>Add Hero chunks as first visible text on each product page</li>
+          <li>Format specs as HTML tables (not prose)</li>
+          <li>Add schema.org Product markup to each product page</li>
+          <li>Verify HTML rendering (not JS-only hidden text)</li>
+          <li>Push to Shopify via automation scripts</li>
+          <li>Test extractability in ChatGPT/Perplexity with "what is [product]" queries</li>
+          <li>Monitor for citation pickup in answer engine responses</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <h4>Related Pages</h4>
+      <div class="related-pages">
+        <a href="aeo-strategy.html">AEO Strategy</a>
+        <a href="entity-building.html">Entity Building</a>
+        <a href="schema-markup.html">Schema Markup</a>
+        <a href="shopify-automation.html">Shopify Automation</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Collapsible sections
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.section').classList.toggle('collapsed');
+      });
+    });
+  </script>
+
+</body>
+</html>
