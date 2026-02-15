@@ -9,26 +9,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color-primary: #c4704b;
-      --color-primary-dark: #a85a38;
+      --color-primary: #5e7d68;
+      --color-primary-dark: #4a6654;
       --color-success: #6ba167;
       --color-warning: #c4934a;
       --color-info: #5a8fa6;
       --color-surface: #ffffff;
-      --color-surface-alt: #fdf8f4;
-      --color-surface-warm: #faf7f4;
-      --color-bg: #f5f0eb;
-      --color-text: #3d2f2a;
-      --color-text-secondary: #6b5650;
-      --color-text-muted: #8a7a74;
-      --color-border: rgba(196, 112, 75, 0.12);
-      --color-shadow: hsla(25, 40%, 30%, 0.06);
-      --color-shadow-lg: hsla(25, 40%, 30%, 0.12);
+      --color-surface-alt: #fafaf8;
+      --color-surface-warm: #f5f3f1;
+      --color-bg: #f6f5f3;
+      --color-text: #2e2a27;
+      --color-text-secondary: #5e5854;
+      --color-text-muted: #827b77;
+      --color-border: rgba(45, 42, 39, 0.10);
+      --color-shadow: hsla(25, 20%, 30%, 0.06);
+      --color-shadow-lg: hsla(25, 20%, 30%, 0.12);
       --font-display: 'Fraunces', Georgia, serif;
       --font-body: 'Source Sans 3', system-ui, sans-serif;
       --font-mono: 'Source Code Pro', monospace;
-      --radius: 8px;
-      --radius-lg: 12px;
+      --radius: 10px;
+      --radius-lg: 16px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -85,7 +85,7 @@
 
     .topbar-link:hover {
       color: var(--color-primary);
-      background: rgba(196, 112, 75, 0.04);
+      background: rgba(94, 125, 104, 0.04);
     }
 
     .topbar-link.active {
@@ -125,7 +125,7 @@
 
     .map-section-label {
       font-family: var(--font-mono);
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -156,7 +156,7 @@
       text-decoration: none;
       color: inherit;
       transition: box-shadow 0.2s ease;
-      border-left: 4px solid var(--color-primary);
+      border-left: 4px solid var(--color-success);
     }
 
     .featured-card:hover { box-shadow: 0 4px 20px var(--color-shadow-lg); text-decoration: none; }
@@ -186,7 +186,7 @@
     .map-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 0.75rem;
+      gap: 1rem;
     }
 
     .map-card {
@@ -202,13 +202,13 @@
 
     .map-card:hover {
       box-shadow: 0 4px 16px var(--color-shadow-lg);
-      border-color: rgba(196, 112, 75, 0.25);
+      border-color: rgba(94, 125, 104, 0.25);
       text-decoration: none;
     }
 
     .map-card-type {
       font-family: var(--font-mono);
-      font-size: 0.625rem;
+      font-size: 0.75rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -239,6 +239,21 @@
       margin-top: 0.5rem;
     }
 
+    /* ── Card color accents ── */
+    .map-card.accent-primary { border-top: 3px solid var(--color-primary); }
+    .map-card.accent-info { border-top: 3px solid var(--color-info); }
+    .map-card.accent-warning { border-top: 3px solid var(--color-warning); }
+    .map-card.accent-success { border-top: 3px solid var(--color-success); }
+
+    .accent-primary .map-card-type { color: var(--color-primary); }
+    .accent-info .map-card-type { color: var(--color-info); }
+    .accent-warning .map-card-type { color: var(--color-warning); }
+    .accent-success .map-card-type { color: var(--color-success); }
+
+    .accent-info .card-stat { color: var(--color-info); }
+    .accent-warning .card-stat { color: var(--color-warning); }
+    .accent-success .card-stat { color: var(--color-success); }
+
     /* ── Compact List ── */
     .compact-list {
       display: flex;
@@ -262,7 +277,7 @@
 
     .compact-item:hover {
       background: var(--color-surface-warm);
-      border-color: rgba(196, 112, 75, 0.25);
+      border-color: rgba(94, 125, 104, 0.25);
       text-decoration: none;
     }
 
@@ -308,8 +323,8 @@
 
   <div class="page">
     <div class="map-header">
-      <h1>The product works. Search doesn't see it yet.</h1>
-      <p>12 months of Shopify data, 11-brand audit, seven actionable roadmaps. Start anywhere that matters to you.</p>
+      <h1>Strong brand. Wide-open search opportunity.</h1>
+      <p>Your audience is real, your artist collabs are unique, and almost no one in your tier is doing SEO. Start anywhere.</p>
     </div>
 
     <!-- Start Here -->
@@ -317,7 +332,7 @@
       <div class="map-section-label"><span class="status-dot start-here"></span> Start here</div>
       <a href="quick-wins.html" class="featured-card">
         <h2>Five same-day fixes</h2>
-        <p>Alt text, meta descriptions, page titles, bot filtering, UTM tracking. None change how the site looks. All change how search sees it.</p>
+        <p>Alt text, meta descriptions, page titles, bot filtering, UTM tracking. Invisible to customers &mdash; visible to every search engine.</p>
         <div class="card-meta">5 items &middot; ~2 hours total &middot; No cost</div>
       </a>
     </div>
@@ -326,44 +341,44 @@
     <div class="map-section">
       <div class="map-section-label"><span class="status-dot explore"></span> Roadmaps</div>
       <div class="map-grid">
-        <a href="claude/consulting/madhudson/roadmaps/product-content.html" class="map-card">
-          <div class="map-card-type">Biggest impact</div>
+        <a href="claude/consulting/madhudson/roadmaps/product-content.html" class="map-card accent-primary">
+          <div class="map-card-type">Biggest lever</div>
           <h3>Product Content</h3>
-          <p>From ~30 words per product to 400-500 with structured blocks.</p>
-          <div class="card-stat">0 of 15 products have artist bios</div>
+          <p>Your artist stories are the content advantage. Product pages can carry them.</p>
+          <div class="card-stat">First brand to add structured artist bios wins the category</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/schema-markup.html" class="map-card">
+        <a href="claude/consulting/madhudson/roadmaps/schema-markup.html" class="map-card accent-info">
           <div class="map-card-type">First mover</div>
           <h3>Schema Markup</h3>
-          <p>Structured data for rich results and AI answer engines.</p>
-          <div class="card-stat">0 competitors have Product schema</div>
+          <p>Structured data that makes your watches visible in rich results and AI answers.</p>
+          <div class="card-stat">No competitor has this yet</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/aeo-strategy.html" class="map-card">
+        <a href="claude/consulting/madhudson/roadmaps/aeo-strategy.html" class="map-card accent-info">
           <div class="map-card-type">Future-facing</div>
           <h3>AEO Strategy</h3>
-          <p>Answer engine optimization. Where search is going.</p>
-          <div class="card-stat">Position for AI-generated answers</div>
+          <p>Answer engine optimization &mdash; positioning for where search is going.</p>
+          <div class="card-stat">Already 1 ChatGPT referral order</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/entity-building.html" class="map-card">
-          <div class="map-card-type">Brand building</div>
+        <a href="claude/consulting/madhudson/roadmaps/entity-building.html" class="map-card accent-warning">
+          <div class="map-card-type">Brand signal</div>
           <h3>Entity Building</h3>
-          <p>Establish Mad Hudson as a recognized entity in search knowledge graphs.</p>
+          <p>Build Mad Hudson's presence in search knowledge graphs.</p>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/extractable-copy.html" class="map-card">
-          <div class="map-card-type">Content quality</div>
+        <a href="claude/consulting/madhudson/roadmaps/extractable-copy.html" class="map-card accent-success">
+          <div class="map-card-type">Ready to deploy</div>
           <h3>Extractable Copy</h3>
-          <p>Write product descriptions that AI systems can parse and cite.</p>
+          <p>Product copy that AI answer engines can quote directly. Drafts are written.</p>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/growth-model.html" class="map-card">
+        <a href="claude/consulting/madhudson/roadmaps/growth-model.html" class="map-card accent-warning">
           <div class="map-card-type">Revenue model</div>
           <h3>Growth Model</h3>
-          <p>Projections based on conversion rate improvements and channel fixes.</p>
-          <div class="card-stat">$25-35K addressable annual upside</div>
+          <p>Revenue projections based on your actual Shopify data.</p>
+          <div class="card-stat">$25&ndash;35K addressable annual upside</div>
         </a>
-        <a href="claude/consulting/madhudson/roadmaps/technical-seo.html" class="map-card">
+        <a href="claude/consulting/madhudson/roadmaps/technical-seo.html" class="map-card accent-info">
           <div class="map-card-type">Foundation</div>
           <h3>Technical SEO</h3>
-          <p>Site speed, crawlability, URL structure, canonical tags.</p>
+          <p>Speed, crawlability, URL structure. The invisible foundation.</p>
         </a>
       </div>
     </div>

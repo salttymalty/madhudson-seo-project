@@ -1,4 +1,4 @@
-# Mad Hudson SEO Roadmap — Connor's Checklist
+	# Mad Hudson SEO Roadmap — Connor's Checklist
 
 **Current state:** 6.5/10 health score | Page 2+ for core keywords
 **Goal:** Own "watches for creators" cluster + reach 8.5+/10 by month 3

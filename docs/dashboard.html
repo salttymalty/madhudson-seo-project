@@ -12,29 +12,29 @@
        DESIGN TOKENS — EMBER PALETTE
        ═══════════════════════════════════════════════════════════════ */
     :root {
-      /* Ember palette */
-      --color-primary: #c4704b;
-      --color-primary-light: #d4926f;
-      --color-primary-dark: #a85a38;
+      /* Sage palette */
+      --color-primary: #5e7d68;
+      --color-primary-light: #7a9a84;
+      --color-primary-dark: #4a6654;
       --color-success: #6ba167;
       --color-warning: #c4934a;
       --color-info: #5a8fa6;
 
       /* Surfaces */
       --color-surface: #ffffff;
-      --color-surface-alt: #fdf8f4;
-      --color-surface-warm: #faf7f4;
-      --color-bg: #f5f0eb;
+      --color-surface-alt: #fafaf8;
+      --color-surface-warm: #f5f3f1;
+      --color-bg: #f6f5f3;
 
       /* Text */
-      --color-text: #3d2f2a;
-      --color-text-secondary: #6b5650;
-      --color-text-muted: #8a7a74;
+      --color-text: #2e2a27;
+      --color-text-secondary: #5e5854;
+      --color-text-muted: #827b77;
 
       /* UI */
-      --color-border: rgba(196, 112, 75, 0.12);
-      --color-shadow: hsla(25, 40%, 30%, 0.06);
-      --color-shadow-lg: hsla(25, 40%, 30%, 0.12);
+      --color-border: rgba(45, 42, 39, 0.10);
+      --color-shadow: hsla(25, 20%, 30%, 0.06);
+      --color-shadow-lg: hsla(25, 20%, 30%, 0.12);
 
       /* Typography */
       --font-display: 'Fraunces', Georgia, serif;
@@ -42,8 +42,8 @@
       --font-mono: 'Source Code Pro', monospace;
 
       /* Spacing & Sizing */
-      --radius: 8px;
-      --radius-lg: 12px;
+      --radius: 10px;
+      --radius-lg: 16px;
       --touch-target: 44px;
     }
 
@@ -90,7 +90,7 @@
 
     .topbar-link:hover {
       color: var(--color-primary);
-      background: rgba(196, 112, 75, 0.04);
+      background: rgba(94, 125, 104, 0.04);
     }
 
     .topbar-link.active {
@@ -114,7 +114,7 @@
       line-height: 1.6;
       color: var(--color-text);
       background: var(--color-bg);
-      padding: 1.5rem;
+      padding: 0;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -125,12 +125,12 @@
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       margin-bottom: 0.5rem;
     }
 
     h2 {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       margin-bottom: 1rem;
     }
 
@@ -179,12 +179,13 @@
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 1.5rem;
     }
 
     header {
-      margin-bottom: 2.5rem;
-      padding-bottom: 2rem;
-      border-bottom: 2px solid var(--color-border);
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
     }
 
     .subtitle {
@@ -288,11 +289,11 @@
 
     nav a.nav-primary {
       color: var(--color-primary);
-      background: rgba(196, 112, 75, 0.06);
+      background: rgba(94, 125, 104, 0.06);
     }
 
     nav a.nav-primary:hover {
-      background: rgba(196, 112, 75, 0.12);
+      background: rgba(94, 125, 104, 0.12);
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -449,7 +450,7 @@
     }
 
     .callout-primary {
-      background: rgba(196, 112, 75, 0.08);
+      background: rgba(45, 42, 39, 0.04);
       border-color: var(--color-primary);
     }
 
@@ -742,7 +743,7 @@
       font-family: var(--font-mono);
       font-size: 0.75rem;
       font-weight: 600;
-      color: var(--color-primary);
+      color: var(--color-text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 1rem;
@@ -758,8 +759,18 @@
     }
 
     @media (max-width: 768px) {
-      body {
+      .container {
         padding: 1rem;
+      }
+
+      .topbar {
+        padding: 0 1rem;
+        overflow-x: auto;
+      }
+
+      .topbar-link {
+        padding: 0 0.75rem;
+        font-size: 0.875rem;
       }
 
       h1 {
@@ -768,32 +779,6 @@
 
       .hero-stat-value {
         font-size: 3rem;
-      }
-
-      nav {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.75rem;
-      }
-
-      .nav-group {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.25rem;
-      }
-
-      .nav-divider {
-        width: 100%;
-        height: 1px;
-        margin: 0.375rem 0;
-      }
-
-      .nav-label {
-        padding: 0.375rem 0.5rem 0;
-      }
-
-      nav a {
-        width: 100%;
       }
 
       .segment-grid {
@@ -835,12 +820,12 @@
       text-decoration: none;
       padding: 0.625rem 1rem;
       border-radius: var(--radius);
-      background: rgba(196, 112, 75, 0.06);
+      background: rgba(94, 125, 104, 0.06);
       min-height: var(--touch-target);
       transition: background 0.2s ease;
     }
     .roadmap-link a:hover {
-      background: rgba(196, 112, 75, 0.12);
+      background: rgba(94, 125, 104, 0.12);
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -894,16 +879,8 @@
   </nav>
   <main class="container">
     <header>
-      <h1>The product works. Search doesn't see it yet.</h1>
-      <p class="subtitle">Mad Hudson Watches — SEO Research Dashboard, February 2026</p>
-      <div class="callout callout-primary" style="margin-top: 1rem; margin-bottom: 0;">
-        <p style="margin-bottom: 0.75rem;">12 months of Shopify data, every product page audited, 11 competitor brands compared. The product and brand are strong. The gap is how the site talks to search engines — and most fixes are invisible to customers.</p>
-        <p style="margin-bottom: 0.75rem;">Five <a href="#actions" style="color: var(--color-primary); border-bottom: 1px solid var(--color-primary);">same-day wins</a> you can do this afternoon in Shopify admin. Alt text, meta descriptions, page titles, bot filtering, UTM tracking. None change how the site looks.</p>
-        <p style="margin-bottom: 0;">Schema markup and product content expansion are more technical — I can build those when you're ready.</p>
-      </div>
-      <div class="methodology-note" style="margin-top: 0.75rem;">
-        <strong>Data source:</strong> Shopify Analytics exports covering Feb 2025 – Jan 2026 (12 months, 130K+ sessions, 289 orders, $52K revenue) and Jan 10 – Feb 9, 2026 (31-day daily detail). Competitive analysis from SERP reviews of 11 brands. Analysis performed Feb 14, 2026.
-      </div>
+      <h1>SEO Research Dashboard</h1>
+      <p class="subtitle">Mad Hudson Watches — February 2026 — 12 months of Shopify data, 11-brand audit</p>
     </header>
 
     <!-- ═══════════════════════════════════════════════════════════════
@@ -1095,7 +1072,7 @@
          SECTION 1: HTML & STRUCTURE OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
     <div class="section-label">Research</div>
-    <section id="html-opportunities" class="card tier-supporting collapsed">
+    <section id="html-opportunities" class="card tier-supporting">
       <div class="card-header">
         <div class="card-header-text">
           <h2>Google sees generic titles and empty meta descriptions</h2>
@@ -1175,7 +1152,7 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 2: IMAGE OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="images" class="card tier-supporting collapsed">
+    <section id="images" class="card tier-supporting">
       <div class="card-header">
         <div class="card-header-text">
           <h2>Every product image is invisible to search</h2>
@@ -1261,7 +1238,7 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 3: PRODUCT CONTENT OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="product-content" class="card tier-supporting collapsed">
+    <section id="product-content" class="card tier-supporting">
       <div class="card-header">
         <div class="card-header-text">
           <h2>Product pages have ~30 words each</h2>
@@ -1360,7 +1337,7 @@
     <!-- ═══════════════════════════════════════════════════════════════
          SECTION 4: SCHEMA MARKUP OPPORTUNITIES
          ═══════════════════════════════════════════════════════════════ -->
-    <section id="schema" class="card tier-supporting collapsed">
+    <section id="schema" class="card tier-supporting">
       <div class="card-header">
         <div class="card-header-text">
           <h2>No competitor has artist creator schema</h2>
@@ -1442,7 +1419,7 @@
          SECTION 5: CONVERSION DIAGNOSTICS
          ═══════════════════════════════════════════════════════════════ -->
     <div class="section-label">Reference</div>
-    <section id="conversion" class="card tier-reference collapsed">
+    <section id="conversion" class="card tier-reference">
       <div class="card-header">
         <div class="card-header-text">
           <h2>Shopify says 0.06% conversion — the real number is higher</h2>
@@ -1472,97 +1449,97 @@
             <text x="85" y="152" font-size="10" fill="var(--color-info)" font-family="Source Code Pro, monospace">~300 sessions (estimated real traffic floor)</text>
 
             <!-- Y-axis labels -->
-            <text x="75" y="35" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">1000</text>
-            <text x="75" y="80" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">750</text>
-            <text x="75" y="120" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">500</text>
-            <text x="75" y="155" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">300</text>
-            <text x="75" y="205" text-anchor="end" font-size="11" fill="#6b5650" font-family="Source Code Pro, monospace">0</text>
+            <text x="75" y="35" text-anchor="end" font-size="11" fill="#5e5854" font-family="Source Code Pro, monospace">1000</text>
+            <text x="75" y="80" text-anchor="end" font-size="11" fill="#5e5854" font-family="Source Code Pro, monospace">750</text>
+            <text x="75" y="120" text-anchor="end" font-size="11" fill="#5e5854" font-family="Source Code Pro, monospace">500</text>
+            <text x="75" y="155" text-anchor="end" font-size="11" fill="#5e5854" font-family="Source Code Pro, monospace">300</text>
+            <text x="75" y="205" text-anchor="end" font-size="11" fill="#5e5854" font-family="Source Code Pro, monospace">0</text>
 
             <!-- X-axis date labels (every 5 days) -->
-            <text x="105" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 10</text>
-            <text x="235" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 15</text>
-            <text x="365" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 20</text>
-            <text x="495" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 25</text>
-            <text x="625" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Jan 30</text>
-            <text x="755" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Feb 4</text>
-            <text x="850" y="220" text-anchor="middle" font-size="10" fill="#6b5650" font-family="Source Code Pro, monospace">Feb 9</text>
+            <text x="105" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Jan 10</text>
+            <text x="235" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Jan 15</text>
+            <text x="365" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Jan 20</text>
+            <text x="495" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Jan 25</text>
+            <text x="625" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Jan 30</text>
+            <text x="755" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Feb 4</text>
+            <text x="850" y="220" text-anchor="middle" font-size="10" fill="#5e5854" font-family="Source Code Pro, monospace">Feb 9</text>
 
             <!-- Bars (31 days) — scale: 1000 sessions = 170px height -->
-            <rect x="90" y="152" width="18" height="48" fill="#c4704b" opacity="0.7"><title>Jan 10: 281 sessions, 1 conversion</title></rect>
-            <circle cx="99" cy="145" r="4" fill="#c4704b"/><text x="99" y="142" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="90" y="152" width="18" height="48" fill="#5e7d68" opacity="0.7"><title>Jan 10: 281 sessions, 1 conversion</title></rect>
+            <circle cx="99" cy="145" r="4" fill="#5e7d68"/><text x="99" y="142" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="115" y="160" width="18" height="40" fill="#8a7a74" opacity="0.4"><title>Jan 11: 235 sessions, 0 conversions</title></rect>
+            <rect x="115" y="160" width="18" height="40" fill="#827b77" opacity="0.4"><title>Jan 11: 235 sessions, 0 conversions</title></rect>
 
-            <rect x="140" y="165" width="18" height="35" fill="#8a7a74" opacity="0.4"><title>Jan 12: 204 sessions, 0 conversions</title></rect>
+            <rect x="140" y="165" width="18" height="35" fill="#827b77" opacity="0.4"><title>Jan 12: 204 sessions, 0 conversions</title></rect>
 
-            <rect x="165" y="160" width="18" height="40" fill="#8a7a74" opacity="0.4"><title>Jan 13: 237 sessions, 0 conversions</title></rect>
+            <rect x="165" y="160" width="18" height="40" fill="#827b77" opacity="0.4"><title>Jan 13: 237 sessions, 0 conversions</title></rect>
 
-            <rect x="190" y="159" width="18" height="41" fill="#c4704b" opacity="0.7"><title>Jan 14: 245 sessions, 1 conversion</title></rect>
-            <circle cx="199" cy="152" r="4" fill="#c4704b"/><text x="199" y="149" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="190" y="159" width="18" height="41" fill="#5e7d68" opacity="0.7"><title>Jan 14: 245 sessions, 1 conversion</title></rect>
+            <circle cx="199" cy="152" r="4" fill="#5e7d68"/><text x="199" y="149" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="215" y="134" width="18" height="66" fill="#8a7a74" opacity="0.4"><title>Jan 15: 387 sessions, 0 conversions</title></rect>
+            <rect x="215" y="134" width="18" height="66" fill="#827b77" opacity="0.4"><title>Jan 15: 387 sessions, 0 conversions</title></rect>
 
-            <rect x="240" y="60" width="18" height="140" fill="#c4704b" opacity="0.7"><title>Jan 16: 823 sessions, 1 conversion</title></rect>
-            <circle cx="249" cy="53" r="4" fill="#c4704b"/><text x="249" y="50" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="240" y="60" width="18" height="140" fill="#5e7d68" opacity="0.7"><title>Jan 16: 823 sessions, 1 conversion</title></rect>
+            <circle cx="249" cy="53" r="4" fill="#5e7d68"/><text x="249" y="50" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="265" y="96" width="18" height="104" fill="#8a7a74" opacity="0.4"><title>Jan 17: 608 sessions, 0 conversions</title></rect>
+            <rect x="265" y="96" width="18" height="104" fill="#827b77" opacity="0.4"><title>Jan 17: 608 sessions, 0 conversions</title></rect>
 
-            <rect x="290" y="144" width="18" height="56" fill="#c4704b" opacity="0.7"><title>Jan 18: 327 sessions, 1 conversion</title></rect>
-            <circle cx="299" cy="137" r="4" fill="#c4704b"/><text x="299" y="134" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="290" y="144" width="18" height="56" fill="#5e7d68" opacity="0.7"><title>Jan 18: 327 sessions, 1 conversion</title></rect>
+            <circle cx="299" cy="137" r="4" fill="#5e7d68"/><text x="299" y="134" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="315" y="120" width="18" height="80" fill="#8a7a74" opacity="0.4"><title>Jan 19: 472 sessions, 0 conversions</title></rect>
+            <rect x="315" y="120" width="18" height="80" fill="#827b77" opacity="0.4"><title>Jan 19: 472 sessions, 0 conversions</title></rect>
 
-            <rect x="340" y="131" width="18" height="69" fill="#8a7a74" opacity="0.4"><title>Jan 20: 405 sessions, 0 conversions</title></rect>
+            <rect x="340" y="131" width="18" height="69" fill="#827b77" opacity="0.4"><title>Jan 20: 405 sessions, 0 conversions</title></rect>
 
-            <rect x="365" y="155" width="18" height="45" fill="#8a7a74" opacity="0.4"><title>Jan 21: 263 sessions, 0 conversions</title></rect>
+            <rect x="365" y="155" width="18" height="45" fill="#827b77" opacity="0.4"><title>Jan 21: 263 sessions, 0 conversions</title></rect>
 
-            <rect x="390" y="151" width="18" height="49" fill="#8a7a74" opacity="0.4"><title>Jan 22: 288 sessions, 0 conversions</title></rect>
+            <rect x="390" y="151" width="18" height="49" fill="#827b77" opacity="0.4"><title>Jan 22: 288 sessions, 0 conversions</title></rect>
 
-            <rect x="415" y="120" width="18" height="80" fill="#8a7a74" opacity="0.4"><title>Jan 23: 471 sessions, 0 conversions</title></rect>
+            <rect x="415" y="120" width="18" height="80" fill="#827b77" opacity="0.4"><title>Jan 23: 471 sessions, 0 conversions</title></rect>
 
-            <rect x="440" y="134" width="18" height="66" fill="#8a7a74" opacity="0.4"><title>Jan 24: 389 sessions, 0 conversions</title></rect>
+            <rect x="440" y="134" width="18" height="66" fill="#827b77" opacity="0.4"><title>Jan 24: 389 sessions, 0 conversions</title></rect>
 
-            <rect x="465" y="121" width="18" height="79" fill="#8a7a74" opacity="0.4"><title>Jan 25: 464 sessions, 0 conversions</title></rect>
+            <rect x="465" y="121" width="18" height="79" fill="#827b77" opacity="0.4"><title>Jan 25: 464 sessions, 0 conversions</title></rect>
 
-            <rect x="490" y="83" width="18" height="117" fill="#8a7a74" opacity="0.4"><title>Jan 26: 685 sessions, 0 conversions</title></rect>
+            <rect x="490" y="83" width="18" height="117" fill="#827b77" opacity="0.4"><title>Jan 26: 685 sessions, 0 conversions</title></rect>
 
-            <rect x="515" y="78" width="18" height="122" fill="#8a7a74" opacity="0.4"><title>Jan 27: 720 sessions, 0 conversions</title></rect>
+            <rect x="515" y="78" width="18" height="122" fill="#827b77" opacity="0.4"><title>Jan 27: 720 sessions, 0 conversions</title></rect>
 
-            <rect x="540" y="106" width="18" height="94" fill="#8a7a74" opacity="0.4"><title>Jan 28: 554 sessions, 0 conversions</title></rect>
+            <rect x="540" y="106" width="18" height="94" fill="#827b77" opacity="0.4"><title>Jan 28: 554 sessions, 0 conversions</title></rect>
 
-            <rect x="565" y="157" width="18" height="43" fill="#8a7a74" opacity="0.4"><title>Jan 29: 256 sessions, 0 conversions</title></rect>
+            <rect x="565" y="157" width="18" height="43" fill="#827b77" opacity="0.4"><title>Jan 29: 256 sessions, 0 conversions</title></rect>
 
-            <rect x="590" y="144" width="18" height="56" fill="#8a7a74" opacity="0.4"><title>Jan 30: 327 sessions, 0 conversions</title></rect>
+            <rect x="590" y="144" width="18" height="56" fill="#827b77" opacity="0.4"><title>Jan 30: 327 sessions, 0 conversions</title></rect>
 
-            <rect x="615" y="138" width="18" height="62" fill="#c4704b" opacity="0.7"><title>Jan 31: 367 sessions, 1 conversion</title></rect>
-            <circle cx="624" cy="131" r="4" fill="#c4704b"/><text x="624" y="128" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="615" y="138" width="18" height="62" fill="#5e7d68" opacity="0.7"><title>Jan 31: 367 sessions, 1 conversion</title></rect>
+            <circle cx="624" cy="131" r="4" fill="#5e7d68"/><text x="624" y="128" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="640" y="146" width="18" height="54" fill="#8a7a74" opacity="0.4"><title>Feb 1: 316 sessions, 0 conversions</title></rect>
+            <rect x="640" y="146" width="18" height="54" fill="#827b77" opacity="0.4"><title>Feb 1: 316 sessions, 0 conversions</title></rect>
 
-            <rect x="665" y="158" width="18" height="42" fill="#8a7a74" opacity="0.4"><title>Feb 2: 247 sessions, 0 conversions</title></rect>
+            <rect x="665" y="158" width="18" height="42" fill="#827b77" opacity="0.4"><title>Feb 2: 247 sessions, 0 conversions</title></rect>
 
-            <rect x="690" y="160" width="18" height="40" fill="#c4704b" opacity="0.85"><title>Feb 3: 236 sessions, 2 conversions</title></rect>
-            <circle cx="699" cy="150" r="4" fill="#c4704b"/><text x="699" y="147" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">2</text>
+            <rect x="690" y="160" width="18" height="40" fill="#5e7d68" opacity="0.85"><title>Feb 3: 236 sessions, 2 conversions</title></rect>
+            <circle cx="699" cy="150" r="4" fill="#5e7d68"/><text x="699" y="147" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">2</text>
 
-            <rect x="715" y="143" width="18" height="57" fill="#8a7a74" opacity="0.4"><title>Feb 4: 337 sessions, 0 conversions</title></rect>
+            <rect x="715" y="143" width="18" height="57" fill="#827b77" opacity="0.4"><title>Feb 4: 337 sessions, 0 conversions</title></rect>
 
-            <rect x="740" y="78" width="18" height="122" fill="#8a7a74" opacity="0.4"><title>Feb 5: 716 sessions, 0 conversions</title></rect>
+            <rect x="740" y="78" width="18" height="122" fill="#827b77" opacity="0.4"><title>Feb 5: 716 sessions, 0 conversions</title></rect>
 
-            <rect x="765" y="145" width="18" height="55" fill="#c4704b" opacity="0.7"><title>Feb 6: 325 sessions, 1 conversion</title></rect>
-            <circle cx="774" cy="138" r="4" fill="#c4704b"/><text x="774" y="135" text-anchor="middle" font-size="9" fill="#c4704b" font-weight="600">1</text>
+            <rect x="765" y="145" width="18" height="55" fill="#5e7d68" opacity="0.7"><title>Feb 6: 325 sessions, 1 conversion</title></rect>
+            <circle cx="774" cy="138" r="4" fill="#5e7d68"/><text x="774" y="135" text-anchor="middle" font-size="9" fill="#5e7d68" font-weight="600">1</text>
 
-            <rect x="790" y="99" width="18" height="101" fill="#8a7a74" opacity="0.4"><title>Feb 7: 593 sessions, 0 conversions</title></rect>
+            <rect x="790" y="99" width="18" height="101" fill="#827b77" opacity="0.4"><title>Feb 7: 593 sessions, 0 conversions</title></rect>
 
-            <rect x="815" y="28" width="18" height="172" fill="#8a7a74" opacity="0.4"><title>Feb 8: 1014 sessions, 0 conversions</title></rect>
+            <rect x="815" y="28" width="18" height="172" fill="#827b77" opacity="0.4"><title>Feb 8: 1014 sessions, 0 conversions</title></rect>
 
-            <rect x="840" y="132" width="18" height="68" fill="#8a7a74" opacity="0.4"><title>Feb 9: 397 sessions, 0 conversions</title></rect>
+            <rect x="840" y="132" width="18" height="68" fill="#827b77" opacity="0.4"><title>Feb 9: 397 sessions, 0 conversions</title></rect>
 
             <!-- Legend -->
-            <rect x="320" y="245" width="14" height="14" fill="#8a7a74" opacity="0.4"/>
-            <text x="340" y="256" font-size="11" fill="#6b5650" font-family="Source Sans 3, sans-serif">No conversion</text>
+            <rect x="320" y="245" width="14" height="14" fill="#827b77" opacity="0.4"/>
+            <text x="340" y="256" font-size="11" fill="#5e5854" font-family="Source Sans 3, sans-serif">No conversion</text>
 
-            <rect x="460" y="245" width="14" height="14" fill="#c4704b" opacity="0.7"/>
-            <text x="480" y="256" font-size="11" fill="#6b5650" font-family="Source Sans 3, sans-serif">Has conversion (count shown)</text>
+            <rect x="460" y="245" width="14" height="14" fill="#5e7d68" opacity="0.7"/>
+            <text x="480" y="256" font-size="11" fill="#5e5854" font-family="Source Sans 3, sans-serif">Has conversion (count shown)</text>
           </svg>
         </div>
 
@@ -2203,15 +2180,16 @@
       });
     });
 
-    // Smooth scroll for navigation
-    document.querySelectorAll('nav a').forEach(anchor => {
+    // Smooth scroll for in-page anchor links (skip topbar navigation)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
         const card = target.closest('.card');
 
         // Expand card if collapsed
-        if (card.classList.contains('collapsed')) {
+        if (card && card.classList.contains('collapsed')) {
           card.classList.remove('collapsed');
         }
 

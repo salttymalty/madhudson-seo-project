@@ -5,30 +5,30 @@
 
 /* ── Design Tokens ── */
 :root {
-  /* Ember palette */
-  --color-primary: #c4704b;
-  --color-primary-light: #d4926f;
-  --color-primary-dark: #a85a38;
+  /* Sage palette */
+  --color-primary: #5e7d68;
+  --color-primary-light: #7a9a84;
+  --color-primary-dark: #4a6654;
   --color-success: #6ba167;
   --color-warning: #c4934a;
   --color-info: #5a8fa6;
 
   /* Surfaces */
   --color-surface: #ffffff;
-  --color-surface-alt: #fdf8f4;
-  --color-surface-warm: #faf7f4;
-  --color-bg: #f5f0eb;
+  --color-surface-alt: #fafaf8;
+  --color-surface-warm: #f5f3f1;
+  --color-bg: #f6f5f3;
 
   /* Text */
-  --color-text: #3d2f2a;
-  --color-text-secondary: #6b5650;
-  --color-text-muted: #8a7a74;
+  --color-text: #2e2a27;
+  --color-text-secondary: #5e5854;
+  --color-text-muted: #827b77;
 
   /* UI */
-  --color-border: rgba(196, 112, 75, 0.12);
-  --color-shadow: hsla(25, 40%, 30%, 0.06);
-  --color-shadow-lg: hsla(25, 40%, 30%, 0.12);
-  --color-print-border: rgba(196, 112, 75, 0.25);
+  --color-border: rgba(45, 42, 39, 0.10);
+  --color-shadow: hsla(25, 20%, 30%, 0.06);
+  --color-shadow-lg: hsla(25, 20%, 30%, 0.12);
+  --color-print-border: rgba(94, 125, 104, 0.25);
 
   /* Typography */
   --font-display: 'Fraunces', Georgia, serif;
@@ -36,8 +36,8 @@
   --font-mono: 'Source Code Pro', monospace;
 
   /* Spacing & Sizing */
-  --radius: 8px;
-  --radius-lg: 12px;
+  --radius: 10px;
+  --radius-lg: 16px;
   --touch-target: 44px;
 }
 
@@ -197,7 +197,7 @@ a:hover {
 
 .topbar-link:hover {
   color: var(--color-primary);
-  background: rgba(196, 112, 75, 0.04);
+  background: rgba(94, 125, 104, 0.04);
 }
 
 .topbar-link.active {
@@ -366,7 +366,7 @@ a:hover {
 }
 
 .callout-primary {
-  background: rgba(196, 112, 75, 0.08);
+  background: rgba(94, 125, 104, 0.08);
   border-color: var(--color-primary);
 }
 
