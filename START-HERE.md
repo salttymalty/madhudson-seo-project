@@ -23,7 +23,7 @@
 ## 🎬 What to Do Right Now
 
 1. **Read the Executive Summary** (10 minutes)
-   - File: `MAD-HUDSON-SEO-SUMMARY-FOR-CONNOR.md`
+   - File: `strategy/MAD-HUDSON-SEO-SUMMARY-FOR-CONNOR.md`
    - Understand the opportunity, gaps, and strategy
 
 2. **Approve Phase 1 Approach** (5 minutes)
@@ -31,7 +31,7 @@
    - Confirm timeline: This week, <6 hours
 
 3. **Execute Phase 1 Quick Wins** (5-6 hours total)
-   - File: `CONNOR-SEO-CHECKLIST.md`
+   - File: `strategy/CONNOR-SEO-CHECKLIST.md`
    - Follow week-by-week checklist
    - Assign owners using ownership breakdown
 
@@ -44,16 +44,15 @@
 ## 📦 All Documents
 
 **Executive Summary (Start here)**
-- `MAD-HUDSON-SEO-SUMMARY-FOR-CONNOR.md` — 10-min strategic overview
+- `strategy/MAD-HUDSON-SEO-SUMMARY-FOR-CONNOR.md` — 10-min strategic overview
 
 **Execution Documents**
-- `CONNOR-SEO-CHECKLIST.md` — Week-by-week action plan
-- `MAD-HUDSON-SEO-ROADMAP-FINAL.md` — Full strategic context + templates
+- `strategy/CONNOR-SEO-CHECKLIST.md` — Week-by-week action plan
+- `strategy/MAD-HUDSON-SEO-ROADMAP-FINAL.md` — Full strategic context + templates
 
 **References**
 - `README.md` — Project overview
-- `HANDOFF.md` — Handoff checklist
-- `mad-hudson-seo-summary.html` — Interactive visual summary
+- `docs/` — Additional documentation and handoff materials
 
 **This File**
 - `START-HERE.md` — You are here
@@ -91,21 +90,19 @@
 
 ---
 
-## 📁 File Locations
+## 📁 File Organization
 
-**All files are here:**
-
-Team Folder:
 ```
-/Users/garen/.claude/teams/madhudson-seo-audit/
-```
-
-Desktop (for easy sharing):
-```
-/Users/garen/Desktop/
-- MADHUDSON-SEO-AUDIT-FINAL.md
-- MADHUDSON-SEO-DELIVERY-SUMMARY.txt
-- START-HERE.md (this file)
+madhudson-seo-project/
+├── START-HERE.md          ← You are here
+├── README.md              ← Project overview
+├── PROJECT-state.json     ← Current project status
+├── strategy/              ← All strategy & planning docs (38 files)
+├── madhudson-phase1/      ← Phase 1 implementation work
+├── docs/                  ← Documentation & handoff materials
+├── archive/               ← Historical reference files
+├── scripts/               ← Automation scripts
+└── outputs/               ← Generated deliverables
 ```
 
 ---
@@ -122,4 +119,4 @@ Desktop (for easy sharing):
 
 **Questions? Check the Executive Summary or Full Roadmap for detailed context.**
 
-**Ready to start? Open `CONNOR-SEO-CHECKLIST.md` next.**
+**Ready to start? Open `strategy/CONNOR-SEO-CHECKLIST.md` next.**
