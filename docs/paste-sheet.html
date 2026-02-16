@@ -728,7 +728,7 @@
     <!-- ── MAIN ── -->
     <main class="main">
       <h1>Paste Sheet</h1>
-      <p class="subtitle">Every field you need to update, in one table. Click any value to select it, or use Copy. Checkboxes save automatically.<br><span style="font-size:0.8125rem; color:var(--color-text-muted);">Tip: Shopify's auto-suggested alt text is a fine starting point if you're short on time. These recommendations add keyword and brand specificity on top.</span></p>
+      <p class="subtitle">Every field you need to update, in one table. Click any value to edit it directly. Your changes are saved automatically and you can share them with the team using the Share Edits button.<br><span style="font-size:0.8125rem; color:var(--color-text-muted);">Tip: Shopify's auto-suggested alt text is a fine starting point if you're short on time. These recommendations add keyword and brand specificity on top.</span></p>
 
       <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
         <div class="view-toggle" style="margin-bottom:0;">
@@ -737,7 +737,7 @@
           <button onclick="setView('batch')">By Field</button>
           <button onclick="setView('metafields')">Metafields</button>
         </div>
-        <button id="export-btn" onclick="exportEdits()" style="display:none; font-family:var(--font-body); font-size:0.875rem; font-weight:600; padding:0.5rem 1rem; background:var(--color-primary); color:white; border:none; border-radius:var(--radius); cursor:pointer; min-height:44px; transition:opacity 0.15s;">Send Edits</button>
+        <button id="export-btn" onclick="exportEdits()" style="display:none; font-family:var(--font-body); font-size:0.875rem; font-weight:600; padding:0.5rem 1rem; background:var(--color-primary); color:white; border:none; border-radius:var(--radius); cursor:pointer; min-height:44px; transition:opacity 0.15s;">Share Edits</button>
       </div>
 
       <!-- ════════════════════════════════════ -->
@@ -1276,50 +1276,30 @@
       });
     });
 
-    // ── Export edits ──
+    // ── Share edits via URL ──
     function updateExportBtn() {
-      const edits = loadEdits();
-      const btn = document.getElementById('export-btn');
-      const count = Object.keys(edits).length;
+      var edits = loadEdits();
+      var btn = document.getElementById('export-btn');
+      var count = Object.keys(edits).length;
       if (count > 0) {
         btn.style.display = 'inline-flex';
-        btn.textContent = 'Send Edits (' + count + ')';
+        btn.textContent = 'Share Edits (' + count + ')';
       } else {
         btn.style.display = 'none';
       }
     }
 
     function exportEdits() {
-      const edits = loadEdits();
-      const keys = Object.keys(edits);
-      if (keys.length === 0) return;
+      var edits = loadEdits();
+      if (Object.keys(edits).length === 0) return;
 
-      var lines = ['Mad Hudson SEO — Edited Fields', ''];
+      var json = JSON.stringify(edits);
+      var encoded = btoa(unescape(encodeURIComponent(json)));
+      var url = window.location.origin + window.location.pathname + '?edits=' + encoded;
 
-      keys.forEach(function(id) {
-        var row = document.querySelector('tr[data-id="' + id + '"]');
-        if (!row) return;
-        var product = row.querySelector('.mt-product');
-        var field = row.querySelector('.mt-field');
-        var cell = row.querySelector('.mt-value');
-        var original = cell ? cell.getAttribute('data-original') : '';
-        var productName = product ? product.textContent.trim() : id;
-        var fieldName = field ? field.textContent.trim() : '';
-
-        lines.push(productName + ' / ' + fieldName);
-        lines.push('  Was:  ' + original);
-        lines.push('  Now:  ' + edits[id]);
-        lines.push('');
-      });
-
-      lines.push('---');
-      lines.push(keys.length + ' field(s) changed');
-
-      var text = lines.join('\n');
-
-      navigator.clipboard.writeText(text).then(function() {
+      navigator.clipboard.writeText(url).then(function() {
         var btn = document.getElementById('export-btn');
-        btn.textContent = 'Copied to clipboard';
+        btn.textContent = 'Link copied';
         btn.style.background = 'var(--color-success)';
         setTimeout(function() {
           btn.style.background = 'var(--color-primary)';
@@ -1328,9 +1308,77 @@
       });
     }
 
-    // Show export button if edits exist on load
-    // Also re-check after each blur on editable cells
-    var origBlurHandlers = [];
+    // Load shared edits from URL ?edits= param
+    function loadSharedEdits() {
+      var params = new URLSearchParams(window.location.search);
+      var encoded = params.get('edits');
+      if (!encoded) return null;
+
+      try {
+        var json = decodeURIComponent(escape(atob(encoded)));
+        return JSON.parse(json);
+      } catch(e) {
+        return null;
+      }
+    }
+
+    function applySharedEdits(shared) {
+      if (!shared) return;
+
+      // Apply shared edits to the table cells
+      document.querySelectorAll('.master-table .mt-value[contenteditable]').forEach(function(cell) {
+        var row = cell.closest('tr');
+        var id = row && row.dataset.id;
+        if (id && shared[id]) {
+          cell.textContent = shared[id];
+          cell.classList.add('edited');
+        }
+      });
+
+      // Show banner
+      var count = Object.keys(shared).length;
+      var banner = document.createElement('div');
+      banner.id = 'shared-banner';
+      banner.style.cssText = 'padding:1rem 1.5rem; background:rgba(94,125,104,0.08); border:1px solid var(--color-primary); border-radius:var(--radius); margin-bottom:1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;';
+      banner.innerHTML = '<div style="font-size:0.9375rem; line-height:1.5;">' +
+        '<strong style="color:var(--color-primary);">Shared edits (' + count + ' field' + (count === 1 ? '' : 's') + ')</strong> ' +
+        '— Someone sent you their suggested changes. Edited fields are marked with an orange border. ' +
+        '</div>' +
+        '<button onclick="acceptSharedEdits()" style="font-family:var(--font-body); font-size:0.8125rem; font-weight:600; padding:0.375rem 0.75rem; background:var(--color-primary); color:white; border:none; border-radius:6px; cursor:pointer; white-space:nowrap; min-height:36px;">Save to My Sheet</button>';
+
+      var main = document.querySelector('.main');
+      var h1 = main.querySelector('h1');
+      h1.parentNode.insertBefore(banner, h1.nextSibling);
+    }
+
+    function acceptSharedEdits() {
+      var shared = loadSharedEdits();
+      if (!shared) return;
+
+      // Merge into local edits
+      var edits = loadEdits();
+      Object.keys(shared).forEach(function(id) { edits[id] = shared[id]; });
+      saveEdits(edits);
+
+      // Update originals so they don't show as "edited" relative to themselves
+      document.querySelectorAll('.master-table .mt-value[contenteditable]').forEach(function(cell) {
+        var row = cell.closest('tr');
+        var id = row && row.dataset.id;
+        if (id && shared[id]) {
+          cell.setAttribute('data-original', shared[id]);
+          cell.classList.remove('edited');
+        }
+      });
+
+      // Remove banner and URL param
+      var banner = document.getElementById('shared-banner');
+      if (banner) banner.remove();
+      window.history.replaceState({}, '', window.location.pathname);
+
+      updateExportBtn();
+    }
+
+    // Re-check export button after each edit
     document.querySelectorAll('.master-table .mt-value[contenteditable]').forEach(function(cell) {
       cell.addEventListener('blur', updateExportBtn);
     });
@@ -1350,7 +1398,14 @@
 
     // ── Init ──
     applyState();
-    applyEdits();
+
+    // Check for shared edits in URL first, otherwise load local edits
+    var sharedEdits = loadSharedEdits();
+    if (sharedEdits) {
+      applySharedEdits(sharedEdits);
+    } else {
+      applyEdits();
+    }
     updateExportBtn();
   </script>
 </body>
