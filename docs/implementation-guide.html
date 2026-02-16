@@ -272,6 +272,7 @@
       <a href="index.html" class="topbar-link">Map</a>
       <a href="quick-wins.html" class="topbar-link">Quick Wins</a>
       <a href="dashboard.html" class="topbar-link">Dashboard</a>
+      <a href="paste-sheet.html" class="topbar-link">Paste Sheet</a>
       <a href="slides.html" class="topbar-link">Slides</a>
     </div>
   </nav>
@@ -1011,6 +1012,46 @@
     </section>
 
     <!-- ═══════════════════════════════════════════ -->
+    <!-- THEME / CODE CHANGES                         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Theme Changes (Requires Dev / Liquid Editing)</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+
+        <p>These three fixes need code-level changes in the Shopify theme. They should be done on a staging/mirror site first, then pushed to live. None change how the site looks to customers.</p>
+
+        <h3>1. Fix H1 Hierarchy (High Impact)</h3>
+        <div class="callout callout-primary">
+          <p><strong>The problem:</strong> The H1 tag is currently on the animated logo GIF, not on "Mad Hudson Watches." Google reads the H1 as the page's primary topic. Right now it sees an image filename, not your brand name.</p>
+        </div>
+        <p><strong>The fix:</strong> In the Liquid template, change the logo element from <code>&lt;h1&gt;</code> to a <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code>, and wrap the text "Mad Hudson Watches" (or the product title on product pages) in the <code>&lt;h1&gt;</code> tag instead. The logo can remain visually identical &mdash; only the HTML semantics change.</p>
+        <p><strong>Impact:</strong> High. Google gives significant weight to H1 content. This is the single highest-value code change.</p>
+        <p><strong>Risk:</strong> Zero visual change. Customers won't notice anything different.</p>
+        <p><strong>Where:</strong> <span class="shopify-path">Online Store &gt; Themes &gt; Edit code &gt; Sections &gt; header.liquid</span> (exact file depends on theme)</p>
+
+        <h3>2. External Links Open in New Tab</h3>
+        <p><strong>The problem:</strong> Artist social media links (Instagram, portfolio sites) on product pages navigate the user away from Mad Hudson. Once they leave, they're gone.</p>
+        <p><strong>The fix:</strong> Add <code>target="_blank" rel="noopener noreferrer"</code> to all external artist links in the product page Liquid template.</p>
+        <p><strong>Impact:</strong> Medium. Keeps users on-site, reduces bounce rate, preserves the path to purchase.</p>
+        <p><strong>Where:</strong> <span class="shopify-path">Online Store &gt; Themes &gt; Edit code &gt; Sections &gt; product-template.liquid</span> (or equivalent)</p>
+
+        <h3>3. "More From Artist" &rarr; On-Page Anchor</h3>
+        <p><strong>The problem:</strong> The "More From Artist" section on product pages currently links to the artist's Instagram, which takes the user off-site.</p>
+        <p><strong>The fix:</strong> Replace the Instagram link with an anchor link that scrolls to an expanded artist bio section lower on the same product page. This keeps users on-site and adds indexable content &mdash; where SEO strategy and the brand's cultural capital converge.</p>
+        <p><strong>Impact:</strong> Medium-high. Adds indexable artist content without changing visible product descriptions. Keeps users on-site. Enables artist bio accordion sections (a future content play).</p>
+        <p><strong>Where:</strong> Product page template + potentially a new Liquid section for artist bios</p>
+
+        <div class="callout callout-info">
+          <p><strong>All three fixes should be tested on a staging/dev site first.</strong> The H1 fix and external link fix are straightforward. The "More From Artist" redesign is a slightly larger UX decision that connects to the artist bio accordion strategy.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
     <!-- NOTES & EDGE CASES                          -->
     <!-- ═══════════════════════════════════════════ -->
     <section class="section">
@@ -1023,7 +1064,7 @@
         <h3>What not to touch</h3>
         <ul>
           <li><strong>URL handles</strong> &mdash; leave /products/broken-time, /products/cd-watch, etc. as they are. Changing URLs breaks existing links, bookmarks, and whatever SEO equity they've built. The benefits aren't worth the risk.</li>
-          <li><strong>Product titles (H1s)</strong> &mdash; "Eddie Watch," "Marshall Watch," "Broken Time" etc. are clean and correct. These show on the actual product page. Don't stuff keywords into them.</li>
+          <li><strong>Product titles (H1s)</strong> &mdash; "Eddie Watch," "Marshall Watch," "Broken Time" etc. are clean and correct. These show on the actual product page. Don't stuff keywords into them. (Note: the <em>actual</em> H1 tag is currently on the animated logo, not the product title &mdash; see the Theme Changes section below for the fix.)</li>
           <li><strong>Product descriptions</strong> &mdash; this guide doesn't cover rewriting the on-page body copy. That's a separate (larger) effort covered in the <a href="claude/consulting/madhudson/roadmaps/product-content.html">Product Content</a> guide.</li>
         </ul>
 

@@ -585,12 +585,22 @@
       <a class="sidebar-item" href="#collection" data-product="collection">
         <span class="sidebar-check"></span> Collection <span class="sidebar-count" data-count="collection"></span>
       </a>
+      <a class="sidebar-item" href="#about" data-product="about">
+        <span class="sidebar-check"></span> About <span class="sidebar-count" data-count="about"></span>
+      </a>
+      <a class="sidebar-item" href="#faq" data-product="faq">
+        <span class="sidebar-check"></span> FAQ <span class="sidebar-count" data-count="faq"></span>
+      </a>
+      <div class="sidebar-label">New Watches</div>
+      <a class="sidebar-item" href="#new-watches" data-product="new-watches" style="color:var(--color-text-muted); font-style:italic;">
+        <span class="sidebar-check"></span> 3 TBD <span class="sidebar-count" data-count="new-watches"></span>
+      </a>
     </aside>
 
     <!-- ── MAIN ── -->
     <main class="main">
       <h1>Paste Sheet</h1>
-      <p class="subtitle">Click any value to select it. Copy button puts it on your clipboard. Checkboxes save automatically.</p>
+      <p class="subtitle">Click any value to select it. Copy button puts it on your clipboard. Checkboxes save automatically.<br><span style="font-size:0.8125rem; color:var(--color-text-muted);">Tip: Shopify's auto-suggested alt text is a fine starting point if you're short on time. These recommendations add keyword and brand specificity on top.</span></p>
 
       <div class="view-toggle">
         <button class="active" onclick="setView('product')">By Product</button>
@@ -747,6 +757,9 @@
           <div class="product-heading">Homepage</div>
           <div class="field-row" data-id="hp-title"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('hp-title')"></div><div class="field-content"><div class="field-type">Page Title <span class="where">Online Store &gt; Preferences</span></div><div class="field-value mono" data-copy>Mad Hudson Watches — Artist Collaboration Watches from Chicago</div><div class="field-meta">60 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="field-row" data-id="hp-meta"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('hp-meta')"></div><div class="field-content"><div class="field-type">Meta Description <span class="where">Online Store &gt; Preferences</span></div><div class="field-value" data-copy>Mad Hudson Watches — limited edition watches designed by independent artists. Each watch tells an artist's story. 100 pieces per edition. Based in Chicago. Free shipping.</div><div class="field-meta">159 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="hp-alt1"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('hp-alt1')"></div><div class="field-content"><div class="field-type">Alt Text <span class="where">Themes &gt; Customize &gt; Homepage hero</span></div><span class="alt-label">Hero — TV stack image</span><div class="field-value" data-copy>Mad Hudson Watches — vintage television stack displaying limited edition artist collaboration watches</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="hp-alt2"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('hp-alt2')"></div><div class="field-content"><span class="alt-label">Row of faces — decorative</span><div class="field-value" data-copy>Row of illustrated face characters — Mad Hudson Watches brand artwork</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="hp-alt3"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('hp-alt3')"></div><div class="field-content"><span class="alt-label">Banner — Wear the Madness</span><div class="field-value" data-copy>Mad Hudson Watches promotional banner — Wear the Madness</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
         </div>
 
         <!-- COLLECTION -->
@@ -754,6 +767,39 @@
           <div class="product-heading">Watches Collection</div>
           <div class="field-row" data-id="co-title"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('co-title')"></div><div class="field-content"><div class="field-type">Page Title <span class="where">Collections &gt; SEO listing</span></div><div class="field-value mono" data-copy>All Watches — Artist-Designed Limited Editions | Mad Hudson</div><div class="field-meta">57 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="field-row" data-id="co-meta"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('co-meta')"></div><div class="field-content"><div class="field-type">Meta Description <span class="where">Collections &gt; SEO listing</span></div><div class="field-value" data-copy>Browse all Mad Hudson watches — limited edition timepieces designed by independent artists. Each edition limited to 100 pieces. Free shipping on every order.</div><div class="field-meta">152 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+        </div>
+
+        <!-- ABOUT -->
+        <div class="product-section" id="about">
+          <div class="product-heading">About Page</div>
+          <div class="field-row" data-id="ab-title"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('ab-title')"></div><div class="field-content"><div class="field-type">Page Title <span class="where">Online Store &gt; Pages &gt; About &gt; SEO listing</span></div><div class="field-value mono" data-copy>About Mad Hudson — Artist Collaboration Watch Company from Chicago</div><div class="field-meta">63 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="ab-meta"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('ab-meta')"></div><div class="field-content"><div class="field-type">Meta Description <span class="where">Online Store &gt; Pages &gt; About &gt; SEO listing</span></div><div class="field-value" data-copy>Mad Hudson Watches is a Chicago-based watch company that pairs with independent artists to create limited edition timepieces. Each edition limited to 100 pieces.</div><div class="field-meta">158 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="ab-alt1"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('ab-alt1')"></div><div class="field-content"><div class="field-type">Alt Text <span class="where">Themes &gt; Customize &gt; About page (may need code)</span></div><span class="alt-label">Static logo</span><div class="field-value" data-copy>Mad Hudson Watches logo — black and white brand mark</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="ab-alt2"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('ab-alt2')"></div><div class="field-content"><span class="alt-label">Row of faces — decorative</span><div class="field-value" data-copy>Row of illustrated face characters — Mad Hudson Watches brand artwork</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="product-section" id="faq">
+          <div class="product-heading">FAQ Page</div>
+          <div class="field-row" data-id="fq-title"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('fq-title')"></div><div class="field-content"><div class="field-type">Page Title <span class="where">Online Store &gt; Pages &gt; FAQ &gt; SEO listing</span></div><div class="field-value mono" data-copy>FAQ — Mad Hudson Watches | Shipping, Returns, Warranty</div><div class="field-meta">53 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="fq-meta"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('fq-meta')"></div><div class="field-content"><div class="field-type">Meta Description <span class="where">Online Store &gt; Pages &gt; FAQ &gt; SEO listing</span></div><div class="field-value" data-copy>Frequently asked questions about Mad Hudson Watches — shipping, returns, warranty, international orders, and manufacturing. Based in Chicago, free US shipping.</div><div class="field-meta">155 chars</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="field-row" data-id="fq-alt1"><div class="field-left"><div class="field-checkbox" onclick="toggleCheck('fq-alt1')"></div><div class="field-content"><div class="field-type">Alt Text <span class="where">Themes &gt; Customize &gt; FAQ page (may need code)</span></div><span class="alt-label">Row of faces — decorative</span><div class="field-value" data-copy>Row of illustrated face characters — Mad Hudson Watches brand artwork</div></div></div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+        </div>
+
+        <!-- NEW WATCHES -->
+        <div class="product-section" id="new-watches">
+          <div class="product-heading" style="color:var(--color-text-muted);">New Watches — Coming Soon</div>
+          <div style="padding:1.25rem; background:var(--color-surface); border:1px dashed var(--color-border); border-radius:var(--radius); color:var(--color-text-secondary); font-size:0.9375rem; line-height:1.6;">
+            <p style="margin-bottom:0.75rem;"><strong>Three new watches launching.</strong> Photography in progress — entries will be added here when images arrive.</p>
+            <p style="margin-bottom:0.75rem;">For each new watch, you'll need:</p>
+            <ul style="margin:0; padding-left:1.25rem;">
+              <li><strong>Page title:</strong> <span style="font-family:var(--font-mono); font-size:0.8125rem;">[Watch Name] by [Artist] — Limited Edition Artist Watch | Mad Hudson</span></li>
+              <li><strong>Meta description:</strong> 150-160 chars with artist name, visual hook, edition limit</li>
+              <li><strong>Alt text per image:</strong> <span style="font-family:var(--font-mono); font-size:0.8125rem;">[Watch name] by [Artist] — [brief visual description] — Mad Hudson Watches</span></li>
+              <li><strong>Category metafields:</strong> case material, band, movement, water resistance, case size</li>
+              <li><strong>Artist metafields:</strong> artist_name, artist_bio</li>
+            </ul>
+          </div>
         </div>
 
       </div>
@@ -772,6 +818,8 @@
           <div class="batch-row" data-id="mi-title"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('mi-title')"></div>Miami</div><div class="batch-value mono" data-copy>Miami Watch — Pink and Blue Square Watch, Limited to 100 | Mad Hudson</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="batch-row" data-id="hp-title"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('hp-title')"></div>Homepage</div><div class="batch-value mono" data-copy>Mad Hudson Watches — Artist Collaboration Watches from Chicago</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="batch-row" data-id="co-title"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('co-title')"></div>Collection</div><div class="batch-value mono" data-copy>All Watches — Artist-Designed Limited Editions | Mad Hudson</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="batch-row" data-id="ab-title"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('ab-title')"></div>About</div><div class="batch-value mono" data-copy>About Mad Hudson — Artist Collaboration Watch Company from Chicago</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="batch-row" data-id="fq-title"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('fq-title')"></div>FAQ</div><div class="batch-value mono" data-copy>FAQ — Mad Hudson Watches | Shipping, Returns, Warranty</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
         </div>
 
         <div class="batch-section">
@@ -784,6 +832,8 @@
           <div class="batch-row" data-id="mi-meta"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('mi-meta')"></div>Miami</div><div class="batch-value" data-copy>The Miami Watch — sun-washed blue dial, warm metallics, and soft pinks in a 32mm square case. Inspired by a perfect vacation. Limited to 100 pieces. Mad Hudson, Chicago.</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="batch-row" data-id="hp-meta"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('hp-meta')"></div>Homepage</div><div class="batch-value" data-copy>Mad Hudson Watches — limited edition watches designed by independent artists. Each watch tells an artist's story. 100 pieces per edition. Based in Chicago. Free shipping.</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
           <div class="batch-row" data-id="co-meta"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('co-meta')"></div>Collection</div><div class="batch-value" data-copy>Browse all Mad Hudson watches — limited edition timepieces designed by independent artists. Each edition limited to 100 pieces. Free shipping on every order.</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="batch-row" data-id="ab-meta"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('ab-meta')"></div>About</div><div class="batch-value" data-copy>Mad Hudson Watches is a Chicago-based watch company that pairs with independent artists to create limited edition timepieces. Each edition limited to 100 pieces.</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
+          <div class="batch-row" data-id="fq-meta"><div class="batch-product"><div class="field-checkbox" onclick="toggleCheck('fq-meta')"></div>FAQ</div><div class="batch-value" data-copy>Frequently asked questions about Mad Hudson Watches — shipping, returns, warranty, international orders, and manufacturing. Based in Chicago, free US shipping.</div><button class="copy-btn" onclick="copyField(this)">Copy</button></div>
         </div>
       </div>
 
@@ -919,8 +969,11 @@
         'eddie': ['ed-title','ed-meta','ed-alt1','ed-alt2','ed-alt3','ed-alt4'],
         'marshall': ['ma-title','ma-meta','ma-alt1','ma-alt2','ma-alt3','ma-alt4'],
         'miami': ['mi-title','mi-meta','mi-alt1','mi-alt2','mi-alt3','mi-alt4','mi-alt5'],
-        'homepage': ['hp-title','hp-meta'],
-        'collection': ['co-title','co-meta']
+        'homepage': ['hp-title','hp-meta','hp-alt1','hp-alt2','hp-alt3'],
+        'collection': ['co-title','co-meta'],
+        'about': ['ab-title','ab-meta','ab-alt1','ab-alt2'],
+        'faq': ['fq-title','fq-meta','fq-alt1'],
+        'new-watches': []
       };
 
       Object.entries(products).forEach(([product, ids]) => {
