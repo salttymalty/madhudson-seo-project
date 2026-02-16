@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEO Implementation Guide — Mad Hudson SEO Roadmap</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="roadmap-base.css">
+
+  <style>
+    /* ── Product Cards ── */
+    .product-card {
+      background: var(--color-surface);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 8px var(--color-shadow);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .product-card-header {
+      padding: 1.25rem 1.5rem;
+      background: var(--color-surface-alt);
+      border-bottom: 2px solid var(--color-border);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: var(--touch-target);
+      user-select: none;
+    }
+
+    .product-card-header:hover {
+      background: rgba(94, 125, 104, 0.04);
+    }
+
+    .product-card-header h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .product-card-header .handle {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      font-weight: 400;
+    }
+
+    .product-card-body {
+      padding: 1.5rem 2rem;
+    }
+
+    .product-card.collapsed .product-card-body {
+      display: none;
+    }
+
+    .product-card .card-toggle {
+      font-size: 1.25rem;
+      color: var(--color-text-muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .product-card.collapsed .card-toggle {
+      transform: rotate(-90deg);
+    }
+
+    /* ── Field Block ── */
+    .field-block {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .field-block:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Copy Block (the ready-to-paste text) ── */
+    .copy-block {
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      margin: 0.5rem 0;
+      position: relative;
+    }
+
+    .copy-block.mono {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    .copy-block .char-count {
+      position: absolute;
+      bottom: 0.5rem;
+      right: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+    }
+
+    .copy-block .char-count.over {
+      color: var(--color-warning);
+      font-weight: 600;
+    }
+
+    /* ── Current State ── */
+    .current-state {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: rgba(196, 147, 74, 0.06);
+      border-left: 3px solid var(--color-warning);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    /* ── Visibility Tag ── */
+    .visibility-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+
+    .visibility-tag.hidden {
+      background: rgba(90, 143, 166, 0.12);
+      color: var(--color-info);
+    }
+
+    .visibility-tag.visible {
+      background: rgba(196, 147, 74, 0.12);
+      color: var(--color-warning);
+    }
+
+    /* ── Alt Text List ── */
+    .alt-text-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.75rem 0;
+    }
+
+    .alt-text-list li {
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+    }
+
+    .alt-text-list .image-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: block;
+      margin-bottom: 0.375rem;
+    }
+
+    .alt-text-list .alt-value {
+      font-size: 0.9375rem;
+      color: var(--color-text);
+      line-height: 1.4;
+    }
+
+    /* ── Type Badge ── */
+    .type-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.75rem;
+    }
+
+    .type-badge.collab {
+      background: rgba(94, 125, 104, 0.12);
+      color: var(--color-primary);
+    }
+
+    .type-badge.inhouse {
+      background: rgba(196, 147, 74, 0.12);
+      color: var(--color-warning);
+    }
+
+    /* ── Expand/Collapse All ── */
+    .expand-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .expand-controls button {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      min-height: var(--touch-target);
+      transition: all 0.15s ease;
+    }
+
+    .expand-controls button:hover {
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    /* ── Shopify Path ── */
+    .shopify-path {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-text-secondary);
+      background: var(--color-surface-alt);
+      padding: 0.375rem 0.625rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 0.25rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .product-card-body {
+        padding: 1.25rem;
+      }
+
+      .copy-block .char-count {
+        position: static;
+        display: block;
+        text-align: right;
+        margin-top: 0.375rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <a href="../../../../index.html" class="topbar-brand">Mad Hudson SEO</a>
+    <div class="topbar-nav">
+      <a href="../../../../index.html" class="topbar-link">Map</a>
+      <a href="../../../../quick-wins.html" class="topbar-link">Quick Wins</a>
+      <a href="../../../../dashboard.html" class="topbar-link">Dashboard</a>
+      <a href="../../../../slides.html" class="topbar-link">Slides</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Navigation -->
+    <nav class="page-nav">
+      <a href="../../../../index.html">Back to Map</a>
+      <div class="page-nav-seq">
+        <a href="technical-seo.html">Technical SEO Checklist</a>
+        <a href="product-content.html">Product Content</a>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>SEO Implementation Guide</h1>
+      <p class="page-subtitle">Exact text for page titles, meta descriptions, and alt text — ready to paste into Shopify</p>
+    </header>
+
+    <!-- TL;DR Box -->
+    <section class="tldr">
+      <h2>TL;DR</h2>
+      <ul>
+        <li>This page has <strong>copy-paste text</strong> for every product — page titles, meta descriptions, and alt text</li>
+        <li>Each field notes whether it's <strong>visible to customers</strong> on the site or <strong>invisible</strong> (search/accessibility only)</li>
+        <li>All edits happen in Shopify admin — no theme editing or code required</li>
+        <li>The three artist collaborations (Broken Time, CD Watch, Dogma) are the highest priority</li>
+      </ul>
+      <p class="bottom-line"><strong>Bottom line:</strong> Go product by product. Each one takes about 5 minutes. Start with the artist collabs.</p>
+    </section>
+
+    <!-- WHERE THINGS SHOW UP -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Where These Show Up (and Where They Don't)</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Visible to Customers?</th>
+              <th>Where It Shows</th>
+              <th>Where to Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Page Title</strong></td>
+              <td><strong>Barely</strong> — browser tab only</td>
+              <td>Google search results (the blue clickable link), browser tab, social media shares, bookmarks</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; Search engine listing &gt; Page title</span></td>
+            </tr>
+            <tr>
+              <td><strong>Meta Description</strong></td>
+              <td><strong>No</strong> — not on the product page</td>
+              <td>Google search results (the gray text under the blue link), social media preview cards</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; Search engine listing &gt; Description</span></td>
+            </tr>
+            <tr>
+              <td><strong>Alt Text</strong></td>
+              <td><strong>No</strong> — not visible to sighted users</td>
+              <td>Screen readers (accessibility), Google Image Search results, displays if an image fails to load</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; click image &gt; Alt text field</span></td>
+            </tr>
+            <tr>
+              <td><strong>H1 (Product Name)</strong></td>
+              <td><strong>Yes</strong> — the main heading on the page</td>
+              <td>The product page itself, top of the content area</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; Title field</span> (changes both H1 and URL handle — be careful)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout callout-info">
+          <p><strong>Key takeaway:</strong> Page titles and meta descriptions change how you appear in Google, not how the site looks to someone already browsing. Alt text is an accessibility and image search play. The only field that changes the visible site is the product title (H1), and we're <strong>not recommending</strong> changing those — they're fine as-is.</p>
+        </div>
+
+        <h3>The "Search engine listing preview" Section</h3>
+        <p>In Shopify admin, scroll to the bottom of any product page. You'll see a section called <strong>"Search engine listing preview"</strong> (you may need to click "Edit website SEO" to expand it). This is where page title and meta description live. It has three fields:</p>
+        <ul>
+          <li><strong>Page title</strong> — what shows in Google as the blue link (max ~60 characters before truncation)</li>
+          <li><strong>Description</strong> — what shows in Google as the gray text (target 150-160 characters)</li>
+          <li><strong>URL handle</strong> — the /products/[this-part]. Leave this alone for now.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPAND/COLLAPSE ALL -->
+    <div class="expand-controls">
+      <button onclick="expandAll()">Expand All Products</button>
+      <button onclick="collapseAll()">Collapse All</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 1: BROKEN TIME (Brad Podray)       -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="broken-time">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>Broken Time <span class="type-badge collab">Artist Collab</span></h2>
+          <span class="handle">/products/broken-time &middot; Brad Podray &middot; $240</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag hidden">Search results + browser tab only</span></div>
+          <div class="current-state">Current: "Broken Time &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">Broken Time by Brad Podray &mdash; Limited Edition Artist Watch | Mad Hudson<span class="char-count">67 chars</span></div>
+          <p>Captures searches for "Brad Podray watch," "artist collaboration watch," and "limited edition watch." The current title tells Google nothing about the artist behind it.</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: None set (Shopify auto-generates from product description)</div>
+          <div class="copy-block">Broken Time by Brad Podray &mdash; a smashed-crystal timepiece from visual artist and internet anarchist Brad Podray. Limited to 100 pieces. Artist collaboration from Mad Hudson.<span class="char-count">160 chars</span></div>
+          <p>Includes the artist name twice for search weight, the distinctive "smashed crystal" visual hook, and the edition limit. The word "anarchist" matches Brad's own positioning.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <p>Click each product image in Shopify admin to add alt text. One image currently has decent alt text; the rest need it.</p>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero / Front-facing shot</span>
+              <span class="alt-value">Broken Time watch by Brad Podray with smashed crystal dial on black background &mdash; Mad Hudson limited edition</span>
+            </li>
+            <li>
+              <span class="image-label">Dial close-up</span>
+              <span class="alt-value">Close-up of Broken Time dial showing shattered crystal effect designed by artist Brad Podray</span>
+            </li>
+            <li>
+              <span class="image-label">Wrist / lifestyle shot</span>
+              <span class="alt-value">Broken Time artist collaboration watch worn on wrist &mdash; 40mm stainless steel with silicone strap</span>
+            </li>
+            <li>
+              <span class="image-label">Artist portrait (if present)</span>
+              <span class="alt-value">Brad Podray, visual artist and designer of the Broken Time watch for Mad Hudson Watches</span>
+            </li>
+            <li>
+              <span class="image-label">Packaging / flat lay</span>
+              <span class="alt-value">Broken Time watch by Brad Podray with Mad Hudson packaging &mdash; limited edition of 100</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 2: CD WATCH (Riki Prosper)          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="cd-watch">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>CD Watch <span class="type-badge collab">Artist Collab</span></h2>
+          <span class="handle">/products/cd-watch &middot; Riki Prosper &middot; $215</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag hidden">Search results + browser tab only</span></div>
+          <div class="current-state">Current: "CD Watch &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">The CD Watch by Riki Prosper &mdash; Limited Edition Artist Watch | Mad Hudson<span class="char-count">71 chars</span></div>
+          <p>Riki Prosper's name is currently nowhere in the page title. This captures "Riki Prosper watch" and "artist watch" searches. Slightly long at 71 chars &mdash; Google may truncate the last few characters, but "Mad Hudson" will still show.</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: None set</div>
+          <div class="copy-block">The CD Watch &mdash; a holographic disc dial watch designed by Atlanta artist Riki Prosper for Mad Hudson. Changes color with every turn of the wrist. Limited to 100 pieces.<span class="char-count">160 chars</span></div>
+          <p>Leads with the visual hook (holographic disc), names the artist and city, and closes with the scarcity angle. The "changes color" detail is the kind of specific claim that drives clicks in search results.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <p><strong>Priority:</strong> This product has 7+ images with <strong>zero alt text</strong>. Every single image needs updating.</p>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero / Front-facing shot</span>
+              <span class="alt-value">CD Watch by Riki Prosper with holographic disc dial &mdash; Mad Hudson limited edition artist watch</span>
+            </li>
+            <li>
+              <span class="image-label">Dial close-up</span>
+              <span class="alt-value">Close-up of CD Watch holographic dial showing rainbow color shift designed by Riki Prosper</span>
+            </li>
+            <li>
+              <span class="image-label">Side / profile view</span>
+              <span class="alt-value">CD Watch side profile showing black IP stainless steel case and clear disc layers</span>
+            </li>
+            <li>
+              <span class="image-label">Wrist / lifestyle shot</span>
+              <span class="alt-value">CD Watch by Riki Prosper worn on wrist &mdash; holographic artist collaboration watch by Mad Hudson</span>
+            </li>
+            <li>
+              <span class="image-label">Artist portrait</span>
+              <span class="alt-value">Riki Prosper, Atlanta-based designer and artist who created the CD Watch for Mad Hudson Watches</span>
+            </li>
+            <li>
+              <span class="image-label">Illustration / design art</span>
+              <span class="alt-value">Original illustration by Riki Prosper showing the CD Watch design concept</span>
+            </li>
+            <li>
+              <span class="image-label">Banner / detail</span>
+              <span class="alt-value">CD Watch design details &mdash; holographic disc tribute to mixtapes by artist Riki Prosper</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 3: DOGMA (Bryce Wong)               -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="dogma">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>Dogma <span class="type-badge collab">Artist Collab</span></h2>
+          <span class="handle">/products/dogma-bryce-wong &middot; Bryce Wong &middot; $175</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag visible">Already good &mdash; minor tweak</span></div>
+          <div class="current-state">Current: "Dogma Watch by Bryce Wong - limited edition artist watch &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">Dogma by Bryce Wong &mdash; Limited Edition Artist Watch | Mad Hudson Watches<span class="char-count">68 chars</span></div>
+          <p>The current title is actually solid &mdash; it already has the artist name and "limited edition artist watch." The suggested version just tightens formatting for consistency across all products. <strong>This is optional</strong> &mdash; the current title is doing its job.</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: None set</div>
+          <div class="copy-block">Dogma by Bryce Wong &mdash; praying hands transform into a dog as the day unfolds. Designed by Nike designer Bryce Wong for Mad Hudson. Limited edition, 100 pieces.<span class="char-count">157 chars</span></div>
+          <p>"Nike designer" is a powerful credibility signal that makes people click. The transforming design is the kind of specific detail that stands out in search results among generic watch descriptions.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <p><strong>Priority:</strong> All images currently have <strong>zero alt text</strong>.</p>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero / Front-facing shot</span>
+              <span class="alt-value">Dogma watch by Bryce Wong with praying hands dial design &mdash; Mad Hudson limited edition</span>
+            </li>
+            <li>
+              <span class="image-label">Dial close-up (morning position)</span>
+              <span class="alt-value">Close-up of Dogma dial showing praying hands design by artist Bryce Wong</span>
+            </li>
+            <li>
+              <span class="image-label">Dial close-up (afternoon position)</span>
+              <span class="alt-value">Dogma watch dial later in the day &mdash; hands transform into dog design by Bryce Wong</span>
+            </li>
+            <li>
+              <span class="image-label">Wrist / lifestyle shot</span>
+              <span class="alt-value">Dogma artist collaboration watch by Bryce Wong worn on wrist with nylon strap</span>
+            </li>
+            <li>
+              <span class="image-label">Artist portrait</span>
+              <span class="alt-value">Bryce Wong, Nike designer and creator of the Dogma watch for Mad Hudson Watches</span>
+            </li>
+            <li>
+              <span class="image-label">Banner / illustration</span>
+              <span class="alt-value">Dogma design art by Bryce Wong &mdash; praying hands to dog transformation concept</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 4: EDDIE WATCH (Madison Hudson)     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="eddie-watch">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>Eddie Watch <span class="type-badge inhouse">In-House</span></h2>
+          <span class="handle">/products/the-eddie-watch &middot; Designed by Madison Hudson &middot; $195</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag hidden">Search results + browser tab only</span></div>
+          <div class="current-state">Current: "Eddie Watch &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">Eddie Watch &mdash; Square Dress Watch, Limited to 100 | Mad Hudson Watches<span class="char-count">66 chars</span></div>
+          <p>Since Eddie is an in-house design (not an artist collab), the title emphasizes form factor ("square dress watch") and scarcity. This captures searches for "square watch" and "limited edition watch."</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: None set</div>
+          <div class="copy-block">The Eddie Watch &mdash; a square dress watch with deep blue layered dial, cream accents, and red details. Named after Grandpa Eddie. Limited to 100 pieces. By Mad Hudson, Chicago.<span class="char-count">160 chars</span></div>
+          <p>Leads with form factor for discoverability, then the design details that make it click-worthy, the personal story hook ("Grandpa Eddie"), and closes with the Chicago origin.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <p>Eddie has some existing alt text that's decent. Update for consistency and keyword inclusion.</p>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero shot (blue background)</span>
+              <span class="alt-value">Eddie Watch by Mad Hudson &mdash; square stainless steel case with deep blue layered dial and leather strap</span>
+            </li>
+            <li>
+              <span class="image-label">Front-facing (white background)</span>
+              <span class="alt-value">Eddie Watch front view showing blue dial with cream outer ring and red accents &mdash; Mad Hudson limited edition</span>
+            </li>
+            <li>
+              <span class="image-label">Wrist / lifestyle shot</span>
+              <span class="alt-value">Eddie Watch worn on wrist &mdash; 34mm square dress watch with black leather strap by Mad Hudson</span>
+            </li>
+            <li>
+              <span class="image-label">Banner ("Wear the Madness")</span>
+              <span class="alt-value">Mad Hudson Watches &mdash; Wear the Madness tagline</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 5: MARSHALL WATCH (Madison Hudson)  -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="marshall-watch">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>Marshall Watch <span class="type-badge inhouse">In-House</span></h2>
+          <span class="handle">/products/marshall-watch &middot; Designed by Madison Hudson &middot; $205</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag hidden">Search results + browser tab only</span></div>
+          <div class="current-state">Current: "Marshall Watch &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">Marshall Watch &mdash; Green Dial Square Watch, Limited to 100 | Mad Hudson<span class="char-count">67 chars</span></div>
+          <p>Color + form factor in the title captures "green dial watch" and "square watch" searches. Both are real search terms people use.</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: None set</div>
+          <div class="copy-block">The Marshall Watch &mdash; muted green layered dial with subtle striping in a 32mm square case. Inspired by Marshall, Michigan. Limited to 100 pieces. By Mad Hudson, Chicago.<span class="char-count">159 chars</span></div>
+          <p>Design-forward description that differentiates from generic watch copy. The "Marshall, Michigan" origin story adds personality and local search value.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <p>Marshall has some existing alt text but it's generic ("Square watch with green face"). These replacements add the brand and watch name.</p>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero shot (beige background)</span>
+              <span class="alt-value">Marshall Watch by Mad Hudson &mdash; square case with muted green layered dial and beige leather strap</span>
+            </li>
+            <li>
+              <span class="image-label">Front-facing (white background)</span>
+              <span class="alt-value">Marshall Watch front view showing green dial with subtle striping &mdash; Mad Hudson limited edition</span>
+            </li>
+            <li>
+              <span class="image-label">Decorative detail (green background)</span>
+              <span class="alt-value">Marshall Watch design detail showing layered dial texture and wood-tone accents</span>
+            </li>
+            <li>
+              <span class="image-label">Side / strap view</span>
+              <span class="alt-value">Marshall Watch with beige leather strap &mdash; 32mm square dress watch by Mad Hudson</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- PRODUCT 6: MIAMI WATCH (Madison Hudson)     -->
+    <!-- ═══════════════════════════════════════════ -->
+    <div class="product-card" id="miami-watch">
+      <div class="product-card-header" onclick="toggleCard(this)">
+        <div>
+          <h2>Miami Watch <span class="type-badge inhouse">In-House</span></h2>
+          <span class="handle">/products/miami-watch &middot; Designed by Madison Hudson &middot; $205</span>
+        </div>
+        <span class="card-toggle">&#9660;</span>
+      </div>
+      <div class="product-card-body">
+
+        <!-- Page Title -->
+        <div class="field-block">
+          <div class="field-label">Page Title <span class="visibility-tag hidden">Search results + browser tab only</span></div>
+          <div class="current-state">Current: "Miami Watch &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">Miami Watch &mdash; Pink and Blue Square Watch, Limited to 100 | Mad Hudson<span class="char-count">66 chars</span></div>
+          <p>Color combination in the title is distinctive and captures visual searches. "Miami" already has strong design associations that help with click-through.</p>
+        </div>
+
+        <!-- Meta Description -->
+        <div class="field-block">
+          <div class="field-label">Meta Description <span class="visibility-tag hidden">Search results only &mdash; not on page</span></div>
+          <div class="current-state">Current: Partial (auto-generated: "Miami is built in layers...")</div>
+          <div class="copy-block">The Miami Watch &mdash; sun-washed blue dial, warm metallics, and soft pinks in a 32mm square case. Inspired by a perfect vacation. Limited to 100 pieces. Mad Hudson, Chicago.<span class="char-count">160 chars</span></div>
+          <p>The current auto-generated description starts OK but trails off. This version captures the complete color story and the vacation origin in a controlled 160 characters.</p>
+        </div>
+
+        <!-- Alt Text -->
+        <div class="field-block">
+          <div class="field-label">Image Alt Text <span class="visibility-tag hidden">Screen readers + Google Images only</span></div>
+          <ul class="alt-text-list">
+            <li>
+              <span class="image-label">Hero shot (pink background)</span>
+              <span class="alt-value">Miami Watch by Mad Hudson &mdash; square case with blue dial, warm metallics, and pink tones on pink background</span>
+            </li>
+            <li>
+              <span class="image-label">Front-facing (white background)</span>
+              <span class="alt-value">Miami Watch front view showing sun-washed blue dial with metallic accents &mdash; Mad Hudson limited edition</span>
+            </li>
+            <li>
+              <span class="image-label">Strap detail (wood surface)</span>
+              <span class="alt-value">Miami Watch with black leather strap and blue accent border on wooden surface</span>
+            </li>
+            <li>
+              <span class="image-label">Side / dark shot</span>
+              <span class="alt-value">Miami Watch side profile &mdash; 32mm black IP stainless steel square case by Mad Hudson</span>
+            </li>
+            <li>
+              <span class="image-label">Banner ("Wear the Madness")</span>
+              <span class="alt-value">Mad Hudson Watches &mdash; Wear the Madness tagline</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- NON-WATCH PAGES                             -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Other Pages (Homepage, Collections, Merch)</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>Homepage</h3>
+        <div class="field-block">
+          <div class="field-label">Page Title</div>
+          <div class="current-state">Current: "Mad Hudson Watches"</div>
+          <div class="copy-block mono">Mad Hudson Watches &mdash; Artist Collaboration Watches from Chicago<span class="char-count">60 chars</span></div>
+        </div>
+        <div class="field-block">
+          <div class="field-label">Meta Description</div>
+          <div class="current-state">Current: None set (or auto-generated)</div>
+          <div class="copy-block">Mad Hudson Watches &mdash; limited edition watches designed by independent artists. Each watch tells an artist's story. 100 pieces per edition. Based in Chicago. Free shipping.<span class="char-count">159 chars</span></div>
+        </div>
+        <div class="callout callout-info">
+          <p><strong>Where to edit:</strong> Shopify admin &rarr; Online Store &rarr; Preferences &rarr; "Homepage title" and "Homepage meta description" fields.</p>
+        </div>
+
+        <h3>Watches Collection</h3>
+        <div class="field-block">
+          <div class="field-label">Page Title</div>
+          <div class="current-state">Current: likely "Products &ndash; Mad Hudson Watches" or "Watches &ndash; Mad Hudson Watches"</div>
+          <div class="copy-block mono">All Watches &mdash; Artist-Designed Limited Editions | Mad Hudson<span class="char-count">57 chars</span></div>
+        </div>
+        <div class="field-block">
+          <div class="field-label">Meta Description</div>
+          <div class="copy-block">Browse all Mad Hudson watches &mdash; limited edition timepieces designed by independent artists. Each edition limited to 100 pieces. Free shipping on every order.<span class="char-count">152 chars</span></div>
+        </div>
+
+        <h3>Merch Items (T-shirts, Caps)</h3>
+        <p>Merch items are lower priority for SEO since they're brand merchandise, not the core product line. If time permits, add basic alt text to merch images:</p>
+        <ul>
+          <li><strong>Black Eye Tee:</strong> "Mad Hudson Watches Black Eye t-shirt in [white/gray]"</li>
+          <li><strong>The Watchers Tee:</strong> "Mad Hudson Watches Watchers long-sleeve t-shirt"</li>
+          <li><strong>Mad Cap / Watchcap:</strong> "Mad Hudson Watches branded cap"</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- METAFIELDS EXPLAINED                        -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Shopify Metafields: What They Are and Which Ones Matter</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+
+        <p>Shopify has three types of "extra data fields" you might encounter. Here's what they are, whether they matter for SEO, and where to find them.</p>
+
+        <h3>The Three Types</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>What It Is</th>
+              <th>Where It Lives</th>
+              <th>SEO Priority</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Product Metafields</strong></td>
+              <td>Custom fields you define for the whole product &mdash; things like artist name, artist bio, care instructions, material details. Each product gets its own values.</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; scroll to Metafields section</span></td>
+              <td><strong>Medium.</strong> Not directly visible in search results unless your theme displays them or they feed into schema markup. Useful for organizing data that feeds other SEO efforts.</td>
+            </tr>
+            <tr>
+              <td><strong>Variant Metafields</strong></td>
+              <td>Custom fields attached to specific variants (sizes, colors). Used when variants need their own unique data &mdash; like size-specific measurements or material composition per color.</td>
+              <td><span class="shopify-path">Products &gt; [Product] &gt; Variants &gt; [Variant] &gt; Metafields</span></td>
+              <td><strong>Low for Mad Hudson.</strong> Your watches don't have meaningful variants (no size/color options). Variant metafields solve a problem you don't have.</td>
+            </tr>
+            <tr>
+              <td><strong>Category Metafields</strong></td>
+              <td>Pre-built fields that Shopify generates based on your product category (e.g., "Watches" category auto-creates fields for case material, band material, movement type, water resistance). Standardized and structured.</td>
+              <td><span class="shopify-path">Settings &gt; Custom data &gt; Metafields &gt; Product metafields</span> (definitions appear automatically when you assign a product category)</td>
+              <td><strong>High.</strong> These feed directly into structured data that Google can parse. They're the richest signal for search engines because they use Shopify's standardized taxonomy.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>What Mad Hudson Should Care About</h3>
+
+        <div class="callout callout-primary">
+          <p><strong>Category metafields are the priority.</strong> If your products are categorized as "Watches" in Shopify, the platform automatically provides structured fields for case material, band material, movement type, water resistance, and more. Filling these in gives Google structured product data without any custom development.</p>
+        </div>
+
+        <h4>Category Metafields to Fill In (Watches Category)</h4>
+        <p>When a product is categorized under Watches, Shopify may offer these standard fields:</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Example Value (CD Watch)</th>
+              <th>Worth Filling?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Case material</td>
+              <td>Black IP stainless steel</td>
+              <td>Yes &mdash; appears in structured data</td>
+            </tr>
+            <tr>
+              <td>Band/strap material</td>
+              <td>Leather</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Movement type</td>
+              <td>Miyota Quartz</td>
+              <td>Yes &mdash; watch enthusiasts search by movement</td>
+            </tr>
+            <tr>
+              <td>Water resistance</td>
+              <td>3 ATM</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Case diameter</td>
+              <td>40mm</td>
+              <td>Yes &mdash; "40mm watch" is a real search term</td>
+            </tr>
+            <tr>
+              <td>Crystal type</td>
+              <td>Mineral</td>
+              <td>Optional</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Custom Product Metafields (Already Set Up)</h4>
+        <p>The existing Shopify automation script already defined these custom metafields for artist data:</p>
+        <ul>
+          <li><code>meta_description</code> &mdash; Custom meta description (redundant with the SEO field, but used by the script)</li>
+          <li><code>artist_name</code> &mdash; The collaborating artist's name</li>
+          <li><code>artist_bio</code> &mdash; Short artist biography</li>
+        </ul>
+        <p>These are useful for templating (a theme can pull artist_name into the H1 or schema automatically), but <strong>they don't directly appear in Google unless the theme renders them or uses them in JSON-LD schema.</strong></p>
+
+        <h4>Variant Metafields</h4>
+        <p>Not relevant for Mad Hudson right now. Your watches are single-option products (one size, one color). If you ever introduce strap color options or size variants, variant metafields would let you store per-variant specs. For now, skip these.</p>
+
+        <h3>Where to Find and Edit Metafields</h3>
+
+        <h4>Method 1: Per-Product (for filling in values)</h4>
+        <ol>
+          <li>Go to <span class="shopify-path">Products</span> in Shopify admin</li>
+          <li>Click on a product (e.g., "Broken Time")</li>
+          <li>Scroll down past the description, pricing, and inventory sections</li>
+          <li>You'll see a <strong>"Metafields"</strong> section near the bottom</li>
+          <li>If category metafields are available, they'll appear as pre-labeled fields (case material, band material, etc.)</li>
+          <li>Fill in the values and save</li>
+        </ol>
+
+        <h4>Method 2: Bulk Editor (for filling in all products at once)</h4>
+        <ol>
+          <li>Go to <span class="shopify-path">Products</span></li>
+          <li>Select all products using the checkbox</li>
+          <li>Click <strong>"Bulk edit"</strong></li>
+          <li>In the bulk editor, click <strong>"Columns"</strong> to add metafield columns</li>
+          <li>Select the metafields you want to edit (case material, band material, etc.)</li>
+          <li>Fill in values across all products in a spreadsheet-like view</li>
+          <li>Save</li>
+        </ol>
+
+        <div class="callout callout-info">
+          <p><strong>Bulk editor is the fastest path.</strong> If you need to fill in case material, band material, and movement type for all 6 watches, the bulk editor lets you do it in one session instead of clicking into each product individually.</p>
+        </div>
+
+        <h4>Method 3: Definitions (for creating new metafield types)</h4>
+        <ol>
+          <li>Go to <span class="shopify-path">Settings &gt; Custom data</span></li>
+          <li>Click <strong>"Products"</strong> under Metafields</li>
+          <li>Here you'll see all defined metafields (both category and custom)</li>
+          <li>Click <strong>"Add definition"</strong> to create a new custom metafield</li>
+          <li>Choose "Standard" (pre-built) or "Custom" (your own)</li>
+        </ol>
+        <p>You probably don't need to create new definitions &mdash; the category metafields for watches and the existing custom fields (artist_name, artist_bio) should cover everything.</p>
+
+        <h3>Do Metafields Show Up on the Product Page?</h3>
+        <p><strong>Not automatically.</strong> Metafields are stored data &mdash; they only appear on your storefront if your Shopify theme is set up to display them. Most themes don't display metafields by default.</p>
+        <p>To make metafields visible on product pages (e.g., showing "Movement: Miyota Quartz" in a specs section), you'd need to either:</p>
+        <ul>
+          <li>Use the Shopify theme editor to add a metafield block to the product template (no code required in many modern themes)</li>
+          <li>Edit the theme's Liquid template code to reference the metafield</li>
+        </ul>
+        <p>For SEO purposes, the metafield values <strong>do feed into structured data</strong> (schema markup) that Google reads, even if they're not visually displayed. This is a behind-the-scenes benefit.</p>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- STEP BY STEP WALKTHROUGH                    -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Step-by-Step: Updating One Product (Start to Finish)</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+
+        <p>Here's the full flow for updating one product. Use the CD Watch as the example since it needs the most work (all images lack alt text, no meta description set).</p>
+
+        <h3>Step 1: Open the Product</h3>
+        <ol>
+          <li>Log into <strong>Shopify admin</strong></li>
+          <li>Click <span class="shopify-path">Products</span> in the left sidebar</li>
+          <li>Click <strong>"CD Watch"</strong> from the product list</li>
+        </ol>
+
+        <h3>Step 2: Update Alt Text on Images</h3>
+        <ol>
+          <li>In the <strong>Media</strong> section at the top, click the <strong>first product image</strong></li>
+          <li>A panel opens with an <strong>"Alt text"</strong> field (may say "Add alt text")</li>
+          <li>Paste the recommended alt text from this guide</li>
+          <li>Click <strong>Save</strong> or close the panel</li>
+          <li>Repeat for each image</li>
+        </ol>
+
+        <div class="callout callout-info">
+          <p><strong>Tip:</strong> You don't need to save the whole product between each image. Update all images, then save once at the end.</p>
+        </div>
+
+        <h3>Step 3: Update Page Title and Meta Description</h3>
+        <ol>
+          <li>Scroll to the very bottom of the product page</li>
+          <li>Find the <strong>"Search engine listing"</strong> section</li>
+          <li>If it's collapsed, click <strong>"Edit"</strong> to expand it</li>
+          <li>In the <strong>"Page title"</strong> field, replace the existing text with:<br>
+            <code>The CD Watch by Riki Prosper &mdash; Limited Edition Artist Watch | Mad Hudson</code></li>
+          <li>In the <strong>"Description"</strong> field (this is the meta description), paste:<br>
+            <code>The CD Watch &mdash; a holographic disc dial watch designed by Atlanta artist Riki Prosper for Mad Hudson. Changes color with every turn of the wrist. Limited to 100 pieces.</code></li>
+          <li><strong>Leave the URL handle alone</strong> &mdash; don't change <code>cd-watch</code></li>
+        </ol>
+
+        <h3>Step 4: Fill In Category Metafields (If Available)</h3>
+        <ol>
+          <li>Scroll to the <strong>Metafields</strong> section (below the SEO section)</li>
+          <li>If you see pre-labeled fields for the Watches category, fill them in:
+            <ul>
+              <li>Case material: <strong>Black IP stainless steel</strong></li>
+              <li>Band material: <strong>Leather</strong></li>
+              <li>Movement: <strong>Miyota Quartz</strong></li>
+              <li>Water resistance: <strong>3 ATM</strong></li>
+              <li>Case diameter: <strong>40mm</strong></li>
+            </ul>
+          </li>
+          <li>If you see the custom metafields (artist_name, artist_bio), fill those in too:
+            <ul>
+              <li>artist_name: <strong>Riki Prosper</strong></li>
+              <li>artist_bio: <strong>Atlanta-based designer and artist known for vibrant work blending pop culture with nostalgic and futuristic elements.</strong></li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>Step 5: Save</h3>
+        <ol>
+          <li>Click <strong>Save</strong> in the top-right corner</li>
+          <li>Shopify will confirm the save</li>
+          <li>That's it &mdash; move to the next product</li>
+        </ol>
+
+        <div class="callout callout-success">
+          <p><strong>Repeat for all 6 watches.</strong> The three artist collabs (Broken Time, CD Watch, Dogma) are highest priority. Then the three in-house designs (Eddie, Marshall, Miami).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- NOTES & EDGE CASES                          -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Notes for the Person Doing This</h2>
+        <span class="section-toggle">&#9660;</span>
+      </div>
+      <div class="section-body">
+
+        <h3>What not to touch</h3>
+        <ul>
+          <li><strong>URL handles</strong> &mdash; leave /products/broken-time, /products/cd-watch, etc. as they are. Changing URLs breaks existing links, bookmarks, and whatever SEO equity they've built. The benefits aren't worth the risk.</li>
+          <li><strong>Product titles (H1s)</strong> &mdash; "Eddie Watch," "Marshall Watch," "Broken Time" etc. are clean and correct. These show on the actual product page. Don't stuff keywords into them.</li>
+          <li><strong>Product descriptions</strong> &mdash; this guide doesn't cover rewriting the on-page body copy. That's a separate (larger) effort covered in the <a href="product-content.html">Product Content</a> guide.</li>
+        </ul>
+
+        <h3>Character limits</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Google Display Limit</th>
+              <th>What Happens If Too Long</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Page title</td>
+              <td>~60 characters</td>
+              <td>Truncated with "..." in search results. The title still works for ranking &mdash; it just looks cut off to searchers.</td>
+            </tr>
+            <tr>
+              <td>Meta description</td>
+              <td>~160 characters</td>
+              <td>Truncated with "..." &mdash; or Google may ignore it entirely and pull its own snippet from the page.</td>
+            </tr>
+            <tr>
+              <td>Alt text</td>
+              <td>No hard limit</td>
+              <td>Keep under ~125 characters. Screen readers may handle long alt text awkwardly. Be descriptive but concise.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>The "Sold Out" factor</h3>
+        <p>All six watches are currently sold out. This doesn't reduce the value of SEO updates &mdash; it increases it. People searching for these watches (especially the artist collabs) will land on these pages regardless. Good meta descriptions and alt text ensure they find you through search, see the quality of the brand, and are primed to buy when new editions drop.</p>
+
+        <h3>Timing</h3>
+        <p>After making these changes, Google will re-crawl the pages within a few days to a few weeks. Changes to titles and meta descriptions typically show up in search results within 1-2 weeks. Alt text takes effect for Google Images as the images are re-indexed.</p>
+
+        <h3>Verifying your changes</h3>
+        <p>After updating, check each product page:</p>
+        <ol>
+          <li>Visit the product page on the live site</li>
+          <li>Right-click the page &rarr; <strong>View Page Source</strong></li>
+          <li>Search for <code>&lt;title&gt;</code> to confirm your page title</li>
+          <li>Search for <code>meta name="description"</code> to confirm your meta description</li>
+          <li>Search for <code>alt=</code> to confirm image alt text</li>
+        </ol>
+
+        <div class="callout callout-success">
+          <p><strong>That's it.</strong> Six products, each with three fields to update. None of it changes how the site looks to customers. All of it changes how Google sees you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+      <h4>Related Pages</h4>
+      <div class="related-pages">
+        <a href="technical-seo.html">Technical SEO Checklist</a>
+        <a href="product-content.html">Product Content Strategy</a>
+        <a href="schema-markup.html">Schema Markup</a>
+        <a href="../../../../dashboard.html">Dashboard Overview</a>
+      </div>
+      <p style="margin-top: 1.5rem;">Mad Hudson SEO &middot; Implementation Guide &middot; February 2026</p>
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleCard(header) {
+      header.closest('.product-card').classList.toggle('collapsed');
+    }
+
+    function expandAll() {
+      document.querySelectorAll('.product-card').forEach(c => c.classList.remove('collapsed'));
+    }
+
+    function collapseAll() {
+      document.querySelectorAll('.product-card').forEach(c => c.classList.add('collapsed'));
+    }
+
+    // Collapsible sections (non-product)
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.closest('.section').classList.toggle('collapsed');
+      });
+    });
+  </script>
+</body>
+</html>
