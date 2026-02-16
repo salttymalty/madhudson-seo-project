@@ -730,11 +730,14 @@
       <h1>Paste Sheet</h1>
       <p class="subtitle">Every field you need to update, in one table. Click any value to select it, or use Copy. Checkboxes save automatically.<br><span style="font-size:0.8125rem; color:var(--color-text-muted);">Tip: Shopify's auto-suggested alt text is a fine starting point if you're short on time. These recommendations add keyword and brand specificity on top.</span></p>
 
-      <div class="view-toggle">
-        <button class="active" onclick="setView('master')">Master Table</button>
-        <button onclick="setView('product')">By Product</button>
-        <button onclick="setView('batch')">By Field</button>
-        <button onclick="setView('metafields')">Metafields</button>
+      <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem;">
+        <div class="view-toggle" style="margin-bottom:0;">
+          <button class="active" onclick="setView('master')">Master Table</button>
+          <button onclick="setView('product')">By Product</button>
+          <button onclick="setView('batch')">By Field</button>
+          <button onclick="setView('metafields')">Metafields</button>
+        </div>
+        <button id="export-btn" onclick="exportEdits()" style="display:none; font-family:var(--font-body); font-size:0.875rem; font-weight:600; padding:0.5rem 1rem; background:var(--color-primary); color:white; border:none; border-radius:var(--radius); cursor:pointer; min-height:44px; transition:opacity 0.15s;">Send Edits</button>
       </div>
 
       <!-- ════════════════════════════════════ -->
@@ -1273,6 +1276,65 @@
       });
     });
 
+    // ── Export edits ──
+    function updateExportBtn() {
+      const edits = loadEdits();
+      const btn = document.getElementById('export-btn');
+      const count = Object.keys(edits).length;
+      if (count > 0) {
+        btn.style.display = 'inline-flex';
+        btn.textContent = 'Send Edits (' + count + ')';
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+
+    function exportEdits() {
+      const edits = loadEdits();
+      const keys = Object.keys(edits);
+      if (keys.length === 0) return;
+
+      var lines = ['Mad Hudson SEO — Edited Fields', ''];
+
+      keys.forEach(function(id) {
+        var row = document.querySelector('tr[data-id="' + id + '"]');
+        if (!row) return;
+        var product = row.querySelector('.mt-product');
+        var field = row.querySelector('.mt-field');
+        var cell = row.querySelector('.mt-value');
+        var original = cell ? cell.getAttribute('data-original') : '';
+        var productName = product ? product.textContent.trim() : id;
+        var fieldName = field ? field.textContent.trim() : '';
+
+        lines.push(productName + ' / ' + fieldName);
+        lines.push('  Was:  ' + original);
+        lines.push('  Now:  ' + edits[id]);
+        lines.push('');
+      });
+
+      lines.push('---');
+      lines.push(keys.length + ' field(s) changed');
+
+      var text = lines.join('\n');
+
+      navigator.clipboard.writeText(text).then(function() {
+        var btn = document.getElementById('export-btn');
+        btn.textContent = 'Copied to clipboard';
+        btn.style.background = 'var(--color-success)';
+        setTimeout(function() {
+          btn.style.background = 'var(--color-primary)';
+          updateExportBtn();
+        }, 2000);
+      });
+    }
+
+    // Show export button if edits exist on load
+    // Also re-check after each blur on editable cells
+    var origBlurHandlers = [];
+    document.querySelectorAll('.master-table .mt-value[contenteditable]').forEach(function(cell) {
+      cell.addEventListener('blur', updateExportBtn);
+    });
+
     // ── Sidebar active state on scroll ──
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -1289,6 +1351,7 @@
     // ── Init ──
     applyState();
     applyEdits();
+    updateExportBtn();
   </script>
 </body>
 </html>
