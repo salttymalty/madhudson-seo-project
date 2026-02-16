@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paste Sheet — Mad Hudson SEO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: #5e7d68;
+      --color-primary-light: #7a9a84;
+      --color-surface: #ffffff;
+      --color-surface-alt: #fafaf8;
+      --color-bg: #f6f5f3;
+      --color-text: #2e2a27;
+      --color-text-secondary: #5e5854;
+      --color-text-muted: #827b77;
+      --color-border: rgba(45, 42, 39, 0.10);
+      --color-shadow: hsla(25, 20%, 30%, 0.06);
+      --color-info: #5a8fa6;
+      --color-warning: #c4934a;
+      --color-success: #6ba167;
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Source Sans 3', system-ui, sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+      --radius: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topbar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-brand {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--color-text);
+      padding-right: 1.5rem;
+      margin-right: 0.5rem;
+      border-right: 1px solid var(--color-border);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .topbar-brand:hover { text-decoration: none; }
+    .topbar-nav { display: flex; height: 100%; }
+
+    .topbar-link {
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .topbar-link:hover { color: var(--color-primary); }
+    .topbar-link.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--color-text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Product Section ── */
+    .product-section {
+      margin-bottom: 3rem;
+    }
+
+    .product-heading {
+      font-family: var(--font-body);
+      font-size: 1.1875rem;
+      font-weight: 700;
+      color: var(--color-text);
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--color-primary);
+      margin-bottom: 0;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .product-heading .badge {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .badge.collab { background: rgba(94, 125, 104, 0.12); color: var(--color-primary); }
+    .badge.inhouse { background: rgba(196, 147, 74, 0.12); color: var(--color-warning); }
+
+    .product-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      padding: 0.5rem 0 0.75rem;
+    }
+
+    /* ── Paste Table ── */
+    .paste-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.9375rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 0.5rem;
+    }
+
+    .paste-table thead { background: var(--color-surface-alt); }
+
+    .paste-table th {
+      text-align: left;
+      padding: 0.625rem 1rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .paste-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: top;
+      line-height: 1.5;
+      background: var(--color-surface);
+    }
+
+    .paste-table tbody tr:last-child td { border-bottom: none; }
+
+    .paste-table .field-name {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      white-space: nowrap;
+      width: 140px;
+      min-width: 140px;
+    }
+
+    .paste-table .paste-text {
+      font-family: var(--font-body);
+      color: var(--color-text);
+      cursor: text;
+      user-select: all;
+    }
+
+    .paste-table .paste-text.mono {
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+
+    .paste-table .where {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+      width: 200px;
+      min-width: 180px;
+    }
+
+    .paste-table .chars {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      display: block;
+      margin-top: 0.25rem;
+    }
+
+    /* Alt text sub-rows */
+    .paste-table .alt-group td {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .paste-table .alt-group .image-type {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: block;
+      margin-bottom: 0.125rem;
+    }
+
+    /* ── Section Divider ── */
+    .section-divider {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-muted);
+      margin: 3rem 0 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Info Box ── */
+    .info-box {
+      background: var(--color-surface);
+      border-left: 4px solid var(--color-info);
+      padding: 1rem 1.25rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 2rem;
+      font-size: 0.9375rem;
+    }
+
+    .info-box strong { color: var(--color-text); }
+
+    /* ── Metafield Table ── */
+    .meta-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.9375rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .meta-table thead { background: var(--color-surface-alt); }
+
+    .meta-table th {
+      text-align: left;
+      padding: 0.625rem 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    .meta-table td {
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface);
+      font-size: 0.875rem;
+    }
+
+    .meta-table tbody tr:last-child td { border-bottom: none; }
+
+    .meta-table .product-col { font-weight: 600; white-space: nowrap; }
+
+    /* ── Print ── */
+    @media print {
+      body { background: white; }
+      .topbar { display: none; }
+      .container { padding: 0; max-width: 100%; }
+      .paste-table td, .meta-table td { font-size: 0.8125rem; padding: 0.375rem 0.5rem; }
+      .product-section { page-break-inside: avoid; }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .topbar { padding: 0 1rem; overflow-x: auto; }
+      .topbar-link { padding: 0 0.75rem; font-size: 0.875rem; }
+      .container { padding: 1.5rem 1rem; }
+      .paste-table .where { white-space: normal; min-width: 120px; }
+      .paste-table .field-name { min-width: 100px; }
+      h1 { font-size: 1.375rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Primary navigation">
+    <a href="index.html" class="topbar-brand">Mad Hudson SEO</a>
+    <div class="topbar-nav">
+      <a href="index.html" class="topbar-link">Map</a>
+      <a href="quick-wins.html" class="topbar-link">Quick Wins</a>
+      <a href="implementation-guide.html" class="topbar-link">Guide</a>
+      <a href="dashboard.html" class="topbar-link">Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Paste Sheet</h1>
+    <p class="subtitle">Open this next to Shopify admin. Go product by product. Click the text to select it, paste it in.</p>
+
+    <div class="info-box">
+      <strong>Where to find the SEO fields:</strong> Products &gt; [Product] &gt; scroll to bottom &gt; "Search engine listing preview" &gt; click "Edit website SEO" if collapsed. <strong>Alt text:</strong> Products &gt; [Product] &gt; click any image &gt; "Alt text" field.
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  ARTIST COLLABORATIONS                   -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="section-divider">Artist Collaborations (do these first)</div>
+
+    <!-- BROKEN TIME -->
+    <div class="product-section">
+      <div class="product-heading">Broken Time <span class="badge collab">Brad Podray</span></div>
+      <div class="product-meta">/products/broken-time &middot; $240 &middot; Sold out</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Broken Time by Brad Podray — Limited Edition Artist Watch | Mad Hudson<span class="chars">67 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">Broken Time by Brad Podray — a smashed-crystal timepiece from visual artist and internet anarchist Brad Podray. Limited to 100 pieces. Artist collaboration from Mad Hudson.<span class="chars">160 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero / main shot</span>Broken Time watch by Brad Podray with smashed crystal dial on black background — Mad Hudson limited edition</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Dial close-up</span>Close-up of Broken Time dial showing shattered crystal effect designed by artist Brad Podray</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Wrist / lifestyle</span>Broken Time artist collaboration watch worn on wrist — 40mm stainless steel with silicone strap</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Artist portrait</span>Brad Podray, visual artist and designer of the Broken Time watch for Mad Hudson Watches</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Packaging / flat lay</span>Broken Time watch by Brad Podray with Mad Hudson packaging — limited edition of 100</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CD WATCH -->
+    <div class="product-section">
+      <div class="product-heading">CD Watch <span class="badge collab">Riki Prosper</span></div>
+      <div class="product-meta">/products/cd-watch &middot; $215 &middot; Sold out &middot; All images missing alt text</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">The CD Watch by Riki Prosper — Limited Edition Artist Watch | Mad Hudson<span class="chars">71 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">The CD Watch — a holographic disc dial watch designed by Atlanta artist Riki Prosper for Mad Hudson. Changes color with every turn of the wrist. Limited to 100 pieces.<span class="chars">160 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero / main shot</span>CD Watch by Riki Prosper with holographic disc dial — Mad Hudson limited edition artist watch</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Dial close-up</span>Close-up of CD Watch holographic dial showing rainbow color shift designed by Riki Prosper</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Side / profile</span>CD Watch side profile showing black IP stainless steel case and clear disc layers</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Wrist / lifestyle</span>CD Watch by Riki Prosper worn on wrist — holographic artist collaboration watch by Mad Hudson</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Artist portrait</span>Riki Prosper, Atlanta-based designer and artist who created the CD Watch for Mad Hudson Watches</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Illustration / art</span>Original illustration by Riki Prosper showing the CD Watch design concept</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Banner / detail</span>CD Watch design details — holographic disc tribute to mixtapes by artist Riki Prosper</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DOGMA -->
+    <div class="product-section">
+      <div class="product-heading">Dogma <span class="badge collab">Bryce Wong</span></div>
+      <div class="product-meta">/products/dogma-bryce-wong &middot; $175 &middot; Sold out &middot; Page title already decent &middot; All images missing alt text</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Dogma by Bryce Wong — Limited Edition Artist Watch | Mad Hudson Watches<span class="chars">68 chars (optional — current title is fine)</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">Dogma by Bryce Wong — praying hands transform into a dog as the day unfolds. Designed by Nike designer Bryce Wong for Mad Hudson. Limited edition, 100 pieces.<span class="chars">157 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero / main shot</span>Dogma watch by Bryce Wong with praying hands dial design — Mad Hudson limited edition</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Dial (morning)</span>Close-up of Dogma dial showing praying hands design by artist Bryce Wong</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Dial (afternoon)</span>Dogma watch dial later in the day — hands transform into dog design by Bryce Wong</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Wrist / lifestyle</span>Dogma artist collaboration watch by Bryce Wong worn on wrist with nylon strap</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Artist portrait</span>Bryce Wong, Nike designer and creator of the Dogma watch for Mad Hudson Watches</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Banner / illustration</span>Dogma design art by Bryce Wong — praying hands to dog transformation concept</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  IN-HOUSE DESIGNS                        -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="section-divider">In-House Designs (Madison Hudson)</div>
+
+    <!-- EDDIE -->
+    <div class="product-section">
+      <div class="product-heading">Eddie Watch <span class="badge inhouse">In-House</span></div>
+      <div class="product-meta">/products/the-eddie-watch &middot; $195 &middot; Sold out</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Eddie Watch — Square Dress Watch, Limited to 100 | Mad Hudson Watches<span class="chars">66 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">The Eddie Watch — a square dress watch with deep blue layered dial, cream accents, and red details. Named after Grandpa Eddie. Limited to 100 pieces. By Mad Hudson, Chicago.<span class="chars">160 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero (blue background)</span>Eddie Watch by Mad Hudson — square stainless steel case with deep blue layered dial and leather strap</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Front (white background)</span>Eddie Watch front view showing blue dial with cream outer ring and red accents — Mad Hudson limited edition</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Wrist / lifestyle</span>Eddie Watch worn on wrist — 34mm square dress watch with black leather strap by Mad Hudson</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Banner</span>Mad Hudson Watches — Wear the Madness tagline</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MARSHALL -->
+    <div class="product-section">
+      <div class="product-heading">Marshall Watch <span class="badge inhouse">In-House</span></div>
+      <div class="product-meta">/products/marshall-watch &middot; $205 &middot; Sold out</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Marshall Watch — Green Dial Square Watch, Limited to 100 | Mad Hudson<span class="chars">67 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">The Marshall Watch — muted green layered dial with subtle striping in a 32mm square case. Inspired by Marshall, Michigan. Limited to 100 pieces. By Mad Hudson, Chicago.<span class="chars">159 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero (beige background)</span>Marshall Watch by Mad Hudson — square case with muted green layered dial and beige leather strap</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Front (white background)</span>Marshall Watch front view showing green dial with subtle striping — Mad Hudson limited edition</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Detail (green background)</span>Marshall Watch design detail showing layered dial texture and wood-tone accents</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Side / strap view</span>Marshall Watch with beige leather strap — 32mm square dress watch by Mad Hudson</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MIAMI -->
+    <div class="product-section">
+      <div class="product-heading">Miami Watch <span class="badge inhouse">In-House</span></div>
+      <div class="product-meta">/products/miami-watch &middot; $205 &middot; Sold out</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Miami Watch — Pink and Blue Square Watch, Limited to 100 | Mad Hudson<span class="chars">66 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">The Miami Watch — sun-washed blue dial, warm metallics, and soft pinks in a 32mm square case. Inspired by a perfect vacation. Limited to 100 pieces. Mad Hudson, Chicago.<span class="chars">160 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name">Alt Text</td>
+            <td class="paste-text"><span class="image-type">Hero (pink background)</span>Miami Watch by Mad Hudson — square case with blue dial, warm metallics, and pink tones on pink background</td>
+            <td class="where">Click image &gt; Alt text</td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Front (white background)</span>Miami Watch front view showing sun-washed blue dial with metallic accents — Mad Hudson limited edition</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Strap detail (wood)</span>Miami Watch with black leather strap and blue accent border on wooden surface</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Side / dark shot</span>Miami Watch side profile — 32mm black IP stainless steel square case by Mad Hudson</td>
+            <td class="where"></td>
+          </tr>
+          <tr class="alt-group">
+            <td class="field-name"></td>
+            <td class="paste-text"><span class="image-type">Banner</span>Mad Hudson Watches — Wear the Madness tagline</td>
+            <td class="where"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  HOMEPAGE + COLLECTIONS                  -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="section-divider">Homepage + Collections</div>
+
+    <div class="product-section">
+      <div class="product-heading">Homepage</div>
+      <div class="product-meta">Online Store &gt; Preferences &gt; Title and meta description</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">Mad Hudson Watches — Artist Collaboration Watches from Chicago<span class="chars">60 chars</span></td>
+            <td class="where">Online Store &gt; Preferences &gt; Homepage title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">Mad Hudson Watches — limited edition watches designed by independent artists. Each watch tells an artist's story. 100 pieces per edition. Based in Chicago. Free shipping.<span class="chars">159 chars</span></td>
+            <td class="where">Online Store &gt; Preferences &gt; Homepage meta description</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="product-section">
+      <div class="product-heading">Watches Collection</div>
+      <div class="product-meta">Products &gt; Collections &gt; [collection] &gt; scroll to SEO section</div>
+      <table class="paste-table">
+        <thead>
+          <tr><th>Field</th><th>Paste This</th><th>Where in Shopify</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="field-name">Page Title</td>
+            <td class="paste-text mono">All Watches — Artist-Designed Limited Editions | Mad Hudson<span class="chars">57 chars</span></td>
+            <td class="where">SEO listing &gt; Page title</td>
+          </tr>
+          <tr>
+            <td class="field-name">Meta Description</td>
+            <td class="paste-text">Browse all Mad Hudson watches — limited edition timepieces designed by independent artists. Each edition limited to 100 pieces. Free shipping on every order.<span class="chars">152 chars</span></td>
+            <td class="where">SEO listing &gt; Description</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  CATEGORY METAFIELDS                     -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="section-divider">Category Metafields (bulk editor is fastest)</div>
+
+    <div class="info-box">
+      <strong>How to bulk edit:</strong> Products &gt; select all &gt; Bulk edit &gt; click "Columns" &gt; add metafield columns (case material, band material, etc.) &gt; fill in values &gt; Save.
+    </div>
+
+    <table class="meta-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Case Material</th>
+          <th>Band Material</th>
+          <th>Movement</th>
+          <th>Water Resistance</th>
+          <th>Case Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="product-col">Broken Time</td>
+          <td>Stainless steel</td>
+          <td>Silicone</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>40mm</td>
+        </tr>
+        <tr>
+          <td class="product-col">CD Watch</td>
+          <td>Black IP stainless steel</td>
+          <td>Leather</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>40mm</td>
+        </tr>
+        <tr>
+          <td class="product-col">Dogma</td>
+          <td>Black IP stainless steel</td>
+          <td>Nylon</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>40mm</td>
+        </tr>
+        <tr>
+          <td class="product-col">Eddie Watch</td>
+          <td>Stainless steel</td>
+          <td>Leather</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>34x34mm</td>
+        </tr>
+        <tr>
+          <td class="product-col">Marshall Watch</td>
+          <td>Black IP stainless steel</td>
+          <td>Leather</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>32x32mm</td>
+        </tr>
+        <tr>
+          <td class="product-col">Miami Watch</td>
+          <td>Black IP stainless steel</td>
+          <td>Leather</td>
+          <td>Miyota Quartz</td>
+          <td>3 ATM</td>
+          <td>32x32mm</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ════════════════════════════════════════ -->
+    <!--  ARTIST METAFIELDS                       -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="section-divider">Artist Metafields (if custom fields are set up)</div>
+
+    <div class="info-box">
+      <strong>These only matter if the theme or schema uses them.</strong> If you see artist_name and artist_bio fields in the Metafields section of each product, fill them in. If not, skip this.
+    </div>
+
+    <table class="meta-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>artist_name</th>
+          <th>artist_bio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="product-col">Broken Time</td>
+          <td>Brad Podray</td>
+          <td>Visual artist and internet anarchist. Creates work that challenges the relationship between chaos and design.</td>
+        </tr>
+        <tr>
+          <td class="product-col">CD Watch</td>
+          <td>Riki Prosper</td>
+          <td>Atlanta-based designer and artist known for vibrant work blending pop culture with nostalgic and futuristic elements.</td>
+        </tr>
+        <tr>
+          <td class="product-col">Dogma</td>
+          <td>Bryce Wong</td>
+          <td>Designer at Nike, hot dog connoisseur, and first-time watch designer. Created Dogma as a timepiece balanced between gratitude and ambition.</td>
+        </tr>
+        <tr>
+          <td class="product-col">Eddie Watch</td>
+          <td>Madison Hudson</td>
+          <td>Founder of Mad Hudson Watches. Eddie is named after Grandpa Eddie, inspired by a watch his kids remember him wearing in the early '80s.</td>
+        </tr>
+        <tr>
+          <td class="product-col">Marshall Watch</td>
+          <td>Madison Hudson</td>
+          <td>Founder of Mad Hudson Watches. Marshall draws from Grandma and Grandpa Palmer's hometown of Marshall, Michigan.</td>
+        </tr>
+        <tr>
+          <td class="product-col">Miami Watch</td>
+          <td>Madison Hudson</td>
+          <td>Founder of Mad Hudson Watches. Miami captures the sun-washed blues and warm metallics of a perfect vacation.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>
+</html>
