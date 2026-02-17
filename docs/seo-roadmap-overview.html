@@ -48,6 +48,7 @@
     h1 { font-family: var(--font-display); font-size: 1.625rem; margin-bottom: 0.5rem; }
     h2 { font-family: var(--font-body); font-size: 1.1875rem; margin-bottom: 1rem; }
     h3 { font-family: var(--font-body); font-size: 1rem; margin-bottom: 0.75rem; font-weight: 600; }
+    h4 { font-family: var(--font-body); font-size: 0.9375rem; margin-bottom: 0.5rem; font-weight: 600; }
     p { margin-bottom: 1rem; max-width: 72ch; }
     strong { font-weight: 600; color: var(--color-text); }
     a { color: var(--color-primary); text-decoration: none; }
@@ -91,7 +92,7 @@
     .topbar-link.active { color: var(--color-primary); border-bottom-color: var(--color-primary); font-weight: 600; }
 
     /* ── Page ── */
-    .page { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+    .page { max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
     .page-header { margin-bottom: 2.5rem; }
     .page-header p { font-size: 0.9375rem; color: var(--color-text-secondary); max-width: 60ch; }
     .page-date {
@@ -101,7 +102,7 @@
     }
 
     /* ── Section ── */
-    .section { margin-bottom: 3rem; }
+    .section { margin-bottom: 3.5rem; }
     .section-label {
       font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.08em;
@@ -116,7 +117,6 @@
       padding: 1.5rem;
       margin-bottom: 1rem;
     }
-    .card-tight { padding: 1rem 1.25rem; }
 
     /* ── Baselines Grid ── */
     .baselines {
@@ -177,10 +177,8 @@
     .task-status.future { background: var(--color-surface-alt); border: 2px dashed var(--color-border); color: var(--color-text-muted); }
     .task-body { flex: 1; }
     .task-title { font-weight: 600; font-size: 0.9375rem; margin-bottom: 0.125rem; }
-    .task-meta {
-      font-size: 0.8125rem; color: var(--color-text-muted);
-    }
-    .task-owner {
+    .task-meta { font-size: 0.8125rem; color: var(--color-text-muted); }
+    .task-tag {
       font-family: var(--font-mono); font-size: 0.6875rem;
       background: var(--color-surface-alt); border-radius: 4px;
       padding: 0.125rem 0.5rem; display: inline-block; margin-top: 0.375rem;
@@ -205,20 +203,14 @@
       border-radius: var(--radius); margin-bottom: 0.75rem;
     }
     .comparison-block.before-block {
-      background: #fdf5f5;
-      border: 1px solid #e8cece;
-      color: #6b3a3a;
+      background: #fdf5f5; border: 1px solid #e8cece; color: #6b3a3a;
     }
     .comparison-block.after-block {
-      background: #f4f9f4;
-      border: 1px solid #c4dcc4;
-      color: #3a5c3a;
+      background: #f4f9f4; border: 1px solid #c4dcc4; color: #3a5c3a;
     }
     .comparison-note {
-      font-size: 0.8125rem;
-      color: var(--color-text-muted);
-      font-style: italic;
-      margin-bottom: 0.5rem;
+      font-size: 0.8125rem; color: var(--color-text-muted);
+      font-style: italic; margin-bottom: 0.5rem;
     }
     .char-count {
       font-family: var(--font-mono); font-size: 0.6875rem;
@@ -227,20 +219,17 @@
 
     /* ── Code Sample ── */
     .code-sample {
-      background: #2e2a27;
-      color: #e8e0d8;
-      font-family: var(--font-mono);
-      font-size: 0.8125rem;
-      line-height: 1.7;
-      padding: 1.25rem 1.5rem;
-      border-radius: var(--radius);
-      overflow-x: auto;
-      margin-bottom: 1rem;
+      background: #2e2a27; color: #e8e0d8;
+      font-family: var(--font-mono); font-size: 0.8125rem;
+      line-height: 1.7; padding: 1.25rem 1.5rem;
+      border-radius: var(--radius); overflow-x: auto; margin-bottom: 1rem;
     }
     .code-sample .tag { color: #7aaa84; }
     .code-sample .attr { color: #c4934a; }
     .code-sample .str { color: #88b4cc; }
     .code-sample .comment { color: #6b6560; font-style: italic; }
+    .code-sample .key { color: #c4934a; }
+    .code-sample .val { color: #88b4cc; }
 
     /* ── Dashboard Mockup ── */
     .dashboard-grid {
@@ -249,11 +238,20 @@
       gap: 1rem;
       margin-bottom: 1.5rem;
     }
+    .dashboard-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
     .metric-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius);
       padding: 1.25rem;
+    }
+    .metric-card.full-width {
+      grid-column: 1 / -1;
     }
     .metric-header {
       display: flex; justify-content: space-between; align-items: baseline;
@@ -268,9 +266,16 @@
       font-family: var(--font-mono); font-size: 0.6875rem;
       color: var(--color-text-muted);
     }
+    .metric-source {
+      font-family: var(--font-mono); font-size: 0.6875rem;
+      color: var(--color-info);
+    }
     .metric-value {
       font-family: var(--font-display); font-size: 2rem;
       font-weight: 700; line-height: 1; margin-bottom: 0.25rem;
+    }
+    .metric-value.sm {
+      font-size: 1.5rem;
     }
     .metric-change {
       font-family: var(--font-mono); font-size: 0.75rem;
@@ -280,6 +285,9 @@
     .metric-change.up { background: #f0f7f0; color: var(--color-success); }
     .metric-change.down { background: #fdf5f5; color: var(--color-danger); }
     .metric-change.flat { background: var(--color-surface-alt); color: var(--color-text-muted); }
+    .metric-desc {
+      font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;
+    }
 
     /* ── Sparkline (CSS-only) ── */
     .sparkline {
@@ -288,54 +296,88 @@
     }
     .sparkline-bar {
       flex: 1; background: var(--color-primary-light);
-      border-radius: 2px 2px 0 0; min-width: 4px;
-      opacity: 0.5;
+      border-radius: 2px 2px 0 0; min-width: 4px; opacity: 0.5;
     }
     .sparkline-bar:nth-last-child(-n+4) { opacity: 0.75; }
     .sparkline-bar:last-child { opacity: 1; background: var(--color-primary); }
 
-    /* ── Channel Table ── */
-    .channel-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.875rem;
+    /* ── Tables ── */
+    .data-table {
+      width: 100%; border-collapse: collapse; font-size: 0.875rem;
     }
-    .channel-table th {
-      text-align: left;
-      font-family: var(--font-mono);
-      font-size: 0.6875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-text-muted);
-      padding: 0.5rem 0.75rem;
+    .data-table th {
+      text-align: left; font-family: var(--font-mono);
+      font-size: 0.6875rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--color-text-muted); padding: 0.5rem 0.75rem;
       border-bottom: 2px solid var(--color-border);
     }
-    .channel-table td {
-      padding: 0.625rem 0.75rem;
-      border-bottom: 1px solid var(--color-border);
+    .data-table td {
+      padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--color-border);
     }
-    .channel-table tr:last-child td { border-bottom: none; }
-    .channel-table .num {
-      font-family: var(--font-mono);
-      font-size: 0.8125rem;
-      text-align: right;
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table .num {
+      font-family: var(--font-mono); font-size: 0.8125rem; text-align: right;
     }
-    .channel-table .highlight {
-      background: #faf8f0;
+    .data-table .highlight { background: #faf8f0; }
+    .data-table .new-row { background: #f0f7f0; }
+
+    /* ── Source Architecture Diagram ── */
+    .source-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .source-box {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+    }
+    .source-box h4 { margin-bottom: 0.25rem; margin-top: 0; }
+    .source-box p { font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 0; }
+    .source-arrow {
+      font-size: 1.25rem; color: var(--color-text-muted); text-align: center;
     }
 
-    /* ── Cadence Card ── */
+    /* ── Gap Table ── */
+    .gap-table {
+      width: 100%; border-collapse: collapse; font-size: 0.875rem;
+    }
+    .gap-table th {
+      text-align: left; font-family: var(--font-mono);
+      font-size: 0.6875rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--color-text-muted); padding: 0.625rem 0.75rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+    .gap-table td {
+      padding: 0.625rem 0.75rem; border-bottom: 1px solid var(--color-border);
+      vertical-align: top;
+    }
+    .gap-table tr:last-child td { border-bottom: none; }
+    .gap-badge {
+      font-family: var(--font-mono); font-size: 0.6875rem;
+      padding: 0.125rem 0.5rem; border-radius: 4px;
+      display: inline-block; white-space: nowrap;
+    }
+    .gap-badge.shopify { background: #f0ede8; color: #5e5854; }
+    .gap-badge.gsc { background: #e8f2f8; color: #3a6a80; }
+    .gap-badge.lighthouse { background: #f0f7f0; color: #3a5c3a; }
+    .gap-badge.derived { background: #faf0e0; color: #7a5c2a; }
+    .gap-badge.schema { background: #f5eef8; color: #5a3a6b; }
+
+    /* ── Cadence Grid ── */
     .cadence-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
     }
     .cadence-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      padding: 1.25rem;
+      border-radius: var(--radius); padding: 1.25rem;
     }
     .cadence-freq {
       font-family: var(--font-mono); font-size: 0.6875rem;
@@ -349,17 +391,14 @@
 
     /* ── Timeline ── */
     .timeline-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 1rem;
-      padding: 1rem 0;
+      display: grid; grid-template-columns: 100px 1fr;
+      gap: 1rem; padding: 1rem 0;
       border-bottom: 1px solid var(--color-border);
     }
     .timeline-row:last-child { border-bottom: none; }
     .timeline-period {
       font-family: var(--font-mono); font-size: 0.75rem;
-      font-weight: 600; color: var(--color-primary);
-      padding-top: 0.125rem;
+      font-weight: 600; color: var(--color-primary); padding-top: 0.125rem;
     }
     .timeline-content h3 { margin-top: 0; }
     .timeline-content p { font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 0.375rem; }
@@ -374,10 +413,9 @@
       font-size: 0.9375rem;
     }
     .callout p:last-child { margin-bottom: 0; }
-    .callout-title {
-      font-weight: 600; font-size: 0.875rem;
-      margin-bottom: 0.375rem;
-    }
+    .callout-title { font-weight: 600; font-size: 0.875rem; margin-bottom: 0.375rem; }
+    .callout.warning { border-left-color: var(--color-warning); }
+    .callout.info { border-left-color: var(--color-info); }
 
     /* ── Footer ── */
     footer {
@@ -396,8 +434,11 @@
       h1 { font-size: 1.375rem; }
       .baselines { grid-template-columns: repeat(2, 1fr); }
       .dashboard-grid { grid-template-columns: 1fr; }
+      .dashboard-grid-3 { grid-template-columns: 1fr; }
       .cadence-grid { grid-template-columns: 1fr; }
       .timeline-row { grid-template-columns: 1fr; gap: 0.25rem; }
+      .source-grid { grid-template-columns: 1fr; }
+      .source-arrow { transform: rotate(90deg); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -427,7 +468,7 @@
     <div class="page-header">
       <div class="page-date">February 2026</div>
       <h1>SEO Roadmap Overview</h1>
-      <p>Where things stand after the in-person session, what's next, what the improvements look like, and how to tell if they're working.</p>
+      <p>Where things stand, what's next, what the improvements look like technically, and the measurement infrastructure that tells you whether it's working.</p>
     </div>
 
     <!-- ═══ 1. BASELINES ═══ -->
@@ -453,13 +494,13 @@
         <div class="baseline-card">
           <div class="baseline-value">$28.3K</div>
           <div class="baseline-label">Unattributed Revenue</div>
-          <div class="baseline-sub">179 orders &middot; 62% of total &middot; needs UTMs</div>
+          <div class="baseline-sub">179 orders &middot; 62% of total</div>
         </div>
       </div>
 
       <div class="callout">
-        <div class="callout-title">The target</div>
-        <p>Growth model projects <strong>$75K&ndash;$85K annual revenue</strong> &mdash; $25K&ndash;$35K in addressable upside through SEO, content, and trust signals. Even capturing 25% of that ($6&ndash;9K) is meaningful on a $52K base.</p>
+        <div class="callout-title">Growth target</div>
+        <p>The model projects <strong>$75K&ndash;$85K annual revenue</strong> &mdash; $25K&ndash;$35K in addressable upside through SEO, content, and trust signals.</p>
       </div>
     </div>
 
@@ -469,13 +510,11 @@
       <h2>What's done, what's in motion, what's next</h2>
 
       <ul class="task-list">
-        <!-- DONE -->
         <li class="task-item">
           <div class="task-status done">&#10003;</div>
           <div class="task-body">
             <div class="task-title">SEO audit &amp; paste sheet delivered</div>
             <div class="task-meta">57 fields audited, copy-paste-ready for every product</div>
-            <div class="task-owner">Consultant</div>
           </div>
         </li>
         <li class="task-item">
@@ -483,7 +522,6 @@
           <div class="task-body">
             <div class="task-title">Implementation guide delivered</div>
             <div class="task-meta">Priority-ordered walkthrough of all changes</div>
-            <div class="task-owner">Consultant</div>
           </div>
         </li>
         <li class="task-item">
@@ -491,25 +529,22 @@
           <div class="task-body">
             <div class="task-title">In-person session &mdash; templates confirmed, Dogma tested live</div>
             <div class="task-meta">Alt text template approved, page title format tested, 500-word tension resolved</div>
-            <div class="task-owner">Joint</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status done">&#10003;</div>
           <div class="task-body">
             <div class="task-title">Bot traffic hypothesis resolved</div>
-            <div class="task-meta">~3K of 124K sessions were bots &mdash; not a conversion factor</div>
-            <div class="task-owner">Consultant</div>
+            <div class="task-meta">~3K of 124K sessions were bots &mdash; conversion challenges need UX/content solutions, not filtering</div>
           </div>
         </li>
 
-        <!-- ACTIVE -->
         <li class="task-item">
           <div class="task-status active">&#8226;</div>
           <div class="task-body">
             <div class="task-title">Alt text on all product images</div>
             <div class="task-meta">Using confirmed template &mdash; highest single-fix impact<span class="task-impact">+$1.1&ndash;1.7K/yr</span></div>
-            <div class="task-owner">Connor</div>
+            <div class="task-tag">Shopify admin</div>
           </div>
         </li>
         <li class="task-item">
@@ -517,33 +552,40 @@
           <div class="task-body">
             <div class="task-title">Page title updates across all products</div>
             <div class="task-meta">Standardize to "Mad Hudson Watches" everywhere<span class="task-impact">+$1.7&ndash;2.8K/yr</span></div>
-            <div class="task-owner">Connor</div>
+            <div class="task-tag">Shopify admin</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status active">&#8226;</div>
           <div class="task-body">
             <div class="task-title">Meta description rewrites</div>
-            <div class="task-meta">Paste sheet delivered &mdash; Connor applies from sheet</div>
-            <div class="task-owner">Connor</div>
+            <div class="task-meta">Apply from paste sheet &mdash; sensory hooks, scarcity, CTAs</div>
+            <div class="task-tag">Shopify admin</div>
           </div>
         </li>
 
-        <!-- NEXT -->
         <li class="task-item">
           <div class="task-status next">&mdash;</div>
           <div class="task-body">
             <div class="task-title">Fix H1 hierarchy (animated logo GIF is H1)</div>
-            <div class="task-meta">Code-level Liquid template edit &mdash; zero visual change, high SEO impact</div>
-            <div class="task-owner">Consultant &middot; staging first</div>
+            <div class="task-meta">Liquid template edit &mdash; zero visual change, high SEO impact</div>
+            <div class="task-tag">Theme code &middot; staging first</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status next">&mdash;</div>
           <div class="task-body">
-            <div class="task-title">External links &rarr; target="_blank"</div>
-            <div class="task-meta">Artist social links navigate away from site &mdash; simple fix, keeps sessions longer</div>
-            <div class="task-owner">Consultant</div>
+            <div class="task-title">External links &rarr; <code>target="_blank"</code></div>
+            <div class="task-meta">Artist social links navigate away from site &mdash; keep sessions longer</div>
+            <div class="task-tag">Theme code</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-status next">&mdash;</div>
+          <div class="task-body">
+            <div class="task-title">Connect Google Search Console</div>
+            <div class="task-meta">Unlocks query-level data, impressions, CTR, and Core Web Vitals &mdash; see measurement section below</div>
+            <div class="task-tag">GSC setup &middot; 15 min</div>
           </div>
         </li>
         <li class="task-item">
@@ -551,7 +593,7 @@
           <div class="task-body">
             <div class="task-title">UTM parameters on Instagram link-in-bio</div>
             <div class="task-meta">Unlocks the $28.3K mystery &mdash; know where revenue actually comes from</div>
-            <div class="task-owner">Connor</div>
+            <div class="task-tag">Link-in-bio tool</div>
           </div>
         </li>
         <li class="task-item">
@@ -559,41 +601,40 @@
           <div class="task-body">
             <div class="task-title">"More From Artist" &rarr; on-page anchor link</div>
             <div class="task-meta">Currently links to Instagram (off-site) &mdash; reroute to on-page artist bio</div>
-            <div class="task-owner">Consultant</div>
+            <div class="task-tag">Theme code</div>
           </div>
         </li>
 
-        <!-- FUTURE -->
         <li class="task-item">
           <div class="task-status future">&nbsp;</div>
           <div class="task-body">
             <div class="task-title">Artist bio accordions on product pages</div>
-            <div class="task-meta">Adds 300&ndash;500 words of indexable content without visible clutter<span class="task-impact">+$5.5&ndash;11K/yr</span></div>
-            <div class="task-owner">Joint</div>
+            <div class="task-meta">300&ndash;500 words of indexable content without visible clutter<span class="task-impact">+$5.5&ndash;11K/yr</span></div>
+            <div class="task-tag">Theme code + content</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status future">&nbsp;</div>
           <div class="task-body">
             <div class="task-title">Schema markup (Product + Artist/Creator)</div>
-            <div class="task-meta">One JSON-LD template &mdash; enables rich snippets, 20&ndash;40% CTR lift<span class="task-impact">+$2&ndash;4.4K/yr</span></div>
-            <div class="task-owner">Consultant</div>
+            <div class="task-meta">JSON-LD template &mdash; rich snippets, 20&ndash;40% CTR lift<span class="task-impact">+$2&ndash;4.4K/yr</span></div>
+            <div class="task-tag">Theme code &middot; one-time</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status future">&nbsp;</div>
           <div class="task-body">
             <div class="task-title">Prep 3 new watch launches with SEO baked in</div>
-            <div class="task-meta">Photography arrives next week &mdash; paste sheet entries ready before launch</div>
-            <div class="task-owner">Joint</div>
+            <div class="task-meta">Photography arriving &mdash; paste sheet entries ready before launch</div>
+            <div class="task-tag">Content + Shopify admin</div>
           </div>
         </li>
         <li class="task-item">
           <div class="task-status future">&nbsp;</div>
           <div class="task-body">
             <div class="task-title">AEO (Answer Engine Optimization)</div>
-            <div class="task-meta">55% of buyers start searches in AI tools &mdash; how does MH appear in AI results?</div>
-            <div class="task-owner">Consultant</div>
+            <div class="task-meta">55% of buyers start in AI tools &mdash; schema + narrative content feeds this directly</div>
+            <div class="task-tag">Content strategy</div>
           </div>
         </li>
       </ul>
@@ -604,61 +645,45 @@
       <div class="section-label">What the Improvements Look Like</div>
       <h2>Before &amp; after for each fix category</h2>
 
-      <!-- ALT TEXT -->
       <div class="card" style="margin-bottom: 1.5rem;">
         <h3>Alt Text &mdash; Broken Time hero image</h3>
         <div class="comparison">
           <div class="comparison-label before">Before (empty)</div>
-          <div class="comparison-block before-block">
-            (no alt text)
-          </div>
+          <div class="comparison-block before-block">(no alt text)</div>
           <div class="comparison-label after">After</div>
-          <div class="comparison-block after-block">
-            Broken Time watch by Brad Podray with smashed crystal dial on black background &mdash; Mad Hudson Watches limited edition
-          </div>
+          <div class="comparison-block after-block">Broken Time watch by Brad Podray with smashed crystal dial on black background &mdash; Mad Hudson Watches limited edition</div>
           <div class="char-count">113 chars</div>
         </div>
-        <p class="comparison-note">Google can now index the image. Appears in Google Image search. Screen readers can describe it. Every product image gets this treatment.</p>
+        <p class="comparison-note">Google can now index the image. Appears in Google Image search. Screen readers can describe it.</p>
       </div>
 
-      <!-- PAGE TITLE -->
       <div class="card" style="margin-bottom: 1.5rem;">
         <h3>Page Title &mdash; Dogma product page</h3>
         <div class="comparison">
           <div class="comparison-label before">Before (Shopify default)</div>
-          <div class="comparison-block before-block">
-            Dogma &mdash; Mad Hudson
-          </div>
+          <div class="comparison-block before-block">Dogma &mdash; Mad Hudson</div>
           <div class="comparison-label after">After</div>
-          <div class="comparison-block after-block">
-            Dogma by Bryce Wong &mdash; Limited Edition Artist Watch | Mad Hudson Watches
-          </div>
-          <div class="char-count">68 chars &middot; tested live in-session</div>
+          <div class="comparison-block after-block">Dogma by Bryce Wong &mdash; Limited Edition Artist Watch | Mad Hudson Watches</div>
+          <div class="char-count">68 chars</div>
         </div>
-        <p class="comparison-note">Invisible to visitors. Tells Google exactly what this page is, who made it, and what brand it belongs to. This is what shows up in search result titles.</p>
+        <p class="comparison-note">Invisible to visitors. This is what appears as the clickable title in Google search results.</p>
       </div>
 
-      <!-- META DESCRIPTION -->
       <div class="card" style="margin-bottom: 1.5rem;">
         <h3>Meta Description &mdash; CD Watch</h3>
         <div class="comparison">
           <div class="comparison-label before">Before (Shopify auto-generated)</div>
-          <div class="comparison-block before-block">
-            Buy CD Watch online. Shop limited edition watches at Mad Hudson.
-          </div>
+          <div class="comparison-block before-block">Buy CD Watch online. Shop limited edition watches at Mad Hudson.</div>
           <div class="comparison-label after">After</div>
-          <div class="comparison-block after-block">
-            CD Watch &mdash; a holographic disc dial designed by Atlanta artist Riki Prosper. Changes color with every turn of the wrist. Limited to 100. Free shipping.
-          </div>
+          <div class="comparison-block after-block">CD Watch &mdash; a holographic disc dial designed by Atlanta artist Riki Prosper. Changes color with every turn of the wrist. Limited to 100. Free shipping.</div>
           <div class="char-count">158 chars</div>
         </div>
-        <p class="comparison-note">This is the two-line preview text in Google results. Sensory hook ("changes color"), scarcity ("limited to 100"), and a CTA ("free shipping"). Designed to get the click.</p>
+        <p class="comparison-note">Sensory hook, scarcity signal, CTA. This is the preview text under the title in search results.</p>
       </div>
 
-      <!-- H1 FIX -->
       <div class="card" style="margin-bottom: 1.5rem;">
         <h3>H1 Hierarchy Fix &mdash; site-wide</h3>
-        <p style="font-size: 0.9375rem; color: var(--color-text-secondary); margin-bottom: 1rem;">The site's H1 tag is currently on the animated logo GIF. Google thinks the most important heading on every page is an image file. The fix is a Liquid template edit &mdash; zero visual change.</p>
+        <p style="font-size: 0.9375rem; color: var(--color-text-secondary); margin-bottom: 1rem;">The H1 tag is currently on the animated logo GIF. Google thinks every page's primary heading is an image file.</p>
         <div class="comparison">
           <div class="comparison-label before">Before (current Liquid)</div>
           <div class="code-sample"><span class="comment">&lt;!-- Logo image incorrectly wrapped in H1 --&gt;</span>
@@ -668,7 +693,7 @@
   <span class="tag">&lt;/a&gt;</span>
 <span class="tag">&lt;/h1&gt;</span></div>
           <div class="comparison-label after">After (corrected)</div>
-          <div class="code-sample"><span class="comment">&lt;!-- Logo is a div, H1 is the real page heading --&gt;</span>
+          <div class="code-sample"><span class="comment">&lt;!-- Logo as div, semantic H1 for search engines --&gt;</span>
 <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"site-header__logo"</span><span class="tag">&gt;</span>
   <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"/"</span><span class="tag">&gt;</span>
     <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="str">"mad-hudson-logo.gif"</span> <span class="attr">alt</span>=<span class="str">"Mad Hudson Watches"</span><span class="tag">&gt;</span>
@@ -676,13 +701,12 @@
 <span class="tag">&lt;/div&gt;</span>
 <span class="tag">&lt;h1</span> <span class="attr">class</span>=<span class="str">"visually-hidden"</span><span class="tag">&gt;</span>Mad Hudson Watches<span class="tag">&lt;/h1&gt;</span></div>
         </div>
-        <p class="comparison-note">The visually-hidden H1 is invisible to visitors but readable by search engines. Every page now has a semantically correct heading hierarchy. Will be tested on staging first.</p>
+        <p class="comparison-note">Visually-hidden H1 is invisible to visitors but readable by crawlers. Zero visual change, correct heading hierarchy.</p>
       </div>
 
-      <!-- SCHEMA MARKUP -->
       <div class="card" style="margin-bottom: 1.5rem;">
         <h3>Schema Markup &mdash; Product + Artist (future phase)</h3>
-        <p style="font-size: 0.9375rem; color: var(--color-text-secondary); margin-bottom: 1rem;">This invisible JSON-LD block tells Google exactly what each product is. It enables rich results (star ratings, price, availability) directly in search listings. Zero competitors have artist/creator schema.</p>
+        <p style="font-size: 0.9375rem; color: var(--color-text-secondary); margin-bottom: 1rem;">JSON-LD block that tells search engines exactly what each product is. Enables rich results (price, availability, edition size) in search listings. Zero competitors in tier have artist/creator schema.</p>
         <div class="code-sample"><span class="tag">&lt;script</span> <span class="attr">type</span>=<span class="str">"application/ld+json"</span><span class="tag">&gt;</span>
 {
   <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,
@@ -703,25 +727,130 @@
   <span class="str">"isRelatedTo"</span>: { <span class="str">"@type"</span>: <span class="str">"VisualArtwork"</span>, <span class="str">"name"</span>: <span class="str">"Limited Edition of 100"</span> }
 }
 <span class="tag">&lt;/script&gt;</span></div>
-        <p class="comparison-note">One template in the Liquid product layout. Shopify variables auto-fill per product. This is how search results get price, availability, and "limited edition" badges without any manual work per product.</p>
+        <p class="comparison-note">One template in the Liquid product layout. Shopify variables auto-fill per product. First-mover advantage in the artist-collab watch category.</p>
       </div>
     </div>
 
-    <!-- ═══ 4. MONITORING DASHBOARD ═══ -->
+    <!-- ═══ 4. MEASUREMENT ARCHITECTURE ═══ -->
+    <div class="section">
+      <div class="section-label">Measurement Architecture</div>
+      <h2>What Shopify shows you vs. what you actually need</h2>
+
+      <p>Shopify Analytics gives you revenue, orders, and session counts by channel. That's useful for bookkeeping but not for understanding whether SEO changes are working. The gap between what Shopify shows and what you need to make decisions is where the real measurement infrastructure lives.</p>
+
+      <!-- Gap Table -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="margin-top: 0;">The measurement gap</h3>
+        <table class="gap-table">
+          <thead>
+            <tr>
+              <th>Question You Need Answered</th>
+              <th>Shopify Gives You</th>
+              <th>What Actually Answers It</th>
+              <th>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Are more people seeing MH in search results?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>Impressions by query</strong> &mdash; how many times MH appeared in Google results, for which searches</td>
+              <td><span class="gap-badge gsc">GSC</span></td>
+            </tr>
+            <tr>
+              <td>Are the new title tags / meta descriptions getting more clicks?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>CTR by page</strong> &mdash; click-through rate on each product page, before vs. after changes</td>
+              <td><span class="gap-badge gsc">GSC</span></td>
+            </tr>
+            <tr>
+              <td>Is SEO pulling in new audiences or just serving existing fans?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>Branded vs. non-branded query split</strong> &mdash; "mad hudson" (awareness) vs. "artist watch" (discovery)</td>
+              <td><span class="gap-badge gsc">GSC</span></td>
+            </tr>
+            <tr>
+              <td>Which product pages are strongest in search?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>Clicks + impressions by URL</strong> &mdash; page-level search performance</td>
+              <td><span class="gap-badge gsc">GSC</span></td>
+            </tr>
+            <tr>
+              <td>Is the site fast enough on mobile?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>Core Web Vitals</strong> &mdash; LCP, INP, CLS (Google's page experience signals)</td>
+              <td><span class="gap-badge gsc">GSC</span> <span class="gap-badge lighthouse">Lighthouse</span></td>
+            </tr>
+            <tr>
+              <td>Where does the $28.3K unattributed revenue come from?</td>
+              <td style="color: var(--color-text-muted);">"Direct" bucket</td>
+              <td><strong>UTM-tagged traffic</strong> &mdash; Instagram link-in-bio, email, collabs all get attributed</td>
+              <td><span class="gap-badge derived">UTM setup</span></td>
+            </tr>
+            <tr>
+              <td>Is the schema markup valid and generating rich results?</td>
+              <td style="color: var(--color-text-muted);">Nothing</td>
+              <td><strong>Rich Results status + enhancements report</strong></td>
+              <td><span class="gap-badge gsc">GSC</span> <span class="gap-badge schema">Schema test</span></td>
+            </tr>
+            <tr>
+              <td>How much is each search impression worth in revenue?</td>
+              <td style="color: var(--color-text-muted);">Revenue by channel (aggregate)</td>
+              <td><strong>Revenue per impression</strong> &mdash; (organic revenue &divide; total impressions) tracked monthly</td>
+              <td><span class="gap-badge derived">Derived</span></td>
+            </tr>
+            <tr>
+              <td>What's the actual conversion rate without bot noise?</td>
+              <td>0.06% (inflated by bots)</td>
+              <td><strong>Bot-filtered CVR</strong> &mdash; 0.22% baseline average, 0.85% on best days</td>
+              <td><span class="gap-badge shopify">Shopify filter</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Data Architecture -->
+      <h3>Data source architecture</h3>
+      <p style="margin-bottom: 1rem;">Three free tools, layered. No third-party SEO subscriptions needed.</p>
+
+      <div class="source-grid">
+        <div class="source-box">
+          <h4>Google Search Console</h4>
+          <p>Queries, impressions, clicks, CTR, position, Core Web Vitals, index coverage, rich results</p>
+        </div>
+        <div class="source-arrow">&rarr;</div>
+        <div class="source-box">
+          <h4>Shopify Analytics</h4>
+          <p>Revenue by channel, orders, sessions, product sales, conversion rate</p>
+        </div>
+        <div class="source-arrow">&rarr;</div>
+        <div class="source-box">
+          <h4>Derived Metrics</h4>
+          <p>Revenue per impression, branded/non-branded split, page-level organic value, month-over-month deltas</p>
+        </div>
+      </div>
+
+      <div class="callout info" style="margin-bottom: 2rem;">
+        <div class="callout-title">Setup: Google Search Console</div>
+        <p>GSC is free and takes 15 minutes. Go to <code>search.google.com/search-console</code>, add the property (madhudsonwatches.com), verify via Shopify DNS or HTML tag. Data starts populating within 48&ndash;72 hours. Historical data going back ~16 months is available immediately after verification.</p>
+      </div>
+    </div>
+
+    <!-- ═══ 5. MONITORING DASHBOARD ═══ -->
     <div class="section">
       <div class="section-label">Monitoring Dashboard</div>
-      <h2>Tracking whether the fixes are working</h2>
-      <p style="margin-bottom: 1.5rem;">The metrics below represent what a monthly check-in looks like. Baseline values are from the trailing 12-month period. Trend data populates as Google recrawls and changes take effect (typically 2&ndash;6 weeks).</p>
+      <h2>What the monthly check-in looks like</h2>
+      <p style="margin-bottom: 1.5rem;">Primary KPIs up top, supporting metrics below. Baselines are from the trailing 12-month period. Empty values populate once GSC is connected (48&ndash;72 hours after setup).</p>
 
-      <!-- KPI Cards -->
+      <!-- Primary KPIs -->
       <div class="dashboard-grid">
         <div class="metric-card">
           <div class="metric-header">
-            <div class="metric-title">Google Search Revenue</div>
-            <div class="metric-period">Monthly</div>
+            <div class="metric-title">Organic Search Revenue</div>
+            <div class="metric-source">Shopify</div>
           </div>
           <div class="metric-value">$917</div>
-          <div class="metric-change flat">&#8212; baseline avg</div>
+          <div class="metric-change flat">&#8212; baseline avg/mo</div>
           <div class="sparkline">
             <div class="sparkline-bar" style="height: 40%"></div>
             <div class="sparkline-bar" style="height: 55%"></div>
@@ -736,16 +865,16 @@
             <div class="sparkline-bar" style="height: 95%"></div>
             <div class="sparkline-bar" style="height: 100%"></div>
           </div>
-          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">$11K annual baseline &divide; 12 = ~$917/mo. Watch for sustained lift above this line.</div>
+          <div class="metric-desc">$11K annual &divide; 12. The number that justifies the work. Sustained lift above this line = SEO is paying off.</div>
         </div>
 
         <div class="metric-card">
           <div class="metric-header">
-            <div class="metric-title">Search Console Impressions</div>
-            <div class="metric-period">Weekly</div>
+            <div class="metric-title">Search Impressions</div>
+            <div class="metric-source">GSC</div>
           </div>
           <div class="metric-value">&mdash;</div>
-          <div class="metric-change flat">Connect GSC to establish</div>
+          <div class="metric-change flat">Awaiting GSC connection</div>
           <div class="sparkline">
             <div class="sparkline-bar" style="height: 30%"></div>
             <div class="sparkline-bar" style="height: 35%"></div>
@@ -760,16 +889,16 @@
             <div class="sparkline-bar" style="height: 70%"></div>
             <div class="sparkline-bar" style="height: 80%"></div>
           </div>
-          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">How often MH pages appear in Google results. The leading indicator &mdash; lifts here precede revenue lifts by 2&ndash;4 weeks.</div>
+          <div class="metric-desc">The leading indicator. Lifts here precede revenue lifts by 2&ndash;4 weeks. This is how often MH appears in Google results.</div>
         </div>
 
         <div class="metric-card">
           <div class="metric-header">
-            <div class="metric-title">Click-Through Rate (CTR)</div>
-            <div class="metric-period">Weekly</div>
+            <div class="metric-title">Click-Through Rate</div>
+            <div class="metric-source">GSC</div>
           </div>
           <div class="metric-value">&mdash;</div>
-          <div class="metric-change flat">Connect GSC to establish</div>
+          <div class="metric-change flat">Awaiting GSC connection</div>
           <div class="sparkline">
             <div class="sparkline-bar" style="height: 45%"></div>
             <div class="sparkline-bar" style="height: 45%"></div>
@@ -784,16 +913,16 @@
             <div class="sparkline-bar" style="height: 75%"></div>
             <div class="sparkline-bar" style="height: 85%"></div>
           </div>
-          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">% of impressions that become clicks. Meta description and title tag changes directly improve this. Schema markup amplifies it further.</div>
+          <div class="metric-desc">% of impressions that become clicks. Title tag and meta description changes directly improve this. Schema markup amplifies it further.</div>
         </div>
 
         <div class="metric-card">
           <div class="metric-header">
-            <div class="metric-title">Real Conversion Rate</div>
-            <div class="metric-period">Monthly</div>
+            <div class="metric-title">Bot-Filtered Conversion Rate</div>
+            <div class="metric-source">Shopify (filtered)</div>
           </div>
           <div class="metric-value">0.22%</div>
-          <div class="metric-change flat">&#8212; baseline avg (bot-filtered)</div>
+          <div class="metric-change flat">&#8212; baseline avg</div>
           <div class="sparkline">
             <div class="sparkline-bar" style="height: 20%"></div>
             <div class="sparkline-bar" style="height: 25%"></div>
@@ -808,15 +937,147 @@
             <div class="sparkline-bar" style="height: 85%"></div>
             <div class="sparkline-bar" style="height: 50%"></div>
           </div>
-          <div style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.5rem;">Range: 0.12%&ndash;0.85% depending on traffic mix. Seasonality is strong (Nov/Dec spike). Compare month-over-month against same month last year.</div>
+          <div class="metric-desc">Range: 0.12%&ndash;0.85%. Strong seasonality (Nov/Dec spike). Compare same month year-over-year, not month-to-month.</div>
         </div>
+      </div>
+
+      <!-- Secondary KPIs -->
+      <h3>Derived metrics &mdash; what Shopify can't tell you</h3>
+      <p style="margin-bottom: 1rem;">These require cross-referencing GSC + Shopify data. Manual calculation monthly, ~10 minutes.</p>
+
+      <div class="dashboard-grid-3">
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-title">Revenue per Impression</div>
+            <div class="metric-source">Derived</div>
+          </div>
+          <div class="metric-value sm">&mdash;</div>
+          <div class="metric-desc">Organic search revenue &divide; total impressions. Measures the quality of search traffic, not just volume. Should increase as content gets more targeted.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-title">Non-Branded Queries</div>
+            <div class="metric-source">GSC</div>
+          </div>
+          <div class="metric-value sm">&mdash;</div>
+          <div class="metric-desc">Count of queries that don't contain "mad hudson." Growth here = SEO is pulling in new audiences who didn't know the brand existed.</div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <div class="metric-title">Avg. Search Position</div>
+            <div class="metric-source">GSC</div>
+          </div>
+          <div class="metric-value sm">&mdash;</div>
+          <div class="metric-desc">Average position across all queries. Position 1&ndash;10 = page 1. Lower is better. Moves slowly but compounds over time.</div>
+        </div>
+      </div>
+
+      <!-- Page-Level Performance -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="margin-top: 0;">Page-level search performance <span class="gap-badge gsc" style="vertical-align: middle;">GSC</span></h3>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">GSC breaks down impressions, clicks, CTR, and average position per URL. This shows which product pages are winning in search and which need attention. Shopify has no equivalent.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th class="num">Impressions</th>
+              <th class="num">Clicks</th>
+              <th class="num">CTR</th>
+              <th class="num">Avg Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>/products/broken-time</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+            <tr>
+              <td>/products/cd-watch</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+            <tr>
+              <td>/products/dogma</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+            <tr>
+              <td>/products/eddie-watch</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+            <tr>
+              <td>/products/marshall-watch</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+            <tr>
+              <td>/products/miami-watch</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+              <td class="num" style="color: var(--color-text-muted);">&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.75rem; margin-bottom: 0;">Populates after GSC connection. Snapshot this table monthly to build trend data. Before/after title tag and meta description changes will be visible in CTR per page.</p>
+      </div>
+
+      <!-- Core Web Vitals -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="margin-top: 0;">Core Web Vitals <span class="gap-badge gsc" style="vertical-align: middle;">GSC</span> <span class="gap-badge lighthouse" style="vertical-align: middle;">Lighthouse</span></h3>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Google's page experience signals. These are ranking factors. Shopify stores generally pass, but the animated logo GIF and unoptimized images can cause issues.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>What It Measures</th>
+              <th class="num">Good Threshold</th>
+              <th class="num">MH Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>LCP</strong> (Largest Contentful Paint)</td>
+              <td style="font-size: 0.8125rem;">How fast the main content loads</td>
+              <td class="num">&le; 2.5s</td>
+              <td class="num" style="color: var(--color-text-muted);">Check after GSC setup</td>
+            </tr>
+            <tr>
+              <td><strong>INP</strong> (Interaction to Next Paint)</td>
+              <td style="font-size: 0.8125rem;">How fast the page responds to interaction</td>
+              <td class="num">&le; 200ms</td>
+              <td class="num" style="color: var(--color-text-muted);">Check after GSC setup</td>
+            </tr>
+            <tr>
+              <td><strong>CLS</strong> (Cumulative Layout Shift)</td>
+              <td style="font-size: 0.8125rem;">How much content moves while loading</td>
+              <td class="num">&le; 0.1</td>
+              <td class="num" style="color: var(--color-text-muted);">Check after GSC setup</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: 0.75rem; margin-bottom: 0;">Quick check: run any product page URL through <code>pagespeed.web.dev</code> for an instant Lighthouse audit. GSC provides field data (real users) which is more reliable than lab data.</p>
       </div>
 
       <!-- Channel Breakdown -->
       <div class="card" style="margin-bottom: 1.5rem;">
-        <h3 style="margin-top: 0;">Revenue by Channel &mdash; Baseline</h3>
-        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Re-export from Shopify monthly. The unattributed bucket will shrink as UTM parameters get added.</p>
-        <table class="channel-table">
+        <h3 style="margin-top: 0;">Revenue by channel &mdash; baseline <span class="gap-badge shopify" style="vertical-align: middle;">Shopify</span></h3>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Re-export monthly. The unattributed bucket will shrink as UTM parameters get added to Instagram, email, and collaborator links.</p>
+        <table class="data-table">
           <thead>
             <tr>
               <th>Channel</th>
@@ -856,7 +1117,7 @@
               <td class="num">6%</td>
             </tr>
             <tr>
-              <td>Other (incl. 1 ChatGPT referral)</td>
+              <td>Other (incl. 1 ChatGPT referral @ $188)</td>
               <td class="num">$6,300</td>
               <td class="num">20</td>
               <td class="num">&mdash;</td>
@@ -866,14 +1127,31 @@
         </table>
       </div>
 
-      <!-- Key Queries -->
+      <!-- UTM Architecture -->
       <div class="card" style="margin-bottom: 1.5rem;">
-        <h3 style="margin-top: 0;">Search Queries to Watch</h3>
-        <p style="font-size: 0.875rem; color: var(--color-text-secondary);">Once Google Search Console is connected, track these query clusters. The split between branded and non-branded tells you whether SEO is pulling in new audiences or just serving existing fans.</p>
-        <table class="channel-table">
+        <h3 style="margin-top: 0;">UTM parameter architecture <span class="gap-badge derived" style="vertical-align: middle;">Setup</span></h3>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">Every inbound link to the site should carry UTM parameters so Shopify can attribute the visit to the right channel. This is how the $28.3K unattributed bucket starts shrinking.</p>
+        <div class="code-sample"><span class="comment"># Instagram link-in-bio</span>
+madhudsonwatches.com<span class="str">?utm_source=instagram&amp;utm_medium=social&amp;utm_campaign=linkinbio</span>
+
+<span class="comment"># Shopify email campaign</span>
+madhudsonwatches.com/products/broken-time<span class="str">?utm_source=shopify_email&amp;utm_medium=email&amp;utm_campaign=feb2026</span>
+
+<span class="comment"># Artist collab cross-promo (Riki Prosper shares MH link)</span>
+madhudsonwatches.com/products/cd-watch<span class="str">?utm_source=riki_prosper&amp;utm_medium=social&amp;utm_campaign=artist_collab</span>
+
+<span class="comment"># QR code on packaging or business cards</span>
+madhudsonwatches.com<span class="str">?utm_source=qr_code&amp;utm_medium=print&amp;utm_campaign=packaging</span></div>
+        <p style="font-size: 0.8125rem; color: var(--color-text-muted); margin-bottom: 0;">Convention: <code>utm_source</code> = who (instagram, artist name, qr_code). <code>utm_medium</code> = how (social, email, print). <code>utm_campaign</code> = why (linkinbio, new_launch, artist_collab). Keep lowercase, underscores, no spaces.</p>
+      </div>
+
+      <!-- Query Clusters -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="margin-top: 0;">Search query clusters to track <span class="gap-badge gsc" style="vertical-align: middle;">GSC</span></h3>
+        <table class="data-table">
           <thead>
             <tr>
-              <th>Query Type</th>
+              <th>Cluster</th>
               <th>Example Queries</th>
               <th>What Growth Means</th>
             </tr>
@@ -882,29 +1160,56 @@
             <tr>
               <td><strong>Branded</strong></td>
               <td style="font-size: 0.8125rem;">"mad hudson watches", "mad hudson broken time"</td>
-              <td style="font-size: 0.8125rem;">Awareness is growing (social, word-of-mouth)</td>
+              <td style="font-size: 0.8125rem;">Awareness growing (social, word-of-mouth)</td>
             </tr>
             <tr>
               <td><strong>Non-branded</strong></td>
               <td style="font-size: 0.8125rem;">"artist collaboration watch", "limited edition art watch"</td>
-              <td style="font-size: 0.8125rem;">SEO is working &mdash; new people finding MH through search</td>
+              <td style="font-size: 0.8125rem;">SEO pulling in new audiences</td>
             </tr>
             <tr>
               <td><strong>Artist-specific</strong></td>
-              <td style="font-size: 0.8125rem;">"bryce wong watch", "riki prosper watch"</td>
-              <td style="font-size: 0.8125rem;">Artist bios and schema are paying off</td>
+              <td style="font-size: 0.8125rem;">"bryce wong watch", "riki prosper cd watch"</td>
+              <td style="font-size: 0.8125rem;">Artist bios and schema working</td>
             </tr>
             <tr>
               <td><strong>AEO signals</strong></td>
-              <td style="font-size: 0.8125rem;">ChatGPT/Claude referrals in analytics</td>
-              <td style="font-size: 0.8125rem;">AI search is surfacing MH (1 confirmed order already)</td>
+              <td style="font-size: 0.8125rem;">ChatGPT/Claude referrals in Shopify analytics</td>
+              <td style="font-size: 0.8125rem;">AI search surfacing MH (1 confirmed order)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Schema Validation -->
+      <div class="card" style="margin-bottom: 1.5rem;">
+        <h3 style="margin-top: 0;">Schema validation (after markup is live) <span class="gap-badge schema" style="vertical-align: middle;">Schema test</span></h3>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">Two free tools validate that search engines can parse the structured data correctly.</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>What It Checks</th>
+              <th>When to Run</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google Rich Results Test</strong></td>
+              <td style="font-size: 0.8125rem;">Validates JSON-LD, shows which rich result types are eligible, flags errors</td>
+              <td style="font-size: 0.8125rem;">After adding schema template, then spot-check quarterly</td>
+            </tr>
+            <tr>
+              <td><strong>GSC Enhancements Report</strong></td>
+              <td style="font-size: 0.8125rem;">Shows all structured data detected across the site, errors, and warnings at scale</td>
+              <td style="font-size: 0.8125rem;">Ongoing &mdash; check monthly after schema is live</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- ═══ 5. MEASUREMENT CADENCE ═══ -->
+    <!-- ═══ 6. MEASUREMENT CADENCE ═══ -->
     <div class="section">
       <div class="section-label">Measurement Cadence</div>
       <h2>When to check what</h2>
@@ -916,80 +1221,83 @@
           <ul>
             <li>Total impressions vs. prior week</li>
             <li>Total clicks vs. prior week</li>
-            <li>Average CTR trend direction</li>
-            <li>Any new non-branded queries appearing</li>
+            <li>CTR trend direction</li>
+            <li>Any new non-branded queries</li>
+            <li>Index coverage errors (if any)</li>
           </ul>
         </div>
         <div class="cadence-card">
           <div class="cadence-freq">Monthly &middot; 30 min</div>
-          <h3>Shopify Analytics Export</h3>
+          <h3>Shopify + GSC cross-reference</h3>
           <ul>
-            <li>Revenue by channel vs. baseline</li>
-            <li>Google Search revenue vs. $917/mo baseline</li>
-            <li>Unattributed bucket size (should shrink with UTMs)</li>
-            <li>Bot-filtered conversion rate</li>
+            <li>Organic search revenue vs. $917/mo baseline</li>
+            <li>Revenue per impression (derived)</li>
+            <li>Unattributed bucket size (shrinking?)</li>
+            <li>Page-level CTR table snapshot</li>
+            <li>Core Web Vitals status</li>
           </ul>
         </div>
         <div class="cadence-card">
           <div class="cadence-freq">Quarterly &middot; 1 hr</div>
-          <h3>Strategic Review</h3>
+          <h3>Strategic review</h3>
           <ul>
-            <li>Organic search revenue: before vs. after</li>
+            <li>Organic revenue: quarter vs. same quarter last year</li>
             <li>Non-branded query growth rate</li>
-            <li>Competitor check (Mr. Jones, Unicorn)</li>
-            <li>AEO: test "artist collaboration watches" in AI tools</li>
+            <li>Competitor spot check (Mr. Jones, Unicorn)</li>
+            <li>AEO test: search "artist collab watches" in AI tools</li>
+            <li>Schema validation + rich results status</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- ═══ 6. TIMELINE ═══ -->
+    <!-- ═══ 7. TIMELINE ═══ -->
     <div class="section">
       <div class="section-label">What "Working" Looks Like</div>
-      <h2>Realistic expectations for when changes become visible</h2>
+      <h2>When changes become visible in the data</h2>
 
       <div class="card">
         <div class="timeline-row">
           <div class="timeline-period">Weeks 1&ndash;2</div>
           <div class="timeline-content">
             <h3>No visible change</h3>
-            <p>Google is recrawling. Changes are submitted but not yet reflected in rankings or impressions. This is normal.</p>
+            <p>Google is recrawling. Changes submitted but not yet reflected. This is normal and expected.</p>
           </div>
         </div>
         <div class="timeline-row">
           <div class="timeline-period">Weeks 3&ndash;4</div>
           <div class="timeline-content">
             <h3>Impressions start ticking up</h3>
-            <p>Search Console shows MH pages appearing in more results. New queries may surface. Clicks may lag behind impressions.</p>
+            <p>GSC shows MH pages appearing in more results. New queries may surface. Clicks may lag behind impressions initially.</p>
           </div>
         </div>
         <div class="timeline-row">
           <div class="timeline-period">Months 2&ndash;3</div>
           <div class="timeline-content">
             <h3>CTR improves</h3>
-            <p>Better meta descriptions and title tags translate to higher click rates on the same impressions. If schema markup is live, rich snippets amplify this.</p>
+            <p>Better title tags and meta descriptions translate to higher click rates on the same impression volume. Schema markup amplifies this with rich snippets.</p>
           </div>
         </div>
         <div class="timeline-row">
           <div class="timeline-period">Months 3&ndash;6</div>
           <div class="timeline-content">
             <h3>Revenue signal</h3>
-            <p>Organic search revenue starts growing above the $917/mo baseline. Artist-specific queries appear. The growth model projects $25K&ndash;$35K addressable upside &mdash; even 25% capture ($6&ndash;9K/yr) is a meaningful lift on a $52K base.</p>
+            <p>Organic search revenue grows above the $917/mo baseline. Artist-specific queries appear. Revenue per impression improves. The growth model projects $25K&ndash;$35K addressable upside.</p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ 7. COMPETITIVE CONTEXT ═══ -->
+    <!-- ═══ 8. COMPETITIVE CONTEXT ═══ -->
     <div class="section">
       <div class="section-label">Competitive Context</div>
       <h2>The field is not trying hard</h2>
 
       <div class="card">
-        <table class="channel-table">
+        <table class="data-table">
           <thead>
             <tr>
-              <th>Competitor</th>
+              <th>Brand</th>
               <th>Structured Data</th>
               <th>Product Descriptions</th>
               <th>Artist Schema</th>
@@ -1011,7 +1319,7 @@
               <td>None</td>
               <td>None</td>
             </tr>
-            <tr style="background: #f0f7f0;">
+            <tr class="new-row">
               <td><strong>Mad Hudson (after fixes)</strong></td>
               <td>Product + Creator + Offer</td>
               <td>Concise visible + rich invisible</td>
@@ -1020,13 +1328,13 @@
             </tr>
           </tbody>
         </table>
-        <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-top: 1rem; margin-bottom: 0;">MH doesn't need to be perfect. It needs to be less invisible than the field &mdash; and the field is barely trying. Every fix widens the gap.</p>
+        <p style="font-size: 0.875rem; color: var(--color-text-secondary); margin-top: 1rem; margin-bottom: 0;">The bar is low. Every fix widens the gap over competitors who are not investing in this layer at all.</p>
       </div>
     </div>
 
     <footer>
       <p>Mad Hudson SEO &mdash; Roadmap Overview</p>
-      <p>February 2026 &middot; Based on in-person session notes, 12-month analytics, and 11-brand competitive audit</p>
+      <p>February 2026 &middot; Based on in-person session, 12-month analytics, and 11-brand competitive audit</p>
     </footer>
 
   </div>
