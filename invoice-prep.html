@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mad Hudson Watches — SEO Consulting Invoice Prep</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       EMBER PALETTE PRIMITIVES (from Beautiful-First Design v5.4)
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Ember scale — warm terracotta/clay tones */
+      --ember-terracotta: oklch(0.55 0.10 45);
+      --ember-clay: oklch(0.50 0.09 40);
+      --ember-rust: oklch(0.45 0.11 35);
+      --ember-warm-bg: oklch(0.97 0.02 45);
+      --ember-warm-gray: oklch(0.90 0.01 40);
+      --ember-charcoal: oklch(0.35 0.02 30);
+
+      /* Semantic tokens */
+      --color-primary: var(--ember-terracotta);
+      --color-primary-dark: var(--ember-clay);
+      --color-bg: var(--ember-warm-bg);
+      --color-bg-secondary: var(--ember-warm-gray);
+      --color-text: var(--ember-charcoal);
+      --color-text-subtle: oklch(0.55 0.01 30);
+      --color-border: oklch(0.85 0.01 40);
+      --color-accent: var(--ember-rust);
+
+      /* Typography */
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Source Serif 4', Georgia, serif;
+      --font-body-sans: 'Source Sans 3', system-ui, sans-serif;
+      --font-mono: 'Source Code Pro', monospace;
+
+      /* Spacing */
+      --space-xs: 8px;
+      --space-sm: 12px;
+      --space-md: 20px;
+      --space-lg: 32px;
+      --space-xl: 48px;
+
+      /* Shadows — warm-tinted */
+      --shadow-sm: 0 1px 3px hsla(25, 40%, 30%, 0.08);
+      --shadow-md: 0 4px 12px hsla(25, 40%, 30%, 0.10);
+      --shadow-lg: 0 8px 24px hsla(25, 40%, 30%, 0.12);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESET & BASE
+       ═══════════════════════════════════════════════════════════════ */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background: var(--color-bg);
+      padding: var(--space-xl) var(--space-md);
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TYPOGRAPHY
+       ═══════════════════════════════════════════════════════════════ */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      margin-bottom: var(--space-sm);
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-top: var(--space-xl);
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-xs);
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: var(--space-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    p {
+      margin-bottom: var(--space-md);
+      font-size: 16px;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      background: var(--color-bg-secondary);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HEADER SECTION
+       ═══════════════════════════════════════════════════════════════ */
+    .header {
+      background: linear-gradient(135deg,
+        oklch(0.98 0.02 45) 0%,
+        oklch(0.96 0.03 40) 100%);
+      padding: var(--space-lg);
+      border-radius: 8px;
+      box-shadow: var(--shadow-md);
+      margin-bottom: var(--space-xl);
+      border: 1px solid var(--color-border);
+    }
+
+    .subtitle {
+      font-family: var(--font-body-sans);
+      font-size: 18px;
+      color: var(--color-text-subtle);
+      margin-bottom: var(--space-xs);
+    }
+
+    .draft-notice {
+      display: inline-block;
+      background: var(--color-accent);
+      color: white;
+      font-family: var(--font-body-sans);
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      margin-top: var(--space-sm);
+    }
+
+    .date {
+      font-family: var(--font-body-sans);
+      font-size: 14px;
+      color: var(--color-text-subtle);
+      margin-top: var(--space-sm);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOTICE BOX
+       ═══════════════════════════════════════════════════════════════ */
+    .notice {
+      background: oklch(0.98 0.04 50);
+      border-left: 4px solid var(--color-accent);
+      padding: var(--space-md);
+      margin: var(--space-lg) 0;
+      border-radius: 6px;
+      font-family: var(--font-body-sans);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .notice strong {
+      color: var(--color-accent);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       HOURS BLOCK
+       ═══════════════════════════════════════════════════════════════ */
+    .hours-block {
+      background: var(--color-bg-secondary);
+      padding: var(--space-lg);
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      margin: var(--space-lg) 0;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-md);
+    }
+
+    .hours-item {
+      background: white;
+      padding: var(--space-md);
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+    }
+
+    .hours-label {
+      font-family: var(--font-body-sans);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--color-text-subtle);
+      margin-bottom: var(--space-xs);
+    }
+
+    .hours-value {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .calculation {
+      background: oklch(0.98 0.02 45);
+      padding: var(--space-md);
+      border-radius: 6px;
+      margin-top: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .tbd {
+      color: var(--color-accent);
+      font-weight: 600;
+      background: oklch(0.98 0.04 50);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       TABLES
+       ═══════════════════════════════════════════════════════════════ */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-lg) 0;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--color-border);
+    }
+
+    thead {
+      background: var(--color-primary);
+      color: white;
+    }
+
+    th {
+      font-family: var(--font-body-sans);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: left;
+      padding: var(--space-md);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: var(--space-md);
+      border-top: 1px solid var(--color-border);
+      font-size: 15px;
+    }
+
+    td code {
+      font-size: 12px;
+      word-break: break-all;
+    }
+
+    tbody tr:hover {
+      background: oklch(0.99 0.01 45);
+    }
+
+    .type-badge {
+      display: inline-block;
+      font-family: var(--font-body-sans);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: var(--color-bg-secondary);
+      color: var(--color-text-subtle);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       METRICS GRID
+       ═══════════════════════════════════════════════════════════════ */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-lg) 0;
+    }
+
+    .metric-card {
+      background: white;
+      padding: var(--space-md);
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .metric-label {
+      font-family: var(--font-body-sans);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-subtle);
+      margin-bottom: var(--space-xs);
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       KEYWORD TABLE
+       ═══════════════════════════════════════════════════════════════ */
+    .keyword-position {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-text-subtle);
+    }
+
+    .not-ranking {
+      color: var(--color-accent);
+      font-style: italic;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════════ */
+    .footer {
+      background: var(--color-bg-secondary);
+      padding: var(--space-lg);
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      margin-top: var(--space-xl);
+      font-family: var(--font-body-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-text-subtle);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       LISTS
+       ═══════════════════════════════════════════════════════════════ */
+    ul {
+      margin: var(--space-md) 0;
+      padding-left: var(--space-lg);
+    }
+
+    li {
+      margin-bottom: var(--space-sm);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       PRINT STYLES
+       ═══════════════════════════════════════════════════════════════ */
+    @media print {
+      body {
+        padding: 0;
+        max-width: 100%;
+      }
+
+      .header {
+        box-shadow: none;
+        page-break-after: avoid;
+      }
+
+      h2 {
+        page-break-after: avoid;
+      }
+
+      table {
+        page-break-inside: avoid;
+      }
+
+      .footer {
+        page-break-before: avoid;
+      }
+
+      .draft-notice {
+        background: #d64545;
+        color: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Mad Hudson Watches — SEO Consulting Invoice Prep</h1>
+    <div class="subtitle">Draft — Rate and scope TBD by Garen</div>
+    <div class="draft-notice">DRAFT</div>
+    <div class="date">February 2026</div>
+  </div>
+
+  <div class="notice">
+    <strong>Important:</strong> This is a prep document, not a final invoice. Garen will set the rate, select which line items to include, and decide on the invoice format before sending to Mad Hudson.
+  </div>
+
+  <h2>Hours Invested</h2>
+
+  <div class="hours-block">
+    <h3>Documented Work</h3>
+    <div class="hours-grid">
+      <div class="hours-item">
+        <div class="hours-label">Garen Direct</div>
+        <div class="hours-value">8-9 hrs</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-label">Agent Setup</div>
+        <div class="hours-value">20-30 hrs</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-label">Weekly Monitoring</div>
+        <div class="hours-value">~2 hrs/wk</div>
+      </div>
+      <div class="hours-item">
+        <div class="hours-label">Total Setup</div>
+        <div class="hours-value">28-39 hrs</div>
+      </div>
+    </div>
+
+    <div class="calculation">
+      <strong>Calculation (TBD):</strong><br>
+      28-39 hours × <span class="tbd">[TBD rate]</span> = <span class="tbd">$[TBD total]</span>
+    </div>
+
+    <div class="notice" style="margin-top: var(--space-md);">
+      <strong>Garen decides:</strong> Which hours to include, what rate to apply, and whether to invoice agent setup hours separately from direct consulting hours.
+    </div>
+  </div>
+
+  <h2>Deliverables Produced</h2>
+
+  <h3>HTML Deliverables (11 files)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Deliverable</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Local Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Project Map</td>
+        <td><span class="type-badge">Navigation</span></td>
+        <td>Main entry point and navigation hub</td>
+        <td><code>/docs/index.html</code></td>
+      </tr>
+      <tr>
+        <td>Quick Wins</td>
+        <td><span class="type-badge">Strategy</span></td>
+        <td>Immediate optimization opportunities</td>
+        <td><code>/docs/quick-wins.html</code></td>
+      </tr>
+      <tr>
+        <td>Dashboard</td>
+        <td><span class="type-badge">Analytics</span></td>
+        <td>Performance metrics and tracking overview</td>
+        <td><code>/docs/dashboard.html</code></td>
+      </tr>
+      <tr>
+        <td>Slides</td>
+        <td><span class="type-badge">Presentation</span></td>
+        <td>Executive summary presentation</td>
+        <td><code>/docs/slides.html</code></td>
+      </tr>
+      <tr>
+        <td>AEO Strategy</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Answer Engine Optimization approach</td>
+        <td><code>/docs/.../roadmaps/aeo-strategy.html</code></td>
+      </tr>
+      <tr>
+        <td>Entity Building</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Brand entity and knowledge graph strategy</td>
+        <td><code>/docs/.../roadmaps/entity-building.html</code></td>
+      </tr>
+      <tr>
+        <td>Extractable Copy</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>SEO-optimized content framework</td>
+        <td><code>/docs/.../roadmaps/extractable-copy.html</code></td>
+      </tr>
+      <tr>
+        <td>Growth Model</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Traffic and revenue projections</td>
+        <td><code>/docs/.../roadmaps/growth-model.html</code></td>
+      </tr>
+      <tr>
+        <td>Product Content</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Product description optimization guide</td>
+        <td><code>/docs/.../roadmaps/product-content.html</code></td>
+      </tr>
+      <tr>
+        <td>Schema Markup</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Structured data implementation plan</td>
+        <td><code>/docs/.../roadmaps/schema-markup.html</code></td>
+      </tr>
+      <tr>
+        <td>Technical SEO</td>
+        <td><span class="type-badge">Roadmap</span></td>
+        <td>Technical optimization checklist</td>
+        <td><code>/docs/.../roadmaps/technical-seo.html</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Strategy Documents (34 files)</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Count</th>
+        <th>Key Documents</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Executive Summaries</td>
+        <td>3</td>
+        <td>EXECUTIVE-SUMMARY.md, PHASE-1-EXECUTIVE-SUMMARY.md, MAD-HUDSON-SEO-SUMMARY-FOR-CONNOR.md</td>
+      </tr>
+      <tr>
+        <td>Audit & Roadmap</td>
+        <td>3</td>
+        <td>MADHUDSON-SEO-AUDIT-FINAL.md, MAD-HUDSON-SEO-ROADMAP-FINAL.md, MADHUDSON-GAMEPLAN.md</td>
+      </tr>
+      <tr>
+        <td>Phase 1 Implementation</td>
+        <td>6</td>
+        <td>PHASE-1-START-NOW.md, PHASE-1-STATUS.md, PHASE-1-AGENT-WORKFLOW.md, PHASE-1-MULTIAGENT-COORDINATION.md</td>
+      </tr>
+      <tr>
+        <td>Shopify Integration</td>
+        <td>6</td>
+        <td>PATH-B-START-TODAY.md, PATH-B-IMPLEMENTATION-GUIDE.md, PATH-B-NODE.JS-GUIDE.md, SHOPIFY-INTEGRATION-DECISION.md</td>
+      </tr>
+      <tr>
+        <td>Agent Orchestration</td>
+        <td>4</td>
+        <td>MADHUDSON-AGENT-ORCHESTRATION.md, SEO-MONITOR-SETUP.md, SEO-MONITOR-HANDOFF.md</td>
+      </tr>
+      <tr>
+        <td>Press & Content</td>
+        <td>4</td>
+        <td>PRESS-OUTREACH-QUICK-START.md, press-report-february.md, instagram-audit-template.md</td>
+      </tr>
+      <tr>
+        <td>Operations & Security</td>
+        <td>8</td>
+        <td>TEAM-OPERATIONS-DASHBOARD.md, MADHUDSON-SECURITY-POLICY.md, VALIDATION-QUICK-START.md, CONNOR-SEO-CHECKLIST.md</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Node.js Integration Scaffold</h3>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Source Files</div>
+      <div class="metric-value">4 JS files</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Lines of Code</div>
+      <div class="metric-value">1,283 LOC</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Commands</div>
+      <div class="metric-value">3 scripts</div>
+    </div>
+  </div>
+
+  <p><strong>Key files:</strong></p>
+  <ul>
+    <li><code>src/commands/update-products.js</code> — Shopify product update automation</li>
+    <li><code>src/commands/pull-reports.js</code> — Analytics report fetching</li>
+    <li><code>src/commands/validate-deployment.js</code> — Deployment verification</li>
+    <li><code>products-to-update.json</code> — Product data template (placeholders present)</li>
+  </ul>
+
+  <h3>Baseline + Tracking Infrastructure</h3>
+  <p>7 ranking/monitoring documents establishing SEO tracking foundation:</p>
+  <ul>
+    <li>Baseline keyword positions (captured 2026-02-09)</li>
+    <li>Weekly and monthly reporting templates</li>
+    <li>Tracking schedule and procedures</li>
+    <li>7-keyword monitoring framework</li>
+  </ul>
+
+  <h3>Analysis Volume</h3>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Total Files</div>
+      <div class="metric-value">56 files</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Total Words</div>
+      <div class="metric-value">97,423</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Page Equivalent</div>
+      <div class="metric-value">~195 pages</div>
+    </div>
+  </div>
+
+  <h2>Impact Metrics (Baseline)</h2>
+
+  <div class="notice">
+    <strong>Timeline context:</strong> Baseline captured 2026-02-09. As of this prep document (2026-02-16), only 7 days have elapsed — too early for measurable ranking changes. First meaningful snapshot expected at 30 days (March 2026).
+  </div>
+
+  <h3>Baseline Organic Traffic</h3>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">Current Traffic</div>
+      <div class="metric-value">10-20 visits/mo</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Days Since Baseline</div>
+      <div class="metric-value">7 days</div>
+    </div>
+  </div>
+
+  <h3>Current Keyword Positions</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th>Position (Baseline)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>watches for creators</td>
+        <td><span class="keyword-position not-ranking">Not ranking</span></td>
+      </tr>
+      <tr>
+        <td>artist-made watches</td>
+        <td><span class="keyword-position">Page 2 (11-15)</span></td>
+      </tr>
+      <tr>
+        <td>artist watches</td>
+        <td><span class="keyword-position">Page 2 (15-20)</span></td>
+      </tr>
+      <tr>
+        <td>limited edition watches</td>
+        <td><span class="keyword-position">Page 3+ (25+)</span></td>
+      </tr>
+      <tr>
+        <td>pre-order watches</td>
+        <td><span class="keyword-position">Page 2 (15-20)</span></td>
+      </tr>
+      <tr>
+        <td>watches that fund artists</td>
+        <td><span class="keyword-position not-ranking">Not ranking</span></td>
+      </tr>
+      <tr>
+        <td>beautiful watch design</td>
+        <td><span class="keyword-position">Page 2+ (15+)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>What's NOT Included</h2>
+
+  <p>The following items were planned but not yet generated (as of 2026-02-16):</p>
+
+  <ul>
+    <li><strong>Weekly ranking reports</strong> — Scheduled but no WEEKLY-*.md files present yet</li>
+    <li><strong>Monthly analytics reports</strong> — Blocked on Google Analytics / Search Console data access</li>
+    <li><strong>Analytics Reporter integration</strong> — Blocked on data handoff from Mad Hudson team</li>
+    <li><strong>Production-ready product copy</strong> — <code>products-to-update.json</code> contains template placeholders, not finalized descriptions</li>
+    <li><strong>Measurement quality fixes</strong> — Bot filtering and UTM tracking identified as needed, but no file-backed proof of implementation</li>
+  </ul>
+
+  <div class="notice">
+    These items represent work identified and scoped, but not executed. They may be candidates for Phase 2 billing if implemented.
+  </div>
+
+  <h2>ROI Context (From Report)</h2>
+
+  <h3>Projected Traffic Growth</h3>
+  <ul>
+    <li>Phase 1 expected lift: +30-50 visits/month</li>
+    <li>Mid-phase target: 150-200 visits/month</li>
+    <li>6-month target: 300-500 visits/month</li>
+  </ul>
+
+  <h3>Break-Even Analysis</h3>
+  <p>At documented setup hours (28-39 hours) and industry-standard consulting rates ($100-$150/hr):</p>
+  <ul>
+    <li><strong>Total cost range:</strong> $2,800-$5,850</li>
+    <li><strong>Break-even time (if 300-500 visits/mo achieved):</strong> 2-7 months at benchmark conversion rates (1.6%-1.9%)</li>
+    <li><strong>Break-even time (Phase 1 lift only):</strong> 37-903 months (too slow to justify on traffic alone)</li>
+  </ul>
+
+  <div class="notice">
+    <strong>Important:</strong> The growth-model roadmap projects $25K-$35K annual upside, which implies 1-3 month break-even. However, that model includes trust/conversion/channel fixes beyond raw traffic lift. ROI depends on execution scope.
+  </div>
+
+  <div class="footer">
+    <strong>This is a prep document, not a final invoice.</strong><br><br>
+
+    Garen will set the rate, select which line items to include, and decide on the invoice format before sending to Mad Hudson. The documented hours (28-39 total) represent defensible baseline work. Additional hours from provenance logs and corpus digests were not accessible during this analysis, so the hour count may be conservative.
+    <br><br>
+
+    <strong>Next steps:</strong>
+    <ol style="margin-left: 20px; margin-top: 12px;">
+      <li>Garen decides on hourly rate or project rate</li>
+      <li>Garen selects which deliverables to highlight</li>
+      <li>Garen chooses invoice format (itemized vs. project fee)</li>
+      <li>Final invoice generated and sent to Mad Hudson team</li>
+    </ol>
+  </div>
+
+</body>
+</html>
